@@ -33,9 +33,7 @@
 		<property name="dataSource" ref="ds"></property>
 	</bean>
 	
-	 <context:component-scan base-package="com.bitcamp.service"></context:component-scan> 
-		
-
-	 <mybatis-spring:scan base-package="com.bitcamp.dao" /> 
+	 <context:component-scan base-package="com.sunstar.service"></context:component-scan>
+	 <mybatis-spring:scan base-package="com.sunstar.mapper" /> 
 	<tx:annotation-driven/>
 </beans>
