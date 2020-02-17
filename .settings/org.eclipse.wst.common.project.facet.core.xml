@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?xml version="1.0" encoding="UTF-8"?>
 <faceted-project>
   <fixed facet="jst.web"/>
@@ -5,3 +6,12 @@
   <installed facet="jst.java" version="1.8"/>
   <installed facet="jst.web" version="3.1"/>
 </faceted-project>
+=======
+<?xml version="1.0" encoding="UTF-8"?>
+<faceted-project>
+  <fixed facet="jst.web"/>
+  <fixed facet="jst.java"/>
+  <installed facet="jst.java" version="1.8"/>
+  <installed facet="jst.web" version="3.1"/>
+</faceted-project>
+>>>>>>> branch 'master' of https://github.com/eomsubin/sunstar.git
