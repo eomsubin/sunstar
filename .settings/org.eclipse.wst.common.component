@@ -4,8 +4,12 @@
 		<wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
 		<wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
 		<wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
+<<<<<<< HEAD
+=======
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/test/java"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/test/resources"/>
-		<property name="java-output-path" value="target/classes"/>
+>>>>>>> branch 'master' of https://github.com/eomsubin/sunstar.git
         <property name="context-root" value="controller"/>
+        <property name="java-output-path" value="/sunstar1/target/classes"/>
 	</wb-module>
 </project-modules>
