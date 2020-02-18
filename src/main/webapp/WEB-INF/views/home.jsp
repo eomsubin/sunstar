@@ -23,7 +23,7 @@
 	<header>
 		<c:import url="http://localhost:8080/controller/header" />
 	</header>
-	<c:import url="http://localhost:8080/controller/${contentpage}" />
+		<jsp:include page="${contentpage}" />
 	<footer>
 		<c:import url="http://localhost:8080/controller/footer" />
 	</footer>
