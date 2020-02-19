@@ -8,17 +8,10 @@ import lombok.ToString;
 @Setter
 @ToString
 public class NuserDTO {
+	
 	private String access_token;
 	private String refresh_token;
 	private String token_type;
-	private String expires_in;
-	private String uniqId;
-	private String name;
-	private String email;
-	private String nickname;
-	private String profileImage;
-	private String gender;
-	private String birthday;
-	private String age;
+	private String expires_in;	
 	
 }

@@ -7,7 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-${state}
 	<div class="mx-auto" style="width: 500px;">
 		<form method="post" action="http://localhost:8080/controller/">
 			<ul>

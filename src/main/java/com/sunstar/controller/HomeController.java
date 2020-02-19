@@ -1,6 +1,7 @@
 package com.sunstar.controller;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
@@ -19,12 +20,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sunstar.dto.NuserDTO;
+import com.sunstar.dto.NuserinfoDTO;
 
 
 /**
@@ -87,7 +87,7 @@ public class HomeController {
 	@RequestMapping("/callback")
 	public String callback(HttpSession session, HttpServletRequest request) throws UnsupportedEncodingException
 	{
-		
+		//네이버 로그인 접근토큰 획득
 		String clientId = "XMKUF7HdU8r3IIu3tMzr";//애플리케이션 클라이언트 아이디값";
 	    String clientSecret = "huGfQG5ZGT";//애플리케이션 클라이언트 시크릿값";
 	    String code = request.getParameter("code");// 인증코드
@@ -118,19 +118,77 @@ public class HomeController {
 	      while ((inputLine = br.readLine()) != null) {
 	        res.append(inputLine);
 	      }
-	      br.close();
 	      if(responseCode==200) {
 	        System.out.println(res.toString());
 	        NuserDTO user = new ObjectMapper().readValue(res.toString(), NuserDTO.class);
 	        
-	        
-	        
-	        session.setAttribute("user", user);
+	        // 네이버 API - 회원프로필 조회
+	        String token = user.getAccess_token();
+	        String header = "Bearer " + token;
+	        apiURL = "https://openapi.naver.com/v1/nid/me";
+	        url = new URL(apiURL);
+	        con = (HttpURLConnection)url.openConnection();
+	        con.setRequestMethod("GET");
+            con.setRequestProperty("Authorization", header);
+            responseCode = con.getResponseCode();
+            if(responseCode==200) { // 정상 호출
+                br = new BufferedReader(new InputStreamReader(con.getInputStream()));
+            } else {  // 에러 발생
+                br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
+            }
+            res = new StringBuffer();
+  	      while ((inputLine = br.readLine()) != null) {
+  	        res.append(inputLine);
+  	      }
+  	      	NuserinfoDTO userinfo = new ObjectMapper().readValue(res.toString(), NuserinfoDTO.class);
+  	      session.setAttribute("user", user);
+  	      	session.setAttribute("userinfo", userinfo);
 	      }
 	    } catch (Exception e) {
 	      System.out.println(e);
 	    }
 		return "redirect:http://localhost:8080/controller/";
+	}
+	
+	@RequestMapping("/logout")
+	public String logout(HttpSession session) 
+	{
+		//접근 토큰 삭제 요청
+		NuserDTO user = (NuserDTO)session.getAttribute("user");
+		 String apiURL;
+		 apiURL = "https://nid.naver.com/oauth2.0/token?grant_type=delete&";
+		 apiURL += "client_id=XMKUF7HdU8r3IIu3tMzr";
+		 apiURL += "&client_secret=huGfQG5ZGT";
+		 apiURL += "&access_token="+user.getAccess_token();
+		 apiURL += "&service_provider=NAVER";
+		 System.out.println(apiURL);
+		 try {
+		 URL url = new URL(apiURL);
+	     HttpURLConnection con = (HttpURLConnection)url.openConnection();
+	     con.setRequestMethod("GET");
+	     int responseCode = con.getResponseCode();
+	     BufferedReader br;
+	      System.out.print("responseCode="+responseCode);
+	      if(responseCode==200) { // 정상 호출
+	        br = new BufferedReader(new InputStreamReader(con.getInputStream()));
+	      } else {  // 에러 발생
+	        br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
+	      }
+	      String inputLine;
+	      StringBuffer res = new StringBuffer();
+	      while ((inputLine = br.readLine()) != null) {
+	        res.append(inputLine);
+	      }
+	      br.close();
+	      if(responseCode==200) {
+	        System.out.println(res.toString());
+	      }
+		 }catch(Exception e) {
+			 System.out.println(e);
+		}
+		
+		session.invalidate();
+		return "redirect:http://localhost:8080/controller/"; 
 	}
 }
 
