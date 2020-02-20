@@ -153,7 +153,7 @@ public class HomeController {
 	@RequestMapping("/logout")
 	public String logout(HttpSession session) 
 	{
-		//접근 토큰 삭제 요청
+		/*//접근 토큰 삭제 요청, 연동 취소
 		NuserDTO user = (NuserDTO)session.getAttribute("user");
 		 String apiURL;
 		 apiURL = "https://nid.naver.com/oauth2.0/token?grant_type=delete&";
@@ -185,7 +185,7 @@ public class HomeController {
 	      }
 		 }catch(Exception e) {
 			 System.out.println(e);
-		}
+		}*/
 		
 		session.invalidate();
 		return "redirect:http://localhost:8080/controller/"; 
