@@ -12,12 +12,18 @@ public class SellerController {
 	@RequestMapping("/seller")
 	public String seller(Model model) {
 		
-		return "seller/seller_main";
+		model.addAttribute("sellerpage", "seller_main.jsp");
+		return "seller/seller_temp";
 	}
 	
 	@RequestMapping("/product")
-	public String product() {
-		
-		return "seller/product";
+	public String product(Model model) {
+		model.addAttribute("sellerpage", "product.jsp");
+		return "seller/seller_temp";
+	}
+	@RequestMapping("/addproduct")
+	public String addproduct(Model model) {
+		model.addAttribute("sellerpage", "addsproduct.jsp");
+		return "seller/seller_temp";
 	}
 }
