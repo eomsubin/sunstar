@@ -10,9 +10,9 @@
 header {
   position: fixed;
   top: 0;
-  left: 0;
+  left: 15%;
   z-index: 100;
-  width: 100%;
+  width: 70%;
   text-align: center;
   background: #fff;
 }
@@ -49,8 +49,10 @@ header {
 footer {
   position: fixed;
   bottom: 0;
-  left: 0;
+
   right: 0;
+  left: 15%;
+  width: 70%;
 }
 
 .navbar {
