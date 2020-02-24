@@ -18,6 +18,7 @@
 	<P>The time on the server is ${serverTime}.</P>
 	<c:if test="${empty userinfo}"><a class="btn btn-secondary" href="login">로그인</a></c:if>
 	<c:if test="${!empty userinfo}"><a class="btn btn-secondary" href="logout">로그아웃</a>${userinfo.response.name}님 환영합니다.</c:if>
+<<<<<<< HEAD
 	
 </div> --%>
 <div class="row">
@@ -171,6 +172,24 @@
     <!-- /.row -->
 	
 	
+=======
+	<h1>Hello SBBJ User!</h1>
+	<br>
+	<h1>Hello SBBJ User!</h1>
+	<br><h1>Hello SBBJ User!</h1>
+	<br><h1>Hello SBBJ User!</h1>
+	<br><h1>Hello SBBJ User!</h1>
+	<br><h1>Hello SBBJ User!</h1>
+	<br><h1>Hello SBBJ User!</h1>
+	<br><h1>Hello SBBJ User!</h1>
+	<br><h1>Hello SBBJ User!</h1>
+	<br><h1>Hello SBBJ User!</h1>
+	<br><h1>Hello SBBJ User!</h1>
+	<br><h1>Hello SBBJ User!</h1>
+	<br><h1>Hello SBBJ User!</h1>
+	<br>
+	<h1>Hello SBBJ User!</h1>
+>>>>>>> branch 'master' of https://github.com/eomsubin/sunstar.git
 </div>
 <script src="vendor/jquery/jquery.min.js"></script>
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
