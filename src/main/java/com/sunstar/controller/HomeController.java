@@ -80,8 +80,8 @@ public class HomeController {
 		apiURL += "&state=" + state;
 		session.setAttribute("state", state);
 		request.setAttribute("apiURL", apiURL);
-		model.addAttribute("contentpage", "login.jsp");
-		return "home";
+		//model.addAttribute("contentpage", "login.jsp");
+		return "login";
 	}
 
 	@RequestMapping("/callback")
