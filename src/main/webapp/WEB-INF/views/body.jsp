@@ -169,27 +169,9 @@
       <!-- /.col-lg-9 -->
 
     </div>
-    <!-- /.row -->
+   
 	
-	
-=======
-	<h1>Hello SBBJ User!</h1>
-	<br>
-	<h1>Hello SBBJ User!</h1>
-	<br><h1>Hello SBBJ User!</h1>
-	<br><h1>Hello SBBJ User!</h1>
-	<br><h1>Hello SBBJ User!</h1>
-	<br><h1>Hello SBBJ User!</h1>
-	<br><h1>Hello SBBJ User!</h1>
-	<br><h1>Hello SBBJ User!</h1>
-	<br><h1>Hello SBBJ User!</h1>
-	<br><h1>Hello SBBJ User!</h1>
-	<br><h1>Hello SBBJ User!</h1>
-	<br><h1>Hello SBBJ User!</h1>
-	<br><h1>Hello SBBJ User!</h1>
-	<br>
-	<h1>Hello SBBJ User!</h1>
->>>>>>> branch 'master' of https://github.com/eomsubin/sunstar.git
+
 </div>
 <script src="vendor/jquery/jquery.min.js"></script>
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
