@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>	
 <!DOCTYPE html>
 <html>
 <head>
@@ -63,7 +64,8 @@
                 <span class="navbar-text">
                   <ul class="nav justify-content-end">
                     <li class="nav-item">
-                      <a class="nav-link" href="#">로그인</a>
+                    <c:if test="${empty userinfo}"><a class="nav-link" href="login">로그인</a></c:if>
+                    <c:if test="${!empty userinfo}"><a class="nav-link" href="logout">로그아웃</a></c:if>
                     </li>
                     <li class="nav-item">
                       <a class="nav-link" href="#">회원가입</a>

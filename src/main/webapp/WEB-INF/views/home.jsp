@@ -22,13 +22,13 @@
 <body>
 	<div class="wrapper">
 	<header>
-		<c:import url="http://localhost:8080/controller/header" />
+		<jsp:include page="header.jsp" />
 	</header>
 	<section>
 		<jsp:include page="${contentpage}" />
 	</section>
 	<footer>
-		<c:import url="http://localhost:8080/controller/footer" />
+		<jsp:include page="footer.jsp" />
 	</footer>
 	</div>
 	<!-- Popper.js first, then Bootstrap JS -->
