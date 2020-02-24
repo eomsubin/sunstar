@@ -8,7 +8,9 @@
 <title>Insert title here</title>
 </head>
 <body>
+
 <div class="container">
+
 <div class="mx-auto" style="width: 500px;">
 	<h1>Hello SBBJ User!</h1>
 	<P>The time on the server is ${serverTime}.</P>

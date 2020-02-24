@@ -20,6 +20,7 @@
 <title>SBBJ</title>
 </head>
 <body>
+	<div class="wrapper">
 	<header>
 		<c:import url="http://localhost:8080/controller/header" />
 	</header>
@@ -29,7 +30,7 @@
 	<footer>
 		<c:import url="http://localhost:8080/controller/footer" />
 	</footer>
-
+	</div>
 	<!-- Popper.js first, then Bootstrap JS -->
 	<script
 		src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
