@@ -1,4 +1,4 @@
-@charset "utf-8";
+ @charset "utf-8";
 
 .list-group-horizontal .list-group-item:first-child {
   border: 0;
@@ -177,4 +177,4 @@ img {
   }
   
   
-}
+} 
