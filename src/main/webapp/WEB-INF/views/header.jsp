@@ -5,6 +5,7 @@
 <html>
 <head>
 <meta charset="utf-8">
+<link rel="stylesheet" href="http://localhost:8080/controller/resources/css/main.css">
 <title>Insert title here</title>
 </head>
 <body>
