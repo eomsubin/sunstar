@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sunstar.mapper.SellerMapper">
+
+
+	
+	<select id="getCategory" resultType="com.sunstar.dto.CategoryDTO">
+		select * from category
+	</select>
+	
+	<select id="getCategoryCount" resultType="int">
+		select distinct lv2 from category;
+	</select>
+	
+	
+	
+	<insert id="addProduct" parameterType="com.sunstar.dto.ProductDTO">
+		insert into product_list(product_name, price, cost, shipping_cost, thumb_img,explains, public_state, review_state, category_code, seller_code)
+		values(#{product_name},#{price},#{cost},#{shipping_cost},#{thumb_img},#{explains},#{public_state},#{review_state}, #{category_code}, #{seller_code} )
+	
+	</insert>
+	
+	 <select id="aProduct" resultType="int">
+		select product_code
+		from product_list 
+		where product_code = (select max(product_code) from product_list)
+	</select>
+	
+	
+	<insert id="addOptions" parameterType="com.sunstar.dto.OptionDTO">
+	
+		<!-- <selectKey keyProperty="product_code" order="BEFORE" resultType="string">
+			select product_code from product_list 
+			where product_code = (select max(product_code) from product_list)
+		</selectKey> -->
+		insert into options(product_code, size, color, inventory, add_price)
+		values(#{product_code},#{size},#{color},#{inventory},#{add_price})
+	
+	</insert>
+</mapper>
