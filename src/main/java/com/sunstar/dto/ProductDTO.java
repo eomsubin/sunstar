@@ -28,5 +28,16 @@ public class ProductDTO {
 	
 	private List<OptionDTO> options;
 	
+	private String color;
+	private String size;
+	private int inventory;
+	private int add_price;
+	
+	private String lv1;
+	private String lv2;
+	private String lv3;
+	
+	
+	
 	
 }

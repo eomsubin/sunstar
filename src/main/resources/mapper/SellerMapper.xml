@@ -39,4 +39,16 @@
 		values(#{product_code},#{size},#{color},#{inventory},#{add_price})
 	
 	</insert>
+	
+	<select id="list" resultType="com.sunstar.dto.ProductDTO">
+		select p.product_code, product_name, price, cost, shipping_cost, o.size, o.color, o.inventory, o.add_price, public_state, review_state, c.lv1, c.lv2, c.lv3
+		from product_list p  join category c
+		on p.category_code = c.category_code
+		left join options o
+        on p.product_code = o.product_code
+		order by product_code desc
+	
+	</select>
+	
+	
 </mapper>

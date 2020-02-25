@@ -1,9 +1,9 @@
 package com.sunstar.dto;
 import lombok.Setter;
-
+import lombok.ToString;
 import lombok.Getter;
 
-@Getter @Setter
+@Getter @Setter @ToString
 public class OptionDTO {
 	private int product_code;
 	private String color;

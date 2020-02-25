@@ -32,10 +32,8 @@ public class SellerServiceImpl implements SellerService {
 		//상품코드 생성
 		mapper.addProduct(dto);
 		
-		
 		//옵션 수만큼 반복
 		for(int i =0; i<dto.getOptions().size(); i++) {
-
 			//상품코드 불러와서
 		//	ProductDTO dto2 = mapper.aProduct();
 			//그 상품코드에 맞는 옵션 추가
@@ -47,14 +45,18 @@ public class SellerServiceImpl implements SellerService {
 			dto2.setSize(dto.getOptions().get(i).getSize());
 			dto2.setInventory(dto.getOptions().get(i).getInventory());
 			dto2.setAdd_price(dto.getOptions().get(i).getAdd_price());
-			
-			
 			mapper.addOptions(dto2);
 		}
-		
-		
 
 	}
+
+	@Override
+	public List<ProductDTO> list() {
+		// TODO Auto-generated method stub
+		return mapper.list();
+	}
+	
+	
 	
 	
 	

@@ -32,6 +32,13 @@ public class SellerController {
 	
 	@RequestMapping("/product")
 	public String product(Model model) {
+		
+		List<ProductDTO> plist = sellerservice.list();		
+		
+		model.addAttribute("plist", plist);
+		System.out.println("--");
+		System.out.println(plist.get(0).getOptions());
+		System.out.println("--");
 		model.addAttribute("sellerpage", "product.jsp");
 		return "seller/seller_temp";
 	}
@@ -54,19 +61,7 @@ public class SellerController {
 	
 	@RequestMapping("/addproductresult")
 	public String addproductresult(Model model, ProductDTO dto) {
-		System.out.println(dto.getProduct_name());
-		System.out.println(			dto.getPrice()                           );
-		System.out.println(			dto.getCost()                            );
-		System.out.println(			dto.getShipping_cost()                   );
-		System.out.println(			dto.getExplains()                        );
-		System.out.println(			dto.isPublic_state()                     );
-		System.out.println(			dto.isReview_state()                     );
-		System.out.println(			dto.getCategory_code()                   );
-		System.out.println(			dto.getSeller_code()                     );
-		System.out.println(			dto.getOptions()                         );
-		
-		
-		
+
 		
 		sellerservice.addProduct(dto);
 		
