@@ -60,13 +60,11 @@ public class SellerController {
 	}
 	
 	@RequestMapping("/addproductresult")
-	public String addproductresult(Model model, ProductDTO dto) {
+	public String addproductresult(ProductDTO dto) {
 
 		
 		sellerservice.addProduct(dto);
 		
-		model.addAttribute("sellerpage", "product.jsp");
-
-		return "seller/seller_temp";
+		return "redirect:/product";
 	}
 }
