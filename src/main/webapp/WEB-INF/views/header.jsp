@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>	
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -65,8 +66,15 @@
                 <span class="navbar-text">
                   <ul class="nav justify-content-end">
                     <li class="nav-item">
-                    <c:if test="${empty userinfo}"><a class="nav-link" href="login">로그인</a></c:if>
-                    <c:if test="${!empty userinfo}"><a class="nav-link" href="logout">로그아웃</a></c:if>
+                    <c:if test="${empty userinfo}"><a class="nav-link" href="userlogin">로그인</a></c:if>
+                    <c:if test="${!empty userinfo}">${userinfo.response.name}님 <a class="nav-link" href="userlogout">로그아웃</a></c:if>
+                    
+                    <sec:authorize access="isAnonymous()">
+					<a class="nav-link" href="userlogin">로그인</a>
+					</sec:authorize>
+                    <sec:authorize access="isAuthenticated()">
+					<a class="nav-link" href="userlogout">로그아웃</a>
+					</sec:authorize>
                     </li>
                     <li class="nav-item">
                       <a class="nav-link" href="#">회원가입</a>
