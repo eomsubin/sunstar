@@ -20,6 +20,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -60,15 +61,13 @@ public class HomeController {
 
 		String formattedDate = dateFormat.format(date);
 		
-		model.addAttribute("serverTime", formattedDate );		
-        session.setAttribute("star", "안은별");
-        
+		model.addAttribute("serverTime", formattedDate );		        
 		model.addAttribute("contentpage", "body.jsp");
 		return "home";
 	}
 
-	@RequestMapping("/login")
-	public String login(HttpSession session, HttpServletRequest request, Model model) throws UnsupportedEncodingException
+	@GetMapping("/userlogin")
+	public void userlogin(HttpSession session, HttpServletRequest request, Model model) throws UnsupportedEncodingException
 	{
 		String clientId = "XMKUF7HdU8r3IIu3tMzr";
 		String redirectURI = URLEncoder.encode("http://localhost:8080/controller/callback", "UTF-8");
@@ -81,7 +80,6 @@ public class HomeController {
 		session.setAttribute("state", state);
 		request.setAttribute("apiURL", apiURL);
 		//model.addAttribute("contentpage", "login.jsp");
-		return "login";
 	}
 
 	@RequestMapping("/callback")
@@ -142,7 +140,7 @@ public class HomeController {
   	      }
   	      	NuserinfoDTO userinfo = new ObjectMapper().readValue(res.toString(), NuserinfoDTO.class);
   	      session.setAttribute("user", user);
-  	      	session.setAttribute("userinfo", userinfo);
+  	      session.setAttribute("userinfo", userinfo);
 	      }
 	    } catch (Exception e) {
 	      System.out.println(e);
@@ -150,8 +148,8 @@ public class HomeController {
 		return "redirect:http://localhost:8080/controller/";
 	}
 	
-	@RequestMapping("/logout")
-	public String logout(HttpSession session) 
+	@GetMapping("/userlogout")
+	public void userlogout(HttpSession session) 
 	{
 		/*//접근 토큰 삭제 요청, 연동 취소
 		NuserDTO user = (NuserDTO)session.getAttribute("user");
@@ -188,7 +186,36 @@ public class HomeController {
 		}*/
 		
 		session.invalidate();
-		return "redirect:http://localhost:8080/controller/"; 
+	}
+	
+	@RequestMapping("/admin")
+	public String admin()
+	{
+		return "admin";
+	}
+	
+	@RequestMapping("/manager")
+	public String manager()
+	{
+		return "manager";
+	}
+	
+	@RequestMapping("/member")
+	public String member()
+	{
+		return "member";
+	}
+	
+	@RequestMapping("/all")
+	public String all()
+	{
+		return "all";
+	}
+	
+	@RequestMapping("/error")
+	public String error()
+	{
+		return "error";
 	}
 }
 
