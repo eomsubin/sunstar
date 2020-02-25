@@ -256,6 +256,7 @@ frm+='	<span class="add-on">원</span></div><p class="help-block"></p></div></di
 							<input type="hidden" name="seller_code" id="seller_code" value="11111">
 							
 
+							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 							<div class="form-actions">
 								<button type="submit" class="btn btn-primary">상품 등록</button>
 								<button type="reset" class="btn">취소</button>

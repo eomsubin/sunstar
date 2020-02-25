@@ -13,4 +13,6 @@ public interface SellerService {
 
 	void addProduct(ProductDTO dto);
 
+	List<ProductDTO> list();
+
 }
