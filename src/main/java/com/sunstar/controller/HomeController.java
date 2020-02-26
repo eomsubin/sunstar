@@ -230,5 +230,10 @@ public class HomeController {
 	{
 		return "error";
 	}
+	@RequestMapping("/customer")
+	public String customer()
+	{
+		return "customer";
+	}
 }
 
