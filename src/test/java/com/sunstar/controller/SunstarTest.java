@@ -42,7 +42,4 @@ public class SunstarTest {
 		assertNotNull(sqlsessionFactory);
 		assertNotNull(transactionManager);
 	}
-	
-	
-	
 }

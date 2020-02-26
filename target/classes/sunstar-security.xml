@@ -19,28 +19,13 @@
 		<security:logout logout-url="/userlogout" invalidate-session="true" logout-success-url="/"/>
 		<security:access-denied-handler error-page="/error"/>
 	</security:http>
-	
-	<security:authentication-manager>
-		<security:authentication-provider>
-			<security:user-service>
-				<security:user name="user" password="123" authorities="ROLE_USER"/>
-				<security:user name="manager" password="123" authorities="ROLE_MANAGER, ROLE_USER"/>
-				<security:user name="admin" password="123" authorities="ROLE_ADMIN, ROLE_MANAGER, ROLE_USER"/>
-			</security:user-service>
-		</security:authentication-provider>
-	</security:authentication-manager>
-	
+		
 	<bean name="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"></bean>
-	
-	<!--  
 	<security:authentication-manager>
-		<security:authentication-provider user-service-ref="customerService">
+		<security:authentication-provider user-service-ref="AuthService">
 			<security:password-encoder ref="passwordEncoder"></security:password-encoder>
-			
 		</security:authentication-provider>
-	
 	</security:authentication-manager>
-	-->
 	
 </beans>
 
