@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -37,9 +40,25 @@
 	<!-- start: Favicon -->
 	<link rel="shortcut icon" href="http://localhost:8080/controller/resources/seller_img/favicon.ico">
 	<!-- end: Favicon -->
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 	
-		
-		
+	<script>
+	$(document).ready(function(){
+		$('#all').on('click', function(){
+			if($('#all').prop('checked')){
+				$('input[type=checkbox]').prop('checked',true);
+			}else{
+				$('input[type=checkbox]').prop('checked',false);
+			}
+		})
+	})
+
+</script>
+		<style>
+			body{
+				font-size:0.8em;
+			}
+		</style>
 		
 </head>
 <body>
@@ -59,16 +78,16 @@
 			<ul class="breadcrumb">
 				<li>
 					<i class="icon-home"></i>
-					<a href="index.html">Home</a> 
+					<a href="index.html">판매회원 홈</a> 
 					<i class="icon-angle-right"></i>
 				</li>
-				<li><a href="#">Tables</a></li>
+				<li><a href="#">상품 관리</a></li>
 			</ul>
 
 			<div class="row-fluid sortable">		
 				<div class="box span12">
 					<div class="box-header" data-original-title>
-						<h2><i class="halflings-icon white user"></i><span class="break"></span>Members</h2>
+						<h2><i class="halflings-icon white user"></i><span class="break"></span>상품 목록</h2>
 						<div class="box-icon">
 							<a href="#" class="btn-setting"><i class="halflings-icon white wrench"></i></a>
 							<a href="#" class="btn-minimize"><i class="halflings-icon white chevron-up"></i></a>
@@ -76,18 +95,77 @@
 						</div>
 					</div>
 					<div class="box-content">
+					<form>
+					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+					<div>
+		 	<button type="button" class="btn btn-primary">선택 재고 추가</button>
+			<button type="button" class="btn btn-secondary"></button>
+			<button type="button" class="btn btn-success">선택 수정</button>
+			<button type="button" class="btn btn-danger">선택 삭제</button>
+					</div>
 						<table class="table table-striped table-bordered bootstrap-datatable datatable">
 						  <thead>
 							  <tr>
-								  <th>Username</th>
+								<!--   <th>Username</th>
 								  <th>Date registered</th>
 								  <th>Role</th>
 								  <th>Status</th>
-								  <th>Actions</th>
+								  <th>Actions</th> -->
+								  <th><input type="checkbox" id="all"></th>
+								  <th>상품코드</th>
+								  <th>상품이름</th>
+								  <th>가격</th>
+								  <th>원가</th>
+								  <th>배송비</th>
+								  <th style="border-left: 2px solid silver">컬러</th>
+								  <th>사이즈</th>
+								  <th>재고</th>
+								  <th style="border-right: 2px solid silver;">추가 가격</th>
+								  
+								  <th>카테고리</th>
+								  <th>공개여부</th>
+								  <th>리뷰공개여부</th>
 							  </tr>
 						  </thead>   
 						  <tbody>
-							<tr>
+
+							<c:forEach var="i" items="${plist}" >
+							 <tr>	
+							 <td><input type="checkbox" id="a" name="empno" value="${item.empno}"></td>
+								<td> ${i.product_code }</td>
+								<td> ${i.product_name}</td>
+								<td> ${i.price}</td>
+								<td> ${i.cost}</td>
+								<td> ${i.shipping_cost} </td>
+								<td style="border-left: 2px solid silver"> ${i.color }</td>
+								<td> ${i.size }</td>
+								<td> ${i.inventory }</td>
+								<td style="border-right: 2px solid silver;"> ${i.add_price }</td>
+							
+								<td> ${i.lv1}-${i.lv2}-${i.lv3}</td>
+								<td> ${i.public_state}</td>
+								<td> ${i.review_state}</td>
+								<td class="center">
+									<a class="btn btn-success" href="#">
+										<i class="halflings-icon white zoom-in"></i>  
+									</a>
+									<a class="btn btn-info" href="#">
+										<i class="halflings-icon white edit"></i>  
+									</a>
+									<a class="btn btn-danger" href="#">
+										<i class="halflings-icon white trash"></i> 
+									</a>
+								</td>
+					<%-- 			<c:forEach var="opt" items="${i.options }" >
+									<td> ${opt.color}  </td>
+									<td> ${opt.size}  </td>
+									<td> ${opt.inventory }</td>
+									<td> ${opt.add_price }</td>
+								</c:forEach>  --%>
+							</tr>
+							</c:forEach>
+							
+						
 								<td>Dennis Ji</td>
 								<td class="center">2012/01/01</td>
 								<td class="center">Member</td>
@@ -716,6 +794,7 @@
 							</tr>
 						  </tbody>
 					  </table>            
+					  </form>
 					</div>
 				</div><!--/span-->
 			

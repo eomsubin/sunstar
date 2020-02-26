@@ -13,6 +13,9 @@
 		margin : 5px;
 		margin-bottom: 5px !important;
 	}
+	input:invalid{
+		background-color: pink;
+	}
 </style>
 
 <!-- <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script> -->
@@ -34,21 +37,21 @@ frm+='	<div class="control-group threeoptions">                                 
 frm+='	<label class="control-label" for="prependedInput"></label>                            ';
 frm+='	<div class="controls">                                                                ';
 frm+='	<div class="input-prepend">                                                           ';
-frm+='	<span class="add-on">사이즈</span><input id="option_size1" name="options['+i+'].size"size="16" type="text">     ';
+frm+='	<span class="add-on">사이즈</span><input id="option_size1" name="options['+i+'].size" size="16" type="text">     ';
 frm+='	</div><p class="help-block"></p></div></div>                                          ';
 
 frm+='	<div class="control-group threeoptions">                                              ';
 frm+='	<label class="control-label" for="prependedInput"></label>                            ';
 frm+='	<div class="controls">                                                                ';
 frm+='	<div class="input-prepend">                                                           ';
-frm+='	<span class="add-on">재고</span><input id="inventory" name="options['+i+'].inventory"size="16" type="text">      ';
+frm+='	<span class="add-on">재고</span><input id="inventory" name="options['+i+'].inventory" size="16" type="text" required="required" >      ';
 frm+='	</div><p class="help-block"></p></div></div>                                          ';
 
 frm+='	<div class="control-group threeoptions">                                               ';
 frm+='	<label class="control-label" for="add_price1"></label>                                 ';
 frm+='	<div class="controls">                                                                 ';
 frm+='	<div class="input-prepend">                                                            ';
-frm+='	<span class="add-on">추가금액</span><input id="add_price" name="options['+i+'].add_price" size="16" type="text">         ';
+frm+='	<span class="add-on">추가금액</span><input id="add_price" name="options['+i+'].add_price" size="16" type="text" required="required">         ';
 frm+='	<span class="add-on">원</span></div><p class="help-block"></p></div></div>              ';
 		i++;
 		$('#addoptions').append(frm);
@@ -162,7 +165,8 @@ frm+='	<span class="add-on">원</span></div><p class="help-block"></p></div></di
 									<label class="control-label" for="options[0].inventory"></label>
 									<div class="controls">
 										<div class="input-prepend">
-											<span class="add-on">재고</span><input id="inventory" name="options[0].inventory" size="16" type="text">
+											<span class="add-on">재고</span>
+											<input id="inventory" name="options[0].inventory" size="16" type="text" required="required" >
 										</div>
 										<p class="help-block"></p>
 									</div>
@@ -171,7 +175,9 @@ frm+='	<span class="add-on">원</span></div><p class="help-block"></p></div></di
 									<label class="control-label" for="options[0].add_price"></label>
 									<div class="controls">
 										<div class="input-prepend">
-											<span class="add-on">추가금액</span><input id="add_price" name="options[0].add_price" size="16" type="text"><span
+											<span class="add-on">추가금액</span>
+											
+								<input id="add_price" class="form-control is-invalid" name="options[0].add_price" size="16" type="text" required ><span
 											class="add-on">원</span>
 										</div>
 										<p class="help-block"></p>
@@ -255,7 +261,9 @@ frm+='	<span class="add-on">원</span></div><p class="help-block"></p></div></di
 
 							<input type="hidden" name="seller_code" id="seller_code" value="11111">
 							
+				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/></li>
 
+							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 							<div class="form-actions">
 								<button type="submit" class="btn btn-primary">상품 등록</button>
 								<button type="reset" class="btn">취소</button>

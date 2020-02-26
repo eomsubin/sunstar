@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -26,16 +27,25 @@ public class SellerController {
 	@RequestMapping("/seller")
 	public String seller(Model model) {
 		
-		model.addAttribute("sellerpage", "seller_main.jsp");
-		return "seller/seller_temp";
+		model.addAttribute("sellerpage", "temp_main.jsp");
+		return "sellers/temp";
 	}
 	
-	@RequestMapping("/product")
+	//상품 목록 보기
+	@RequestMapping("/productlist")
 	public String product(Model model) {
-		model.addAttribute("sellerpage", "product.jsp");
-		return "seller/seller_temp";
+		
+		List<ProductDTO> plist = sellerservice.list();		
+		
+		model.addAttribute("plist", plist);
+		System.out.println("--");
+		System.out.println(plist.get(0).getOptions());
+		System.out.println("--");
+		model.addAttribute("sellerpage", "productlist.jsp");
+		return "sellers/temp";
 	}
 	
+	//상품 추가 하기
 	@RequestMapping("/addproduct")
 	public String addproduct(Model model) {
 	
@@ -49,29 +59,15 @@ public class SellerController {
 		model.addAttribute("dlist", dlist);
 		
 		model.addAttribute("sellerpage", "addsproduct.jsp");
-		return "seller/seller_temp";
+		return "sellers/temp";
 	}
 	
 	@RequestMapping("/addproductresult")
-	public String addproductresult(Model model, ProductDTO dto) {
-		System.out.println(dto.getProduct_name());
-		System.out.println(			dto.getPrice()                           );
-		System.out.println(			dto.getCost()                            );
-		System.out.println(			dto.getShipping_cost()                   );
-		System.out.println(			dto.getExplains()                        );
-		System.out.println(			dto.isPublic_state()                     );
-		System.out.println(			dto.isReview_state()                     );
-		System.out.println(			dto.getCategory_code()                   );
-		System.out.println(			dto.getSeller_code()                     );
-		System.out.println(			dto.getOptions()                         );
-		
-		
-		
+	public String addproductresult(ProductDTO dto) {
+
 		
 		sellerservice.addProduct(dto);
 		
-		model.addAttribute("sellerpage", "product.jsp");
-
-		return "seller/seller_temp";
+		return "redirect:/productlist";
 	}
 }

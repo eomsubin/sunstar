@@ -65,6 +65,19 @@ public class HomeController {
 		model.addAttribute("contentpage", "body.jsp");
 		return "home";
 	}
+	@RequestMapping("/main")
+	public String body( Model model, HttpSession session)
+	{
+		
+
+
+		
+		        
+		model.addAttribute("contentpage", "main.jsp");
+		return "home";
+	}
+	
+	
 
 	@GetMapping("/userlogin")
 	public void userlogin(HttpSession session, HttpServletRequest request, Model model) throws UnsupportedEncodingException

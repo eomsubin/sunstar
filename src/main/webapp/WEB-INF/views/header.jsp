@@ -36,9 +36,79 @@
             </form>
           </div>
 
-          <div>
+          <div id="headnav">
             <nav class="navbar navbar-expand-lg navbar-light bg-light p-1">
-              <a class="navbar-brand" href="#">전체 카테고리</a>
+           	<div class="all-category" >
+								<h3 class="cat-heading"><i class="fa fa-bars" aria-hidden="true"></i>CATEGORIES</h3>
+								<ul class="main-category">
+									<li><a href="#">패션 <i class="fa fa-angle-right" aria-hidden="true"></i></a>
+										<ul class="sub-category">
+											<li><a href="#">여성의류-니트</a></li>
+											<li><a href="#">best selling</a></li>
+											<li><a href="#">top 100 offer</a></li>
+											<li><a href="#">sunglass</a></li>
+											<li><a href="#">watch</a></li>
+											<li><a href="#">man’s product</a></li>
+											<li><a href="#">ladies</a></li>
+											<li><a href="#">westrn dress</a></li>
+											<li><a href="#">denim </a></li>
+										</ul>
+									</li>
+									<li><a href="#">New Arrivals <i class="fa fa-angle-right" aria-hidden="true"></i></a>
+										<ul class="sub-category">
+											<li><a href="#">accessories</a></li>
+											<li><a href="#">best selling</a></li>
+											<li><a href="#">top 100 offer</a></li>
+											<li><a href="#">sunglass</a></li>
+											<li><a href="#">watch</a></li>
+											<li><a href="#">man’s product</a></li>
+											<li><a href="#">ladies</a></li>
+											<li><a href="#">westrn dress</a></li>
+											<li><a href="#">denim </a></li>
+										</ul>
+									</li>
+									<li><a href="#">New Arrivals <i class="fa fa-angle-right" aria-hidden="true"></i></a>
+										<ul class="sub-category">
+											<li><a href="#">accessories</a></li>
+											<li><a href="#">best selling</a></li>
+											<li><a href="#">top 100 offer</a></li>
+											<li><a href="#">sunglass</a></li>
+											<li><a href="#">watch</a></li>
+											<li><a href="#">man’s product</a></li>
+											<li><a href="#">ladies</a></li>
+											<li><a href="#">westrn dress</a></li>
+											<li><a href="#">denim </a></li>
+										</ul>
+									</li>
+									<li><a href="#">New Arrivals <i class="fa fa-angle-right" aria-hidden="true"></i></a>
+										<ul class="sub-category">
+											<li><a href="#">accessories</a></li>
+											<li><a href="#">best selling</a></li>
+											<li><a href="#">top 100 offer</a></li>
+											<li><a href="#">sunglass</a></li>
+											<li><a href="#">watch</a></li>
+											<li><a href="#">man’s product</a></li>
+											<li><a href="#">ladies</a></li>
+											<li><a href="#">westrn dress</a></li>
+											<li><a href="#">denim </a></li>
+										</ul>
+									</li>
+									<li><a href="#">New Arrivals <i class="fa fa-angle-right" aria-hidden="true"></i></a>
+										<ul class="sub-category">
+											<li><a href="#">accessories</a></li>
+											<li><a href="#">best selling</a></li>
+											<li><a href="#">top 100 offer</a></li>
+											<li><a href="#">sunglass</a></li>
+											<li><a href="#">watch</a></li>
+											<li><a href="#">man’s product</a></li>
+											<li><a href="#">ladies</a></li>
+											<li><a href="#">westrn dress</a></li>
+											<li><a href="#">denim </a></li>
+										</ul>
+									</li>
+									</ul>
+									</div>
+             <!--   <a class="navbar-brand" href="#">전체 카테고리</a>
               <button
                 class="navbar-toggler"
                 type="button"
@@ -47,9 +117,9 @@
                 aria-controls="navbarText"
                 aria-expanded="false"
                 aria-label="Toggle navigation"
-              >
+              > 
                 <span class="navbar-toggler-icon"></span>
-              </button>
+              </button>  -->
               <div class="collapse navbar-collapse" id="navbarText">
                 <ul class="navbar-nav mr-auto">
                   <li class="nav-item">

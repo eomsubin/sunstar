@@ -4,7 +4,8 @@
 <html>
 <head>
 <meta charset="utf-8">
-<link rel="stylesheet" href="http://localhost:8080/controller/resources/css/headerfooter.css">
+ <link rel="stylesheet" href="http://localhost:8080/controller/resources/css/footer.css"> 
+ 
 <title>SBBJ</title>
 </head>
 <body>
