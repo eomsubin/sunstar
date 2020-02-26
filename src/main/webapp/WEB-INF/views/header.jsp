@@ -35,7 +35,7 @@
             </form>
           </div>
 
-          <div>
+          <div id="headnav">
             <nav class="navbar navbar-expand-lg navbar-light bg-light p-1">
               <a class="navbar-brand" href="#">전체 카테고리</a>
               <button
