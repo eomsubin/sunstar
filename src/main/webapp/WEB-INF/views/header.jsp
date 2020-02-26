@@ -73,6 +73,7 @@
 					<a class="nav-link" href="userlogin">로그인</a>
 					</sec:authorize>
                     <sec:authorize access="isAuthenticated()">
+					<sec:authentication property="principal.UserInfo"/> 
 					<a class="nav-link" href="userlogout">로그아웃</a>
 					</sec:authorize>
                     </li>
