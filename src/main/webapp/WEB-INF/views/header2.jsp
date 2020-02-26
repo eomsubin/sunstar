@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -49,8 +50,9 @@
 							<ul class="list-main">
 								<!-- <li><i class="ti-location-pin"></i> Store location</li>
 								<li><i class="ti-alarm-clock"></i> <a href="#">Daily deal</a></li> -->
-								<li><i class="ti-user"></i> <a href="#">고객센터</a></li>
-								<li><i class="ti-power-off"></i><a href="login.html#">로그인</a></li>
+								<li><i class="ti-user"></i> <a href="#">회원가입</a></li>
+								 <c:if test="${empty userinfo}"><li><i class="ti-power-off"></i><a href="userlogin">로그인</a></li></c:if>
+								 <c:if test="${!empty userinfo}">${userinfo.response.name}님<li><i class="ti-power-off"></i><a href="userlogout">로그아웃</a></li></c:if>
 							</ul>
 						</div>
 						<!-- End Top Right -->
@@ -102,8 +104,11 @@
 					<div class="col-lg-2 col-md-3 col-12">
 						<div class="right-bar">
 							<!-- Search Form -->
+								<div class="sinlge-bar">
+								<a href="#" class="single-icon"><i class="ti-headphone-alt"></i></a>
+							</div>
 							<div class="sinlge-bar">
-								<a href="#" class="single-icon"><i class="fa fa-heart-o" aria-hidden="true"></i></a>
+								<a href="#" class="single-icon"><i class="ti-desktop" ></i></a>
 							</div>
 							
 							<div class="sinlge-bar shopping">
@@ -112,7 +117,7 @@
 								<div class="shopping-item">
 									<div class="dropdown-cart-header">
 										<span>2 Items</span>
-										<a href="#">View Cart</a>
+										<a href="#">장바구니 보기</a>
 									</div>
 									<ul class="shopping-list">
 										<li>
