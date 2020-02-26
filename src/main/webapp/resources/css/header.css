@@ -18,7 +18,9 @@
 	-webkit-transition: all 0.4s ease;
 	-moz-transition: all 0.4s ease;
 	transition: all 0.4s ease;
+	
 }
+
 
 
 .header .navbar {
@@ -544,10 +546,13 @@
 	background: transparent;
 	position: relative;
 	background: #f7941d;
+	
 }
 .header.shop .all-category h3{
 	padding: 20px 25px;
 }
+
+
 .header.shop .cat-heading {
 	font-size: 20px;
 	color: #fff;
