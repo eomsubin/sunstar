@@ -22,6 +22,4 @@ public interface SellerMapper {
 	void addOptions(OptionDTO dto);
 
 	List<ProductDTO> list();
-
-	
 }
