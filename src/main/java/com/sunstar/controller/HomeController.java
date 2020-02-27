@@ -161,6 +161,7 @@ public class HomeController {
 		return "redirect:http://localhost:8080/controller/";
 	}
 	
+	
 	@GetMapping("/userlogout")
 	public void userlogout(HttpSession session) 
 	{
@@ -233,7 +234,12 @@ public class HomeController {
 	@RequestMapping("/customer")
 	public String customer()
 	{
-		return "customer";
+		return "customer/customer";
+	}
+	@RequestMapping("/notice")
+	public String notice()
+	{
+		return "customer/notice";
 	}
 }
 
