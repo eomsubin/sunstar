@@ -231,15 +231,5 @@ public class HomeController {
 	{
 		return "error";
 	}
-	@RequestMapping("/customer")
-	public String customer()
-	{
-		return "customer/customer";
-	}
-	@RequestMapping("/notice")
-	public String notice()
-	{
-		return "customer/notice";
-	}
 }
 
