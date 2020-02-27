@@ -14,7 +14,7 @@
 <title>Insert title here</title>
  
 	<!-- Web Font -->
-	<link href="https://fonts.googleapis.com/css?family=Poppins:200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap" rel="stylesheet">
+	
 	
 	<!-- StyleSheet -->
 	
@@ -79,7 +79,7 @@
 				<div class="row">
 					<div class="col-12">
 						<div class="section-title">
-							<h2>Trending Item</h2>
+							<h2>SBBJ BEST</h2>
 						</div>
 					</div>
 				</div>
@@ -89,12 +89,12 @@
 							<div class="nav-main">
 								<!-- Tab Nav -->
 								<ul class="nav nav-tabs" id="myTab" role="tablist">
-									<li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#man" role="tab">Man</a></li>
-									<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#women" role="tab">Woman</a></li>
-									<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#kids" role="tab">Kids</a></li>
-									<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#accessories" role="tab">Accessories</a></li>
-									<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#essential" role="tab">Essential</a></li>
-									<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#prices" role="tab">Prices</a></li>
+									<li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#man" role="tab">패션</a></li>
+									<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#women" role="tab">디지털/가전</a></li>
+									<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#kids" role="tab">가구/인테리어</a></li>
+									<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#accessories" role="tab">식품</a></li>
+									<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#essential" role="tab">반려동물</a></li>
+								
 								</ul>
 								<!--/ End Tab Nav -->
 							</div>
@@ -1466,7 +1466,7 @@
             <div class="row">
 				<div class="col-12">
 					<div class="section-title">
-						<h2>Hot Item</h2>
+						<h2>최신 상품</h2>
 					</div>
 				</div>
             </div>
