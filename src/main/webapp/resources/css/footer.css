@@ -5,17 +5,18 @@ footer {
 	bottom: 0 ;
 	width: 100% ;
 	margin: 0 auto;
+	
 }
 
 
 
-.navbar.navbar-expand-lg.navbar-light.bg-light {
+/* .navbar.navbar-expand-lg.navbar-light.bg-light {
 	border-top: 1px solid #dadada ;
 	border-bottom: 1px solid #dadada ;
 	font: 14px/1 'Apple SD Gothic Neo', '맑은 고딕' ;
 	
 } 
-
+ */
 
 
 .add_info {
@@ -43,6 +44,8 @@ footer {
 	font-weight: bold ;
 	color: #868ba8 ;
 }
+
+
 
 .copy {
 	font: 14px/1 'Apple SD Gothic Neo', '맑은 고딕' ;

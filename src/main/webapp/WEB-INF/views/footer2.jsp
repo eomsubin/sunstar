@@ -25,7 +25,8 @@
               </button>
          
               <div class="collapse navbar-collapse" id="navbarNavDropdown" >
-                <ul class="navbar-nav m-auto">
+                
+                <ul class="navbar-nav m-auto" >
                   <li class="nav-item mr-5"><a class="nav-link" href="#">회사소개</a></li>
                   <li class="nav-item mr-5"><a class="nav-link" href="#">이용약관</a></li>
                   <li class="nav-item mr-5"><a class="nav-link" href="#">입점문의</a></li>
@@ -47,6 +48,7 @@
                     </div>
                   </li>
                 </ul>
+                
               </div>
             </nav>
             

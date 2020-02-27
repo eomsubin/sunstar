@@ -89,9 +89,11 @@
 						<div class="search-bar-top">
 							<div class="search-bar">
 								<select>
-									<option selected="selected">검색 카테고리</option>
+									<option selected="selected">전체</option>
 									<option>패션</option>
-									<option>전자</option>
+									<option>디지털/가전</option>
+									<option>가구/인테리어</option>
+									<option>식품</option>
 									<option>반려동물</option>
 								</select>
 								<form>
@@ -116,7 +118,7 @@
 								<!-- Shopping Item -->
 								<div class="shopping-item">
 									<div class="dropdown-cart-header">
-										<span>2 Items</span>
+									<!-- 	<span>2 Items</span> -->
 										<a href="#">장바구니 보기</a>
 									</div>
 									<ul class="shopping-list">
@@ -159,6 +161,19 @@
 								<ul class="main-category">
 									<li><a href="#">패션 <i class="fa fa-angle-right" aria-hidden="true"></i></a>
 										<ul class="sub-category">
+											<li><a href="#">남성의류</a></li>
+											<li><a href="#">여성의류</a></li>
+											<li><a href="#">top 100 offer</a></li>
+											<li><a href="#">sunglass</a></li>
+											<li><a href="#">watch</a></li>
+											<li><a href="#">man’s product</a></li>
+											<li><a href="#">ladies</a></li>
+											<li><a href="#">westrn dress</a></li>
+											<li><a href="#">denim </a></li>
+										</ul>
+									</li>
+									<li><a href="#">디지털/가전 <i class="fa fa-angle-right" aria-hidden="true"></i></a>
+										<ul class="sub-category">
 											<li><a href="#">accessories</a></li>
 											<li><a href="#">best selling</a></li>
 											<li><a href="#">top 100 offer</a></li>
@@ -170,7 +185,20 @@
 											<li><a href="#">denim </a></li>
 										</ul>
 									</li>
-									<li><a href="#">전자 <i class="fa fa-angle-right" aria-hidden="true"></i></a>
+									<li><a href="#">가구/인테리어 <i class="fa fa-angle-right" aria-hidden="true"></i></a>
+										<ul class="sub-category">
+											<li><a href="#">accessories</a></li>
+											<li><a href="#">best selling</a></li>
+											<li><a href="#">top 100 offer</a></li>
+											<li><a href="#">sunglass</a></li>
+											<li><a href="#">watch</a></li>
+											<li><a href="#">man’s product</a></li>
+											<li><a href="#">ladies</a></li>
+											<li><a href="#">westrn dress</a></li>
+											<li><a href="#">denim </a></li>
+										</ul>
+									</li>
+									<li><a href="#">식품 <i class="fa fa-angle-right" aria-hidden="true"></i></a>
 										<ul class="sub-category">
 											<li><a href="#">accessories</a></li>
 											<li><a href="#">best selling</a></li>
@@ -184,32 +212,6 @@
 										</ul>
 									</li>
 									<li><a href="#">반려동물 <i class="fa fa-angle-right" aria-hidden="true"></i></a>
-										<ul class="sub-category">
-											<li><a href="#">accessories</a></li>
-											<li><a href="#">best selling</a></li>
-											<li><a href="#">top 100 offer</a></li>
-											<li><a href="#">sunglass</a></li>
-											<li><a href="#">watch</a></li>
-											<li><a href="#">man’s product</a></li>
-											<li><a href="#">ladies</a></li>
-											<li><a href="#">westrn dress</a></li>
-											<li><a href="#">denim </a></li>
-										</ul>
-									</li>
-									<li><a href="#">엄수빈 <i class="fa fa-angle-right" aria-hidden="true"></i></a>
-										<ul class="sub-category">
-											<li><a href="#">accessories</a></li>
-											<li><a href="#">best selling</a></li>
-											<li><a href="#">top 100 offer</a></li>
-											<li><a href="#">sunglass</a></li>
-											<li><a href="#">watch</a></li>
-											<li><a href="#">man’s product</a></li>
-											<li><a href="#">ladies</a></li>
-											<li><a href="#">westrn dress</a></li>
-											<li><a href="#">denim </a></li>
-										</ul>
-									</li>
-									<li><a href="#">최솔이 <i class="fa fa-angle-right" aria-hidden="true"></i></a>
 										<ul class="sub-category">
 											<li><a href="#">accessories</a></li>
 											<li><a href="#">best selling</a></li>
