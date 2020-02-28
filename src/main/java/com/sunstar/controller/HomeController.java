@@ -142,6 +142,7 @@ public class HomeController {
 		return "redirect:http://localhost:8080/controller/";
 	}
 	
+	
 	@GetMapping("/userlogout")
 	public void userlogout(HttpSession session) 
 	{
