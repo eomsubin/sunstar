@@ -27,13 +27,13 @@
 	padding: 0;
 }
 /* Main Menu */
-.navbar-expand-lg .navbar-collapse{
+/* .navbar-expand-lg .navbar-collapse{
 	display:block !important;
-}
-.header.v3 .navbar-expand-lg .navbar-collapse{
+} */
+/* .header.v3 .navbar-expand-lg .navbar-collapse{
 	display:block !important;
 	background:#333;
-}
+} */
 .header .nav li a i {
 	margin-left: 6px;
 	font-size: 10px;

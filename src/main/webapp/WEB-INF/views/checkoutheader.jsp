@@ -6,7 +6,7 @@
 <head>
 <meta  charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="http://localhost:8080/controller/resources/css/header.css"> 
+<link rel="stylesheet" href="http://localhost:8080/controller/resources/css/header.css">
 <!-- Magnific Popup -->
     <link rel="stylesheet" href="http://localhost:8080/controller/resources/css/magnific-popup.min.css">
 	
@@ -155,7 +155,7 @@
 				<div class="cat-nav-head">
 					<div class="row">
 						<div class="col-lg-3">
-							<div class="all-category">
+							<!-- <div class="all-category">
 								<h3 class="cat-heading"><i class="fa fa-bars" aria-hidden="true"></i>상품 카테고리</h3>
 								<ul class="main-category">
 									<li><a href="#">패션 <i class="fa fa-angle-right" aria-hidden="true"></i></a>
@@ -224,7 +224,7 @@
 										</ul>
 									</li>
 								 </ul>
-							</div>
+							</div> -->
 						</div>
 						<div class="col-lg-9 col-12">
 							<div class="menu-area">
@@ -258,7 +258,7 @@
 		<!--/ End Header Inner -->
 	</header>
 	<!--/ End Header -->
- 	 <script src="http://localhost:8080/controller/resources/js/jquery-migrate-3.0.0.js"></script> 
+	 <script src="http://localhost:8080/controller/resources/js/jquery-migrate-3.0.0.js"></script> 
 	<script src="http://localhost:8080/controller/resources/js/jquery-ui.min.js"></script> 
 
 	<!-- Slicknav JS -->

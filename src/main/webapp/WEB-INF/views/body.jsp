@@ -134,7 +134,7 @@
 													<div class="product-img">
 														<a href="product-details.html">
 															<img class="default-img" src="https://via.placeholder.com/550x750" alt="#">
-															<!-- <!-- <img class="hover-img" src="https://via.placeholder.com/550x750" alt="#">  --> -->
+															<!-- <!-- <img class="hover-img" src="https://via.placeholder.com/550x750" alt="#">  --> 
 														</a>
 														<div class="button-head">
 															<div class="product-action">
@@ -160,7 +160,7 @@
 													<div class="product-img">
 														<a href="product-details.html">
 															<img class="default-img" src="https://via.placeholder.com/550x750" alt="#">
-															<!-- <!-- <img class="hover-img" src="https://via.placeholder.com/550x750" alt="#">  --> -->
+															<!-- <!-- <img class="hover-img" src="https://via.placeholder.com/550x750" alt="#">  --> 
 														</a>
 														<div class="button-head">
 															<div class="product-action">
@@ -186,7 +186,7 @@
 													<div class="product-img">
 														<a href="product-details.html">
 															<img class="default-img" src="https://via.placeholder.com/550x750" alt="#">
-														<!-- 	<!-- <img class="hover-img" src="https://via.placeholder.com/550x750" alt="#">  --> -->
+														<!-- 	<!-- <img class="hover-img" src="https://via.placeholder.com/550x750" alt="#">  --> 
 															<span class="new">New</span>
 														</a>
 														<div class="button-head">
@@ -1595,7 +1595,7 @@
 					<div class="row">
 						<div class="col-12">
 							<div class="shop-section-title">
-								<h1>추천 상품</h1>
+								<h1>남성의류 추천</h1>
 							</div>
 						</div>
 					</div>
@@ -1658,7 +1658,7 @@
 					<div class="row">
 						<div class="col-12">
 							<div class="shop-section-title">
-								<h1>추천 상품</h1>
+								<h1>여성의류 추천</h1>
 							</div>
 						</div>
 					</div>
@@ -1721,7 +1721,7 @@
 					<div class="row">
 						<div class="col-12">
 							<div class="shop-section-title">
-								<h1>추천 상품</h1>
+								<h1>데스크탑 추천</h1>
 							</div>
 						</div>
 					</div>
@@ -2046,13 +2046,13 @@
             </div>
     </div>
     <!-- Modal end -->
-	  <!--  <script src="http://localhost:8080/controller/resources/js/jquery.min.js"></script> -->
+	 
      <script src="http://localhost:8080/controller/resources/js/jquery-migrate-3.0.0.js"></script> 
 	<script src="http://localhost:8080/controller/resources/js/jquery-ui.min.js"></script> 
 
-<!-- 	<script src="http://localhost:8080/controller/resources/js/popper.min.js"></script> -->
+
 	
-	<!-- <script src="http://localhost:8080/controller/resources/js/bootstrap.min.js"></script> --> 
+	 
 	
 	<!-- Slicknav JS -->
 	<script src="http://localhost:8080/controller/resources/js/slicknav.min.js"></script>

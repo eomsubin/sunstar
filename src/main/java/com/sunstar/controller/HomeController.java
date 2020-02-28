@@ -65,17 +65,28 @@ public class HomeController {
 		model.addAttribute("contentpage", "body.jsp");
 		return "home";
 	}
-	@RequestMapping("/main")
+	@RequestMapping("/checkout")
 	public String body( Model model, HttpSession session)
 	{
 		
 
 
 		
-		        
-		model.addAttribute("contentpage", "main.jsp");
-		return "home";
+		model.addAttribute("checkoutpage", "checkout.jsp");       
+		
+		return "checkouthome";
 	}
+	
+	@RequestMapping("/payment")
+		public String payment() {
+			
+			
+			
+			
+			return "payment";
+	  }
+		
+	
 	
 	
 
