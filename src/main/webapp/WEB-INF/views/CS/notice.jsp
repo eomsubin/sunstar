@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
 	pageEncoding="EUC-KR"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -66,7 +67,7 @@
 					</p>
 					</section> </nav>
 				</div>
-
+				
 				<div class="col-sm-9">
 					<nav class="navbar navbar-light  bg-light mt-3">
 					<div class="input-group p-2">
@@ -82,7 +83,7 @@
 					<hr class="my-4">
 
 					<h5 class="notice pt-4 pb-2">공지사항</h5>
-
+				
 					<div id="notice">
 						<table class="table table-hover">
 							<colgroup>
@@ -100,39 +101,15 @@
 								</tr>
 							</thead>
 							<tbody>
+								
+								<c:forEach var="noticelist" items="${noticeList }">
 								<tr>
-									<th scope="row">1</th>
-									<td>Mark</td>
-									<td class="lefttext">Mark</td>
-									<td>Mark</td>
-
+									<th scope="row">${noticelist.notice_no}</th>
+									<td>${noticelist.notice_category}</td>
+									<td class="lefttext">${noticelist.notice_title}</td>
+									<td>${noticelist.notice_date}</td>
 								</tr>
-								<tr>
-									<th scope="row">2</th>
-									<td>Mark</td>
-									<td class="lefttext">Mark</td>
-									<td>Mark</td>
-
-								</tr>
-								<tr>
-									<th scope="row">3</th>
-									<td>Mark</td>
-									<td class="lefttext">Mark</td>
-									<td>Mark</td>
-
-								</tr>
-								<tr>
-									<th scope="row">4</th>
-									<td>Mark</td>
-									<td class="lefttext">Mark</td>
-									<td>Mark</td>
-								</tr>
-								<tr>
-									<th scope="row">5</th>
-									<td>Mark</td>
-									<td class="lefttext">Mark</td>
-									<td>Mark</td>
-								</tr>
+								</c:forEach>
 							</tbody>
 						</table>
 					</div>

@@ -15,6 +15,7 @@ import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.servlet.jsp.PageContext;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,11 +35,6 @@ import com.sunstar.dto.NuserinfoDTO;
 @Controller
 public class HomeController {
 
-	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
-	
-	/**
-	 * Simply selects the home view to render by returning its name.
-	 */
 	@RequestMapping("/header")
 	public String header()
 	{
@@ -53,21 +49,14 @@ public class HomeController {
 
 	@RequestMapping("/")
 	public String body(Locale locale, Model model, HttpSession session)
-	{
-		logger.info("Welcome home! The client locale is {}.", locale);
-
-		Date date = new Date();
-		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
-
-		String formattedDate = dateFormat.format(date);
-		
-		model.addAttribute("serverTime", formattedDate );		        
+	{		        
 		model.addAttribute("contentpage", "body.jsp");
 		return "home";
 	}
 	@RequestMapping("/checkout")
 	public String body( Model model, HttpSession session)
 	{
+<<<<<<< HEAD
 		
 
 
@@ -75,8 +64,13 @@ public class HomeController {
 		model.addAttribute("checkoutpage", "checkout.jsp");       
 		
 		return "checkouthome";
+=======
+		model.addAttribute("contentpage", "main.jsp");
+		return "home";
+>>>>>>> branch 'master' of https://github.com/eomsubin/sunstar.git
 	}
 	
+<<<<<<< HEAD
 	@RequestMapping("/payment")
 		public String payment() {
 			
@@ -90,9 +84,11 @@ public class HomeController {
 	
 	
 
+=======
+>>>>>>> branch 'master' of https://github.com/eomsubin/sunstar.git
 	@GetMapping("/userlogin")
 	public void userlogin(HttpSession session, HttpServletRequest request, Model model) throws UnsupportedEncodingException
-	{
+	{	
 		String clientId = "XMKUF7HdU8r3IIu3tMzr";
 		String redirectURI = URLEncoder.encode("http://localhost:8080/controller/callback", "UTF-8");
 		SecureRandom random = new SecureRandom();
@@ -209,8 +205,9 @@ public class HomeController {
 		 }catch(Exception e) {
 			 System.out.println(e);
 		}*/
-		
-		session.invalidate();
+		session.removeAttribute("user");
+		session.removeAttribute("userinfo");
+		/*session.invalidate();*/
 	}
 	
 	@RequestMapping("/admin")
@@ -241,16 +238,6 @@ public class HomeController {
 	public String error()
 	{
 		return "error";
-	}
-	@RequestMapping("/customer")
-	public String customer()
-	{
-		return "customer/customer";
-	}
-	@RequestMapping("/notice")
-	public String notice()
-	{
-		return "customer/notice";
 	}
 }
 

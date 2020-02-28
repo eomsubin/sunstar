@@ -19,7 +19,7 @@ manager 권한이 부여된 페이지로 자동 이동. 로그인시 홈으로 �
 <br>
 <a href="admin">admin</a>
 <br>
-<a href="http://localhost:8080/controller/"><img alt="home" src="http://localhost:8080/controller/resources/img/logo.png"></a>
+<a href="${pageContext.request.contextPath}"><img alt="home" src="${pageContext.request.contextPath}/resources/img/logo.png"></a>
  
 <br>
 <a href="userlogout">로그아웃</a>

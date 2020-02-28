@@ -24,7 +24,7 @@
 		<div id="contenttop">
 			<ul class="headnav nav nav-pills nav-fill">
 				<li class="nav-item col-sm-3"><a class="nav-link" href="#"
-					style="color: white; font-size: 28px; font-weight: 600"> 고객센터</a></li>
+					style="color: white; font-size: 28px; font-weight: 600">고객센터</a></li>
 				<li class="nav-item col-sm-3 my-3"><a href="#"><i
 						class="far fa-address-card fa-2x"></i></a> <br> <span> <a
 						href="#">정보변경</a><br> <a href="#">비밀번호 변경</a><br> <a
@@ -51,7 +51,7 @@
 					<li><a class="nav-link" href="#">1:1 문의하기</a></li>
 					<li><a class="nav-link" href="#">나의 문의 확인</a></li>
 					<li><a class="nav-link" href="#">고객센터 이용안내</a></li>
-					<li><a class="nav-link" href="#">공지사항</a></li>
+					<li><a class="nav-link" href="${pageContext.request.contextPath}/notice">공지사항</a></li>
 					<section class="time mt-4 p-3 bg-light">
 					<h5>
 						고객센터<br>업무시간
@@ -83,7 +83,7 @@
 
 					<h5 class="faq pt-4 pb-2">
 						자주 묻는 질문 HOT 10 <a
-							href="${pageContext.request.contextPath}/notice"> <span>더
+							href="${pageContext.request.contextPath}/faq"> <span>더
 								보기 <i class="fas fa-greater-than"></i>
 						</span></a>
 					</h5>

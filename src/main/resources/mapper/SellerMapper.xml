@@ -51,4 +51,25 @@
 	</select>
 	
 	
+	<delete id="deleteProductOptions" parameterType="int">
+		delete from options where product_code=#{product_code}
+	</delete>	
+	
+	<delete id="deleteProduct" parameterType="int">
+		delete from product_list where product_code=#{product_code}
+	</delete>	
+	
+	<select id="getOptionColor" parameterType="int" resultType="string">
+		select color
+		from options
+		where product_code=#{product_code}
+		order by product_code desc
+	</select>
+	
+	<update id="updateInventory" parameterType="com.sunstar.dto.OptionDTO">
+		update options 
+		set inventory = inventory+#{inventory}
+		where product_code=#{product_code} and color=#{color}
+	</update>
+	
 </mapper>
