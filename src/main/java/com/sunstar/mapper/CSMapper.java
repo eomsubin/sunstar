@@ -4,10 +4,10 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.sunstar.dto.CustomerDTO;
+import com.sunstar.dto.NoticeDTO;
 
 @Mapper
-public interface CustomerMapper {
+public interface CSMapper {
 
-	List<CustomerDTO> getList();
+	List<NoticeDTO> noticeList();
 }

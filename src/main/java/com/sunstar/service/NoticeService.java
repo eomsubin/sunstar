@@ -6,5 +6,5 @@ import com.sunstar.dto.NoticeDTO;
 
 
 public interface NoticeService {
-	public List<NoticeDTO> list();
+	public List<NoticeDTO> noticelist();
 }
