@@ -20,7 +20,7 @@
 <body>	
 		<form method="post" action="/controller/userlogout">
 			<ul>
-				<li><button id="logout"></button></li>
+				<li><button></button></li>
 				<li><input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/></li>
 			</ul>
 		</form>

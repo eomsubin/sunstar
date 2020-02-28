@@ -24,7 +24,6 @@ public class CustomerUserDetail implements UserDetails {
 		return auth;
 	}
 
-	
 	public CustomerDTO getUserInfo() {
 		return dto;
 	}
