@@ -153,13 +153,31 @@ IMP.request_pay({
 										<div class="col-lg-4 col-md-4 col-2">
 										<div class="form-group">
 											<label>주소<span>*</span></label> <input type="text"
-												name="name" placeholder="" required="required" readonly="readonly">
+												name="addr1" placeholder="" required="required" readonly="readonly">
 										</div>
 									</div>
 								</div>
 								
-								</div>								
-
+								</div>			
+								<div class="row">
+										<div class="col-lg-6 col-md-6 col-12">
+										<div class="form-group">
+											 <input type="text"
+												name="addr2" placeholder="" required="required" readonly="readonly">
+										</div>
+									</div>
+								</div>
+								<div class="row">
+										<div class="col-lg-6 col-md-6 col-12">
+										<div class="form-group">
+											 <input type="text"
+												name="addr3" placeholder="" required="required" readonly="readonly">
+										</div>
+									</div>
+								</div>
+								
+														
+								
 
 
 
@@ -503,7 +521,7 @@ IMP.request_pay({
 						<div class="single-widget get-button">
 							<div class="content">
 								<div class="button">
-									<input type="button" onclick="payresult();">
+									<input type="button" >
 
 								</div>
 							</div>

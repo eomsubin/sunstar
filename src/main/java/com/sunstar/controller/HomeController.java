@@ -56,7 +56,7 @@ public class HomeController {
 	@RequestMapping("/checkout")
 	public String body( Model model, HttpSession session)
 	{
-<<<<<<< HEAD
+
 		
 
 
@@ -64,13 +64,13 @@ public class HomeController {
 		model.addAttribute("checkoutpage", "checkout.jsp");       
 		
 		return "checkouthome";
-=======
-		model.addAttribute("contentpage", "main.jsp");
-		return "home";
->>>>>>> branch 'master' of https://github.com/eomsubin/sunstar.git
+
+		
+		
+
 	}
 	
-<<<<<<< HEAD
+
 	@RequestMapping("/payment")
 		public String payment() {
 			
@@ -84,8 +84,6 @@ public class HomeController {
 	
 	
 
-=======
->>>>>>> branch 'master' of https://github.com/eomsubin/sunstar.git
 	@GetMapping("/userlogin")
 	public void userlogin(HttpSession session, HttpServletRequest request, Model model) throws UnsupportedEncodingException
 	{	
