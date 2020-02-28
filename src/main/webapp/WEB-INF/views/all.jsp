@@ -7,6 +7,20 @@
 <title>Insert title here</title>
 </head>
 <body>
-all
-</body>
+모두 접속 가능.
+
+
+<br>
+<a href="all">all</a>
+<br>
+<a href="member">member</a>
+<br>
+<a href="manager">manager</a>
+<br>
+<a href="admin">admin</a>
+<br>
+<a href="${pageContext.request.contextPath}"><img alt="home" src="${pageContext.request.contextPath}/resources/img/logo.png"></a>
+ 
+<br>
+<a href="userlogout">로그아웃</a></body>
 </html>

@@ -12,10 +12,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <title>Insert title here</title>
- <!-- Favicon -->
-	<link rel="icon"  href="http://localhost:8080/controller/resources/images/favicon.png">
+ 
 	<!-- Web Font -->
-	<link href="https://fonts.googleapis.com/css?family=Poppins:200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap" rel="stylesheet">
+	
 	
 	<!-- StyleSheet -->
 	
@@ -23,12 +22,10 @@
 	<!-- <link rel="stylesheet" href="http://localhost:8080/controller/resources/css/bootstrap.css"> -->
 	<!-- Magnific Popup -->
     <link rel="stylesheet" href="http://localhost:8080/controller/resources/css/magnific-popup.min.css">
-	<!-- Font Awesome -->
-    <link rel="stylesheet" href="http://localhost:8080/controller/resources/css/font-awesome.css">
+
 	<!-- Fancybox -->
 	<link rel="stylesheet" href="http://localhost:8080/controller/resources/css/jquery.fancybox.min.css">
-	<!-- Themify Icons -->
-    <link rel="stylesheet" href="http://localhost:8080/controller/resources/css/themify-icons.css">
+
 	<!-- Nice Select CSS -->
     <link rel="stylesheet" href="http://localhost:8080/controller/resources/css/niceselect.css">
 	<!-- Animate CSS -->
@@ -42,7 +39,7 @@
 	
 	<!-- Eshop StyleSheet -->
 	  <link rel="stylesheet" href="http://localhost:8080/controller/resources/css/body.css">
-<!-- 	 <link rel="stylesheet" href="http://localhost:8080/controller/resources/css/reset.css"> -->
+	 <link rel="stylesheet" href="http://localhost:8080/controller/resources/css/reset.css"> 
 <!-- 	<link rel="stylesheet" href="http://localhost:8080/controller/resources/css/style.css"> -->
   <link rel="stylesheet" href="http://localhost:8080/controller/resources/css/responsive.css"> 
  
@@ -77,12 +74,12 @@
 	
 	
 	<!-- Start Product Area -->
-    <div class="product-area section">
-            <div class="container">
+    <div class="product-area section" >
+            <div class="container" >
 				<div class="row">
 					<div class="col-12">
 						<div class="section-title">
-							<h2>Trending Item</h2>
+							<h2>SBBJ BEST</h2>
 						</div>
 					</div>
 				</div>
@@ -92,12 +89,12 @@
 							<div class="nav-main">
 								<!-- Tab Nav -->
 								<ul class="nav nav-tabs" id="myTab" role="tablist">
-									<li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#man" role="tab">Man</a></li>
-									<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#women" role="tab">Woman</a></li>
-									<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#kids" role="tab">Kids</a></li>
-									<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#accessories" role="tab">Accessories</a></li>
-									<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#essential" role="tab">Essential</a></li>
-									<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#prices" role="tab">Prices</a></li>
+									<li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#man" role="tab">패션</a></li>
+									<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#women" role="tab">디지털/가전</a></li>
+									<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#kids" role="tab">가구/인테리어</a></li>
+									<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#accessories" role="tab">식품</a></li>
+									<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#essential" role="tab">반려동물</a></li>
+								
 								</ul>
 								<!--/ End Tab Nav -->
 							</div>
@@ -1469,7 +1466,7 @@
             <div class="row">
 				<div class="col-12">
 					<div class="section-title">
-						<h2>Hot Item</h2>
+						<h2>최신 상품</h2>
 					</div>
 				</div>
             </div>
@@ -2049,16 +2046,14 @@
             </div>
     </div>
     <!-- Modal end -->
-	<!-- Jquery -->
-   <!--  <script src="http://localhost:8080/controller/resources/js/jquery.min.js"></script>
-    <script src="http://localhost:8080/controller/resources/js/jquery-migrate-3.0.0.js"></script>
-	<script src="http://localhost:8080/controller/resources/js/jquery-ui.min.js"></script>
-	Popper JS
-	<script src="http://localhost:8080/controller/resources/js/popper.min.js"></script>
-	Bootstrap JS
-	<script src="http://localhost:8080/controller/resources/js/bootstrap.min.js"></script> -->
-	<!-- Color JS -->
-	<script src="http://localhost:8080/controller/resources/js/colors.js"></script>
+	  <!--  <script src="http://localhost:8080/controller/resources/js/jquery.min.js"></script> -->
+     <script src="http://localhost:8080/controller/resources/js/jquery-migrate-3.0.0.js"></script> 
+	<script src="http://localhost:8080/controller/resources/js/jquery-ui.min.js"></script> 
+
+<!-- 	<script src="http://localhost:8080/controller/resources/js/popper.min.js"></script> -->
+	
+	<!-- <script src="http://localhost:8080/controller/resources/js/bootstrap.min.js"></script> --> 
+	
 	<!-- Slicknav JS -->
 	<script src="http://localhost:8080/controller/resources/js/slicknav.min.js"></script>
 	<!-- Owl Carousel JS -->
@@ -2066,11 +2061,11 @@
 	<!-- Magnific Popup JS -->
 	<script src="http://localhost:8080/controller/resources/js/magnific-popup.js"></script>
 	<!-- Waypoints JS -->
-	<script src="http://localhost:8080/controller/resources/js/waypoints.min.js"></script>
+	<!-- <script src="http://localhost:8080/controller/resources/js/waypoints.min.js"></script> -->
 	<!-- Countdown JS -->
 	<script src="http://localhost:8080/controller/resources/js/finalcountdown.min.js"></script>
 	<!-- Nice Select JS -->
-	<script src="http://localhost:8080/controller/resources/js/nicesellect.js"></script>
+<!-- 	<script src="http://localhost:8080/controller/resources/js/nicesellect.js"></script> -->
 	<!-- Flex Slider JS -->
 	<script src="http://localhost:8080/controller/resources/js/flex-slider.js"></script>
 	<!-- ScrollUp JS -->
@@ -2081,7 +2076,8 @@
 	<script src="http://localhost:8080/controller/resources/js/easing.js"></script>
 	<!-- Active JS -->
 	<script src="http://localhost:8080/controller/resources/js/active.js"></script>
-
+	
+   
 	
 </body>
 </html>
