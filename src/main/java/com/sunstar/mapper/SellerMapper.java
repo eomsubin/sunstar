@@ -22,4 +22,13 @@ public interface SellerMapper {
 	void addOptions(OptionDTO dto);
 
 	List<ProductDTO> list();
+
+	void deleteProductOptions(int pcode);
+	void deleteProduct(int pcode);
+
+	List<String> getOptionColor(int pcode);
+	void updateInventory(OptionDTO dto);
+
+
+
 }

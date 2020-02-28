@@ -7,6 +7,7 @@
 <title>Insert title here</title>
 <link rel="stylesheet" href="http://localhost:8080/controller/resources/css/footer.css">
 
+
 </head>
 <body>
 	     <div id="wrap">
