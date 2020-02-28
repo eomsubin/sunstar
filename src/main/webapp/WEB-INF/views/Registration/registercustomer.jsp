@@ -12,7 +12,7 @@
     background-color: #fbab60;
 }
 
-input[type="submit"] {
+.regbtn{
 	color : white;
     border-color: #fbab60 !important;
     background: #fbab60 !important;
@@ -85,16 +85,31 @@ input[type="submit"] {
 				console.log("false");
 			}
 		});
+		console.log($('input[type="checkbox"]'));
+		console.log($('input[type="checkbox"]').filter(".required"));
+		$('button').click(function(){
+			event.preventDefault();
+			if($('input[type="checkbox"]').filter(".required").prop('checked') && $('.required1').prop('checked') && $('.required2').prop('checked')){
+				
+				$('form').submit();
+			}else{
+				alert("쓰삐제 회원가입을 위해 필수 동의항목 모두 동의해주시기 바랍니다.");
+			}
+		})
 	});
 </script>
 </head>
 <body>
-<div class="mx-auto mb-5 row align-items-center " style="width: 600px; height: 808px;">
-		<div class="col">
+<div class="mx-auto mt-5 row align-items-bottom" style="width: 600px; height: 138px;">
+<div class="col">
 		<h1 class="regh1">구매 회원가입</h1><span class="regspan now">1 약관동의</span><span class="regspan">2 정보입력</span><span class="regspan">3 가입완료</span>
-		
-		<p class="txx_info">스삐제 구매회원/전자금융서비스 이용약관과 개인정보 수집 및 이용에 동의를 하셔야 회원가입이 가능합니다.</p>
+		<p class="txt_info">스삐제 구매회원/전자금융서비스 이용약관과 개인정보 수집 및 이용에 동의를 하셔야 회원가입이 가능합니다.</p>
+		</div>
+		</div>
+		<div class="mx-auto row align-items-top" style="width: 600px; height: 670px;">
+		<div class="col">
 		<form method="post" action="${pageContext.request.contextPath}/registercustomer/info">
+	
 				<div class="reg_formbox">
 				<div class="custom-control custom-checkbox">
 				<div class="custom-control custom-checkbox">
@@ -104,18 +119,17 @@ input[type="submit"] {
 				<hr>
 				<p class="txt_required">필수 동의항목</p>
 				<div class="custom-control custom-checkbox">
-				<input type="checkbox" class="custom-control-input" id="Checkagree1" name="Checkagree1">
+				<input type="checkbox" class="custom-control-input required" id="Checkagree1" name="Checkagree1">
   				<label class="custom-control-label" for="Checkagree1">쓰삐제 구매회원 이용약관</label>
   				</div>
 				<div class="custom-control custom-checkbox">
-				<input type="checkbox" class="custom-control-input" id="Checkagree2" name="Checkagree2">
+				<input type="checkbox" class="custom-control-input required1" id="Checkagree2" name="Checkagree2">
   				<label class="custom-control-label" for="Checkagree2">전자금융서비스 이용약관</label>
   				</div>
   				<div class="custom-control custom-checkbox">
-  				<input type="checkbox" class="custom-control-input" id="Checkagree3" name="Checkagree3">
+  				<input type="checkbox" class="custom-control-input required2" id="Checkagree3" name="Checkagree3">
   				<label class="custom-control-label" for="Checkagree3">개인정보 수집 및 이용</label>
 				</div>
-				
 				
 				<br>
 				<p class="txt_required">선택 동의항목</p>
@@ -138,7 +152,7 @@ input[type="submit"] {
 				</div>
 				<p class="reg_txt">＊선택 동의항목에 동의하지 않으셔도 상품검색 등의 일반적인 서비스는 이용하실 수 있습니다.
 				<br>＊가입은 14세 이상 고객만 가능합니다.</p>
-				<input class="btn btn-secondary regbtn" type="submit" value="동의하고 회원가입">
+				<button class="btn btn-secondary regbtn">동의하고 회원가입</button>
 				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 		</form>
 		</div>

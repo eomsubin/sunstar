@@ -13,8 +13,9 @@ public class UserController {
 		return "Registration/register";
 	}
 	
-	@RequestMapping("/registercustomer")
-	public String registercustomer() {
-		return "registercustomer";
+	@RequestMapping("/registercustomer/info")
+	public String registercustomer(Model model) {
+		model.addAttribute("contentpage", "registercustomerform.jsp");
+		return "Registration/register";
 	}
 }
