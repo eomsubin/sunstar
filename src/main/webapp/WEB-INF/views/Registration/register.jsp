@@ -20,31 +20,22 @@
 	<!-- Themify Icons -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/themify-icons.css">
 
-
-
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <title>SBBJ</title>
 </head>
 <body>
 	<div class="wrapper">
 	<header>
-		<jsp:include page="header2.jsp" />
+		<jsp:include page="Regheader.jsp" />
 	</header>
 	<section>
 		<jsp:include page="${contentpage}" />
 	</section>
 	<footer>
-		<jsp:include page="footer2.jsp" />
+		<jsp:include page="../footer2.jsp" />
 	</footer>
 	</div>
-	
- 
-	
-	
 	<!-- Popper.js first, then Bootstrap JS -->
-	
-	
-	
  	 <script
 		src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
 		integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"

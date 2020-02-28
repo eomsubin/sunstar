@@ -55,7 +55,30 @@ public class SellerServiceImpl implements SellerService {
 		// TODO Auto-generated method stub
 		return mapper.list();
 	}
+
+	@Override
+	public void deleteProduct(int pcode) {
+		//옵션즈 테이블에서 먼저 삭제
+		mapper.deleteProductOptions(pcode);
+		
+		//상품리스트 테이블에서 삭제
+		mapper.deleteProduct(pcode);
+		
+	}
+	@Override
+	public List<String> getOptioncolor(int pcode) {
+		List<String> list = mapper.getOptionColor(pcode);
+		
+
+		return list;
+	}
 	
+	@Override
+	public void updateinventory(OptionDTO dto) {
+		mapper.updateInventory(dto);
+	}
+
+
 	
 	
 	

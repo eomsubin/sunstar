@@ -19,7 +19,7 @@
 <br>
 <a href="admin">admin</a>
 <br>
-<a href="http://localhost:8080/controller/"><img alt="home" src="http://localhost:8080/controller/resources/img/logo.png"></a>
+<a href="${pageContext.request.contextPath}"><img alt="home" src="${pageContext.request.contextPath}/resources/img/logo.png"></a>
  
 <br>
 <a href="userlogout">로그아웃</a>
