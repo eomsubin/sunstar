@@ -133,6 +133,38 @@ public class HomeController {
   	        res.append(inputLine);
   	      }
   	      	NuserinfoDTO userinfo = new ObjectMapper().readValue(res.toString(), NuserinfoDTO.class);
+  	      	System.out.println(userinfo);
+  	      	/*String error="";
+  	      	if(!userinfo.getResponse().containsKey("name")) {
+  	      		error="이름";
+  	      	}else if(!userinfo.getResponse().containsKey("email"))
+  	      	{
+  	      		error="이메일";	
+  	      	}else if(!userinfo.getResponse().containsKey("nickname"))
+  	      	{
+  	      		error="별명";
+  	      	}else if(!userinfo.getResponse().containsKey("profile_image"))
+  	      	{
+  	      		error="프로필사진";
+  	      	}else if(!userinfo.getResponse().containsKey("gender"))
+  	      	{
+  	      		error="성별";
+  	      	}else if(!userinfo.getResponse().containsKey("birthday"))
+  	      	{
+  	      		error="생일";
+  	      	}else if(!userinfo.getResponse().containsKey("age"))
+  	      	{
+  	      		error="연령대";
+  	      	}
+  	      	if(!(error.equals(""))) {
+  	      		apiURL = "https://nid.naver.com/oauth2.0/authorize?response_type=code";
+  	      		apiURL += "&client_id=" + clientId;
+  	      		apiURL += "&state=" + state;
+  	      		apiURL += "&redirect_uri=" + redirectURI;
+  	      		apiURL += "&auth_type=reprompt";
+  	      		System.out.println(apiURL);
+  	      		return "redirect:"+apiURL;
+  	      	}*/
   	      session.setAttribute("user", user);
   	      session.setAttribute("userinfo", userinfo);
 	      }
@@ -178,7 +210,7 @@ public class HomeController {
 	      }
 		 }catch(Exception e) {
 			 System.out.println(e);
-		}*/
+		}
 		session.removeAttribute("user");
 		session.removeAttribute("userinfo");
 		/*session.invalidate();*/
