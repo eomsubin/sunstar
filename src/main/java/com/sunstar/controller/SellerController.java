@@ -74,12 +74,14 @@ public class SellerController {
 		return "sellers/temp";
 	}
 	
+	//상품 추가 결과
 	@RequestMapping("/addproductresult")
 	public String addproductresult(ProductDTO dto) {
 		sellerservice.addProduct(dto);
 		return "redirect:/productlist";
 	}
 	
+	//상품 삭제
 	@RequestMapping("/deleteproduct/{pcode}")
 	public String deleteproduct(@PathVariable int pcode ) {
 		
@@ -87,8 +89,10 @@ public class SellerController {
 		return "redirect:/productlist";
 	}
 	
+	
 	private List<Integer> plist = new ArrayList<>();
 
+	//상품 수정  //일괄 업데이트 테스트하다가 일시중지
 	@RequestMapping("/updateinventory/{pcode}/{gesu}")
 	public String updateinventory(@PathVariable int pcode, @PathVariable int gesu){
 
@@ -153,4 +157,54 @@ public class SellerController {
 
 		return "redirect:/productlist";
 	}
+	
+	
+	//주문 목록
+	@RequestMapping("/orders")
+	public String orders(Model model) {
+
+		model.addAttribute("sellerpage", "orders.jsp");
+		return "sellers/temp";
+	}
+	
+	//통계 연결
+	@RequestMapping("/charts")
+	public String charts(Model model) {
+		
+		model.addAttribute("sellerpage", "charts.jsp");
+		return "sellers/temp";
+	}
+
+	//정산 신청
+	@RequestMapping("/requestaccounting")
+	public String requestaccounting(Model model) {
+	       
+	model.addAttribute("sellerpage", "requestaccounting.jsp");
+	return "sellers/temp";
+	}
+	
+	//정산 리스트
+	@RequestMapping("/accounting")
+	public String accounting(Model model) {
+		       
+		model.addAttribute("sellerpage", "accounting.jsp");
+		return "sellers/temp";
+	}
+	
+	//판매자 정보
+	@RequestMapping("/sellerinfo")
+	public String sellerinfo(Model model) {
+		
+		model.addAttribute("sellerpage", "seller_info.jsp");
+		return "sellers/temp";
+	}
+	
+	//판매자 설정
+	@RequestMapping("/sellersetting")
+	public String sellersetting(Model model) {
+		
+		model.addAttribute("sellerpage", "seller_setting.jsp");
+		return "sellers/temp";
+	}
+	
 }

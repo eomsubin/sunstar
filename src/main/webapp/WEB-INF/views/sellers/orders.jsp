@@ -93,33 +93,32 @@ body {
 <body>
 	<div class="container-fluid">
 		<!-- Page Heading -->
-		<h1 class="h3 mb-2 text-gray-800">상품 목록</h1>
+		<h1 class="h3 mb-2 text-gray-800">주문 목록</h1>
 		<p class="mb-4">
-			상품을 일괄 변경 및 삭제 할 수 있습니다.
+			주문 요청을 확인 할 수 있습니다.
 			<a target="_blank" href="https://datatables.net">자세한 안내는 이 곳을 클릭</a>.
 		</p>
 
 		<!-- DataTales Example -->
 		<div class="card shadow mb-4">
 			<div class="card-header py-3">
-				<h6 class="m-0 font-weight-bold text-primary">DataTables
-					Example</h6>
+				<h6 class="m-0 font-weight-bold text-primary">주문 리스트</h6>
 			</div>
 			<div class="card-body">
 				<div class="table-responsive">
 					<form>
 						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 					<!-- 	<button type="button" id="btnaddinventory" class="btn btn-primary">선택 재고 추가</button> -->
-						<button type="button" id="btns" class="btn btn-secondary">상품 공개/비공개 변경</button>
-						<button type="button" id="btns" class="btn btn-secondary">상품 리뷰 공개/비공개 변경</button>
-						<button type="button" id="btnupdate"class="btn btn-success">선택 수정</button>
-						<button type="button"  class="btn btn-danger">선택 삭제</button>
+						<!-- 특정 '배송상태'만 프린트 / 선택  프린트 / 선택 단계 변경  / -->
+						<button type="button" id="check_print" class="btn btn-secondary">선택 출력</button>
+						<button type="button" id="shipping_print" class="btn btn-success">배송대기 출력</button>
+						<button type="button"  class="btn btn-danger">임시</button>
 						<!-- id="btndelete" -->
 						
 						
 						<!-- update inventory Button trigger modal -->
-						<button type="button" id="btnupdateinventorymodal" class="btn btn-primary">
-						  재고 추가 모달 테스트
+						<button type="button" id="change_state_modal" class="btn btn-primary">
+						선택 단계 변경
 						</button>
 						
 						
@@ -193,18 +192,25 @@ body {
 							<thead>
 								<tr>
 									<th style="width:50px"><input type="checkbox" id="all"></th>
-									<th>상품코드</th>
-									<th>상품이름</th>
-									<th>가격</th>
-									<th>원가</th>
-									<th>배송비</th>
-									<th style="border-left: 2px solid silver">컬러</th>
+									<th style="border-left: 2px solid silver; border-right: 2px solid silver;">주문 상태</th>		
+									<th>주문번호</th>
+									<th>상품 코드</th>
+									<th>옵션</th>
+									<th>수량</th>
+									<th>금액</th>
+									<th>결제방법</th>	
+									<th>구매자 이름</th>
+									<th>연락처</th>
+									<th>배송지</th>
+									<th>우편번호</th>
+									
+								<!-- 	<th style="border-left: 2px solid silver">컬러</th>
 									<th>사이즈</th>
 									<th>재고</th>
 									<th style="border-right: 2px solid silver;">추가 가격</th>
 									<th>카테고리</th>
 									<th>공개여부</th>
-									<th>리뷰공개여부</th>
+									<th>리뷰공개여부</th> -->
 								</tr>
 							</thead>
 							
