@@ -6,18 +6,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.sunstar.dto.NoticeDTO;
-import com.sunstar.mapper.CustomerMapper;
+import com.sunstar.mapper.CSMapper;
 
 @Service
 public class NoticeServiceImpl implements NoticeService {
 
 	@Autowired
-	private CustomerMapper mapper;
+	private CSMapper csmapper;
 	
 	@Override
-	public List<NoticeDTO> list() {
+	public List<NoticeDTO> noticelist() {
 		// TODO Auto-generated method stub
-		return null;
+		return csmapper.noticeList();
 	}
 
 }

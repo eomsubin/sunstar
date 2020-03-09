@@ -1,26 +1,18 @@
 package com.sunstar.controller;
 
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
-import com.sunstar.dto.CategoryDTO;
-import com.sunstar.dto.OptionDTO;
-import com.sunstar.dto.ProductDTO;
+import com.sunstar.dto.NoticeDTO;
 import com.sunstar.service.NoticeService;
-import com.sunstar.service.SellerService;
 
 @Controller
-public class CustomerController {
+public class CSController {
 
 	@Autowired
 	private NoticeService noticeservice;
@@ -28,13 +20,15 @@ public class CustomerController {
 	@RequestMapping("/customer")
 	public String customer()
 	{
-		return "customer/customer";
+		return "CS/customer";
 	}
 	
 	@RequestMapping("/notice")
-	public String notice()
+	public String noticeList(Model model)
 	{
-		return "customer/notice";
+		List<NoticeDTO> noticeList=noticeservice.noticelist();
+		model.addAttribute("noticeList", noticeList);
+		return "CS/notice";
 	}
 
 }

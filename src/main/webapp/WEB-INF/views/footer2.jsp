@@ -5,7 +5,8 @@
 <head>
 <meta  charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="http://localhost:8080/controller/resources/css/footer.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/footer.css">
+
 
 </head>
 <body>
@@ -55,7 +56,7 @@
             <div class="add_info m-2">
               <div class="row">
                 <div class="col-1">
-                  <img src="http://localhost:8080/controller/resources/img/logo.png" style="width: 100px; height: 70px; align-items: center" />
+                  <img src="${pageContext.request.contextPath}/resources/img/logo.png" style="width: 100px; height: 70px; align-items: center" />
                 </div>
                 <div class="add_company col-5">
                   <dl>
