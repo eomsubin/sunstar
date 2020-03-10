@@ -1,7 +1,6 @@
 package com.sunstar.controller;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
@@ -9,24 +8,28 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.security.SecureRandom;
-import java.text.DateFormat;
-import java.util.Date;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.servlet.jsp.PageContext;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sunstar.dto.CartDTO;
+import com.sunstar.dto.CustomerDTO;
 import com.sunstar.dto.NuserDTO;
 import com.sunstar.dto.NuserinfoDTO;
+import com.sunstar.dto.ProductDTO;
+import com.sunstar.service.CartService;
+import com.sunstar.service.ProductService;
 
 
 /**
@@ -35,6 +38,12 @@ import com.sunstar.dto.NuserinfoDTO;
 @Controller
 public class HomeController {
 
+	@Autowired
+	private ProductService productservice;
+	
+	@Autowired
+	private CartService cartservice;
+	
 	@RequestMapping("/header")
 	public String header()
 	{
@@ -59,6 +68,39 @@ public class HomeController {
 		model.addAttribute("contentpage", "main.jsp");
 		return "home";
 	}
+	
+	//상품 상세보기
+	@RequestMapping(value = "/detailview", method = RequestMethod.GET)
+	public String detailview(@RequestParam(defaultValue="") String product_code, Model model) {
+		if(product_code.equals(""))
+		{
+			System.out.println("값이 없습니다.");
+			return "redirect:http://localhost:8080/controller/";
+		}else {
+		
+		int product_code1=Integer.parseInt(product_code);
+		ProductDTO view = productservice.productview(product_code1);
+		model.addAttribute("view", view);
+		model.addAttribute("contentpage", "shop/detailview.jsp");
+		//System.out.println(view);
+		}
+		return "home";
+	}
+	
+	
+	//카드 담기
+	@ResponseBody
+	@RequestMapping(value="/addcart", method=RequestMethod.POST)
+	public String addCart(Model model, CartDTO cart, HttpSession session) throws Exception{
+		model.addAttribute("contentpage", "shop/addcart.jsp");
+		CustomerDTO customer=(CustomerDTO)session.getAttribute("customer");
+		cart.setId(customer.getId());
+		
+		cartservice.addCart(cart);
+		System.out.println(cart);
+		return "home";
+	}
+	
 	
 	@GetMapping("/userlogin")
 	public void userlogin(HttpSession session, HttpServletRequest request, Model model) throws UnsupportedEncodingException
@@ -133,38 +175,6 @@ public class HomeController {
   	        res.append(inputLine);
   	      }
   	      	NuserinfoDTO userinfo = new ObjectMapper().readValue(res.toString(), NuserinfoDTO.class);
-  	      	System.out.println(userinfo);
-  	      	/*String error="";
-  	      	if(!userinfo.getResponse().containsKey("name")) {
-  	      		error="이름";
-  	      	}else if(!userinfo.getResponse().containsKey("email"))
-  	      	{
-  	      		error="이메일";	
-  	      	}else if(!userinfo.getResponse().containsKey("nickname"))
-  	      	{
-  	      		error="별명";
-  	      	}else if(!userinfo.getResponse().containsKey("profile_image"))
-  	      	{
-  	      		error="프로필사진";
-  	      	}else if(!userinfo.getResponse().containsKey("gender"))
-  	      	{
-  	      		error="성별";
-  	      	}else if(!userinfo.getResponse().containsKey("birthday"))
-  	      	{
-  	      		error="생일";
-  	      	}else if(!userinfo.getResponse().containsKey("age"))
-  	      	{
-  	      		error="연령대";
-  	      	}
-  	      	if(!(error.equals(""))) {
-  	      		apiURL = "https://nid.naver.com/oauth2.0/authorize?response_type=code";
-  	      		apiURL += "&client_id=" + clientId;
-  	      		apiURL += "&state=" + state;
-  	      		apiURL += "&redirect_uri=" + redirectURI;
-  	      		apiURL += "&auth_type=reprompt";
-  	      		System.out.println(apiURL);
-  	      		return "redirect:"+apiURL;
-  	      	}*/
   	      session.setAttribute("user", user);
   	      session.setAttribute("userinfo", userinfo);
 	      }
@@ -210,7 +220,7 @@ public class HomeController {
 	      }
 		 }catch(Exception e) {
 			 System.out.println(e);
-		}
+		}*/
 		session.removeAttribute("user");
 		session.removeAttribute("userinfo");
 		/*session.invalidate();*/
