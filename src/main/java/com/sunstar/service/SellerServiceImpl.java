@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.sunstar.dto.CategoryDTO;
 import com.sunstar.dto.OptionDTO;
+import com.sunstar.dto.OrderDTO;
 import com.sunstar.dto.ProductDTO;
 import com.sunstar.mapper.SellerMapper;
 
@@ -78,7 +79,25 @@ public class SellerServiceImpl implements SellerService {
 		mapper.updateInventory(dto);
 	}
 
+	@Override
+	public List<OrderDTO> orderlist() {
+		return mapper.orderlist();
+	}
+	
+	@Override
+	public List<OrderDTO> shippinglist() {
+		return mapper.shippinglist();
+	}
 
+	@Override
+	public OrderDTO theOrderlist(String order_code) {
+		return mapper.theOrderlist(order_code);
+	}
+	
+	
+
+
+	
 	
 	
 	
