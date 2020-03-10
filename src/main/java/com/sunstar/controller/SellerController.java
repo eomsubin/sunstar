@@ -1,7 +1,9 @@
 package com.sunstar.controller;
 
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -205,7 +207,7 @@ public class SellerController {
 			
 		//선택한 값 출력
 		}else {
-			for(String order_code : data) {	
+			for(String order_code : data) {	     
 				System.out.print("order_code : ");
 				System.out.println(order_code);
 				orderlist.add(sellerservice.theOrderlist(order_code));
@@ -321,6 +323,8 @@ public class SellerController {
 			cell.setCellStyle(bodyStyle);
 			cell.setCellValue(dto.getTel());
 
+			
+			
 			cell = row.createCell(9);
 			cell.setCellStyle(bodyStyle);
 			cell.setCellValue(dto.getShipping_addr1()+" "+dto.getShipping_addr2()+" "+dto.getShipping_addr3());
@@ -335,7 +339,19 @@ public class SellerController {
 		// 컨텐츠 타입과 파일명 지정
 
 		response.setContentType("ms-vnd/excel");
-		response.setHeader("Content-Disposition", "attachment;filename=test.xls");
+		int a = 2;
+		String b = Integer.toString(a);
+		
+		
+		SimpleDateFormat frm = new SimpleDateFormat("yyyyMMddHHmmss");
+		
+		Date date = new Date();
+		
+		String time1 = frm.format(date);
+		
+		String filename = "attachment;filename="+time1+".xls";
+		
+		response.setHeader("Content-Disposition", filename );
 
 		// 엑셀 출력
 		wb.write(response.getOutputStream());
