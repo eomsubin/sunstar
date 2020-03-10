@@ -26,6 +26,7 @@
 <title>SBBJ</title>
 </head>
 <body>
+
 	<div class="wrapper">
 	<header>
 		<jsp:include page="header2.jsp" />

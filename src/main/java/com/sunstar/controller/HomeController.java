@@ -8,12 +8,24 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.security.SecureRandom;
-import java.util.Locale;
 
+import java.text.DateFormat;
+import java.util.Date;
+import java.util.List;
+
+
+
+
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.servlet.jsp.PageContext;
 
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -45,24 +57,27 @@ public class HomeController {
 	private CartService cartservice;
 	
 	@RequestMapping("/header")
-	public String header()
-	{
-		return "header";
+	public String header(Model model) {
+		List<CategoryDTO> clist= mainservice.getCategory();
+	
+		
+		List<CategoryDTO> clist2= mainservice.getCategory2();
+		model.addAttribute("catelist",clist);
+		model.addAttribute("catelist2",clist2);	
+		
+		return "header2";
+		
 	}
-
-	@RequestMapping("/footer")
-	public String footer()
-	{
-		return "footer";
-	}
-
+	
+	
 	@RequestMapping("/")
 	public String body(Locale locale, Model model, HttpSession session)
 	{		        
 		model.addAttribute("contentpage", "body.jsp");
 		return "home";
 	}
-	@RequestMapping("/main")
+	
+	@RequestMapping("/checkout")
 	public String body( Model model, HttpSession session)
 	{
 		model.addAttribute("contentpage", "main.jsp");
@@ -78,6 +93,12 @@ public class HomeController {
 			return "redirect:http://localhost:8080/controller/";
 		}else {
 		
+	
+		header(model);
+		
+		model.addAttribute("contentpage", "checkout.jsp");       
+	
+		return "home";
 		int product_code1=Integer.parseInt(product_code);
 		ProductDTO view = productservice.productview(product_code1);
 		model.addAttribute("view", view);
@@ -175,6 +196,38 @@ public class HomeController {
   	        res.append(inputLine);
   	      }
   	      	NuserinfoDTO userinfo = new ObjectMapper().readValue(res.toString(), NuserinfoDTO.class);
+  	      	System.out.println(userinfo);
+  	      	/*String error="";
+  	      	if(!userinfo.getResponse().containsKey("name")) {
+  	      		error="이름";
+  	      	}else if(!userinfo.getResponse().containsKey("email"))
+  	      	{
+  	      		error="이메일";	
+  	      	}else if(!userinfo.getResponse().containsKey("nickname"))
+  	      	{
+  	      		error="별명";
+  	      	}else if(!userinfo.getResponse().containsKey("profile_image"))
+  	      	{
+  	      		error="프로필사진";
+  	      	}else if(!userinfo.getResponse().containsKey("gender"))
+  	      	{
+  	      		error="성별";
+  	      	}else if(!userinfo.getResponse().containsKey("birthday"))
+  	      	{
+  	      		error="생일";
+  	      	}else if(!userinfo.getResponse().containsKey("age"))
+  	      	{
+  	      		error="연령대";
+  	      	}
+  	      	if(!(error.equals(""))) {
+  	      		apiURL = "https://nid.naver.com/oauth2.0/authorize?response_type=code";
+  	      		apiURL += "&client_id=" + clientId;
+  	      		apiURL += "&state=" + state;
+  	      		apiURL += "&redirect_uri=" + redirectURI;
+  	      		apiURL += "&auth_type=reprompt";
+  	      		System.out.println(apiURL);
+  	      		return "redirect:"+apiURL;
+  	      	}*/
   	      session.setAttribute("user", user);
   	      session.setAttribute("userinfo", userinfo);
 	      }
@@ -185,11 +238,12 @@ public class HomeController {
 	}
 	
 	
-	@GetMapping("/userlogout")
-	public void userlogout(HttpSession session) 
+@GetMapping("/userlogout") 
+	public void userlogout(HttpSession session) throws NullPointerException 
 	{
-		/*//접근 토큰 삭제 요청, 연동 취소
 		NuserDTO user = (NuserDTO)session.getAttribute("user");
+		if(user!=null) //접근 토큰 삭제 요청, 연동 취소
+		{
 		 String apiURL;
 		 apiURL = "https://nid.naver.com/oauth2.0/token?grant_type=delete&";
 		 apiURL += "client_id=XMKUF7HdU8r3IIu3tMzr";
@@ -220,9 +274,10 @@ public class HomeController {
 	      }
 		 }catch(Exception e) {
 			 System.out.println(e);
-		}*/
+		}
 		session.removeAttribute("user");
 		session.removeAttribute("userinfo");
+		}
 		/*session.invalidate();*/
 	}
 	

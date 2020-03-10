@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.sunstar.dto.CategoryDTO;
 import com.sunstar.dto.OptionDTO;
+import com.sunstar.dto.OrderDTO;
 import com.sunstar.dto.ProductDTO;
 
 public interface SellerService {
@@ -21,6 +22,12 @@ public interface SellerService {
 	List<String> getOptioncolor(int pcode);
 	
 	void updateinventory(OptionDTO dto);
+
+	List<OrderDTO> orderlist();
+
+	List<OrderDTO> shippinglist();
+
+	OrderDTO theOrderlist(String order_code);
 
 
 }
