@@ -162,6 +162,8 @@
 									<div class="search-bar-top">
 						<form name="searchform" method="post"
 									action="${pageContext.request.contextPath}/search">
+									<input type="hidden" name="${_csrf.parameterName}"
+										value="${_csrf.token}" /> 
 									
 							<div class="search-bar">
 
@@ -178,9 +180,6 @@
                           		 </c:forEach>
 								</select>
 
-								
-									<input type="hidden" name="${_csrf.parameterName}"
-										value="${_csrf.token}" /> 
 										<input name="word"
 										placeholder="여기에 상품을 입력하세요....." type="search" style="position:relative; right:28px;">
 

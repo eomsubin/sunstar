@@ -113,7 +113,7 @@ public class HomeController {
 		public String payment() {
 			return "payment";
 	  }
-		
+
 
 	@GetMapping("/userlogin")
 	public void userlogin(HttpSession session, HttpServletRequest request, Model model) throws UnsupportedEncodingException
