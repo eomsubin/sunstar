@@ -33,7 +33,6 @@ public class AuthServiceTest {
 	{
 		
 		CustomerDTO dto = new CustomerDTO(); 
-		
 		dto.setId("jinwoo");
 		dto.setPassword("123");
 		dto.setName("jinwoo");

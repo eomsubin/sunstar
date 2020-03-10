@@ -21,7 +21,6 @@ public class AuthService implements UserDetailsService{
 			CustomerDTO dto = dao.getUserById(userid);
 			if(dto==null)
 				throw new UsernameNotFoundException(userid);
-		return new CustomerUserDetail(dto);
+			return new CustomerUserDetail(dto);
 	}
-
 }
