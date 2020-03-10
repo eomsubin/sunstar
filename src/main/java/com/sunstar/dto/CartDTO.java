@@ -2,6 +2,9 @@ package com.sunstar.dto;
 
 import lombok.Setter;
 import lombok.ToString;
+
+import java.awt.Image;
+
 import lombok.Getter;
 
 @Getter @Setter @ToString
@@ -19,4 +22,18 @@ public class CartDTO {
 	private String id;
 	private int product_code;
 	private String cart_quantity;
+	
+	private String product_name;
+	private int price;
+	private int cost;
+	private int shipping_cost;
+	private String thumb_img;
+	private String add_date;
+	private String category_code;
+	private String seller_code;
+	
+	private String size;
+	private String color;
+	private int add_price;
+	
 }

@@ -118,14 +118,14 @@ public class HomeController {
    
    //카드 담기
    @ResponseBody
-   @RequestMapping(value="/addcart", method=RequestMethod.POST)
+   @RequestMapping(value="/view/shop/addCart", method=RequestMethod.POST)
    public String addCart(Model model, CartDTO cart, HttpSession session) throws Exception{
       model.addAttribute("contentpage", "shop/addcart.jsp");
       CustomerDTO customer=(CustomerDTO)session.getAttribute("customer");
       cart.setId(customer.getId());
       
       cartservice.addCart(cart);
-      System.out.println(cart);
+      
       return "home";
    }
 	
