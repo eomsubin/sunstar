@@ -29,6 +29,16 @@ public class UserServiceimple implements UserService{
 		return dao.join_Customer_auth(dto);
 	}
 
+	@Override
+	public int customeridcheck(String id) {
+		return dao.customeridcheck(id);
+	}
+
+	@Override
+	public int customeremailcheck(String email) {
+		return dao.customeremailcheck(email);
+	}
+
 
 
 	

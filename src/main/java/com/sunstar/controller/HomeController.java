@@ -8,13 +8,23 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.security.SecureRandom;
+
+import java.text.DateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import javax.servlet.jsp.PageContext;
+
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -78,39 +88,38 @@ public class HomeController {
 		return "home";
 	}
 	
-	   //상품 상세보기
-	   @RequestMapping(value = "/detailview", method = RequestMethod.GET)
-	   public String detailview(@RequestParam(defaultValue="") String product_code, Model model) {
-	      if(product_code.equals(""))
-	      {
-	         System.out.println("값이 없습니다.");
-	         return "redirect:http://localhost:8080/controller/";
-	      }else {
-	      
-	      int product_code1=Integer.parseInt(product_code);
-	      ProductDTO view = productservice.productview(product_code1);
-	      model.addAttribute("view", view);
-	      model.addAttribute("contentpage", "shop/detailview.jsp");
-	      //System.out.println(view);
-	      }
-	      return "home";
-	   }
+   //상품 상세보기
+      @RequestMapping(value = "/detailview", method = RequestMethod.GET)
+      public String detailview(@RequestParam(defaultValue="") String product_code, Model model) {
+         if(product_code.equals(""))
+         {
+            System.out.println("값이 없습니다.");
+            return "redirect:http://localhost:8080/controller/";
+         }else {
+         
+         int product_code1=Integer.parseInt(product_code);
+         ProductDTO view = productservice.productview(product_code1);
+         model.addAttribute("view", view);
+         model.addAttribute("contentpage", "shop/detailview.jsp");
+         //System.out.println(view);
+         }
+         return "home";
+      }
+   
+   
+   //카드 담기
+   @ResponseBody
+   @RequestMapping(value="/view/shop/addCart", method=RequestMethod.POST)
+   public String addCart(Model model, CartDTO cart, HttpSession session) throws Exception{
+      model.addAttribute("contentpage", "shop/addcart.jsp");
+      CustomerDTO customer=(CustomerDTO)session.getAttribute("customer");
+      cart.setId(customer.getId());
+      
+      cartservice.addCart(cart);
+      
+      return "home";
+   }
 	
-	
-	//카드 담기
-	@ResponseBody
-	@RequestMapping(value="/view/shop/addCart", method=RequestMethod.POST)
-	public String addCart(Model model, CartDTO cart, HttpSession session) throws Exception{
-		model.addAttribute("contentpage", "shop/addcart.jsp");
-		CustomerDTO customer=(CustomerDTO)session.getAttribute("customer");
-		cart.setId(customer.getId());
-		
-		cartservice.addCart(cart);
-		
-		return "home";
-	}
-	
-
 	
 	@GetMapping("/userlogin")
 	public void userlogin(HttpSession session, HttpServletRequest request, Model model) throws UnsupportedEncodingException
@@ -227,7 +236,7 @@ public class HomeController {
 	}
 	
 	
-@GetMapping("/userlogout") 
+	@GetMapping("/userlogout") 
 	public void userlogout(HttpSession session) throws NullPointerException 
 	{
 		NuserDTO user = (NuserDTO)session.getAttribute("user");
