@@ -1,7 +1,6 @@
 package com.sunstar.controller;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
@@ -9,16 +8,11 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.security.SecureRandom;
-import java.text.DateFormat;
-import java.util.Date;
+
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.servlet.jsp.PageContext;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -188,11 +182,12 @@ public class HomeController {
 	}
 	
 	
-	@GetMapping("/userlogout")
-	public void userlogout(HttpSession session) 
+	@GetMapping("/userlogout") 
+	public void userlogout(HttpSession session) throws NullPointerException 
 	{
-		//접근 토큰 삭제 요청, 연동 취소
 		NuserDTO user = (NuserDTO)session.getAttribute("user");
+		if(user!=null) //접근 토큰 삭제 요청, 연동 취소
+		{
 		 String apiURL;
 		 apiURL = "https://nid.naver.com/oauth2.0/token?grant_type=delete&";
 		 apiURL += "client_id=XMKUF7HdU8r3IIu3tMzr";
@@ -226,6 +221,7 @@ public class HomeController {
 		}
 		session.removeAttribute("user");
 		session.removeAttribute("userinfo");
+		}
 		/*session.invalidate();*/
 	}
 	
