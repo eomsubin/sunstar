@@ -37,9 +37,5 @@ public class UserServiceimple implements UserService{
 	@Override
 	public int customeremailcheck(String email) {
 		return dao.customeremailcheck(email);
-	}
-
-
-
-	
+	}	
 }
