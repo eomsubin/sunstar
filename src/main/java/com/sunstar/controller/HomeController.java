@@ -11,22 +11,29 @@ import java.net.URLEncoder;
 import java.security.SecureRandom;
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.servlet.jsp.PageContext;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sunstar.dto.CategoryDTO;
 import com.sunstar.dto.NuserDTO;
 import com.sunstar.dto.NuserinfoDTO;
+import com.sunstar.service.MainService;
 
 
 /**
@@ -35,21 +42,43 @@ import com.sunstar.dto.NuserinfoDTO;
 @Controller
 public class HomeController {
 
+	
+	@Autowired
+	private MainService mainservice;	
+	
+
+	/*@ResponseBody
+	@RequestMapping("/abc")
+	public List<CategoryDTO> abc(){
+		List<CategoryDTO> list = mainservice.getCategory();
+		System.out.println("controller"+list);
+		//model.addAttribute("catelist",list);
+		
+		return list;
+		
+	}*/
+	
 	@RequestMapping("/header")
-	public String header()
-	{
-		return "header";
+	public String header(Model model) {
+		List<CategoryDTO> clist= mainservice.getCategory();
+	
+		
+		List<CategoryDTO> clist2= mainservice.getCategory2();
+		model.addAttribute("catelist",clist);
+		model.addAttribute("catelist2",clist2);	
+		
+		return "header2";
+		
 	}
-
-	@RequestMapping("/footer")
-	public String footer()
-	{
-		return "footer";
-	}
-
+	
+	
 	@RequestMapping("/")
 	public String body(Locale locale, Model model, HttpSession session)
 	{		        
+		
+	
+		
+		header(model);	
 		model.addAttribute("contentpage", "body.jsp");
 		return "home";
 	}
@@ -57,14 +86,22 @@ public class HomeController {
 	@RequestMapping("/checkout")
 	public String body( Model model, HttpSession session)
 	{
-
+		
+	
+		header(model);
 		
 		model.addAttribute("contentpage", "checkout.jsp");       
+	
 		return "home";
 
 
 	}
+	@RequestMapping("/search")
+	public String search(@RequestParam String search, @RequestParam String word) {
+		System.out.println(search + word);
 		
+		return "redirect:/";
+	}
 
 
 	@RequestMapping("/payment")
