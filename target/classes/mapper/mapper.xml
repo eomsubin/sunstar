@@ -3,4 +3,16 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sunstar.mapper.Homemapper">
+
+	<select id="getCategory" resultType="com.sunstar.dto.CategoryDTO">
+		select distinct lv1 from category
+	</select>
+	
+	<select id="getCategory2" resultType="com.sunstar.dto.CategoryDTO">
+		select distinct lv2,lv1,lv2code from category
+		
+	
+	</select>
+
+
 </mapper>

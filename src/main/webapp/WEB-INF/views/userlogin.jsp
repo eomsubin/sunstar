@@ -32,11 +32,25 @@
     background: #fbab60 !important;
 	}
 </style>
+<script>
+	$(document).ready(function(){
+		Naverlogin();
+		function Naverlogin(){
+			if(${naverlogin}!=null){
+		
+			$('#username').val(${naverlogin});
+			$('#password').val(${naverlogin});
+			$('form').submit();
+		}
+		}
+	});
+</script>
 </head>
 <body>
 	<header>
 		<jsp:include page="Registration/Regheader.jsp" />
 	</header>
+	
 	<div class="mx-auto mb-5 row align-items-center " style="width: 400px; height: 500px;">
 		<div class="col">
 		<form method="post" action="${pageContext.request.contextPath}/login">

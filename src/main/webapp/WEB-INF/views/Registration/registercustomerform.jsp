@@ -98,7 +98,7 @@ input, select{
 			if(idcheck() && pwcheck() && pwcheck2() && namecheck() && telcheck() && emailcheck()){
 				$('form').submit();
 			}
-		})
+		})		
 		// 아이디 조건, 아이디 체크
 		var idReg = /^[0-9a-z]+$/; //숫자, 영문만 입력 가능
 		$('#id').focusout(idcheck);
@@ -117,11 +117,30 @@ input, select{
 				$('#id').parent().append("<p class='alert idalert p-0 m-0'>회원 아이디(ID)는 띄어쓰기 없이 6~10자리의 영문자와 숫자 조합만 가능합니다.</p>");
 				return false;
 			}else{
+				let result = 0;
 				$('.idalert').remove();
-				$('#id').parent().append("<p class='ckalert idalert p-0 m-0'>사용가능한 아이디 입니다.</p>");
-				return true;
+				let id = $('#id').val();
+				console.log($.ajax({
+					url : "customeridcheck/"+id
+					,dataType : "json"
+					,async: false
+					,success:function(data){
+						result = data;
+					}
+					,error:function(e){
+						console.log(e);
+					}
+				}));
+				if(result>0){
+					$('#id').parent().append("<p class='alert idalert p-0 m-0'>이미 사용중인 아이디 입니다.</p>");
+					return false;
+				}else{
+					$('#id').parent().append("<p class='ckalert idalert p-0 m-0'>사용가능한 아이디 입니다.</p>");
+					return true;
+				}
 			}
 		}
+		
 		// 패스워드 조건, 패스워드 체크
 		// 비밀번호 규칙 정규식
 		var Pwreg = /(?=.*\d{1,15})(?=.*[~`!@#$%\^&*()-+=]{1,15})(?=.*[a-zA-Z]{1,50}).{6,15}$/;// : 숫자, 특문 각 1회 이상, 영문은 1개 이상 사용하여 8자리 이상 입력
@@ -134,11 +153,11 @@ input, select{
 			}
 			else if($('#password').val().length<6){
 				$('.pwalert').remove();
-				$('#password').parent().append("<p class='alert pwalert p-0 m-0'>띄어쓰기 없는 6~15자의 숫자, 특문 각 1회 이상, 영문은 1개 이상 사용하여<br> 8자리 이상 입력하셔야 합니다.</p>");
+				$('#password').parent().append("<p class='alert pwalert p-0 m-0'>띄어쓰기 없는 6~15자의 숫자, 특문 각 1회 이상, 영문은 1개 이상 사용하여<br> 6자리 이상 입력하셔야 합니다.</p>");
 				return false;
 			}else if(!Pwreg.test($('#password').val())){
 				$('.pwalert').remove();
-				$('#password').parent().append("<p class='alert pwalert p-0 m-0'>띄어쓰기 없는 6~15자의 숫자, 특문 각 1회 이상, 영문은 1개 이상 사용하여 8자리 이상 입력하셔야 합니다.</p>");
+				$('#password').parent().append("<p class='alert pwalert p-0 m-0'>띄어쓰기 없는 6~15자의 숫자, 특문 각 1회 이상, 영문은 1개 이상 사용하여<br> 6자리 이상 입력하셔야 합니다.</p>");
 				return false;
 			}else{
 				$('.pwalert').remove();
@@ -217,9 +236,29 @@ input, select{
 				$('#email').parent().append("<p class='alert emailalert p-0 my-2 ml-3'>이메일 주소를 다시 확인해주세요.</p>");
 				return false;
 			}else{
+				var result = 0;
 				$('.emailalert').remove();
-				$('#email2').removeClass("telck");
-				return true;
+				$.ajax({
+					url : "customeremailcheck"
+					,data : {"email" : email}
+					,dataType : "json"
+					,async: false
+					,success:function(data){
+						console.log(data);
+						result = data;
+					}
+					,error:function(e){
+						console.log(e);
+						return false;
+					}
+				});
+				if(result>0){
+					$('#email').parent().append("<p class='alert emailalert p-0 my-2 ml-3'>이미 사용중인 이메일 주소 입니다.</p>");
+					return false;
+				}else{
+					$('#email2').removeClass("telck");
+					return true;
+				}
 			}
 		};
 	});

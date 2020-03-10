@@ -34,7 +34,7 @@ public class UserLoginSucessHandler implements AuthenticationSuccessHandler {
 		}
 		
 		if(authNames.contains("ROLE_USER")) {
-			response.sendRedirect("/controller/member");
+			response.sendRedirect("/controller/");
 			return;
 		}
 		response.sendRedirect("/controller/");

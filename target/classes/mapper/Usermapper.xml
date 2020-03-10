@@ -30,8 +30,21 @@
 	where c.id=#{userid}
 	</select>
 	
+	<select id="customeridcheck" resultType="int" parameterType="string">
+	select count(*)
+	from customer
+	where id=#{id}
+	</select>
+	
+	<select id="customeremailcheck" resultType="int" parameterType="string">
+	select count(*)
+	from customer
+	where email=#{email}
+	</select>
+	
 	<insert id="join_Customer" parameterType="com.sunstar.dto.CustomerDTO">
-  	insert into customer values(#{id}, #{name}, #{tel}, #{email}, #{password}, #{address1}, #{address2}, #{address3}, #{zip}, #{enable}, now())
+  	insert into customer(id, name, tel, email, password, address1, address2, address3, zip, enable, join_date)
+  	values(#{id}, #{name}, #{tel}, #{email}, #{password}, #{address1}, #{address2}, #{address3}, #{zip}, #{enable}, now())
   	</insert>
   	
   	<insert id="join_Customer_auth" parameterType="com.sunstar.dto.CustomerDTO">
