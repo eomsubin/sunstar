@@ -29,31 +29,31 @@
      <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/responsive.css">
      
      <style>
-      	.main-category{
-     		  display: none;
-     		
-     	}
- /*     	.all-category{
-     		background-color:#333 !important;
-     		
-     	} */
-     	/*
-     	.cat-heading:hover{
-   			visibility: visible;
-     	} */
+         .main-category{
+             display: none;
+           
+        }
+ /*        .all-category{
+           background-color:#333 !important;
+           
+        } */
+        /*
+        .cat-heading:hover{
+            visibility: visible;
+        } */
      </style>
      <script>
      
-     	$(document).ready(function(){
-     		$('.cat-heading').on('click',function(){
-     			$('.main-category').toggle();
-     			
-     		});
-     /* 		$('.cat-heading').on('click',function(){
-     			$('.main-category').hide();
-     		}); */
-     		
-     	});
+        $(document).ready(function(){
+           $('.cat-heading').on('click',function(){
+              $('.main-category').toggle();
+              
+           });
+     /*       $('.cat-heading').on('click',function(){
+              $('.main-category').hide();
+           }); */
+           
+        });
      
      </script>
 </head>

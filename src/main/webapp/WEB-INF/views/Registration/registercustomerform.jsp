@@ -98,8 +98,7 @@ input, select{
 			if(idcheck() && pwcheck() && pwcheck2() && namecheck() && telcheck() && emailcheck()){
 				$('form').submit();
 			}
-		})
-		
+		})		
 		// 아이디 조건, 아이디 체크
 		var idReg = /^[0-9a-z]+$/; //숫자, 영문만 입력 가능
 		$('#id').focusout(idcheck);

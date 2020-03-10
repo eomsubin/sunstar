@@ -27,8 +27,8 @@
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/jquery.fancybox.min.css">
 
 	<!-- Nice Select CSS -->
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/niceselect.css">
-	<!-- Animate CSS -->
+<%--     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/niceselect.css">
+ --%>	<!-- Animate CSS -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/animate.css">
 	<!-- Flex Slider CSS -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/flex-slider.min.css">
@@ -42,7 +42,7 @@
 	 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/reset.css"> 
 <!-- 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css"> -->
   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/responsive.css"> 
- 
+  
 	
 </head>
 <body >
@@ -1466,7 +1466,7 @@
             <div class="row">
 				<div class="col-12">
 					<div class="section-title">
-						<h2>최신 상품</h2>
+						<h2>금일 추천 상품</h2>
 					</div>
 				</div>
             </div>
@@ -1585,10 +1585,11 @@
             </div>
         </div>
     </div>
+    
 	<!-- End Most Popular Area -->
 	
 	<!-- Start Shop Home List  -->
-	<section class="shop-home-list section">
+	<!-- <section class="shop-home-list section">
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-4 col-md-6 col-12">
@@ -1599,7 +1600,7 @@
 							</div>
 						</div>
 					</div>
-					<!-- Start Single List  -->
+					Start Single List 
 					<div class="single-list">
 						<div class="row">
 							<div class="col-lg-6 col-md-6 col-12">
@@ -1616,8 +1617,8 @@
 							</div>
 						</div>
 					</div>
-					<!-- End Single List  -->
-					<!-- Start Single List  -->
+					End Single List 
+					Start Single List 
 					<div class="single-list">
 						<div class="row">
 							<div class="col-lg-6 col-md-6 col-12">
@@ -1634,8 +1635,8 @@
 							</div>
 						</div>
 					</div>
-					<!-- End Single List  -->
-					<!-- Start Single List  -->
+					End Single List 
+					Start Single List 
 					<div class="single-list">
 						<div class="row">
 							<div class="col-lg-6 col-md-6 col-12">
@@ -1652,7 +1653,7 @@
 							</div>
 						</div>
 					</div>
-					<!-- End Single List  -->
+					End Single List 
 				</div>
 				<div class="col-lg-4 col-md-6 col-12">
 					<div class="row">
@@ -1662,7 +1663,7 @@
 							</div>
 						</div>
 					</div>
-					<!-- Start Single List  -->
+					Start Single List 
 					<div class="single-list">
 						<div class="row">
 							<div class="col-lg-6 col-md-6 col-12">
@@ -1679,8 +1680,8 @@
 							</div>
 						</div>
 					</div>
-					<!-- End Single List  -->
-					<!-- Start Single List  -->
+					End Single List 
+					Start Single List 
 					<div class="single-list">
 						<div class="row">
 							<div class="col-lg-6 col-md-6 col-12">
@@ -1697,8 +1698,8 @@
 							</div>
 						</div>
 					</div>
-					<!-- End Single List  -->
-					<!-- Start Single List  -->
+					End Single List 
+					Start Single List 
 					<div class="single-list">
 						<div class="row">
 							<div class="col-lg-6 col-md-6 col-12">
@@ -1715,7 +1716,7 @@
 							</div>
 						</div>
 					</div>
-					<!-- End Single List  -->
+					End Single List 
 				</div>
 				<div class="col-lg-4 col-md-6 col-12">
 					<div class="row">
@@ -1725,7 +1726,7 @@
 							</div>
 						</div>
 					</div>
-					<!-- Start Single List  -->
+					Start Single List 
 					<div class="single-list">
 						<div class="row">
 							<div class="col-lg-6 col-md-6 col-12">
@@ -1742,8 +1743,8 @@
 							</div>
 						</div>
 					</div>
-					<!-- End Single List  -->
-					<!-- Start Single List  -->
+					End Single List 
+					Start Single List 
 					<div class="single-list">
 						<div class="row">
 							<div class="col-lg-6 col-md-6 col-12">
@@ -1760,8 +1761,8 @@
 							</div>
 						</div>
 					</div>
-					<!-- End Single List  -->
-					<!-- Start Single List  -->
+					End Single List 
+					Start Single List 
 					<div class="single-list">
 						<div class="row">
 							<div class="col-lg-6 col-md-6 col-12">
@@ -1778,11 +1779,11 @@
 							</div>
 						</div>
 					</div>
-					<!-- End Single List  -->
+					End Single List 
 				</div>
 			</div>
 		</div>
-	</section>
+	</section> -->
 	<!-- End Shop Home List  -->
 	
 	<!-- Start Cowndown Area -->
@@ -2075,8 +2076,8 @@
 	<!-- Easing JS -->
 	<script src="${pageContext.request.contextPath}/resources/js/easing.js"></script>
 	<!-- Active JS -->
-	<script src="${pageContext.request.contextPath}/resources/js/active.js"></script>
-	
+<%-- 	<script src="${pageContext.request.contextPath}/resources/js/active.js"></script>
+ --%>	
    
 	
 </body>

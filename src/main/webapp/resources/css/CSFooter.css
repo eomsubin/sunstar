@@ -1,0 +1,97 @@
+@charset "utf-8";
+
+
+.container {
+  margin: 0 auto;
+}
+
+footer {
+	bottom: 0;
+	width: 100%;
+	margin-left: 0%;
+	position: absolute;
+	bottom: 0 ;
+
+}
+
+.fnavbar {
+	border-top: 1px solid #dadada;
+	border-bottom: 1px solid #dadada;
+	font: 14px/1 'Apple SD Gothic Neo', '맑은 고딕';
+}
+
+.add_info {
+	font: 14px/1 'Apple SD Gothic Neo', '맑은 고딕';
+	text-align: left;
+	letter-spacing: -1px;
+	font-size: 12px;
+	color: #666;
+	line-height: 10px;
+	padding-bottom: 10px;
+	padding-top: 0px;
+	border-bottom: 1px solid #dadada;
+}
+
+.add_company{
+	border-left: 1px solid #dadada;
+	border-right: 1px solid #dadada;
+}
+
+.add_else {
+    border-left: 1px solid #dadada;}
+
+.txt {
+	font: 14px/1 'Apple SD Gothic Neo', '맑은 고딕';
+	letter-spacing: -1px;
+	margin-bottom: 0;
+	font-size: 12px;
+	font-weight: bold;
+	color: #868ba8;
+    text-align: center;
+}
+
+.copy {
+	font: 14px/1 'Apple SD Gothic Neo', '맑은 고딕';
+	margin-top: 7px;
+	color: #666;
+	font-size: 12px;
+	letter-spacing: 0;
+    text-align: center;
+}
+
+dt {
+	padding-bottom: 10px;
+}
+
+dd a {
+	color: #666;
+}
+
+.footimg img{
+    width:100%; height: auto; margin: 2%;
+}
+
+@media screen and (max-width: 1004px) {
+	
+	footer {
+		width: 100%;
+		margin: 0 auto;
+        
+	}
+	.footer {
+		position: static;
+       
+	}
+	.footer .row {
+		display: block;
+        text-align: center
+	}
+	.footer .row [class*='col'] {
+		display: block;
+		width: auto;
+		max-width: 100%;
+	}
+    .footimg img{
+    width:50%; height: 30%; position: relative;
+}
+}
