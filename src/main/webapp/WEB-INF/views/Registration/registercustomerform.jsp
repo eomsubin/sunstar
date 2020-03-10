@@ -99,6 +99,7 @@ input, select{
 				$('form').submit();
 			}
 		})
+<<<<<<< HEAD
 		
 		// 아이디 조건, 아이디 체크
 		var idReg = /^[0-9a-z]+$/; //숫자, 영문만 입력 가능
@@ -260,6 +261,129 @@ input, select{
 					$('#email2').removeClass("telck");
 					return true;
 				}
+=======
+		// 아이디 조건, 아이디 체크
+		var idReg = /^[0-9a-z]+$/; //숫자, 영문만 입력 가능
+		$('#id').focusout(idcheck);
+		function idcheck(){
+			if($('#id').val()===""){
+				$('.idalert').remove();
+				$('#id').parent().append("<p class='alert idalert p-0 m-0'>필수 정보입니다.</p>");
+				return false;
+			}
+			else if($('#id').val().length<6){
+				$('.idalert').remove();
+				$('#id').parent().append("<p class='alert idalert p-0 m-0'>회원 아이디(ID)는 띄어쓰기 없이 6~10자리의 영문자와 숫자 조합만 가능합니다.</p>");
+				return false;
+			}else if(!idReg.test($('#id').val())){
+				$('.idalert').remove();
+				$('#id').parent().append("<p class='alert idalert p-0 m-0'>회원 아이디(ID)는 띄어쓰기 없이 6~10자리의 영문자와 숫자 조합만 가능합니다.</p>");
+				return false;
+			}else{
+				$('.idalert').remove();
+				$('#id').parent().append("<p class='ckalert idalert p-0 m-0'>사용가능한 아이디 입니다.</p>");
+				return true;
+			}
+		}
+		// 패스워드 조건, 패스워드 체크
+		// 비밀번호 규칙 정규식
+		var Pwreg = /(?=.*\d{1,15})(?=.*[~`!@#$%\^&*()-+=]{1,15})(?=.*[a-zA-Z]{1,50}).{6,15}$/;// : 숫자, 특문 각 1회 이상, 영문은 1개 이상 사용하여 8자리 이상 입력
+		$('#password').focusout(pwcheck);
+		function pwcheck(){
+			if($('#password').val()===""){
+				$('.pwalert').remove();
+				$('#password').parent().append("<p class='alert pwalert p-0 m-0'>필수 정보입니다.</p>");
+				return false;
+			}
+			else if($('#password').val().length<6){
+				$('.pwalert').remove();
+				$('#password').parent().append("<p class='alert pwalert p-0 m-0'>띄어쓰기 없는 6~15자의 숫자, 특문 각 1회 이상, 영문은 1개 이상 사용하여<br> 8자리 이상 입력하셔야 합니다.</p>");
+				return false;
+			}else if(!Pwreg.test($('#password').val())){
+				$('.pwalert').remove();
+				$('#password').parent().append("<p class='alert pwalert p-0 m-0'>띄어쓰기 없는 6~15자의 숫자, 특문 각 1회 이상, 영문은 1개 이상 사용하여 8자리 이상 입력하셔야 합니다.</p>");
+				return false;
+			}else{
+				$('.pwalert').remove();
+				$('#password').parent().append("<p class='ckalert pwalert p-0 m-0'>안전한 비밀번호 입니다.</p>");
+				return true;
+			}
+		}
+		// 패스워드 확인
+		$('#password2').focusout(pwcheck2);
+		function pwcheck2(){
+				if($('#password2').val().length<1){
+				$('.pwalert2').remove();
+				$('#password2').parent().append("<p class='alert pwalert2 p-0 m-0'>필수 정보입니다.</p>");
+				return false;
+				}else if($('#password').val()==$('#password2').val())
+				{
+				$('.pwalert2').remove();
+				$('#password2').parent().append("<p class='ckalert pwalert2 p-0 m-0'>비밀번호가 일치합니다.</p>");
+				return true;
+				}else{
+				$('.pwalert2').remove();
+				$('#password2').parent().append("<p class='alert pwalert2 p-0 m-0'>비밀번호가 일치하지 않습니다.</p>");
+				return false;
+				} 
+		}
+		// 이름 확인
+		$('#name').focusout(namecheck);
+		var namereg = /^[가-힣a-zA-Z]+$/;
+		function namecheck(){
+			if($('#name').val()===""){
+				$('.namealert').remove();
+				$('#name').parent().append("<p class='alert namealert p-0 m-0'>필수 정보입니다.</p>");
+				return false;
+			}else if(!namereg.test($('#name').val())){
+				$('.namealert').remove();
+				$('#name').parent().append("<p class='alert namealert p-0 m-0'>이름은 최대 10자이내로 한글/영문만 가능합니다.</p>");
+				return false;
+			}else{
+				$('.namealert').remove();
+				return true;
+			}
+		}
+		// 전화번호 확인
+		$('#tel1').focusout(telcheck);
+		$('#tel2').focusout(telcheck);
+		var telreg = /^[0-9]+$/
+		function telcheck(){
+			if($('#tel1').val().length<3 || $('#tel2').val().length<4){
+				$('.telalert').remove();
+				$('#tel').parent().append("<p class='alert telalert p-0 my-2 ml-3'>전화번호를 정확히 입력해 주세요.</p>");
+				$('#tel').addClass("telck");
+				return false;
+			}else if(!telreg.test($('#tel1').val()) || !telreg.test($('#tel2').val())){
+				$('.telalert').remove();
+				$('#tel').parent().append("<p class='alert telalert p-0 my-2 ml-3'>전화번호를 정확히 입력해 주세요.</p>");
+				$('#tel').addClass("telck");
+				return false;
+			}else{
+				$('.telalert').remove();
+				$('#tel').removeClass("telck");
+				return true;
+			}	
+		}
+		// 이메일 확인
+		var Emreg = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
+		$('#email').focusout(emailcheck);
+		$('#email1').focusout(emailcheck);
+		$('#email2').change(emailcheck);
+		function emailcheck(){
+			var email = $('#email').val();
+			email += "@";
+			email += $('#email1').val();
+			if(!Emreg.test(email)){
+				$('.emailalert').remove();
+				$('#email2').addClass("telck");
+				$('#email').parent().append("<p class='alert emailalert p-0 my-2 ml-3'>이메일 주소를 다시 확인해주세요.</p>");
+				return false;
+			}else{
+				$('.emailalert').remove();
+				$('#email2').removeClass("telck");
+				return true;
+>>>>>>> branch 'master' of https://github.com/eomsubin/sunstar.git
 			}
 		};
 	});

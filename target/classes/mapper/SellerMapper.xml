@@ -71,4 +71,51 @@
 		where product_code=#{product_code} and color=#{color}
 	</update>
 	
+	<!-- 주문목록 -->
+	<select id="orderlist" resultType="com.sunstar.dto.OrderDTO">
+	
+	   select o.delivery_state, l.product_code, p.price, o.order_code, l.order_no, l.color, l.size, l.inventory, l.add_price, o.order_way, o.message, c.name, c.tel, s.shipping_addr1, s.shipping_addr2, s.shipping_addr3, s.shipping_zip
+       from ordered o left join order_list l
+       on o.order_code = l.order_code
+       inner join customer c 
+       on o.id = c.id
+       left join ship s
+       on c.id = s.id
+       left join product_list p
+       on l.product_code = p.product_code
+		<!-- where seller = 'solyi' -->
+	</select>
+	
+		<!-- 배송대기 주문목록 -->
+	<select id="shippinglist" resultType="com.sunstar.dto.OrderDTO">
+	
+	   select o.delivery_state, l.product_code, p.price, o.order_code, l.order_no, l.color, l.size, l.inventory, l.add_price, o.order_way, o.message, c.name, c.tel, s.shipping_addr1, s.shipping_addr2, s.shipping_addr3, s.shipping_zip
+       from ordered o left join order_list l
+       on o.order_code = l.order_code
+       inner join customer c 
+       on o.id = c.id
+       left join ship s
+       on c.id = s.id
+       left join product_list p
+       on l.product_code = p.product_code
+       where o.delivery_state = '배송준비중'
+		<!-- where seller = 'solyi' -->
+	</select>
+	
+	
+	<select id="theOrderlist" resultType="com.sunstar.dto.OrderDTO" parameterType="string">
+	
+	   select o.delivery_state, l.product_code, p.price, o.order_code, l.order_no, l.color, l.size, l.inventory, l.add_price, o.order_way, o.message, c.name, c.tel, s.shipping_addr1, s.shipping_addr2, s.shipping_addr3, s.shipping_zip
+       from ordered o left join order_list l
+       on o.order_code = l.order_code
+       inner join customer c 
+       on o.id = c.id
+       left join ship s
+       on c.id = s.id
+       left join product_list p
+       on l.product_code = p.product_code
+       where o.order_code = #{order_code}
+		<!-- where seller = 'solyi' -->
+	</select>
+	
 </mapper>

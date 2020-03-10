@@ -19,6 +19,11 @@ import com.sunstar.dto.CustomerDTO;
 import com.sunstar.service.AuthService;
 import com.sunstar.service.UserService;
 
+import com.sunstar.dto.AuthDTO;
+import com.sunstar.dto.CustomerDTO;
+import com.sunstar.service.AuthService;
+import com.sunstar.service.UserService;
+
 @Controller
 public class UserController {
 

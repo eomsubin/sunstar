@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sunstar.mapper.ProductMapper">
+
+	<select id="getCategory" resultType="com.sunstar.dto.CategoryDTO">
+		select * from category
+	</select>
+
+	<select id="list" resultType="com.sunstar.dto.ProductDTO">
+		select p.product_code, product_name, price, cost, shipping_cost, o.size, o.color, o.inventory, o.add_price, public_state, review_state, c.lv1, c.lv2, c.lv3
+		from product_list p  join category c
+		on p.category_code = c.category_code
+		left join options o
+        on p.product_code = o.product_code
+		order by product_code desc
+	</select>
+
+
+	<select id="productview" resultType="com.sunstar.dto.ProductDTO" parameterType="int">
+		select p.product_code, product_name, price, cost, shipping_cost, o.size, o.color, o.inventory, o.add_price, public_state, review_state, c.lv1, c.lv2, c.lv3
+		from product_list p  join category c
+		on p.category_code = c.category_code
+		left join options o
+        on p.product_code = o.product_code
+        where p.product_code = #{product_code}
+	</select>
+	
+</mapper>

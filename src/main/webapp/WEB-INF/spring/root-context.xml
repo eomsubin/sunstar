@@ -17,9 +17,6 @@
 		<property name="jdbcUrl" value="${url}"></property>
 		<property name="username" value="${user}"></property>
 		<property name="password" value="${pw}"></property>
-
-		
-	
 	</bean>
 	<bean name="ds" class="com.zaxxer.hikari.HikariDataSource"
 		destroy-method="close">

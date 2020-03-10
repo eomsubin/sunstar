@@ -22,31 +22,6 @@
 		})
 		
 		
-		
-//	$('#btnupdateinventory').on('click', function(){
-	//		$("input[name=pcode]:checked").each(function(index) {
-		//	$('input[type=checkbox]:checked').each(function(index){
-				
-		//		console.log(index);
-				
-				
-			/* 	console.log($('select option:selected').val());
-				
-			
-				
-					/* 
-				console.log($('select[name=gesu]')); */
-				//$('select[name=gesu]').val();
-				/* console.log(gesu); */
-	///			let gesu = $('select option:selected').val()
-	//			let pcode = $(this).val();
-	//			console.log(pcode);
-			//	location.href="${pageContext.request.contextPath}/updateinventory/"+pcode+"/"+gesu;
-				/* /"+gesu */
-		//	})
-		
-	//	})
-		
  		$('#btndeletemodal').on('click', function(){
 			$('#deletemodal').modal();
 		}) 
@@ -65,21 +40,43 @@
 </script>
 <script>
 
-function uptest(){
-	let ckbox = document.getElementsByName("pcode");
+
+function allprint(){
+	let state = 'all';
+	location.href="${pageContext.request.contextPath}/orderexcel/"+state;
+}
+
+function shippingprint(){
+	
+	let state = 'shipping_list';
+	location.href="${pageContext.request.contextPath}/orderexcel/"+state;
+	
+}
+
+
+function checkprint(){
+	let ckbox = document.getElementsByName("ordercode");
 	let ckboxlengh = ckbox.length;
 	let checked=0;
+
+	let state = new Array();
+	
 	
 	for(i=0; i<ckboxlengh;i++){
 		if(ckbox[i].checked==true){
-			let pcode = ckbox[i].value;
+			let ocode = ckbox[i].value;
 			
+			state.push(ocode);
 			console.log(ckbox[i].value);
-			checked +=1;
-			
-			location.href="${pageContext.request.contextPath}/updateinventory/"+pcode+"/"+3;
-		}	
-	}
+			checked +=1;		
+		}
+	}	
+	console.log("--state--");
+	console.log(state);
+	console.log("+state++");
+
+	location.href="${pageContext.request.contextPath}/orderexcel/"+state;
+
 }
 </script>
 
@@ -110,8 +107,10 @@ body {
 						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 					<!-- 	<button type="button" id="btnaddinventory" class="btn btn-primary">선택 재고 추가</button> -->
 						<!-- 특정 '배송상태'만 프린트 / 선택  프린트 / 선택 단계 변경  / -->
-						<button type="button" id="check_print" class="btn btn-secondary">선택 출력</button>
-						<button type="button" id="shipping_print" class="btn btn-success">배송대기 출력</button>
+						<button type="button" id="all_print" class="btn btn-secondary" onclick="allprint()">전체출력</button>
+						<button type="button" id="shipping_print" class="btn btn-success" onclick="shippingprint()")>배송대기 출력</button>
+						<button type="button" id="check_print" class="btn btn-secondary" onclick="checkprint()">선택 출력</button>
+						
 						<button type="button"  class="btn btn-danger">임시</button>
 						<!-- id="btndelete" -->
 						
@@ -196,63 +195,36 @@ body {
 									<th>주문번호</th>
 									<th>상품 코드</th>
 									<th>옵션</th>
-									<th>수량</th>
+									<th>구매 수량</th>
 									<th>금액</th>
+									<th>특이사항</th>
 									<th>결제방법</th>	
 									<th>구매자 이름</th>
 									<th>연락처</th>
 									<th>배송지</th>
 									<th>우편번호</th>
-									
-								<!-- 	<th style="border-left: 2px solid silver">컬러</th>
-									<th>사이즈</th>
-									<th>재고</th>
-									<th style="border-right: 2px solid silver;">추가 가격</th>
-									<th>카테고리</th>
-									<th>공개여부</th>
-									<th>리뷰공개여부</th> -->
 								</tr>
 							</thead>
 							
 							<tbody>
 								
-								<c:forEach var="i" items="${plist}">
+								<c:forEach var="i" items="${orderlist}">
 									<tr>
-										<td><input type="checkbox" id="pcode" name="pcode"
-											value="${i.product_code}"></td>
-										<td>${i.product_code }</td>
-										<td>${i.product_name}</td>
-										<td>${i.price}</td>
-										<td>${i.cost}</td>
-										<td>${i.shipping_cost}</td>
-										<td style="border-left: 2px solid silver">${i.color }</td>
-										<td>${i.size }</td>
-										<td>${i.inventory }</td>
-										<td style="border-right: 2px solid silver;">
-											${i.add_price }</td>
-
-										<td>${i.lv1}-${i.lv2}-${i.lv3}</td>
-										<td>${i.public_state}</td>
-										<td>${i.review_state}</td>
-										<td class="center">
+										<td><input type="checkbox" id="ordercode" name="ordercode"
+											value="${i.order_code}"></td>
+										<td style="border-left: 2px solid silver; border-right: 2px solid silver;">${i.delivery_state }</td>
+										<td>${i.order_code}</td>
+										<td>${i.product_code}</td>
+										<td style="border-left: 2px solid silver">${i.color } / ${i.size } / ${i.inventory} / ${i.add_price }</td>
+										<td>${i.inventory}</td>
+									 	<td>${i.price }</td>
+									 	<td>${i.message }</td>
+									 	<td>${i.order_way}</td>
+										<td>${i.name}</td>
+										<td>${i.tel}</td>
+										<td>${i.shipping_addr1} ${i.shipping_addr2} ${i.shipping_addr3} </td>
+										<td>${i.shipping_zip }</td>
 										
-										<a class="btn btn-success" href="#">
-<img src="http://localhost:8080/controller/resources/icons/search.svg" alt="" width="20" height="20" title="Bootstrap">
-										
-
-										</a> <a class="btn btn-info" href="#"> 
-<img src="http://localhost:8080/controller/resources/icons/pencil.svg" alt="" width="20" height="20" title="Bootstrap">
-										
-										</a> <a class="btn btn-danger" href="#"> 
-<img src="http://localhost:8080/controller/resources/icons/trash-fill.svg" alt="" width="20" height="20" title="Bootstrap">
-										
-										</a></td>
-										<%-- 			<c:forEach var="opt" items="${i.options }" >
-								<td> ${opt.color}  </td>
-								<td> ${opt.size}  </td>
-								<td> ${opt.inventory }</td>
-								<td> ${opt.add_price }</td>
-							</c:forEach>  --%>
 									</tr>
 								</c:forEach>
 

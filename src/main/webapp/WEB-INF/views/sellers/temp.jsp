@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-<title>Insert title here</title>
+<title>SSBJ 셀러</title>
     <script src="http://localhost:8080/controller/resources/vendor/jquery/jquery.min.js"></script>
 
     <!-- Custom fonts for this template-->
@@ -236,6 +236,16 @@
 	            </li>
 	
 	            <!-- Nav Item - Alerts -->
+	            
+	            <!--  -->
+	             <li class="nav-item dropdown no-arrow mx-1">
+	             <a href="${pageContext.request.contextPath}/seller_list" class="nav-link dropdown-toggle" >
+	                <i class="fas fa-home fa-fw"></i>
+	              </a>
+	             
+	            </li>
+	            <!--  -->
+	            
 	            <li class="nav-item dropdown no-arrow mx-1">
 	              <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 	                <i class="fas fa-bell fa-fw"></i>
@@ -387,7 +397,7 @@
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2019</span>
+                        <span>Copyright &copy; SBBJ 2020</span>
                     </div>
                 </div>
             </footer>
