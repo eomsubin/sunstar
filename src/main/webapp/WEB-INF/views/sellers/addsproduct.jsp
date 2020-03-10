@@ -176,7 +176,7 @@ $('#addoptions').append(frm);
 								<input type="file" class="custom-file-input"
 									id="validatedCustomFile" required> <label
 									class="custom-file-label" for="validatedCustomFile">이미지
-									파일 선택</label>
+									파일 선택 (가로 550px * 세로 750px 권장)</label>
 
 							</div>
 						</div>

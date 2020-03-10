@@ -19,30 +19,30 @@
 	<!-- StyleSheet -->
 	
 	<!-- Bootstrap -->
-	<!-- <link rel="stylesheet" href="http://localhost:8080/controller/resources/css/bootstrap.css"> -->
+	<!-- <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.css"> -->
 	<!-- Magnific Popup -->
-    <link rel="stylesheet" href="http://localhost:8080/controller/resources/css/magnific-popup.min.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/magnific-popup.min.css">
 
 	<!-- Fancybox -->
-	<link rel="stylesheet" href="http://localhost:8080/controller/resources/css/jquery.fancybox.min.css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/jquery.fancybox.min.css">
 
 	<!-- Nice Select CSS -->
-    <link rel="stylesheet" href="http://localhost:8080/controller/resources/css/niceselect.css">
-	<!-- Animate CSS -->
-    <link rel="stylesheet" href="http://localhost:8080/controller/resources/css/animate.css">
+<%--     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/niceselect.css">
+ --%>	<!-- Animate CSS -->
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/animate.css">
 	<!-- Flex Slider CSS -->
-    <link rel="stylesheet" href="http://localhost:8080/controller/resources/css/flex-slider.min.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/flex-slider.min.css">
 	<!-- Owl Carousel -->
-    <link rel="stylesheet" href="http://localhost:8080/controller/resources/css/owl-carousel.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/owl-carousel.css">
 	<!-- Slicknav -->
-    <link rel="stylesheet" href="http://localhost:8080/controller/resources/css/slicknav.min.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/slicknav.min.css">
 	
 	<!-- Eshop StyleSheet -->
-	  <link rel="stylesheet" href="http://localhost:8080/controller/resources/css/body.css">
-	 <link rel="stylesheet" href="http://localhost:8080/controller/resources/css/reset.css"> 
-<!-- 	<link rel="stylesheet" href="http://localhost:8080/controller/resources/css/style.css"> -->
-  <link rel="stylesheet" href="http://localhost:8080/controller/resources/css/responsive.css"> 
- 
+	  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/body.css">
+	 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/reset.css"> 
+<!-- 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css"> -->
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/responsive.css"> 
+  
 	
 </head>
 <body >
@@ -107,8 +107,8 @@
 												<div class="single-product">
 													<div class="product-img">
 														<a href="product-details.html">
-															<img class="default-img" src="http://localhost:8080/controller/resources/images/product1.jpg" alt="#">
-														<!-- 	<img class="hover-img" src="http://localhost:8080/controller/resources/images/product1.jpg" alt="#"> -->  
+															<img class="default-img" src="${pageContext.request.contextPath}/resources/images/product1.jpg" alt="#">
+														<!-- 	<img class="hover-img" src="${pageContext.request.contextPath}/resources/images/product1.jpg" alt="#"> -->  
 														</a>
 														<div class="button-head">
 															<div class="product-action">
@@ -1466,7 +1466,7 @@
             <div class="row">
 				<div class="col-12">
 					<div class="section-title">
-						<h2>최신 상품</h2>
+						<h2>금일 추천 상품</h2>
 					</div>
 				</div>
             </div>
@@ -1585,10 +1585,11 @@
             </div>
         </div>
     </div>
+    
 	<!-- End Most Popular Area -->
 	
 	<!-- Start Shop Home List  -->
-	<section class="shop-home-list section">
+	<!-- <section class="shop-home-list section">
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-4 col-md-6 col-12">
@@ -1599,7 +1600,7 @@
 							</div>
 						</div>
 					</div>
-					<!-- Start Single List  -->
+					Start Single List 
 					<div class="single-list">
 						<div class="row">
 							<div class="col-lg-6 col-md-6 col-12">
@@ -1616,8 +1617,8 @@
 							</div>
 						</div>
 					</div>
-					<!-- End Single List  -->
-					<!-- Start Single List  -->
+					End Single List 
+					Start Single List 
 					<div class="single-list">
 						<div class="row">
 							<div class="col-lg-6 col-md-6 col-12">
@@ -1634,8 +1635,8 @@
 							</div>
 						</div>
 					</div>
-					<!-- End Single List  -->
-					<!-- Start Single List  -->
+					End Single List 
+					Start Single List 
 					<div class="single-list">
 						<div class="row">
 							<div class="col-lg-6 col-md-6 col-12">
@@ -1652,7 +1653,7 @@
 							</div>
 						</div>
 					</div>
-					<!-- End Single List  -->
+					End Single List 
 				</div>
 				<div class="col-lg-4 col-md-6 col-12">
 					<div class="row">
@@ -1662,7 +1663,7 @@
 							</div>
 						</div>
 					</div>
-					<!-- Start Single List  -->
+					Start Single List 
 					<div class="single-list">
 						<div class="row">
 							<div class="col-lg-6 col-md-6 col-12">
@@ -1679,8 +1680,8 @@
 							</div>
 						</div>
 					</div>
-					<!-- End Single List  -->
-					<!-- Start Single List  -->
+					End Single List 
+					Start Single List 
 					<div class="single-list">
 						<div class="row">
 							<div class="col-lg-6 col-md-6 col-12">
@@ -1697,8 +1698,8 @@
 							</div>
 						</div>
 					</div>
-					<!-- End Single List  -->
-					<!-- Start Single List  -->
+					End Single List 
+					Start Single List 
 					<div class="single-list">
 						<div class="row">
 							<div class="col-lg-6 col-md-6 col-12">
@@ -1715,7 +1716,7 @@
 							</div>
 						</div>
 					</div>
-					<!-- End Single List  -->
+					End Single List 
 				</div>
 				<div class="col-lg-4 col-md-6 col-12">
 					<div class="row">
@@ -1725,7 +1726,7 @@
 							</div>
 						</div>
 					</div>
-					<!-- Start Single List  -->
+					Start Single List 
 					<div class="single-list">
 						<div class="row">
 							<div class="col-lg-6 col-md-6 col-12">
@@ -1742,8 +1743,8 @@
 							</div>
 						</div>
 					</div>
-					<!-- End Single List  -->
-					<!-- Start Single List  -->
+					End Single List 
+					Start Single List 
 					<div class="single-list">
 						<div class="row">
 							<div class="col-lg-6 col-md-6 col-12">
@@ -1760,8 +1761,8 @@
 							</div>
 						</div>
 					</div>
-					<!-- End Single List  -->
-					<!-- Start Single List  -->
+					End Single List 
+					Start Single List 
 					<div class="single-list">
 						<div class="row">
 							<div class="col-lg-6 col-md-6 col-12">
@@ -1778,11 +1779,11 @@
 							</div>
 						</div>
 					</div>
-					<!-- End Single List  -->
+					End Single List 
 				</div>
 			</div>
 		</div>
-	</section>
+	</section> -->
 	<!-- End Shop Home List  -->
 	
 	<!-- Start Cowndown Area -->
@@ -2047,36 +2048,36 @@
     </div>
     <!-- Modal end -->
 	 
-     <script src="http://localhost:8080/controller/resources/js/jquery-migrate-3.0.0.js"></script> 
-	<script src="http://localhost:8080/controller/resources/js/jquery-ui.min.js"></script> 
+     <script src="${pageContext.request.contextPath}/resources/js/jquery-migrate-3.0.0.js"></script> 
+	<script src="${pageContext.request.contextPath}/resources/js/jquery-ui.min.js"></script> 
 
 
 	
 	 
 	
 	<!-- Slicknav JS -->
-	<script src="http://localhost:8080/controller/resources/js/slicknav.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/slicknav.min.js"></script>
 	<!-- Owl Carousel JS -->
-	<script src="http://localhost:8080/controller/resources/js/owl-carousel.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/owl-carousel.js"></script>
 	<!-- Magnific Popup JS -->
-	<script src="http://localhost:8080/controller/resources/js/magnific-popup.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/magnific-popup.js"></script>
 	<!-- Waypoints JS -->
-	<!-- <script src="http://localhost:8080/controller/resources/js/waypoints.min.js"></script> -->
+	<!-- <script src="${pageContext.request.contextPath}/resources/js/waypoints.min.js"></script> -->
 	<!-- Countdown JS -->
-	<script src="http://localhost:8080/controller/resources/js/finalcountdown.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/finalcountdown.min.js"></script>
 	<!-- Nice Select JS -->
-<!-- 	<script src="http://localhost:8080/controller/resources/js/nicesellect.js"></script> -->
+<!-- 	<script src="${pageContext.request.contextPath}/resources/js/nicesellect.js"></script> -->
 	<!-- Flex Slider JS -->
-	<script src="http://localhost:8080/controller/resources/js/flex-slider.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/flex-slider.js"></script>
 	<!-- ScrollUp JS -->
-	<script src="http://localhost:8080/controller/resources/js/scrollup.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/scrollup.js"></script>
 	<!-- Onepage Nav JS -->
-	<script src="http://localhost:8080/controller/resources/js/onepage-nav.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/onepage-nav.min.js"></script>
 	<!-- Easing JS -->
-	<script src="http://localhost:8080/controller/resources/js/easing.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/easing.js"></script>
 	<!-- Active JS -->
-	<script src="http://localhost:8080/controller/resources/js/active.js"></script>
-	
+<%-- 	<script src="${pageContext.request.contextPath}/resources/js/active.js"></script>
+ --%>	
    
 	
 </body>

@@ -17,8 +17,6 @@
 		<property name="jdbcUrl" value="${url}"></property>
 		<property name="username" value="${user}"></property>
 		<property name="password" value="${pw}"></property>
-		<property name="connectionInitSql"  value="select 1"></property>
-		<property name="autoCommit" value="true"></property>
 	</bean>
 	<bean name="ds" class="com.zaxxer.hikari.HikariDataSource"
 		destroy-method="close">

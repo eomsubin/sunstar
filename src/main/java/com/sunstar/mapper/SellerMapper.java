@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.sunstar.dto.CategoryDTO;
 import com.sunstar.dto.OptionDTO;
+import com.sunstar.dto.OrderDTO;
 import com.sunstar.dto.ProductDTO;
 
 @Mapper
@@ -28,6 +29,12 @@ public interface SellerMapper {
 
 	List<String> getOptionColor(int pcode);
 	void updateInventory(OptionDTO dto);
+
+	List<OrderDTO> orderlist();
+
+	List<OrderDTO> shippinglist();
+
+	OrderDTO theOrderlist(String order_code);
 
 
 

@@ -2,6 +2,7 @@
 	pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ page session="false"%>
 <!DOCTYPE html>
 <html>
@@ -26,7 +27,6 @@
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/themify-icons.css">
 
-<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script>
 $(document).ready(function(){
 	$(".plus").click(function(){
@@ -53,16 +53,21 @@ $(document).ready(function(){
 	
 	$(".addCart").click(function(){
 		var product_code = ${view.product_code};
-		var cart_quantity = $(".numBox");
+		var cart_quantity = $(".numBox").val();
 		console.log(product_code);
 		
+		let id = $('.id').val();
+		if(id==null){
+			alert('비화원으로 구매하시겠습니까?');
+		}
 		var data = {
-				product_code : product_code
-			,   cart_quantity : cart_quantity
+				"id" : id
+				,"product_code" : product_code
+				,"cart_quantity" : cart_quantity
 		};
-		
-		$.ajax({
-			url : "/shop/view/addCart"
+		console.log(data);
+	 	$.ajax({
+			url : "/shop/view/cart"
 			, type : "post"
 			, data : data
 			, success : function(result){
@@ -83,10 +88,14 @@ $(document).ready(function(){
 </head>
 <body>
 	<div class="wrapper">
-
+	
 		<section>
 			<form role="form"="post">
-				<input type="hidden" name="product_code" value="product_code" >
+				<input type="hidden" name="product_code" value="${view.product_code}" >
+				
+				<sec:authorize access="isAuthenticated()">
+				<input type="hidden" name="id" class="id" value='<sec:authentication property="principal.UserInfo.id"/>' >
+				</sec:authorize>
 			</form>
 
 			<div class="goods">
@@ -129,7 +138,6 @@ $(document).ready(function(){
 						<fmt:formatNumber pattern="###,###,###" value="${view.add_price}" />
 						원
 					</p>
-
 					<p class="cartStock">
 						<span> 구입수량 </span>
 						<button type="button" class="minus">-</button>
@@ -139,7 +147,7 @@ $(document).ready(function(){
 					</p>
 
 					<p class="addToCart">
-						<button type="button" class="addToCart"> 장바구니 담기 </button>
+						<button type="button" class="addCart"> 장바구니 담기 </button>
 					</p>
 					
 					<p class="buyItNow">
@@ -149,18 +157,6 @@ $(document).ready(function(){
 			</div>
 		</section>
 	</div>
-
-
-	<!-- Popper.js first, then Bootstrap JS -->
-
-	<script
-		src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-		integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-		crossorigin="anonymous"></script>
-	<script
-		src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
-		integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
-		crossorigin="anonymous"></script>
 </body>
 </html>
 

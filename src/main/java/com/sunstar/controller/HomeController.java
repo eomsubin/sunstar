@@ -8,6 +8,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.security.SecureRandom;
+import java.util.List;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
@@ -24,11 +25,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sunstar.dto.CartDTO;
+import com.sunstar.dto.CategoryDTO;
 import com.sunstar.dto.CustomerDTO;
 import com.sunstar.dto.NuserDTO;
 import com.sunstar.dto.NuserinfoDTO;
 import com.sunstar.dto.ProductDTO;
 import com.sunstar.service.CartService;
+import com.sunstar.service.MainService;
 import com.sunstar.service.ProductService;
 
 
@@ -39,68 +42,75 @@ import com.sunstar.service.ProductService;
 public class HomeController {
 
 	@Autowired
+	private MainService mainservice;
+	
+	@Autowired
 	private ProductService productservice;
 	
 	@Autowired
 	private CartService cartservice;
 	
 	@RequestMapping("/header")
-	public String header()
-	{
-		return "header";
+	public String header(Model model) {
+		List<CategoryDTO> clist= mainservice.getCategory();
+	
+		
+		List<CategoryDTO> clist2= mainservice.getCategory2();
+		model.addAttribute("catelist",clist);
+		model.addAttribute("catelist2",clist2);	
+		
+		return "header2";
+		
 	}
-
-	@RequestMapping("/footer")
-	public String footer()
-	{
-		return "footer";
-	}
-
+	
+	
 	@RequestMapping("/")
 	public String body(Locale locale, Model model, HttpSession session)
 	{		        
 		model.addAttribute("contentpage", "body.jsp");
 		return "home";
 	}
-	@RequestMapping("/main")
+	
+	@RequestMapping("/checkout")
 	public String body( Model model, HttpSession session)
 	{
 		model.addAttribute("contentpage", "main.jsp");
 		return "home";
 	}
 	
-	//상품 상세보기
-	@RequestMapping(value = "/detailview", method = RequestMethod.GET)
-	public String detailview(@RequestParam(defaultValue="") String product_code, Model model) {
-		if(product_code.equals(""))
-		{
-			System.out.println("값이 없습니다.");
-			return "redirect:http://localhost:8080/controller/";
-		}else {
-		
-		int product_code1=Integer.parseInt(product_code);
-		ProductDTO view = productservice.productview(product_code1);
-		model.addAttribute("view", view);
-		model.addAttribute("contentpage", "shop/detailview.jsp");
-		//System.out.println(view);
-		}
-		return "home";
-	}
+	   //상품 상세보기
+	   @RequestMapping(value = "/detailview", method = RequestMethod.GET)
+	   public String detailview(@RequestParam(defaultValue="") String product_code, Model model) {
+	      if(product_code.equals(""))
+	      {
+	         System.out.println("값이 없습니다.");
+	         return "redirect:http://localhost:8080/controller/";
+	      }else {
+	      
+	      int product_code1=Integer.parseInt(product_code);
+	      ProductDTO view = productservice.productview(product_code1);
+	      model.addAttribute("view", view);
+	      model.addAttribute("contentpage", "shop/detailview.jsp");
+	      //System.out.println(view);
+	      }
+	      return "home";
+	   }
 	
 	
 	//카드 담기
 	@ResponseBody
-	@RequestMapping(value="/addcart", method=RequestMethod.POST)
+	@RequestMapping(value="/view/shop/addCart", method=RequestMethod.POST)
 	public String addCart(Model model, CartDTO cart, HttpSession session) throws Exception{
 		model.addAttribute("contentpage", "shop/addcart.jsp");
 		CustomerDTO customer=(CustomerDTO)session.getAttribute("customer");
 		cart.setId(customer.getId());
 		
 		cartservice.addCart(cart);
-		System.out.println(cart);
+		
 		return "home";
 	}
 	
+
 	
 	@GetMapping("/userlogin")
 	public void userlogin(HttpSession session, HttpServletRequest request, Model model) throws UnsupportedEncodingException
@@ -175,6 +185,38 @@ public class HomeController {
   	        res.append(inputLine);
   	      }
   	      	NuserinfoDTO userinfo = new ObjectMapper().readValue(res.toString(), NuserinfoDTO.class);
+  	      	System.out.println(userinfo);
+  	      	/*String error="";
+  	      	if(!userinfo.getResponse().containsKey("name")) {
+  	      		error="이름";
+  	      	}else if(!userinfo.getResponse().containsKey("email"))
+  	      	{
+  	      		error="이메일";	
+  	      	}else if(!userinfo.getResponse().containsKey("nickname"))
+  	      	{
+  	      		error="별명";
+  	      	}else if(!userinfo.getResponse().containsKey("profile_image"))
+  	      	{
+  	      		error="프로필사진";
+  	      	}else if(!userinfo.getResponse().containsKey("gender"))
+  	      	{
+  	      		error="성별";
+  	      	}else if(!userinfo.getResponse().containsKey("birthday"))
+  	      	{
+  	      		error="생일";
+  	      	}else if(!userinfo.getResponse().containsKey("age"))
+  	      	{
+  	      		error="연령대";
+  	      	}
+  	      	if(!(error.equals(""))) {
+  	      		apiURL = "https://nid.naver.com/oauth2.0/authorize?response_type=code";
+  	      		apiURL += "&client_id=" + clientId;
+  	      		apiURL += "&state=" + state;
+  	      		apiURL += "&redirect_uri=" + redirectURI;
+  	      		apiURL += "&auth_type=reprompt";
+  	      		System.out.println(apiURL);
+  	      		return "redirect:"+apiURL;
+  	      	}*/
   	      session.setAttribute("user", user);
   	      session.setAttribute("userinfo", userinfo);
 	      }
@@ -185,11 +227,12 @@ public class HomeController {
 	}
 	
 	
-	@GetMapping("/userlogout")
-	public void userlogout(HttpSession session) 
+@GetMapping("/userlogout") 
+	public void userlogout(HttpSession session) throws NullPointerException 
 	{
-		/*//접근 토큰 삭제 요청, 연동 취소
 		NuserDTO user = (NuserDTO)session.getAttribute("user");
+		if(user!=null) //접근 토큰 삭제 요청, 연동 취소
+		{
 		 String apiURL;
 		 apiURL = "https://nid.naver.com/oauth2.0/token?grant_type=delete&";
 		 apiURL += "client_id=XMKUF7HdU8r3IIu3tMzr";
@@ -220,9 +263,10 @@ public class HomeController {
 	      }
 		 }catch(Exception e) {
 			 System.out.println(e);
-		}*/
+		}
 		session.removeAttribute("user");
 		session.removeAttribute("userinfo");
+		}
 		/*session.invalidate();*/
 	}
 	
