@@ -12,6 +12,9 @@ import java.security.SecureRandom;
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.List;
+
+
+
 import java.util.Locale;
 
 import javax.annotation.Resource;
@@ -19,7 +22,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import javax.servlet.jsp.PageContext;
-
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,20 +31,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sunstar.dto.CartDTO;
 import com.sunstar.dto.CategoryDTO;
-import com.sunstar.dto.CustomerDTO;
 import com.sunstar.dto.NuserDTO;
 import com.sunstar.dto.NuserinfoDTO;
-import com.sunstar.dto.ProductDTO;
-import com.sunstar.service.CartService;
 import com.sunstar.service.MainService;
-import com.sunstar.service.ProductService;
 
 
 /**
@@ -51,14 +47,21 @@ import com.sunstar.service.ProductService;
 @Controller
 public class HomeController {
 
-	@Autowired
-	private MainService mainservice;
 	
 	@Autowired
-	private ProductService productservice;
+	private MainService mainservice;	
 	
-	@Autowired
-	private CartService cartservice;
+
+	/*@ResponseBody
+	@RequestMapping("/abc")
+	public List<CategoryDTO> abc(){
+		List<CategoryDTO> list = mainservice.getCategory();
+		System.out.println("controller"+list);
+		//model.addAttribute("catelist",list);
+		
+		return list;
+		
+	}*/
 	
 	@RequestMapping("/header")
 	public String header(Model model) {
@@ -77,6 +80,10 @@ public class HomeController {
 	@RequestMapping("/")
 	public String body(Locale locale, Model model, HttpSession session)
 	{		        
+		
+	
+		
+		header(model);	
 		model.addAttribute("contentpage", "body.jsp");
 		return "home";
 	}
@@ -84,11 +91,30 @@ public class HomeController {
 	@RequestMapping("/checkout")
 	public String body( Model model, HttpSession session)
 	{
-		model.addAttribute("contentpage", "main.jsp");
-		return "home";
-	}
+		
 	
-   //상품 상세보기
+		header(model);
+		
+		model.addAttribute("contentpage", "checkout.jsp");       
+	
+		return "home";
+
+
+	}
+	@RequestMapping("/search")
+	public String search(@RequestParam String search, @RequestParam String word) {
+		System.out.println(search + word);
+		
+		return "redirect:/";
+	}
+
+
+	@RequestMapping("/payment")
+		public String payment() {
+			return "payment";
+	  }
+
+  //상품 상세보기
       @RequestMapping(value = "/detailview", method = RequestMethod.GET)
       public String detailview(@RequestParam(defaultValue="") String product_code, Model model) {
          if(product_code.equals(""))
@@ -111,34 +137,32 @@ public class HomeController {
    @ResponseBody
    @RequestMapping(value="/detailview/addCart", method=RequestMethod.GET)
    public int addCart(Model model, CartDTO data) throws Exception{
-	  int result=0;
-	  result = cartservice.addCart(data);
+     int result=0;
+     result = cartservice.addCart(data);
       return result;
    }
 
    //카트 목록   
    @RequestMapping(value="/cartList")
    public String getCartList(Model model) throws Exception{
-	   	   
-	  
-	   String id="hugstar";
-	   
-	   List<CartDTO> cartList=cartservice.cartList(id);
-	   
-	   System.out.println(cartList+"!!!!!!!!!!!!!!!!!!!!!!");
-	   System.out.println(cartList.get(1).getShipping_cost());
-	   
-	   
-	   model.addAttribute("cartList", cartList);
+            
+     
+      String id="hugstar";
+      
+      List<CartDTO> cartList=cartservice.cartList(id);
+      
+      System.out.println(cartList+"!!!!!!!!!!!!!!!!!!!!!!");
+      System.out.println(cartList.get(1).getShipping_cost());
+      
+      
+      model.addAttribute("cartList", cartList);
 
-	   model.addAttribute("contentpage", "shop/cartList.jsp");
-	    
-	   return "home";
+      model.addAttribute("contentpage", "shop/cartList.jsp");
+       
+      return "home";
    }
-   
-   
-   
-	
+
+
 	@GetMapping("/userlogin")
 	public void userlogin(HttpSession session, HttpServletRequest request, Model model) throws UnsupportedEncodingException
 	{	
@@ -252,6 +276,8 @@ public class HomeController {
 	    }
 		return "redirect:http://localhost:8080/controller/";
 	}
+	
+	
 	
 	
 	@GetMapping("/userlogout") 
