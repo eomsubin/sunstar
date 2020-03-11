@@ -23,8 +23,8 @@ public class OrderDTO {
 	private int order_no;
 	private int product_code;
 	private int quantity;
-	private String color;
-	private String size;
+	private String option1;
+	private String option2;
 	private int inventory;
 	private int add_price;
 	private int price;
