@@ -2,6 +2,8 @@ package com.sunstar.service;
 
 
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,9 +17,16 @@ public class CartServiceImpl implements CartService {
 	private CartMapper cartmapper;
 
 	@Override
-	public void addCart(CartDTO cart) throws Exception {
+	public int addCart(CartDTO cart) throws Exception {
 		// TODO Auto-generated method stub
-		cartmapper.addCart(cart);	
+		System.out.println(cart);
+		return cartmapper.addCart(cart);	
+	}
+
+	@Override
+	public List<CartDTO> cartList(String id) throws Exception {
+		// TODO Auto-generated method stub
+		return cartmapper.cartList(id);
 	}
 
 	}
