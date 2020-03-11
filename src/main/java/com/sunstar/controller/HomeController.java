@@ -1,6 +1,7 @@
 package com.sunstar.controller;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
@@ -8,37 +9,32 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.security.SecureRandom;
-
-import java.text.DateFormat;
-import java.util.Date;
 import java.util.List;
-
-
-
 import java.util.Locale;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import javax.servlet.jsp.PageContext;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.security.web.csrf.CsrfFilter;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sunstar.dto.CartDTO;
 import com.sunstar.dto.CategoryDTO;
 import com.sunstar.dto.NuserDTO;
 import com.sunstar.dto.NuserinfoDTO;
+import com.sunstar.dto.ProductDTO;
+import com.sunstar.service.CartService;
 import com.sunstar.service.MainService;
+import com.sunstar.service.ProductService;
 
 
 /**
@@ -48,8 +44,18 @@ import com.sunstar.service.MainService;
 public class HomeController {
 
 	
+
+	
+	
 	@Autowired
 	private MainService mainservice;	
+	
+	@Autowired
+	private ProductService productservice;
+	
+	@Autowired
+	private CartService cartservice;
+	
 	
 
 	/*@ResponseBody
@@ -60,8 +66,14 @@ public class HomeController {
 		//model.addAttribute("catelist",list);
 		
 		return list;
-		
+		 
 	}*/
+	
+	@RequestMapping("/addr")
+	public String addr()
+	{
+		return "addr";
+	}
 	
 	@RequestMapping("/header")
 	public String header(Model model) {
@@ -75,7 +87,6 @@ public class HomeController {
 		return "header2";
 		
 	}
-	
 	
 	@RequestMapping("/")
 	public String body(Locale locale, Model model, HttpSession session)
@@ -114,53 +125,53 @@ public class HomeController {
 			return "payment";
 	  }
 
-  //상품 상세보기
-      @RequestMapping(value = "/detailview", method = RequestMethod.GET)
-      public String detailview(@RequestParam(defaultValue="") String product_code, Model model) {
-         if(product_code.equals(""))
-         {
-            System.out.println("값이 없습니다.");
-            return "redirect:http://localhost:8080/controller/";
-         }else {
-         
-         int product_code1=Integer.parseInt(product_code);
-         ProductDTO view = productservice.productview(product_code1);
-         model.addAttribute("view", view);
-         model.addAttribute("contentpage", "shop/detailview.jsp");
-         //System.out.println(view);
-         }
-         return "home";
-      }
-   
-   
-   //카드 담기
-   @ResponseBody
-   @RequestMapping(value="/detailview/addCart", method=RequestMethod.GET)
-   public int addCart(Model model, CartDTO data) throws Exception{
-     int result=0;
-     result = cartservice.addCart(data);
-      return result;
-   }
-
-   //카트 목록   
-   @RequestMapping(value="/cartList")
-   public String getCartList(Model model) throws Exception{
-            
-     
-      String id="hugstar";
-      
-      List<CartDTO> cartList=cartservice.cartList(id);
-      
-      System.out.println(cartList+"!!!!!!!!!!!!!!!!!!!!!!");
-      System.out.println(cartList.get(1).getShipping_cost());
-      
-      
-      model.addAttribute("cartList", cartList);
-
-      model.addAttribute("contentpage", "shop/cartList.jsp");
+	 //상품 상세보기
+    @RequestMapping(value = "/detailview", method = RequestMethod.GET)
+    public String detailview(@RequestParam(defaultValue="") String product_code, Model model) {
+       if(product_code.equals(""))
+       {
+          System.out.println("값이 없습니다.");
+          return "redirect:http://localhost:8080/controller/";
+       }else {
        
-      return "home";
-   }
+       int product_code1=Integer.parseInt(product_code);
+       ProductDTO view = productservice.productview(product_code1);
+       model.addAttribute("view", view);
+       model.addAttribute("contentpage", "shop/detailview.jsp");
+       //System.out.println(view);
+       }
+       return "home";
+    }
+ 
+ 
+ //카드 담기
+ @ResponseBody
+ @RequestMapping(value="/detailview/addCart", method=RequestMethod.GET)
+ public int addCart(Model model, CartDTO data) throws Exception{
+   int result=0;
+   result = cartservice.addCart(data);
+    return result;
+ }
+
+ //카트 목록   
+ @RequestMapping(value="/cartList")
+ public String getCartList(Model model) throws Exception{
+          
+   
+    String id="hugstar";
+    
+    List<CartDTO> cartList=cartservice.cartList(id);
+    
+    System.out.println(cartList+"!!!!!!!!!!!!!!!!!!!!!!");
+    System.out.println(cartList.get(1).getShipping_cost());
+    
+    
+    model.addAttribute("cartList", cartList);
+
+    model.addAttribute("contentpage", "shop/cartList.jsp");
+     
+    return "home";
+ }
 
 
 	@GetMapping("/userlogin")
@@ -268,13 +279,14 @@ public class HomeController {
   	      		System.out.println(apiURL);
   	      		return "redirect:"+apiURL;
   	      	}*/
-  	      session.setAttribute("user", user);
-  	      session.setAttribute("userinfo", userinfo);
+  	      /*session.setAttribute("user", user);
+  	      session.setAttribute("userinfo", userinfo);*/
+  	      	session.setAttribute("naverlogin", userinfo.getResponse().get("id"));
 	      }
 	    } catch (Exception e) {
 	      System.out.println(e);
 	    }
-		return "redirect:http://localhost:8080/controller/";
+		return "redirect:http://localhost:8080/controller/userlogin";
 	}
 	
 	

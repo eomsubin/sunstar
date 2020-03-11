@@ -5,10 +5,11 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-4.2.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
       <bean id="userLoginSuccess" class="com.sunstar.handler.UserLoginSucessHandler"></bean>
-      
-      <!--  security 예외설정 -->
+
+     
 	<security:http pattern="/resources/css/**" security="none"/>
 	<security:http pattern="/resources/js/**" security="none"/>
+	
 	
 	<security:http use-expressions="true">
 		<security:intercept-url pattern="/all" access="permitAll"/>
@@ -18,6 +19,10 @@
 		<security:form-login login-page="/userlogin" authentication-success-handler-ref="userLoginSuccess"/> <!-- default login사용 -->            
 		<security:logout logout-url="/userlogout" invalidate-session="true" logout-success-url="/"/>
 		<!-- <security:access-denied-handler error-page="/error"/> -->
+		<security:csrf request-matcher-ref="csrfMatcher"/>    	
+    	<security:headers>
+    		<security:frame-options policy="SAMEORIGIN"/>
+    	</security:headers>
 	</security:http>
 		
 	<bean name="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"></bean>
@@ -26,6 +31,24 @@
 			<security:password-encoder ref="passwordEncoder"></security:password-encoder>
 		</security:authentication-provider>
 	</security:authentication-manager>
+	
+	<!-- <security:csrf request-matcher-ref="csrfSecurityRequestMatcher"/>
+	<bean id="csrfSecurityRequestMatcher" class="com.sunstar.handler.CsrfSecurityRequestMatcher"/> -->
+    
+     <bean id="csrfMatcher" class="org.springframework.security.web.util.matcher.AndRequestMatcher">
+     	<constructor-arg>
+     	<list>
+     	<value>#{T(org.springframework.security.web.csrf.CsrfFilter).DEFAULT_CSRF_MATCHER}</value>
+     	<bean class="org.springframework.security.web.util.matcher.NegatedRequestMatcher"> 
+     		<constructor-arg >
+     		<bean class="org.springframework.security.web.util.matcher.AntPathRequestMatcher">
+     			<constructor-arg value="/addr"/>
+     			</bean>
+     		</constructor-arg>
+     	 </bean>
+     	</list>
+     	</constructor-arg>
+     </bean>
 	
 </beans>
 
