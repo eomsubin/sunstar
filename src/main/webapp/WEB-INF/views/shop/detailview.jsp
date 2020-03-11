@@ -57,31 +57,40 @@ $(document).ready(function(){
 		console.log(product_code);
 		
 		let id = $('.id').val();
+		console.log(id);
 		if(id==null){
-			alert('비화원으로 구매하시겠습니까?');
+			alert("로그인 하십시오.");
 		}
+		
 		var data = {
 				"id" : id
 				,"product_code" : product_code
 				,"cart_quantity" : cart_quantity
 		};
 		console.log(data);
+			
+			
 	 	$.ajax({
-			url : "/shop/view/cart"
-			, type : "post"
+			url : "detailview/addCart"
 			, data : data
-			, success : function(result){
-					alert("장바구니에 상품을 담았습니다.");
-					$(".numBox").val("1");				
+			, dataType : "json"
+			, success : function(data){
+					console.log(data);
+				 	if(data>0){
+				 		alert("장바구니에 상품을 담았습니다.");
+				 	}else{
+				 		alert("장바구니에 상품을 담기 실패.");
+				 	}
 			}
-			, error : function(){
-				alert("장바구니에 담을 수 없습니다.")		
+			, error : function(e){
+				alert("장바구니에 담을 수 없습니다.")
+				console.log(e);
 			}
 		})
 	});
 	
-	
 });
+
 </script>
 
 <title>SBBJ</title>
@@ -90,7 +99,7 @@ $(document).ready(function(){
 	<div class="wrapper">
 	
 		<section>
-			<form role="form"="post">
+			<form role="form" method="post">
 				<input type="hidden" name="product_code" value="${view.product_code}" >
 				
 				<sec:authorize access="isAuthenticated()">
@@ -121,11 +130,11 @@ $(document).ready(function(){
 						원
 					</p>
 
-					<p class="color">
-						<span> 색상 </span>${view.color}</p>
+					<p class="option1">
+						<span> 옵션1 </span>${view.option1}</p>
 
-					<p class="size">
-						<span> 사이즈 </span>${view.size}</p>
+					<p class="option2">
+						<span> 옵션2 </span>${view.option2}</p>
 
 					<p class="inventory">
 						<span>재고</span>

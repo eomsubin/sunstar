@@ -28,12 +28,11 @@ public class CartDTO {
 	private int cost;
 	private int shipping_cost;
 	private String thumb_img;
-	private String add_date;
 	private String category_code;
 	private String seller_code;
 	
-	private String size;
-	private String color;
+	private String option1;
+	private String option2;
 	private int add_price;
 	
 }

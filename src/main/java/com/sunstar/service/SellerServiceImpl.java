@@ -42,8 +42,8 @@ public class SellerServiceImpl implements SellerService {
 			
 			OptionDTO dto2 = new OptionDTO();
 			dto2.setProduct_code(mapper.aProduct());
-			dto2.setColor(dto.getOptions().get(i).getColor());
-			dto2.setSize(dto.getOptions().get(i).getSize());
+			dto2.setOption1(dto.getOptions().get(i).getOption1());
+			dto2.setOption2(dto.getOptions().get(i).getOption2());
 			dto2.setInventory(dto.getOptions().get(i).getInventory());
 			dto2.setAdd_price(dto.getOptions().get(i).getAdd_price());
 			mapper.addOptions(dto2);

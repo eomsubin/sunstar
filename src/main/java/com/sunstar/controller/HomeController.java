@@ -109,17 +109,35 @@ public class HomeController {
    
    //카드 담기
    @ResponseBody
-   @RequestMapping(value="/view/shop/addCart", method=RequestMethod.POST)
-   public String addCart(Model model, CartDTO cart, HttpSession session) throws Exception{
-      model.addAttribute("contentpage", "shop/addcart.jsp");
-      CustomerDTO customer=(CustomerDTO)session.getAttribute("customer");
-      cart.setId(customer.getId());
-      
-      cartservice.addCart(cart);
-      
-      return "home";
+   @RequestMapping(value="/detailview/addCart", method=RequestMethod.GET)
+   public int addCart(Model model, CartDTO data) throws Exception{
+	  int result=0;
+	  result = cartservice.addCart(data);
+      return result;
    }
-	
+
+   //카트 목록   
+   @RequestMapping(value="/cartList")
+   public String getCartList(Model model) throws Exception{
+	   	   
+	  
+	   String id="hugstar";
+	   
+	   List<CartDTO> cartList=cartservice.cartList(id);
+	   
+	   System.out.println(cartList+"!!!!!!!!!!!!!!!!!!!!!!");
+	   System.out.println(cartList.get(1).getShipping_cost());
+	   
+	   
+	   model.addAttribute("cartList", cartList);
+
+	   model.addAttribute("contentpage", "shop/cartList.jsp");
+	    
+	   return "home";
+   }
+   
+   
+   
 	
 	@GetMapping("/userlogin")
 	public void userlogin(HttpSession session, HttpServletRequest request, Model model) throws UnsupportedEncodingException

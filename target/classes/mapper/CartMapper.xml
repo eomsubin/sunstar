@@ -5,10 +5,24 @@
 <mapper namespace="com.sunstar.mapper.CartMapper">
 
 	<insert id="addCart" parameterType="com.sunstar.dto.CartDTO">
-	<selectKey resultType="int" keyProperty="cart_no" order="BEFORE">
+	<selectKey resultType="int" keyProperty="cart_no" order="BEFORE"  >
 	select Max(cart_no)+1 from cart
 	</selectKey>
-	insert into cart(cart_no, id, product_code, cart_quantity) values('', #{id}, #{product_code}, #{cart_quantity});
+	insert into cart(cart_no, id, product_code, cart_quantity) values(#{cart_no}, #{id}, #{product_code}, #{cart_quantity});
 	</insert>
+	
+	<select id="cartList" resultType="com.sunstar.dto.CartDTO" >
+	select
+	c.cart_no, c.id, c.product_code, c.cart_quantity
+    ,p.product_name, p.price, p.cost, p.shipping_cost, p.thumb_img, p.category_code, p.seller_code
+    ,o.option1, o.option2, o.add_price
+    from cart c left join product_list p
+    on c.product_code = p.product_code
+    left join options o 
+	on o.product_code = p.product_code
+    where c.id=#{id}
+    order by c.cart_no;
+	</select>
+	
 	
 </mapper>
