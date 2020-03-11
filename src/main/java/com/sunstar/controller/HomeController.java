@@ -10,9 +10,11 @@ import java.net.URLEncoder;
 import java.security.SecureRandom;
 
 import java.text.DateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+
+
 import java.util.Locale;
 
 import javax.annotation.Resource;
@@ -21,33 +23,22 @@ import javax.servlet.http.HttpSession;
 
 import javax.servlet.jsp.PageContext;
 
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sunstar.dto.AuthDTO;
-import com.sunstar.dto.CartDTO;
 import com.sunstar.dto.CategoryDTO;
-import com.sunstar.dto.CustomerDTO;
 import com.sunstar.dto.NuserDTO;
 import com.sunstar.dto.NuserinfoDTO;
-import com.sunstar.dto.ProductDTO;
-import com.sunstar.service.AuthService;
-import com.sunstar.service.CartService;
 import com.sunstar.service.MainService;
-import com.sunstar.service.ProductService;
-import com.sunstar.service.UserService;
 
 
 /**
@@ -56,18 +47,21 @@ import com.sunstar.service.UserService;
 @Controller
 public class HomeController {
 
-	@Autowired
-	private MainService mainservice;
 	
 	@Autowired
-	private ProductService productservice;
+	private MainService mainservice;	
 	
-	@Autowired
-	private CartService cartservice;
-	
-	@Autowired @Qualifier("userservice")
-	private UserService userservice;
-	
+
+	/*@ResponseBody
+	@RequestMapping("/abc")
+	public List<CategoryDTO> abc(){
+		List<CategoryDTO> list = mainservice.getCategory();
+		System.out.println("controller"+list);
+		//model.addAttribute("catelist",list);
+		
+		return list;
+		
+	}*/
 	
 	@RequestMapping("/header")
 	public String header(Model model) {
@@ -86,6 +80,10 @@ public class HomeController {
 	@RequestMapping("/")
 	public String body(Locale locale, Model model, HttpSession session)
 	{		        
+		
+	
+		
+		header(model);	
 		model.addAttribute("contentpage", "body.jsp");
 		return "home";
 	}
@@ -93,43 +91,30 @@ public class HomeController {
 	@RequestMapping("/checkout")
 	public String body( Model model, HttpSession session)
 	{
-		model.addAttribute("contentpage", "main.jsp");
+		
+	
+		header(model);
+		
+		model.addAttribute("contentpage", "checkout.jsp");       
+	
 		return "home";
+
+
 	}
-	
-	//상품 상세보기
-   @RequestMapping(value = "/detailview", method = RequestMethod.GET)
-   public String detailview(@RequestParam(defaultValue="") String product_code, Model model) {
-      if(product_code.equals(""))
-      {
-         System.out.println("값이 없습니다.");
-         return "redirect:http://localhost:8080/controller/";
-      }else {
-      
-      int product_code1=Integer.parseInt(product_code);
-      ProductDTO view = productservice.productview(product_code1);
-      model.addAttribute("view", view);
-      model.addAttribute("contentpage", "shop/detailview.jsp");
-      //System.out.println(view);
-      }
-      return "home";
-   }
-   
-   
-   //카드 담기
-   @ResponseBody
-   @RequestMapping(value="/view/shop/addCart", method=RequestMethod.POST)
-   public String addCart(Model model, CartDTO cart, HttpSession session) throws Exception{
-      model.addAttribute("contentpage", "shop/addcart.jsp");
-      CustomerDTO customer=(CustomerDTO)session.getAttribute("customer");
-      cart.setId(customer.getId());
-      
-      cartservice.addCart(cart);
-      
-      return "home";
-   }
-	
-	
+	@RequestMapping("/search")
+	public String search(@RequestParam String search, @RequestParam String word) {
+		System.out.println(search + word);
+		
+		return "redirect:/";
+	}
+
+
+	@RequestMapping("/payment")
+		public String payment() {
+			return "payment";
+	  }
+
+
 	@GetMapping("/userlogin")
 	public void userlogin(HttpSession session, HttpServletRequest request, Model model) throws UnsupportedEncodingException
 	{	
@@ -149,7 +134,6 @@ public class HomeController {
 	@RequestMapping("/callback")
 	public String callback(HttpSession session, HttpServletRequest request) throws UnsupportedEncodingException
 	{
-		NuserinfoDTO userinfo = null;
 		//네이버 로그인 접근토큰 획득
 		String clientId = "XMKUF7HdU8r3IIu3tMzr";//애플리케이션 클라이언트 아이디값";
 	    String clientSecret = "huGfQG5ZGT";//애플리케이션 클라이언트 시크릿값";
@@ -203,8 +187,8 @@ public class HomeController {
   	      while ((inputLine = br.readLine()) != null) {
   	        res.append(inputLine);
   	      }
-  	      	userinfo = new ObjectMapper().readValue(res.toString(), NuserinfoDTO.class);
-  	      	System.out.println(userinfo.getResponse());
+  	      	NuserinfoDTO userinfo = new ObjectMapper().readValue(res.toString(), NuserinfoDTO.class);
+  	      	System.out.println(userinfo);
   	      	/*String error="";
   	      	if(!userinfo.getResponse().containsKey("name")) {
   	      		error="이름";
@@ -236,29 +220,13 @@ public class HomeController {
   	      		System.out.println(apiURL);
   	      		return "redirect:"+apiURL;
   	      	}*/
-  	      /*session.setAttribute("user", user);
-  	      session.setAttribute("userinfo", userinfo);*/
-  	      session.setAttribute("naverlogin",userinfo.getResponse().get("id"));
-  	      int result = userservice.customeridcheck(userinfo.getResponse().get("id"));
-  	      //중복된 아이디가 없으면 네이버 회원가입
-	  	    if(result<1) {	CustomerDTO dto = new CustomerDTO();
-	      	dto.setId(userinfo.getResponse().get("id"));
-	      	dto.setPassword(userinfo.getResponse().get("id"));
-	      	dto.setName(userinfo.getResponse().get("name"));
-	      	dto.setEmail(userinfo.getResponse().get("email"));
-	      	dto.setEnable(true);
-			
-			ArrayList<AuthDTO> arr = new ArrayList<AuthDTO>();
-			arr.add(new AuthDTO(dto.getId(),"ROLE_USER"));
-			dto.setAuthlist(arr);
-			userservice.join_Customer(dto);
-	  	    }
+  	      session.setAttribute("user", user);
+  	      session.setAttribute("userinfo", userinfo);
 	      }
-	    } 
-		catch (Exception e) {
+	    } catch (Exception e) {
 	      System.out.println(e);
 	    }
-		return "redirect:http://localhost:8080/controller/userlogin";
+		return "redirect:http://localhost:8080/controller/";
 	}
 	
 	
@@ -299,11 +267,9 @@ public class HomeController {
 		 }catch(Exception e) {
 			 System.out.println(e);
 		}
-			session.removeAttribute("user");
-			session.removeAttribute("userinfo");
+		session.removeAttribute("user");
+		session.removeAttribute("userinfo");
 		}
-		/*session.removeAttribute("user");
-		session.removeAttribute("userinfo");*/
 		/*session.invalidate();*/
 	}
 	
