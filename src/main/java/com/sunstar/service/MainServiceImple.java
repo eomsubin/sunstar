@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
 import com.sunstar.dto.CategoryDTO;
 import com.sunstar.mapper.Homemapper;
@@ -15,17 +16,28 @@ public class MainServiceImple implements MainService {
 	
 	@Override
 	public List<CategoryDTO> getCategory() {
-		System.out.println("serviceimple"+ homemapper.getCategory());
+		
 
 		return homemapper.getCategory();
 	}
 
 	@Override
 	public List<CategoryDTO> getCategory2() {
-		// TODO Auto-generated method stub
+		
 		return homemapper.getCategory2();
 	}
-	
+	@Override
+	public String header(Model model) {
+		List<CategoryDTO> clist=getCategory();
+		List<CategoryDTO> clist2=getCategory2();
+		
+		
+		model.addAttribute("catelist",clist);
+		model.addAttribute("catelist2",clist2);	
+		
+		return "header2";
+		
+	}
 	
 	
 }

@@ -19,16 +19,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sunstar.dto.CartDTO;
 import com.sunstar.dto.CategoryDTO;
 import com.sunstar.dto.NuserDTO;
 import com.sunstar.dto.NuserinfoDTO;
-import com.sunstar.dto.ProductDTO;
 import com.sunstar.service.CartService;
 import com.sunstar.service.MainService;
 import com.sunstar.service.ProductService;
@@ -44,13 +40,6 @@ public class HomeController {
 	@Autowired
 	private MainService mainservice;	
 	
-	@Autowired
-	private ProductService productservice;
-	
-	@Autowired
-	private CartService cartservice;
-	
-	
 
 	/*@ResponseBody
 	@RequestMapping("/abc")
@@ -63,44 +52,19 @@ public class HomeController {
 		
 	}*/
 	
-	@RequestMapping("/header")
-	public String header(Model model) {
-		List<CategoryDTO> clist= mainservice.getCategory();
-	
-		
-		List<CategoryDTO> clist2= mainservice.getCategory2();
-		model.addAttribute("catelist",clist);
-		model.addAttribute("catelist2",clist2);	
-		
-		return "header2";
-		
-	}
 	
 	
 	@RequestMapping("/")
 	public String body(Locale locale, Model model, HttpSession session)
 	{		        
 		
-	
-		
-		header(model);	
+		mainservice.header(model);
 		model.addAttribute("contentpage", "body.jsp");
+		
 		return "home";
 	}
 	
-	@RequestMapping("/checkout")
-	public String body( Model model, HttpSession session)
-	{
-		
 	
-		header(model);
-		
-		model.addAttribute("contentpage", "checkout.jsp");       
-	
-		return "home";
-
-
-	}
 	@RequestMapping("/search")
 	public String search(@RequestParam String search, @RequestParam String word) {
 		System.out.println(search + word);
@@ -109,58 +73,7 @@ public class HomeController {
 	}
 
 
-	@RequestMapping("/payment")
-		public String payment() {
-			return "payment";
-	  }
-
-	 //상품 상세보기
-    @RequestMapping(value = "/detailview", method = RequestMethod.GET)
-    public String detailview(@RequestParam(defaultValue="") String product_code, Model model) {
-       if(product_code.equals(""))
-       {
-          System.out.println("값이 없습니다.");
-          return "redirect:http://localhost:8080/controller/";
-       }else {
-       
-       int product_code1=Integer.parseInt(product_code);
-       ProductDTO view = productservice.productview(product_code1);
-       model.addAttribute("view", view);
-       model.addAttribute("contentpage", "shop/detailview.jsp");
-       //System.out.println(view);
-       }
-       return "home";
-    }
- 
- 
- //카드 담기
- @ResponseBody
- @RequestMapping(value="/detailview/addCart", method=RequestMethod.GET)
- public int addCart(Model model, CartDTO data) throws Exception{
-   int result=0;
-   result = cartservice.addCart(data);
-    return result;
- }
-
- //카트 목록   
- @RequestMapping(value="/cartList")
- public String getCartList(Model model) throws Exception{
-          
-   
-    String id="hugstar";
-    
-    List<CartDTO> cartList=cartservice.cartList(id);
-    
-    System.out.println(cartList+"!!!!!!!!!!!!!!!!!!!!!!");
-    System.out.println(cartList.get(1).getShipping_cost());
-    
-    
-    model.addAttribute("cartList", cartList);
-
-    model.addAttribute("contentpage", "shop/cartList.jsp");
-     
-    return "home";
- }
+	
 
 
 	@GetMapping("/userlogin")
@@ -353,4 +266,5 @@ public class HomeController {
 		return "error";
 	}
 }
+
 
