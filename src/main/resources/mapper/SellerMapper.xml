@@ -31,14 +31,14 @@
 	<!-- 옵션 추가  -->
 	<insert id="addOptions" parameterType="com.sunstar.dto.OptionDTO">
 
-		insert into options(product_code, size, color, inventory, add_price)
-		values(#{product_code},#{size},#{color},#{inventory},#{add_price})
+		insert into options(product_code, option2, option1, inventory, add_price)
+		values(#{product_code},#{option2},#{option1},#{inventory},#{add_price})
 	
 	</insert>
 	
 	<!-- 상픔 리스트 (판매자) -->
 	<select id="list" resultType="com.sunstar.dto.ProductDTO">
-		select p.product_code, product_name, price, cost, shipping_cost, o.size, o.color, o.inventory, o.add_price, public_state, review_state, c.lv1, c.lv2, c.lv3
+		select p.product_code, product_name, price, cost, shipping_cost, o.option1, o.option2, o.inventory, o.add_price, public_state, review_state, c.lv1, c.lv2, c.lv3
 		from product_list p  join category c
 		on p.category_code = c.category_code
 		left join options o
@@ -58,7 +58,7 @@
 	
 	<!-- 옵션 가지수 가져오기  -->
 	<select id="getOptionColor" parameterType="int" resultType="string">
-		select color
+		select option1
 		from options
 		where product_code=#{product_code}
 		order by product_code desc
@@ -68,13 +68,13 @@
 	<update id="updateInventory" parameterType="com.sunstar.dto.OptionDTO">
 		update options 
 		set inventory = inventory+#{inventory}
-		where product_code=#{product_code} and color=#{color}
+		where product_code=#{product_code} and option1=#{option1}
 	</update>
 	
 	<!-- 주문목록 -->
 	<select id="orderlist" resultType="com.sunstar.dto.OrderDTO">
 	
-	   select o.delivery_state, l.product_code, p.price, o.order_code, l.order_no, l.color, l.size, l.inventory, l.add_price, o.order_way, o.message, c.name, c.tel, s.shipping_addr1, s.shipping_addr2, s.shipping_addr3, s.shipping_zip
+	   select o.delivery_state, o.tracking_no, l.product_code, p.price, o.order_code, l.order_no, l.option1, l.option2, l.inventory, l.add_price, o.order_way, o.message, c.name, c.tel, s.shipping_addr1, s.shipping_addr2, s.shipping_addr3, s.shipping_zip
        from ordered o left join order_list l
        on o.order_code = l.order_code
        inner join customer c 
@@ -89,7 +89,7 @@
 		<!-- 배송대기 주문목록 -->
 	<select id="shippinglist" resultType="com.sunstar.dto.OrderDTO">
 	
-	   select o.delivery_state, l.product_code, p.price, o.order_code, l.order_no, l.color, l.size, l.inventory, l.add_price, o.order_way, o.message, c.name, c.tel, s.shipping_addr1, s.shipping_addr2, s.shipping_addr3, s.shipping_zip
+	   select o.delivery_state, l.product_code, p.price, o.order_code, l.order_no, l.option1, l.option2, l.inventory, l.add_price, o.order_way, o.message, c.name, c.tel, s.shipping_addr1, s.shipping_addr2, s.shipping_addr3, s.shipping_zip
        from ordered o left join order_list l
        on o.order_code = l.order_code
        inner join customer c 
@@ -105,7 +105,7 @@
 	
 	<select id="theOrderlist" resultType="com.sunstar.dto.OrderDTO" parameterType="string">
 	
-	   select o.delivery_state, l.product_code, p.price, o.order_code, l.order_no, l.color, l.size, l.inventory, l.add_price, o.order_way, o.message, c.name, c.tel, s.shipping_addr1, s.shipping_addr2, s.shipping_addr3, s.shipping_zip
+	   select o.delivery_state, l.product_code, p.price, o.order_code, l.order_no, l.option1, l.option2, l.inventory, l.add_price, o.order_way, o.message, c.name, c.tel, s.shipping_addr1, s.shipping_addr2, s.shipping_addr3, s.shipping_zip
        from ordered o left join order_list l
        on o.order_code = l.order_code
        inner join customer c 
@@ -117,5 +117,22 @@
        where o.order_code = #{order_code}
 		<!-- where seller = 'solyi' -->
 	</select>
+	
+	<!-- 주문목록 - 단계변경  -->
+	<update id="changeStep" parameterType="com.sunstar.dto.OrderDTO">
+		update ordered
+		set delivery_state = #{delivery_state}
+		where order_code = #{order_code}
+	</update>
+	
+	<update id="updateTracking" parameterType="com.sunstar.dto.OrderDTO">
+	
+		update ordered
+		set tracking_no = #{tracking_no}
+		where order_code = #{order_code}
+		
+	
+	</update>
+	
 	
 </mapper>

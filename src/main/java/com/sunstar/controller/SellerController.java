@@ -302,7 +302,7 @@ public class SellerController {
 			cell.setCellValue(dto.getProduct_code());
 			cell = row.createCell(2);
 			cell.setCellStyle(bodyStyle);
-			cell.setCellValue(dto.getColor()+"/"+dto.getSize()+"/");
+			cell.setCellValue(dto.getOption1()+"/"+dto.getOption2()+"/");
 
 			cell = row.createCell(3);
 			cell.setCellStyle(bodyStyle);
@@ -358,6 +358,90 @@ public class SellerController {
 		wb.close();
 	}
 
+	//주문목록 단계변경
+	@RequestMapping("/change_step/{stp}/{wantChangeOrderCode}")
+	public String changeState(@PathVariable String stp, @PathVariable String wantChangeOrderCode) {
+		
+		System.out.println("stp" +stp);
+		
+		String change_step = "";
+		String[] ordercodes = wantChangeOrderCode.split(",");
+
+		
+		System.out.println("change_step" +  change_step);
+		System.out.println("ordercodes" + ordercodes);
+		System.out.println("wantChange..." + wantChangeOrderCode);
+		
+		if("step3".equals(stp)) {				//배송준비
+			change_step = "배송준비";
+		}else if("step4".equals(stp)) {		//배송중
+			change_step = "배송중";
+		}else if("step5".equals(stp)) {		//배송완료
+			change_step = "배송완료";
+		}else if("step7".equals(stp)) {		//반품대기
+			change_step = "반품대기";
+		}else if("step8".equals(stp)) {		//반품완료
+			change_step = "반품완료";
+		}else if("step9".equals(stp)) {		//교환요청
+			change_step = "교환요청";
+		}else if("step10".equals(stp)) {				//반송대기
+			change_step = "반송대기";
+		}else if("step11".equals(stp)) {				//반송완료 및 배송준비
+			change_step = "반송완료 및 배송준비";
+		}else if("step12".equals(stp)) {				//반품배송중
+			change_step = "반품배송중";
+		}else if("step13".equals(stp)) {				//배송 및 교환완료
+			change_step = "배송 및 교환완료";
+		}else if("step15".equals(stp)) {				//결제취소(판매자사유)
+			change_step = "결체취소(판매자사유)";
+		}
+		
+		for(String ordercode : ordercodes) {	     
+			OrderDTO dto = new OrderDTO();
+			dto.setOrder_code(ordercode);
+			dto.setDelivery_state(change_step);
+			
+			System.out.println(dto.getOrder_code());
+			System.out.println(dto.getDelivery_state());
+			sellerservice.changeStep(dto);
+		}
+		return "redirect:/orders";
+	}
+	
+
+	//운송장번호 입력(업데이트)
+	@RequestMapping("/updateTracking/{codes}/{trackings}")
+	public String updateTracking(@PathVariable String codes, @PathVariable String trackings) {
+		
+		String[] code = codes.split(",");  
+		String[] tracking = trackings.split(",");
+		
+		
+		for(int i = 0 ; i < code.length  ; i++) {
+			OrderDTO dto = new OrderDTO();
+			dto.setOrder_code(code[i]);
+			dto.setTracking_no(tracking[i]);
+			
+			sellerservice.updateTracking(dto);
+		}
+		
+		return "redirect:/orders";
+	}
+	
+	
+/*	@RequestMapping("/updateTracking")
+	public String updateTracking(@RequestParam(required=false) List<String> ordercode, 
+			@RequestParam(required=false) List<String> tracking_no ) {
+		
+		System.out.println(ordercode);
+		System.out.println(tracking_no);
+		
+		return "redirect:/orders";
+		
+		
+	}*/
+	
+	
 	//통계 연결
 	@RequestMapping("/charts")
 	public String charts(Model model) {

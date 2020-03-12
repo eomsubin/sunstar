@@ -93,6 +93,17 @@ public class SellerServiceImpl implements SellerService {
 	public OrderDTO theOrderlist(String order_code) {
 		return mapper.theOrderlist(order_code);
 	}
+
+	@Override
+	public void changeStep(OrderDTO dto) {
+		 mapper.changeStep(dto);
+	}
+
+	@Override
+	public void updateTracking(OrderDTO dto) {
+		mapper.updateTracking(dto);		
+	}
+	
 	
 	
 

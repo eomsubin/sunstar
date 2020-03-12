@@ -36,6 +36,11 @@ public interface SellerMapper {
 
 	OrderDTO theOrderlist(String order_code);
 
+	void changeStep(OrderDTO dto);
+
+	void updateTracking(OrderDTO dto);
+
+
 
 
 }

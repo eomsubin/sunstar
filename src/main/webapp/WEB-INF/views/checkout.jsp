@@ -36,9 +36,11 @@
 <!-- 	<link rel="stylesheet" href="http://localhost:8080/controller/resources/css/style.css"> -->
 <link rel="stylesheet"
 	href="http://localhost:8080/controller/resources/css/responsive.css">
- <!-- iamport.payment.js -->
-  <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
-  
+<!-- iamport.payment.js -->
+
+<script type="text/javascript"
+	src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+
 </head>
 <body>
 
@@ -51,8 +53,9 @@
 				<div class="col-12">
 					<div class="bread-inner">
 						<ul class="bread-list">
-							<li><a href="index1.html">홈<i class="ti-arrow-right"></i></a></li>
-							<li class="active"><a href="blog-single.html">주문/결제</a></li>
+							<li><a href="${pageContext.request.contextPath }">스삐제<i
+									class="ti-arrow-right"></i></a></li>
+							<li class="active">결제</li>
 						</ul>
 					</div>
 				</div>
@@ -63,35 +66,48 @@
 
 	<!-- Start Checkout -->
 	<section class="shop checkout section">
-	
-						<!-- Form -->
-					<form class="form" method="post" >
-								<input type="hidden" name="${_csrf.parameterName}"
-										value="${_csrf.token}" /> 
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-8 col-12">
-					<div class="checkout-form">
-						<h2>주문자 정보 입력</h2>
-						<p>주문하시는 분의 정보를 입력해주세요</p>
+
+		<!-- Form -->
+		<form method="post" name="payform" id="payform"
+			onsubmit="return requestPay()" class="form">
+			<input type="hidden" name="${_csrf.parameterName}"
+				value="${_csrf.token}" />
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-8 col-12">
+						<div class="checkout-form">
+							<h2>주문자 정보 입력</h2>
+							<p>주문하시는 분의 정보를 입력해주세요</p>
 							<div class="row">
 
 								<div class="col-lg-6 col-md-6 col-12">
-									<div class="form-group">
-										<label>주문자<span>*</span></label> <input type="text"
-											name="name1" id="name1" placeholder="" required="required">
+									<div class="form-group ">
+										<label for="name1">주문자<span>*</span></label> <input
+											class="form-control" type="text" name="name1" id="name1"
+											placeholder="" required="required">
+										<div class="hiddenname1 is-invalid invalid-feedback">*이름을
+											입력해주세요</div>
+										
 									</div>
 								</div>
+
 								<div class="col-lg-6 col-md-6 col-12">
 									<div class="form-group">
 										<label>휴대전화<span>*</span></label> <input type="text"
-											name="tel" id="tel" placeholder="" required="required">
+											class="form-control" name="tel" id="tel" placeholder=""
+											required>
+										<div class="hiddentel is-invalid invalid-feedback">*휴대전화를
+											입력해주세요('-' 제외,숫자만 입력)</div>
+										
+										
 									</div>
 								</div>
 								<div class="col-lg-6 col-md-6 col-12">
 									<div class="form-group">
 										<label>이메일<span>*</span></label> <input type="email"
-											name="email" placeholder="" required="required">
+											name="email" id="email" placeholder="" required="required">
+											<div class="hiddenemail is-invalid invalid-feedback">*이메일 형식에 맞게 입력해주세요
+											</div>
 									</div>
 								</div>
 							</div>
@@ -103,54 +119,59 @@
 								<p>받는 분의 배송지를 입력해주세요</p>
 								<!-- Form -->
 								<div class="row">
-									
+
 									<div class="col-lg-6 col-md-6 col-12">
 										<div class="form-group">
-											<a href="#" class="btn btn-secondary active" role="button">나의 배송지</a>
+											<a href="#" class="btn btn-secondary active" role="button">나의
+												배송지</a>
 										</div>
 									</div>
-									
+
 
 								</div>
 								<div class="row">
-								<div class="col-lg-6 col-md-6 col-12">
+									<div class="col-lg-6 col-md-6 col-12">
 										<div class="form-group">
 											<label>받으시는 분<span>*</span></label> <input type="text"
-												name="name2" placeholder="" required="required">
+												name="name2" id="name2" placeholder="" required="required" >
+												<div class="hiddenname2 is-invalid invalid-feedback">*받는 분의 이름을 적어주세요
+											</div>
 										</div>
-								</div>
-							
-									
+									</div>
+
+
 								</div>
 								<div class="row">
-										<div class="col-lg-4 col-md-4 col-2">
+									<div class="col-lg-4 col-md-4 col-2">
 										<div class="form-group">
 											<label>주소<span>*</span></label> <input type="text"
-												name="addr1" placeholder="" required="required" readonly="readonly">
+												name="addr1" id="addr1" placeholder="" required="required"
+												readonly="readonly">
 										</div>
 									</div>
 								</div>
-								
-								</div>			
-								<div class="row">
-										<div class="col-lg-6 col-md-6 col-12">
-										<div class="form-group">
-											 <input type="text"
-												name="addr2" placeholder="" required="required" readonly="readonly">
-										</div>
+
+							</div>
+							<div class="row">
+								<div class="col-lg-6 col-md-6 col-12">
+									<div class="form-group">
+										<input type="text" name="addr2" id="addr2" placeholder=""
+											required="required" readonly="readonly">
 									</div>
 								</div>
-								<div class="row">
-										<div class="col-lg-6 col-md-6 col-12">
-										<div class="form-group">
-											 <input type="text"
-												name="addr3" placeholder="" required="required" readonly="readonly">
-										</div>
+							</div>
+							<div class="row">
+								<div class="col-lg-6 col-md-6 col-12">
+									<div class="form-group">
+										<input type="text" name="addr3" id="addr3" placeholder=""
+											required="required" readonly="readonly">
+
 									</div>
 								</div>
-								
-														
-								
+							</div>
+
+
+
 
 
 
@@ -448,117 +469,161 @@
 										</div>
 									</div> -->
 
-						
-						<!--/ End Form -->
-					</div>
-				</div>
-				<div class="col-lg-4 col-12">
-					<div class="order-details">
-						<!-- Order Widget -->
-						<div class="single-widget">
-							<h2>CART TOTALS</h2>
-							<div class="content">
-								<ul>
-									<li>Sub Total<span>$330.00</span></li>
-									<li>(+) Shipping<span>$10.00</span></li>
-									<li class="last">Total<span>$340.00</span></li>
-								</ul>
-							</div>
+
+							<!--/ End Form -->
 						</div>
-						<!--/ End Order Widget -->
-						<!-- Order Widget -->
-						<div class="single-widget">
-							<h2>Payments</h2>
-							<div class="content">
-								<div class="checkbox">
-									<label class="checkbox-inline" for="1"><input
-										name="updates" id="1" type="checkbox"> Check Payments</label>
-									<label class="checkbox-inline" for="2"><input
-										name="news" id="2" type="checkbox"> Cash On Delivery</label> <label
-										class="checkbox-inline" for="3"><input name="news"
-										id="3" type="checkbox"> PayPal</label>
+					</div>
+					<div class="col-lg-4 col-12">
+						<div class="order-details">
+							<!-- Order Widget -->
+							<div class="single-widget">
+								<h2>카트</h2>
+								<div class="content">
+									<ul>
+										<li>상품 금액<span>$330.00</span></li>
+										<li>(+) 배송비<span>$10.00</span></li>
+										<li class="last">총 금액<span>$340.00</span></li>
+									</ul>
 								</div>
 							</div>
-						</div>
-						<!--/ End Order Widget -->
-						<!-- Payment Method Widget -->
-						<div class="single-widget payement">
-							<div class="content">
-								<img
-									src="${pageContext.request.contextPath }/resources/images/payment-method.png"
-									alt="#">
+							<!--/ End Order Widget -->
+							<!-- Order Widget -->
+							<div class="single-widget">
+								<h2>Payments</h2>
+								<div class="content">
+									<div class="checkbox">
+										<label class="checkbox-inline" for="1"><input
+											name="updates" id="1" type="checkbox"> 신용/체크카드</label> <label
+											class="checkbox-inline" for="2"><input name="news"
+											id="2" type="checkbox"> PayPal</label>
+									</div>
+								</div>
 							</div>
-						</div>
-						<!--/ End Payment Method Widget -->
-						<!-- Button Widget -->
-						<div class="single-widget get-button">
-							<div class="content">
-								<div class="button">
-							<!-- 	<button onclick="requestPay()">결제</button> -->
-							<button onclick="abc(name1,tel)">결제</button>
-						</div>
+							<!--/ End Order Widget -->
+							<!-- Payment Method Widget -->
+							<div class="single-widget payement">
+								<div class="content">
+									<img
+										src="${pageContext.request.contextPath }/resources/images/payment-method.png"
+										alt="#">
+								</div>
 							</div>
-						</div>
-						<!--/ End Button Widget -->
-						
-					</div>
-					
-				</div>
-			</div>
-			
-		</div>
- 	 </form>
- 	</section>
-	<script>
- 	function abc(name,tel){
- 		
- 		let a = name.value;
- 		let b = tel.value;
- 		
- 	/* 	let a = document.getElementById("name").value;
- 		let b = document.getElementById("tel").value; */
- 		console.log(a);
- 		console.log(b);
- 	}
-	//  var IMP = window.IMP; // 생략해도 괜찮습니다.
-	  IMP.init("imp09596317"); // "imp00000000" 대신 발급받은 "가맹점 식별코드"를 사용합니다.
-	  
-	//IMP.request_pay(param, callback) 호출
-	 function requestPay(){
-	  IMP.request_pay({ // param
-	    pg: "inicis",
-	    pay_method: "card",
-	    merchant_uid: "ORD20180131-0000011",
-	    name: "노르웨이 회전 의자",
-	    amount: 64900,
-	    buyer_email: "gildong@gmail.com",
-	    buyer_name: "홍길동",
-	    buyer_tel: "010-4242-4242",
-	    buyer_addr: "서울특별시 강남구 신사동",
-	    buyer_postcode: "01181"
-	  }, function (rsp) { // callback
-	    if (rsp.success) {
-	        
-	        // 결제 성공 시 로직,
-	    	 var msg = '결제가 완료되었습니다.';
-	         msg += '고유ID : ' + rsp.imp_uid;
-	         msg += '상점 거래ID : ' + rsp.merchant_uid;
-	         msg += '결제 금액 : ' + rsp.paid_amount;
-	         msg += '카드 승인번호 : ' + rsp.apply_num;
-	         
-	    } else {
-	        
-	        // 결제 실패 시 로직,
-	    	var msg = '결제에 실패하였습니다.';
-	        msg += '에러내용 : ' + rsp.error_msg;
-	    }
-	  });
+							<!--/ End Payment Method Widget -->
+							<!-- Button Widget -->
+							<div class="single-widget get-button">
+								<div class="content">
+									<div class="button">
+										<!-- <button onclick="requestPay(name1,tel,email,name2,addr1,addr2,addr3)">결제</button> -->
+										<input type="button" onclick="requestPay()" value="결제">
+									</div>
+								</div>
+							</div>
+							<!--/ End Button Widget -->
 
-	  }
-  	
-  
-  
-  </script>
+						</div>
+
+					</div>
+				</div>
+
+			</div>
+		</form>
+	</section>
+	<script>
+		/* function abc(name,tel){
+			
+			let a = name.value;
+			let b = tel.value;
+			
+		 	
+			console.log(a);
+			console.log(b);
+		} */
+
+		var IMP = window.IMP; // 생략해도 괜찮습니다.
+		IMP.init("imp09596317"); // "imp00000000" 대신 발급받은 "가맹점 식별코드"를 사용합니다.
+		var regtel = /^[0-9]+$/;
+		var regEm = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
+		//IMP.request_pay(param, callback) 호출
+		function requestPay() {
+			
+			
+		
+			
+			
+			if (name1.value == null || name1.value == "") {
+
+				
+				$('.hiddenname1').show(200);
+			 	$('#name1').keydown(function(event){
+			 		$('.hiddenname1').hide(444);
+			 	}) 
+			 	
+			 	
+				return false;
+	
+			}
+
+			else if (!regtel.test(tel.value)) {
+				$('.hiddentel').show(200);
+			 	$('#tel').keydown(function(event){
+			 		$('.hiddentel').hide(444);
+			 	}) 
+				
+				
+				return false;
+			}
+			
+			
+			else if (!regEm.test(email.value)) {
+				$('.hiddenemail').show(200);
+			 	$('#email').keydown(function(event){
+			 		$('.hiddenemail').hide(444);
+			 	}) 
+				return false;
+			} else if (name2.value == null || name2.value == "") {
+				$('.hiddenname2').show(200);
+			 	$('#name2').keydown(function(event){
+			 		$('.hiddenname2').hide(444);
+			 	}) 
+				return false;
+			}
+			
+			
+			else{
+				
+				IMP.request_pay({ // param
+					pg : "inicis",
+					pay_method : "card",
+					merchant_uid : "ORD20180131-0000011",
+					name : "최솔이 콧물",
+					amount : 100,
+					buyer_email : email.value,
+					buyer_name : name1.value,
+					buyer_tel : tel.value,
+					buyer_addr : addr2.value + addr3.value,
+					buyer_postcode : addr1.value
+				}, function(rsp) { // callback
+					if (rsp.success) {
+
+						// 결제 성공 시 로직,
+						var msg = '결제가 완료되었습니다.';
+						msg += '고유ID : ' + rsp.imp_uid;
+						msg += '상점 거래ID : ' + rsp.merchant_uid;
+						msg += '결제 금액 : ' + rsp.paid_amount;
+						msg += '카드 승인번호 : ' + rsp.apply_num;
+
+					} else {
+
+						// 결제 실패 시 로직,
+						var msg = '결제에 실패하였습니다.';
+						msg += '에러내용 : ' + rsp.error_msg;
+
+					}
+				});
+				return true;
+			}
+		}
+	</script>
 	<!--/ End Checkout -->
 	<script
 		src="http://localhost:8080/controller/resources/js/jquery-migrate-3.0.0.js"></script>
