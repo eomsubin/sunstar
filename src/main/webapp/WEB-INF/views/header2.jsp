@@ -197,12 +197,12 @@
                      </div>
 
                      <div class="sinlge-bar shopping">
-                        <a href="#" class="single-icon"><i class="ti-bag"></i> <span
-                           class="total-count">2</span></a>
+                        <a href="#" class="single-icon"><i class="ti-bag"></i></a> <!-- <span
+                           class="total-count"></span></a> -->
                         <!-- Shopping Item -->
-                        <div class="shopping-item">
+                     <!--    <div class="shopping-item">
                            <div class="dropdown-cart-header">
-                              <!--    <span>2 Items</span> -->
+                                 <span>2 Items</span>
                               <a href="#">장바구니 보기</a>
                            </div>
                            <ul class="shopping-list">
@@ -231,7 +231,7 @@
                               </div>
                               <a href="checkout.html" class="btn animate">Checkout</a>
                            </div>
-                        </div>
+                        </div> -->
                         <!--/ End Shopping Item -->
                      </div>
                   </div>
@@ -264,58 +264,7 @@
                               </ul>
                            </li>
                            </c:forEach>
-                           <!-- <li><a href="#">디지털/가전 <i class="fa fa-angle-right"
-                                 aria-hidden="true"></i></a>
-                              <ul class="sub-category">
-                                 <li><a href="#">accessories</a></li>
-                                 <li><a href="#">best selling</a></li>
-                                 <li><a href="#">top 100 offer</a></li>
-                                 <li><a href="#">sunglass</a></li>
-                                 <li><a href="#">watch</a></li>
-                                 <li><a href="#">man’s product</a></li>
-                                 <li><a href="#">ladies</a></li>
-                                 <li><a href="#">westrn dress</a></li>
-                                 <li><a href="#">denim </a></li>
-                              </ul></li>
-                           <li><a href="#">가구/인테리어 <i class="fa fa-angle-right"
-                                 aria-hidden="true"></i></a>
-                              <ul class="sub-category">
-                                 <li><a href="#">accessories</a></li>
-                                 <li><a href="#">best selling</a></li>
-                                 <li><a href="#">top 100 offer</a></li>
-                                 <li><a href="#">sunglass</a></li>
-                                 <li><a href="#">watch</a></li>
-                                 <li><a href="#">man’s product</a></li>
-                                 <li><a href="#">ladies</a></li>
-                                 <li><a href="#">westrn dress</a></li>
-                                 <li><a href="#">denim </a></li>
-                              </ul></li>
-                           <li><a href="#">식품 <i class="fa fa-angle-right"
-                                 aria-hidden="true"></i></a>
-                              <ul class="sub-category">
-                                 <li><a href="#">accessories</a></li>
-                                 <li><a href="#">best selling</a></li>
-                                 <li><a href="#">top 100 offer</a></li>
-                                 <li><a href="#">sunglass</a></li>
-                                 <li><a href="#">watch</a></li>
-                                 <li><a href="#">man’s product</a></li>
-                                 <li><a href="#">ladies</a></li>
-                                 <li><a href="#">westrn dress</a></li>
-                                 <li><a href="#">denim </a></li>
-                              </ul></li>
-                           <li><a href="#">반려동물 <i class="fa fa-angle-right"
-                                 aria-hidden="true"></i></a>
-                              <ul class="sub-category">
-                                 <li><a href="#">accessories</a></li>
-                                 <li><a href="#">best selling</a></li>
-                                 <li><a href="#">top 100 offer</a></li>
-                                 <li><a href="#">sunglass</a></li>
-                                 <li><a href="#">watch</a></li>
-                                 <li><a href="#">man’s product</a></li>
-                                 <li><a href="#">ladies</a></li>
-                                 <li><a href="#">westrn dress</a></li>
-                                 <li><a href="#">denim </a></li>
-                              </ul></li> -->
+                           
                         </ul>
                      </div>
                   </div>
@@ -326,7 +275,7 @@
                            <div class="navbar-collapse">
                               <div class="nav-inner">
                                  <ul class="nav main-menu menu navbar-nav">
-                                    <li class="active"><a href="#">홈</a></li>
+                                    <li><a href="#">홈</a></li>
                                     <li><a href="#">베스트</a></li>
                                     <li><a href="#">슈퍼딜</a></li>
                                     <li><a href="#">이벤트<i class="ti-angle-down"></i><span

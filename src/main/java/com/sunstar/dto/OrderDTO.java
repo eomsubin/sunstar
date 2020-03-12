@@ -31,4 +31,5 @@ public class OrderDTO {
 	
 	private String message;
 	
+	private String shipping_name;
 }
