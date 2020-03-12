@@ -80,9 +80,6 @@ public class HomeController {
 	@RequestMapping("/")
 	public String body(Locale locale, Model model, HttpSession session)
 	{		        
-		
-	
-		
 		header(model);	
 		model.addAttribute("contentpage", "body.jsp");
 		return "home";
