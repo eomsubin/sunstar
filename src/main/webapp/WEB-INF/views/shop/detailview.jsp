@@ -12,21 +12,6 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-<!--  Bootstrap CSS -->
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
-	crossorigin="anonymous">
-<link
-	href="https://fonts.googleapis.com/css?family=Poppins:200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap"
-	rel="stylesheet">
-<!-- Font Awesome -->
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/font-awesome.css">
-<!-- Themify Icons -->
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/themify-icons.css">
-
 <script>
 $(document).ready(function(){
 	$(".plus").click(function(){
@@ -132,7 +117,7 @@ $(document).ready(function(){
 
 					<p class="option1">
 						<span> 옵션1 </span>${view.option1}</p>
-
+						
 					<p class="option2">
 						<span> 옵션2 </span>${view.option2}</p>
 
