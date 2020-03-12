@@ -120,7 +120,7 @@ input, select{
 				let result = 0;
 				$('.idalert').remove();
 				let id = $('#id').val();
-				console.log($.ajax({
+				$.ajax({
 					url : "customeridcheck/"+id
 					,dataType : "json"
 					,async: false
@@ -130,7 +130,7 @@ input, select{
 					,error:function(e){
 						console.log(e);
 					}
-				}));
+				});
 				if(result>0){
 					$('#id').parent().append("<p class='alert idalert p-0 m-0'>이미 사용중인 아이디 입니다.</p>");
 					return false;

@@ -6,8 +6,8 @@ import lombok.Getter;
 @Getter @Setter @ToString
 public class OptionDTO {
 	private int product_code;
-	private String color;
-	private String size;
+	private String option1;
+	private String option2;
 	private int inventory;
 	private int add_price;
 }
