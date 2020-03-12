@@ -3,6 +3,8 @@ package com.sunstar.dto;
 
 import java.util.List;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -15,6 +17,14 @@ public class ProductDTO {
 	private int price;
 	private int cost;
 	private int shipping_cost;
+	private MultipartFile athumb_img;
+	private MultipartFile acomm_img1;
+	private MultipartFile acomm_img2;
+	private MultipartFile acomm_img3;
+	private MultipartFile adetail_img1; 
+	private MultipartFile adetail_img2;
+	private MultipartFile adetail_img3;
+	
 	private String thumb_img;
 	private String comm_img1;
 	private String comm_img2;
@@ -22,6 +32,8 @@ public class ProductDTO {
 	private String detail_img1;
 	private String detail_img2;
 	private String detail_img3;
+	
+	
 	private String explains;
 	private boolean public_state;
 	private boolean review_state;

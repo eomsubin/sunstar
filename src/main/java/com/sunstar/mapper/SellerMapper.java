@@ -8,6 +8,7 @@ import com.sunstar.dto.CategoryDTO;
 import com.sunstar.dto.OptionDTO;
 import com.sunstar.dto.OrderDTO;
 import com.sunstar.dto.ProductDTO;
+import com.sunstar.dto.SellerDTO;
 
 @Mapper
 public interface SellerMapper {
@@ -39,6 +40,12 @@ public interface SellerMapper {
 	void changeStep(OrderDTO dto);
 
 	void updateTracking(OrderDTO dto);
+
+	SellerDTO sellerInfo();
+
+	void changePublicState(ProductDTO dto);
+
+	void changeReviewState(ProductDTO dto);
 
 
 

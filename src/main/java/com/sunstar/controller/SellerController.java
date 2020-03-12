@@ -1,6 +1,7 @@
 package com.sunstar.controller;
 
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -29,11 +30,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.sunstar.dto.CategoryDTO;
 import com.sunstar.dto.OptionDTO;
 import com.sunstar.dto.OrderDTO;
 import com.sunstar.dto.ProductDTO;
+import com.sunstar.dto.SellerDTO;
+import com.sunstar.service.FileUploadService;
 import com.sunstar.service.SellerService;
 
 @Controller
@@ -41,6 +45,8 @@ public class SellerController {
 
 	@Autowired
 	private SellerService sellerservice;
+	@Autowired
+	private FileUploadService fileservice;
 
 
 	@RequestMapping("/seller")
@@ -73,6 +79,37 @@ public class SellerController {
 		return "sellers/temp";
 	}
 
+	
+	@RequestMapping("/changePublicState/{changePublicState}/{pcodes}")
+	public String changePublicState(@PathVariable String changePublicState, @PathVariable String pcodes) {
+		String[] pcode = pcodes.split(",");
+		System.out.println(changePublicState);
+		
+		for(String i : pcode) {
+			ProductDTO dto = new ProductDTO();
+			
+			dto.setProduct_code(Integer.parseInt(i));
+			
+			if("publicStateTrue".equals(changePublicState)) {
+				dto.setPublic_state(true);
+				sellerservice.changePublicState(dto); 
+
+			}else if("publicStateFalse".equals(changePublicState)) {
+				dto.setPublic_state(false);
+				sellerservice.changePublicState(dto); 
+
+			}else if("reviewStateTrue".equals(changePublicState)) {
+				dto.setReview_state(true);
+				sellerservice.changeReviewState(dto); 
+				
+			}else if("reviewStateFalse".equals(changePublicState)) {
+				dto.setReview_state(false);
+				sellerservice.changeReviewState(dto); 
+			}
+		}
+		return "redirect:/productlist";
+	}
+	
 	//상품 추가 하기
 	@RequestMapping("/addproduct")
 	public String addproduct(Model model) {
@@ -93,7 +130,32 @@ public class SellerController {
 	//상품 추가 결과
 	@RequestMapping("/addproductresult")
 	public String addproductresult(ProductDTO dto) {
+/*		
+		MultipartFile[] product_imgs 
+		= new MultipartFile[4];
+		product_imgs[0] = dto.getThumb_img();
+		product_imgs[1] = dto.getDetail_img1();
+		product_imgs[2] = dto.getDetail_img2();
+		product_imgs[3] = dto.getDetail_img3();
+		
+		for(int i=0;i<product_imgs.length;i++) {
+			fileservice.restore(product_imgs[i]);
+			String fileName = fileservice.genSaveFileName(Integer.toString(dto.getProduct_code()));
+			boolean fileState;
+			try {
+				fileState = fileservice.writeFile(product_imgs[i], fileName);
+				System.out.println("파일입력되면 " + i + "번째 파일, " + fileState);
+			
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		*/
 		sellerservice.addProduct(dto);
+		
+		
+		System.out.println(dto.getExplains());
+		
 		return "redirect:/productlist";
 	}
 
@@ -469,7 +531,12 @@ public class SellerController {
 	//판매자 정보
 	@RequestMapping("/sellerinfo")
 	public String sellerinfo(Model model) {
-
+		
+		SellerDTO dto = sellerservice.sellerInfo();
+		
+		dto.setSeller_addr(dto.getSeller_address1()+" "+dto.getSeller_address2()+" "+dto.getSeller_address3());
+		
+		model.addAttribute("dto", dto);
 		model.addAttribute("sellerpage", "seller_info.jsp");
 		return "sellers/temp";
 	}
@@ -488,6 +555,4 @@ public class SellerController {
 		model.addAttribute("contentpage", "sellers/sellers_list.jsp");
 		return "home";
 	}
-
-
 }
