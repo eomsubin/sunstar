@@ -1,6 +1,7 @@
 package com.sunstar.controller;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
@@ -12,19 +13,25 @@ import java.util.List;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.web.csrf.CsrfFilter;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sunstar.dto.CartDTO;
 import com.sunstar.dto.CategoryDTO;
 import com.sunstar.dto.NuserDTO;
 import com.sunstar.dto.NuserinfoDTO;
+import com.sunstar.dto.ProductDTO;
 import com.sunstar.service.CartService;
 import com.sunstar.service.MainService;
 import com.sunstar.service.ProductService;
@@ -36,10 +43,9 @@ import com.sunstar.service.ProductService;
 @Controller
 public class HomeController {
 
-	
 	@Autowired
 	private MainService mainservice;	
-	
+		
 
 	/*@ResponseBody
 	@RequestMapping("/abc")
@@ -49,10 +55,14 @@ public class HomeController {
 		//model.addAttribute("catelist",list);
 		
 		return list;
-		
+		 
 	}*/
 	
-	
+	@RequestMapping("/addr")
+	public String addr()
+	{
+		return "addr";
+	}
 	
 	@RequestMapping("/")
 	public String body(Locale locale, Model model, HttpSession session)
@@ -64,17 +74,12 @@ public class HomeController {
 		return "home";
 	}
 	
-	
 	@RequestMapping("/search")
 	public String search(@RequestParam String search, @RequestParam String word) {
 		System.out.println(search + word);
 		
 		return "redirect:/";
 	}
-
-
-	
-
 
 	@GetMapping("/userlogin")
 	public void userlogin(HttpSession session, HttpServletRequest request, Model model) throws UnsupportedEncodingException
@@ -181,13 +186,14 @@ public class HomeController {
   	      		System.out.println(apiURL);
   	      		return "redirect:"+apiURL;
   	      	}*/
-  	      session.setAttribute("user", user);
-  	      session.setAttribute("userinfo", userinfo);
+  	      /*session.setAttribute("user", user);
+  	      session.setAttribute("userinfo", userinfo);*/
+  	      	session.setAttribute("naverlogin", userinfo.getResponse().get("id"));
 	      }
 	    } catch (Exception e) {
 	      System.out.println(e);
 	    }
-		return "redirect:http://localhost:8080/controller/";
+		return "redirect:http://localhost:8080/controller/userlogin";
 	}
 	
 	
@@ -266,5 +272,3 @@ public class HomeController {
 		return "error";
 	}
 }
-
-

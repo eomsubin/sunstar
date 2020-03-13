@@ -92,10 +92,9 @@ input, select{
 			$('#email1').val(str);
 			}
 		})
-		
-		$('button').click(function(){
+		$('.regbtn').click(function(){
 			event.preventDefault();
-			if(idcheck() && pwcheck() && pwcheck2() && namecheck() && telcheck() && emailcheck()){
+			if(idcheck() && pwcheck() && pwcheck2() && namecheck() && telcheck() && emailcheck() && addrcheck()){
 				$('form').submit();
 			}
 		})		
@@ -140,7 +139,6 @@ input, select{
 				}
 			}
 		}
-		
 		// 패스워드 조건, 패스워드 체크
 		// 비밀번호 규칙 정규식
 		var Pwreg = /(?=.*\d{1,15})(?=.*[~`!@#$%\^&*()-+=]{1,15})(?=.*[a-zA-Z]{1,50}).{6,15}$/;// : 숫자, 특문 각 1회 이상, 영문은 1개 이상 사용하여 8자리 이상 입력
@@ -261,7 +259,43 @@ input, select{
 				}
 			}
 		};
+		// 주소 확인
+		function addrcheck(){
+			console.log($('#zipNo').val());
+			if($('#zipNo').val().length<1){
+				alert('주소를 입력해주세요')
+				return false;
+			}else{
+				return true;
+			}
+		}
+		
+		$('.addrinput').click(function(){
+			goPopup();
+		});
 	});
+	// 팝업 API
+	// opener관련 오류가 발생하는 경우 아래 주석을 해지하고, 사용자의 도메인정보를 입력합니다. ("팝업API 호출 소스"도 동일하게 적용시켜야 합니다.)
+	//document.domain = "abc.go.kr";
+	function goPopup(){
+		// 호출된 페이지(jusopopup.jsp)에서 실제 주소검색URL(http://www.juso.go.kr/addrlink/addrLinkUrl.do)를 호출하게 됩니다.
+	    var pop = window.open("${pageContext.request.contextPath}/addr","pop","width=570,height=420, scrollbars=yes, resizable=yes"); 
+	    
+		// 모바일 웹인 경우, 호출된 페이지(jusopopup.jsp)에서 실제 주소검색URL(http://www.juso.go.kr/addrlink/addrMobileLinkUrl.do)를 호출하게 됩니다.
+	    //var pop = window.open("/popup/jusoPopup.jsp","pop","scrollbars=yes, resizable=yes"); 
+	};
+	/** API 서비스 제공항목 확대 (2017.02) **/
+	function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2, zipNo){
+		// 팝업페이지에서 주소입력한 정보를 받아서, 현 페이지에 정보를 등록합니다.
+		console.log("roadAddrPart1", roadAddrPart1);
+		console.log("addrDetail", addrDetail);
+		console.log("roadAddrPart2", roadAddrPart2);
+		console.log("zipNo", zipNo);
+		console.log($('#roadAddrPart1').val(roadAddrPart1));
+		console.log($('#roadAddrPart2').val(roadAddrPart2));
+		console.log($('#addrDetail').val(addrDetail));
+		console.log($('#zipNo').val(zipNo));
+	};
 </script>
 </head>
 <body>
@@ -274,6 +308,8 @@ input, select{
 		<div class="mx-auto row align-items-top" style="width: 600px; height: 670px;">
 		<div class="col">
 		<form method="post" action="${pageContext.request.contextPath}/registercustomer/insertcustomer">
+				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+				${_csrf.token}
 				<div class="reg_formbox py-0">
 				<ul class="list-group">
 				  	<li class="list-group-item"><input style="width: 450px;" type="text" name="id" id="id" placeholder="ID를 만들어주세요. 띄어쓰기 없이 영/숫자 6-10자" maxlength="10"></li>
@@ -309,10 +345,19 @@ input, select{
   					 </select>
   					</div>
 				 	</li>
+				 	<li class="list-group-item">
+      				<input type="hidden" id="confmKey" name="confmKey" value="devU01TX0FVVEgyMDIwMDIxNzE4NTQwNDEwOTQ3MzA="  >
+					
+				 	<input class="addrinput" type="text" id="roadAddrPart1" name="address1" readonly style="width:420px" placeholder="도로명주소">
+					<button type="button" class="btn btn-secondary" onclick="goPopup();">주소검색</button>
+				 	<br>
+				 	<input class="addrinput" type="text" id="roadAddrPart2" name="address2" style="width:40%" placeholder="상세주소"> -
+				 	<input class="addrinput" type="text" id="addrDetail" name="address3" readonly>				
+					<input class="addrinput" type="text" id="zipNo" name="zip" readonly style="width:90px" placeholder="우편번호">
+				 	</li>
 				</ul>
 				</div>
 				<button class="btn btn-secondary regbtn">확인</button>
-				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 		</form>
 		</div>
 	</div>

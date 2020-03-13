@@ -99,12 +99,12 @@ frm+='     <label for="options" class="col-sm-2 col-form-label">옵션'+i+' <but
 
 frm+='        <div class="col-sm-10">                                                                                                     ';
 frm+='             <div class="col-sm-2 frmsort">                                                                                        ';
-frm+='                 <label for="options['+i+'].color" class=" col-form-label">옵션1</label>                                             ';
-frm+='                 <input type="text" class="form-control " name="options['+i+'].color" id="options['+i+'].color">                   ';
+frm+='                 <label for="options['+i+'].option1" class=" col-form-label">옵션1</label>                                             ';
+frm+='                 <input type="text" class="form-control " name="options['+i+'].option1" id="options['+i+'].option1">                   ';
 frm+='             </div>                                                                                                                ';
 frm+='             <div class="col-sm-2 frmsort">                                                                                        ';
-frm+='                 <label for="options['+i+'].size" class=" col-form-label">옵션2</label>                                            ';
-frm+='                 <input type="text" class="form-control " name="options['+i+'].size" id="options['+i+'].size">                     ';
+frm+='                 <label for="options['+i+']..option1" class=" col-form-label">옵션2</label>                                            ';
+frm+='                 <input type="text" class="form-control " name="options['+i+'].option2" id="options['+i+'].option2">                     ';
 frm+='             </div>                                                                                                                ';
 frm+='             <div class="col-sm-2 frmsort">                                                                                        ';
 frm+='                 <label for="options['+i+'].inventory" class="  col-form-label">재고</label>                                        ';
@@ -225,14 +225,14 @@ console.log('end');
 						<label for="options" class="col-sm-2 col-form-label">옵션</label>
 						<div class="col-sm-10">
 							<div class="col-sm-2 frmsort">
-								<label for="options[0].color" class=" col-form-label">옵션1</label>
-								<input type="text" class="form-control " name="options[0].color"
-									id="options[0].color" placeholder="ex)색상 ,," >
+								<label for="options[0].option1" class=" col-form-label">옵션1</label>
+								<input type="text" class="form-control " name="options[0].option1"
+									id="options[0].option1" placeholder="ex)색상 ,," >
 							</div>
 							<div class="col-sm-2 frmsort">
-								<label for="options[0].size" class=" col-form-label">옵션2</label>
-								<input type="text" class="form-control " name="options[0].size"
-									id="options[0].size"  placeholder="ex)사이즈 ,,">
+								<label for="options[0].option2" class=" col-form-label">옵션2</label>
+								<input type="text" class="form-control " name="options[0].option2"
+									id="options[0].option2"  placeholder="ex)사이즈 ,,">
 							</div>
 							<div class="col-sm-2  frmsort">
 								<label for="options[0].inventory" class="  col-form-label">재고</label>

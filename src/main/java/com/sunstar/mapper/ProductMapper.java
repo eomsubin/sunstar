@@ -15,4 +15,6 @@ public interface ProductMapper {
 	List<ProductDTO> list();
 
 	ProductDTO productview(int product_code);
+
+	List<ProductDTO> productListCategory(String lv2); //parkjinwoo
 }

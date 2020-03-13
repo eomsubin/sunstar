@@ -163,64 +163,65 @@
     color: #fff;
     font-size: 11px;
     letter-spacing: -.5px;
+    }
 </style>
 <script>
-	$(document).ready(function(){
-		Naverlogin(${naverlogin});
-		function Naverlogin(naverlogin){
-			if(naverlogin!=null){
-			$('#username').val(naverlogin);
-			$('#password').val(naverlogin);
+$(document).ready(function(){
+	Naverlogin(${naverlogin});
+	function Naverlogin(naverlogin){
+		if(naverlogin!=null){
+		$('body').css("display", "none");
+		$('#username').val(naverlogin);
+		$('#password').val(naverlogin);
+		$('form').submit();
+	}
+	}
+	$('input[type="radio"]').click(function(){
+		if($( "input:checked").val()==="Y"){
+			$('#mem_login').css("display", "block");
+			$('#title_member').css("display", "block");
+			
+			$('#non_login').css("display", "none");
+			$('#title_nonmember').css("display", "none");
+		}else{
+			$('#mem_login').css("display", "none");
+			$('#title_member').css("display", "none");
+			
+			$('#non_login').css("display", "block");
+			$('#title_nonmember').css("display", "block");
+		}
+	})
+	
+	$('input[type="submit"]').click(function(){
+		let id = $('#username').val();
+		let pw = $('#password').val(); 
+		if(id.length<1){
+			alert('아이디를 입력하세요.');
+		}else if(pw.length<1){
+			alert('비밀번호를 입력하세요.');
+		}else{
+		let result = 0;
+		$.ajax({
+			url : "registercustomer/customeridcheck/"+id
+			,dataType : "json"
+			,async: false
+			,success:function(data){
+				console.log(data);
+				result = data;
+			}
+			,error:function(e){
+				console.log(e);
+			}
+		});
+		if(result<1){
+			alert('아이디가 존재하지 않습니다.')
+		}else{
 			$('form').submit();
 		}
 		}
-		
-		$('input[type="radio"]').click(function(){
-			if($( "input:checked").val()==="Y"){
-				$('#mem_login').css("display", "block");
-				$('#title_member').css("display", "block");
-				
-				$('#non_login').css("display", "none");
-				$('#title_nonmember').css("display", "none");
-			}else{
-				$('#mem_login').css("display", "none");
-				$('#title_member').css("display", "none");
-				
-				$('#non_login').css("display", "block");
-				$('#title_nonmember').css("display", "block");
-			}
-		})
-		
-		$('input[type="submit"]').click(function(){
-			let id = $('#username').val();
-			let pw = $('#password').val(); 
-			if(id.length<1){
-				alert('아이디를 입력하세요.');
-			}else if(pw.length<1){
-				alert('비밀번호를 입력하세요.');
-			}else{
-			let result = 0;
-			$.ajax({
-				url : "registercustomer/customeridcheck/"+id
-				,dataType : "json"
-				,async: false
-				,success:function(data){
-					console.log(data);
-					result = data;
-				}
-				,error:function(e){
-					console.log(e);
-				}
-			});
-			if(result<1){
-				alert('아이디가 존재하지 않습니다.')
-			}else{
-				$('form').submit();
-			}
-			}
-			event.preventDefault();
-		})		
-	});
+		event.preventDefault();
+	})		
+});
 </script>
 </head>
 <body>
@@ -232,6 +233,7 @@
 		<div class="col">
 		
 		<form method="post" action="${pageContext.request.contextPath}/login">
+		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 		
 		<a href="${pageContext.request.contextPath}"><img alt="home" src="${pageContext.request.contextPath}/resources/img/logo.png"></a>
 		
@@ -262,7 +264,7 @@
 						<label for="password">
 						<span class="txt">비밀번호</span>
 						<input style="width:174px;" type="password" name="password" id="password" required="required" placeholder="비밀번호는 6자 이상 ~ 15자 이하" maxlength="15">
-						</label> 
+						</label>
 					</div>
 				    <div class="option">
 				        <label for="saveid">
@@ -314,7 +316,6 @@
 					</div>
 				</div>
  			 </div>				
-				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 		</form>
 		</div>
 	</div>
