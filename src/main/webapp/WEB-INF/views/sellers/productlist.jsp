@@ -107,6 +107,10 @@ function changePublicState(state) {
 	location.href = "${pageContext.request.contextPath}/changePublicState/"+changePublicState+ "/"+pcodes;
 }
 
+function productallprint(){
+	location.href= "${pageContext.request.contextPath}/productExcel/";
+	
+}
 
 
 </script>
@@ -130,8 +134,7 @@ body {
 		<!-- DataTales Example -->
 		<div class="card shadow mb-4">
 			<div class="card-header py-3">
-				<h6 class="m-0 font-weight-bold text-primary">DataTables
-					Example</h6>
+				<h6 class="m-0 font-weight-bold text-primary">판매자 = </h6>
 			</div>
 			<div class="card-body">
 				<div class="table-responsive">
@@ -154,7 +157,8 @@ body {
 		  </div>
 		</div>	
 			
-							
+			<button type="button" id="all_print" class="btn btn-secondary"
+							onclick="productallprint()">전체출력</button>
 							
 					
 						<button type="button" id="btnupdate"class="btn btn-success">선택 수정</button>

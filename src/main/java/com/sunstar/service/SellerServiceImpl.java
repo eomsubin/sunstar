@@ -119,15 +119,13 @@ public class SellerServiceImpl implements SellerService {
 	public void changeReviewState(ProductDTO dto) {
 		mapper.changeReviewState(dto);
 	}
-	
-	
-	
 
+}                                                                                                                                                         
+		
+		
+		
+		
 
-	
-	
-	
-	
-	
-	
-}
+		
+		
+		

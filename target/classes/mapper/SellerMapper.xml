@@ -38,12 +38,15 @@
 	
 	<!-- 상픔 리스트 (판매자) -->
 	<select id="list" resultType="com.sunstar.dto.ProductDTO">
-		select p.product_code, product_name, price, cost, shipping_cost, o.option1, o.option2, o.inventory, o.add_price, public_state, review_state, c.lv1, c.lv2, c.lv3
+		select p.product_code, product_name, price, cost, shipping_cost, o.option1, o.option2, o.inventory, o.add_price, public_state, review_state, c.lv1, c.lv2, c.lv3, p.product_code
 		from product_list p  join category c
 		on p.category_code = c.category_code
 		left join options o
         on p.product_code = o.product_code
+      <!--   where p.product_code = #{seller_code} -->
 		order by product_code desc
+		
+		<!-- where seller_code = '' 추가해야돼 -->
 	</select>
 	
 	<!-- 옵션 삭제 -->
@@ -74,7 +77,8 @@
 	<!-- 주문목록 -->
 	<select id="orderlist" resultType="com.sunstar.dto.OrderDTO">
 	
-	   select o.delivery_state, o.tracking_no, l.product_code, p.price, o.order_code, l.order_no, l.option1, l.option2, l.inventory, l.add_price, o.order_way, o.message, c.name, c.tel, s.shipping_addr1, s.shipping_addr2, s.shipping_addr3, s.shipping_zip
+	   select o.order_code, l.product_code, l.option1, l.option2, l.inventory, l.add_price,  p.price, o.message, 
+			  o.order_way,  c.name, c.tel, s.shipping_addr1, s.shipping_addr2, s.shipping_addr3, s.shipping_zip, o.delivery_state, o.tracking_no
        from ordered o left join order_list l
        on o.order_code = l.order_code
        inner join customer c 
@@ -83,7 +87,7 @@
        on c.id = s.id
        left join product_list p
        on l.product_code = p.product_code
-		<!-- where seller = 'solyi' -->
+		<!-- where seller_code = 'solyi' -->
 	</select>
 	
 		<!-- 배송대기 주문목록 -->
