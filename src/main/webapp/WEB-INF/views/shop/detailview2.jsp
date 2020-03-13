@@ -12,7 +12,11 @@
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+<style>
+ul li{
+display: inline-block
+}
+</style>
 <script>
 $(document).ready(function(){
 	$(".plus").click(function(){
@@ -82,6 +86,25 @@ $(document).ready(function(){
 <title>SBBJ</title>
 </head>
 <body>
+
+<div class="nav loc bg-light" style="border: 1px solid #dadada; border-top: 2px solid black; ">
+     <ul class="top_link_nav" style="margin-left: 16%" >
+      <li class="nav-item">
+        <a class="nav-link active" href="#">홈</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link active" href="#">lvl1</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">lvl2</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">lvl3</a>
+        </li>
+        </ul>
+   </div>
+
+
 	<div class="wrapper">
 
 		<section>
@@ -94,7 +117,7 @@ $(document).ready(function(){
 						value='<sec:authentication property="principal.UserInfo.id"/>'>
 				</sec:authorize>
 			</form>
-
+			
 
 
 			<div class="container p-0">
@@ -117,11 +140,13 @@ $(document).ready(function(){
 										class="d-block w-100" alt="...">
 								</div>
 								<div class="carousel-item">
-									<img src="http://image.auction.co.kr/itemimage/1b/34/bc/1b34bc2756.jpg"
+									<img
+										src="http://image.auction.co.kr/itemimage/1b/34/bc/1b34bc2756.jpg"
 										class="d-block w-100" alt="...">
 								</div>
 								<div class="carousel-item">
-									<img src="http://image.auction.co.kr/itemimage/1b/73/14/1b7314f606.jpg"
+									<img
+										src="http://image.auction.co.kr/itemimage/1b/73/14/1b7314f606.jpg"
 										class="d-block w-100" alt="...">
 								</div>
 							</div>
@@ -234,6 +259,22 @@ $(document).ready(function(){
 			</div>
 		</section>
 	</div>
+	<div class="nav detail_info_tab bg-light">
+     <ul class="info_nav" style="margin-left: 16%" >
+  <li class="nav-item">
+    <a class="nav-link" href="#">상세정보</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="#">상품평</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="#">상품문의</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="#">판매자정보</a>
+  </li>
+</ul>
+</div>
 </body>
 </html>
 
