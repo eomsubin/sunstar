@@ -11,6 +11,7 @@
     <meta name="author" content="">
 <title>SSBJ 셀러</title>
     <script src="http://localhost:8080/controller/resources/vendor/jquery/jquery.min.js"></script>
+   	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 
     <!-- Custom fonts for this template-->
     <link href="http://localhost:8080/controller/resources/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">

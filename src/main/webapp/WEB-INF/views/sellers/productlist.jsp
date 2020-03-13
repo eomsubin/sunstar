@@ -81,6 +81,34 @@ function uptest(){
 		}	
 	}
 }
+
+
+function changePublicState(state) {
+	let changePublicState = state;
+	let ckbox = document.getElementsByName("pcode");
+	let ckboxlengh = ckbox.length;
+	let checked = 0;
+
+	let pcodes = new Array();
+
+	for (i = 0; i < ckboxlengh; i++) {
+		if (ckbox[i].checked == true) {
+			let pcode = ckbox[i].value;
+
+			pcodes.push(pcode);
+			console.log(ckbox[i].value);
+			checked += 1;
+		}
+	}
+	console.log("--state--");
+	console.log(pcodes);
+	console.log("+state++");
+
+	location.href = "${pageContext.request.contextPath}/changePublicState/"+changePublicState+ "/"+pcodes;
+}
+
+
+
 </script>
 
 <style>
@@ -110,8 +138,25 @@ body {
 					<form>
 						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 					<!-- 	<button type="button" id="btnaddinventory" class="btn btn-primary">선택 재고 추가</button> -->
-						<button type="button" id="btns" class="btn btn-secondary">상품 공개/비공개 변경</button>
-						<button type="button" id="btns" class="btn btn-secondary">상품 리뷰 공개/비공개 변경</button>
+					
+		<div class="btn-group">
+		  <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		     선택상품 공개 비공개
+		  </button>
+		  <div class="dropdown-menu">
+		  
+			<a class="dropdown-item" onclick="changePublicState('publicStateTrue')">상품 공개</a>
+				<a class="dropdown-item" onclick="changePublicState('publicStateFalse')">상품 비공개</a>
+		    <div class="dropdown-divider"></div>
+			<a class="dropdown-item" onclick="changePublicState('reviewStateTrue')">리뷰 공개</a>
+				<a class="dropdown-item" onclick="changePublicState('reviewStateFalse')">리뷰 비공개</a>
+		  
+		  </div>
+		</div>	
+			
+							
+							
+					
 						<button type="button" id="btnupdate"class="btn btn-success">선택 수정</button>
 						<button type="button"  class="btn btn-danger">선택 삭제</button>
 						<!-- id="btndelete" -->
@@ -219,15 +264,34 @@ body {
 										<td>${i.price}</td>
 										<td>${i.cost}</td>
 										<td>${i.shipping_cost}</td>
-										<td style="border-left: 2px solid silver">${i.color }</td>
-										<td>${i.size }</td>
+										<td style="border-left: 2px solid silver">${i.option1 }</td>
+										<td>${i.option2 }</td>
 										<td>${i.inventory }</td>
 										<td style="border-right: 2px solid silver;">
 											${i.add_price }</td>
 
 										<td>${i.lv1}-${i.lv2}-${i.lv3}</td>
-										<td>${i.public_state}</td>
-										<td>${i.review_state}</td>
+										
+										<c:if test="${ i.public_state } == true">
+											공개
+										</c:if>
+										
+										<td>
+										<c:if test="${ i.public_state  == true}">
+											공개
+										</c:if>
+										<c:if test="${ i.public_state  != true}">
+											 비공개
+										</c:if>
+										</td>
+										<td>
+										<c:if test="${ i.review_state  == true}">
+											공개
+										</c:if>
+										<c:if test="${ i.review_state  != true}">
+											 비공개
+										</c:if>
+										</td>
 										<td class="center">
 										
 										<a class="btn btn-success" href="#">

@@ -9,8 +9,9 @@ import com.sunstar.dto.CategoryDTO;
 @Mapper
 public interface Homemapper {
 
-	List<CategoryDTO> getCategory();
-
+	// 검색 카테고리
+	List<CategoryDTO> getCategory(); 
+	
 	List<CategoryDTO> getCategory2();
 	
 	

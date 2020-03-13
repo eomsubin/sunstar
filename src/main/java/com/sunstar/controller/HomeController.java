@@ -52,44 +52,19 @@ public class HomeController {
 		
 	}*/
 	
-	@RequestMapping("/header")
-	public String header(Model model) {
-		List<CategoryDTO> clist= mainservice.getCategory();
-	
-		
-		List<CategoryDTO> clist2= mainservice.getCategory2();
-		model.addAttribute("catelist",clist);
-		model.addAttribute("catelist2",clist2);	
-		
-		return "header2";
-		
-	}
 	
 	
 	@RequestMapping("/")
 	public String body(Locale locale, Model model, HttpSession session)
 	{		        
 		
-	
-		
-		header(model);	
+		mainservice.header(model);
 		model.addAttribute("contentpage", "body.jsp");
+		
 		return "home";
 	}
 	
-	@RequestMapping("/checkout")
-	public String body( Model model, HttpSession session)
-	{
-		
 	
-		header(model);
-		
-		model.addAttribute("contentpage", "checkout.jsp");       
-	
-		return "home";
-
-
-	}
 	@RequestMapping("/search")
 	public String search(@RequestParam String search, @RequestParam String word) {
 		System.out.println(search + word);
@@ -98,10 +73,7 @@ public class HomeController {
 	}
 
 
-	@RequestMapping("/payment")
-		public String payment() {
-			return "payment";
-	  }
+	
 
 
 	@GetMapping("/userlogin")

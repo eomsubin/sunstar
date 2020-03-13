@@ -9,6 +9,7 @@ import com.sunstar.dto.CategoryDTO;
 import com.sunstar.dto.OptionDTO;
 import com.sunstar.dto.OrderDTO;
 import com.sunstar.dto.ProductDTO;
+import com.sunstar.dto.SellerDTO;
 import com.sunstar.mapper.SellerMapper;
 
 @Service("sellerservice")
@@ -102,6 +103,21 @@ public class SellerServiceImpl implements SellerService {
 	@Override
 	public void updateTracking(OrderDTO dto) {
 		mapper.updateTracking(dto);		
+	}
+
+	@Override
+	public SellerDTO sellerInfo() {
+		return mapper.sellerInfo();
+	}
+
+	@Override
+	public void changePublicState(ProductDTO dto) {
+		mapper.changePublicState(dto);
+	}
+	
+	@Override
+	public void changeReviewState(ProductDTO dto) {
+		mapper.changeReviewState(dto);
 	}
 	
 	

@@ -126,13 +126,29 @@
 	</update>
 	
 	<update id="updateTracking" parameterType="com.sunstar.dto.OrderDTO">
-	
 		update ordered
 		set tracking_no = #{tracking_no}
 		where order_code = #{order_code}
-		
-	
 	</update>
 	
+	<select id="sellerInfo" resultType="com.sunstar.dto.SellerDTO">
+		select *
+		from seller
+		where id= 'solyi'
+		<!-- 나중에 parameter type에  id도 추가 -->
 	
+	</select>
+	
+	<update id="changePublicState" parameterType="com.sunstar.dto.ProductDTO">
+		update product_list
+		set public_state = #{public_state}
+		where product_code = #{product_code}
+	</update>
+	
+		<update id="changeReviewState" parameterType="com.sunstar.dto.ProductDTO">
+		update product_list
+		set review_state = #{review_state}
+		where product_code = #{product_code}
+		
+	</update>
 </mapper>
