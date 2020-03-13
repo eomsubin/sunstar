@@ -62,6 +62,15 @@ public class CartController {
 		return "home";
 	}
 	
+	
+	@RequestMapping(value = "/detailview2_css", method = RequestMethod.GET)
+	public String detailview2(@RequestParam(defaultValue = "")  Model model) {
+		header(model);
+		model.addAttribute("contentpage", "shop/detailview2_css.jsp");
+		return "home";
+	}
+	
+	
 
 	// 카드 담기
 	@ResponseBody
