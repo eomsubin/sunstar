@@ -197,7 +197,7 @@
                      </div>
 
                      <div class="sinlge-bar shopping">
-                        <a href="#" class="single-icon"><i class="ti-bag"></i></a> <!-- <span
+                        <a href="${pageContext.request.contextPath}/cartList" class="single-icon"><i class="ti-bag"></i></a> <!-- <span
                            class="total-count"></span></a> -->
                         <!-- Shopping Item -->
                      <!--    <div class="shopping-item">

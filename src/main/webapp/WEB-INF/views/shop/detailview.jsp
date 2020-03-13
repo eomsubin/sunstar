@@ -63,8 +63,10 @@ $(document).ready(function(){
 					console.log(data);
 				 	if(data>0){
 				 		alert("장바구니에 상품을 담았습니다.");
+				 		
 				 	}else{
 				 		alert("장바구니에 상품을 담기 실패.");
+				 		
 				 	}
 			}
 			, error : function(e){

@@ -45,11 +45,11 @@ public class CustomerUserDetail implements UserDetails {
 	}
 	
 	public String getAddress2() {
-		return dto.getAddress1();
+		return dto.getAddress2();
 	}
 	
 	public String getAddress3() {
-		return dto.getAddress1();
+		return dto.getAddress3();
 	}
 	
 	public String getZip() {

@@ -24,8 +24,19 @@
 		/*전체선택 해제*/
 		$(".chBox").click(function() {
 			$("#allCheck").prop("checked", false)
-
+			
+			
+				
 		});
+		// 체크값이 없을 시 못넘어가게
+		$(".buyit_btn").click(function(){
+			if($(".chBox:checked").size()<=0){
+				alert('상품을 선택해주세요')
+				return false;
+			}
+		});
+		
+		
 	});
 </script>
 <style>
@@ -96,6 +107,55 @@ div.delBtn {
 	background: #fff;
 }
 </style>
+<!-- <script>
+
+$(document).ready(function(){
+	
+	$(".buyit_btn").click(function(){
+		
+		let id = $('.id').val();
+		console.log(id);
+		if(id==null){
+			alert("로그인 하십시오.");
+		}
+		
+		var data = {
+				"id" : id
+				,"product_code" : product_code
+				,"cart_quantity" : cart_quantity
+		};
+		console.log(data);
+			
+			
+	 	$.ajax({
+			url : "cartList/addOrdered"
+			, data : data
+			, dataType : "json"
+			, success : function(data){
+					console.log(data);
+				 	if(data>0){
+				 		alert("확인 시 주문 페이지로 이동합니다.");
+				 		location.href="${pageContext.request.contextPath}/checkout"
+				 	}else{
+				 		alert("주문 페이지 이동에 문제가 생겼습니다.");
+				 		
+				 	}
+			}
+			, error : function(e){
+				alert("주문 페이지에 문제가 생겼습니다.")
+				console.log(e);
+			}
+		})
+	});
+
+
+	
+	
+});
+
+
+
+</script> -->
 </head>
 <body>
 	<form role="form" method="post">
@@ -103,8 +163,12 @@ div.delBtn {
 			<input type="hidden" name="id" class="id"
 				value='<sec:authentication property="principal.UserInfo.id"/>'>
 		</sec:authorize>
+	
 	</form>
-
+	
+	<form method="post" action="${pageContext.request.contextPath }/checkout">
+	<input type="hidden" name="${_csrf.parameterName}"
+				value="${_csrf.token}" />
 	<div id="content" class="mx-auto col-6">
 		<div class="m-3">
 			<h2>장바구니 확인</h2>
@@ -129,26 +193,27 @@ div.delBtn {
 			<c:set var="sum" value="0" />
 			<c:forEach var="cartList" items="${cartList}">
 				<li style="border-bottom: 1px solid silver">
-					<div class="checkBox m-1">
+					<div class="checkBox m-1" id="cbox">
 						<input type="checkbox" name="chBox" class="chBox"
-							data-cart_no="${cartList.cart_no}" />
+							data-cart_no="${cartList.cart_no}" value="${cartList.cart_no }"/>
+						
 					</div>
-
+					
 					<div class="thumb">
-						<img src="${cartList.thumb_img}" />
+						<img src="${cartList.thumb_img}" /> 
 					</div>
 					<div class="productInfo m-2">
 						<p>
 							<span>상 품 명 </span>${cartList.product_name}<br /> 
-							<span>옵    션 </span>${cartList.option1}&#45;${cartList.option2}
-							&#40;&#43;${cartList.add_price}원 &#41;<br /> 
+							<span>옵    션 </span>${cartList.option1}&#45;${cartList.option2}	>
+							&#40;&#43;${cartList.add_price}원 &#41;<br /> 	 <			
 							<span>구입수량 </span>${cartList.cart_quantity}개<br /> 
 							<span>가 격 </span>
 							<fmt:formatNumber pattern="###,###,###"
 								value="${(cartList.price + cartList.add_price)}" />원<br /> 
 							<span>배 송 비 </span>
 							<fmt:formatNumber pattern="###,###,###"
-								value="${cartList.shipping_cost}" />원<br /> 
+								value="${cartList.shipping_cost}" />원<br />  
 							<span>주문합계 </span>
 							<fmt:formatNumber pattern="###,###,###"
 								value="${(cartList.price + cartList.add_price) * cartList.cart_quantity + cartList.shipping_cost}" />원<br />
@@ -168,12 +233,13 @@ div.delBtn {
 		<div class="totalInfo m-0 mb-4 py-5 pl-1 row">
 			<div class="sum">
 				총 결제 금액 :
-				<fmt:formatNumber pattern="###,###,###" value="${sum}" />원
+				<fmt:formatNumber pattern="###,###,###" value="${sum}" />원	
 			</div>
 			<div class="buyit mr-0">
-				<button type="button" class="buyit_btn">주문하기</button>
+				<button type="submit" class="buyit_btn">주문하기</button>
 			</div>
 		</div>
 	</div>
+	</form>
 </body>
 </html>
