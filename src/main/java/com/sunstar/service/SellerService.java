@@ -6,6 +6,7 @@ import com.sunstar.dto.CategoryDTO;
 import com.sunstar.dto.OptionDTO;
 import com.sunstar.dto.OrderDTO;
 import com.sunstar.dto.ProductDTO;
+import com.sunstar.dto.SellerDTO;
 
 public interface SellerService {
 
@@ -28,6 +29,15 @@ public interface SellerService {
 	List<OrderDTO> shippinglist();
 
 	OrderDTO theOrderlist(String order_code);
+
+	void changeStep(OrderDTO dto);
+
+	void updateTracking(OrderDTO dto);
+
+	SellerDTO sellerInfo();
+
+	void changePublicState(ProductDTO dto);
+	void changeReviewState(ProductDTO dto);
 
 
 }

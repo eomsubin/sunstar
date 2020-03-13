@@ -1,6 +1,8 @@
 package com.sunstar.controller;
 
 
+import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -8,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -28,12 +31,16 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.sunstar.dto.CategoryDTO;
 import com.sunstar.dto.OptionDTO;
 import com.sunstar.dto.OrderDTO;
 import com.sunstar.dto.ProductDTO;
+import com.sunstar.dto.SellerDTO;
+import com.sunstar.service.FileUploadService;
 import com.sunstar.service.SellerService;
 
 @Controller
@@ -41,6 +48,8 @@ public class SellerController {
 
 	@Autowired
 	private SellerService sellerservice;
+	@Autowired
+	private FileUploadService fileservice;
 
 
 	@RequestMapping("/seller")
@@ -73,6 +82,199 @@ public class SellerController {
 		return "sellers/temp";
 	}
 
+	
+	@RequestMapping("/changePublicState/{changePublicState}/{pcodes}")
+	public String changePublicState(@PathVariable String changePublicState, @PathVariable String pcodes) {
+		String[] pcode = pcodes.split(",");
+		System.out.println(changePublicState);
+		
+		for(String i : pcode) {
+			ProductDTO dto = new ProductDTO();
+			
+			dto.setProduct_code(Integer.parseInt(i));
+			
+			if("publicStateTrue".equals(changePublicState)) {
+				dto.setPublic_state(true);
+				sellerservice.changePublicState(dto); 
+
+			}else if("publicStateFalse".equals(changePublicState)) {
+				dto.setPublic_state(false);
+				sellerservice.changePublicState(dto); 
+
+			}else if("reviewStateTrue".equals(changePublicState)) {
+				dto.setReview_state(true);
+				sellerservice.changeReviewState(dto); 
+				
+			}else if("reviewStateFalse".equals(changePublicState)) {
+				dto.setReview_state(false);
+				sellerservice.changeReviewState(dto); 
+			}
+		}
+		return "redirect:/productlist";
+	}
+	
+	//상품목록 출력
+	@RequestMapping(value="/productExcel/")
+	public void productExcel(HttpServletResponse response) throws Exception{
+		List<ProductDTO> productList = new ArrayList<>();
+		
+
+		String seller_code = "11111";
+	//	productList = sellerservice.list(seller_code);   //변경해야돼!!!!!!@@@@
+		productList = sellerservice.list();
+		
+		Workbook wb = new HSSFWorkbook();
+		Sheet sheet = wb.createSheet("상품 목록");
+		Row row = null;
+		Cell cell = null;
+		int rowNo = 0;
+
+
+		// 테이블 헤더용 스타일
+		CellStyle headStyle = wb.createCellStyle();
+
+		// 가는 경계선을 가집니다.
+		headStyle.setBorderTop(BorderStyle.THIN);
+		headStyle.setBorderBottom(BorderStyle.THIN);
+		headStyle.setBorderLeft(BorderStyle.THIN);
+		headStyle.setBorderRight(BorderStyle.THIN);
+
+		// 배경색은 노란색입니다.
+		headStyle.setFillForegroundColor(HSSFColorPredefined.YELLOW.getIndex());
+		headStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+
+		// 데이터는 가운데 정렬합니다.
+		headStyle.setAlignment(HorizontalAlignment.CENTER);
+		// 데이터용 경계 스타일 테두리만 지정
+		CellStyle bodyStyle = wb.createCellStyle();
+		bodyStyle.setBorderTop(BorderStyle.THIN);
+		bodyStyle.setBorderBottom(BorderStyle.THIN);
+		bodyStyle.setBorderLeft(BorderStyle.THIN);
+		bodyStyle.setBorderRight(BorderStyle.THIN);
+		// 헤더 생성
+
+		row = sheet.createRow(rowNo++);
+		cell = row.createCell(0);
+		cell.setCellStyle(headStyle);
+		cell.setCellValue("상품코드");
+		
+		cell = row.createCell(1);
+		cell.setCellStyle(headStyle);
+		cell.setCellValue("상품이름");
+		
+		cell = row.createCell(2);
+		cell.setCellStyle(headStyle);
+		cell.setCellValue("가격");
+
+		cell = row.createCell(3);
+		cell.setCellStyle(headStyle);
+		cell.setCellValue("원가");
+
+		cell = row.createCell(4);
+		cell.setCellStyle(headStyle);
+		cell.setCellValue("배송비");
+
+		cell = row.createCell(5);
+		cell.setCellStyle(headStyle);
+		cell.setCellValue("옵션1");
+
+		cell = row.createCell(6);
+		cell.setCellStyle(headStyle);
+		cell.setCellValue("옵션2");
+
+		cell = row.createCell(7);
+		cell.setCellStyle(headStyle);
+		cell.setCellValue("재고");
+		cell = row.createCell(8);
+		cell.setCellStyle(headStyle);
+		cell.setCellValue("추가금액");
+		cell = row.createCell(9);
+		cell.setCellStyle(headStyle);
+		cell.setCellValue("상품공개여부");
+		cell = row.createCell(10);
+		cell.setCellStyle(headStyle);
+		cell.setCellValue("리뷰공개여부");
+		
+		// 데이터 부분 생성
+
+		for(ProductDTO dto : productList) {
+			row = sheet.createRow(rowNo++);
+			cell = row.createCell(0);
+			cell.setCellStyle(bodyStyle);
+			cell.setCellValue(dto.getProduct_code());
+			cell = row.createCell(1);
+			cell.setCellStyle(bodyStyle);
+			cell.setCellValue(dto.getProduct_name());
+			cell = row.createCell(2);
+			cell.setCellStyle(bodyStyle);
+			cell.setCellValue(dto.getPrice());
+			cell = row.createCell(3);
+			cell.setCellStyle(bodyStyle);
+			cell.setCellValue(dto.getCost());
+			cell = row.createCell(4);
+			cell.setCellStyle(bodyStyle);
+			cell.setCellValue(dto.getShipping_cost());
+			
+			cell = row.createCell(5);
+			cell.setCellStyle(bodyStyle);
+			cell.setCellValue(dto.getOption1());
+			cell = row.createCell(6);
+			cell.setCellStyle(bodyStyle);
+			cell.setCellValue(dto.getOption2());
+			cell = row.createCell(7);
+			cell.setCellStyle(bodyStyle);
+			cell.setCellValue(dto.getInventory());
+			cell = row.createCell(8);
+			cell.setCellStyle(bodyStyle);
+			cell.setCellValue(dto.getAdd_price());
+
+			
+			
+			cell = row.createCell(9);
+			cell.setCellStyle(bodyStyle);
+			String public_state = "";
+			if(dto.isPublic_state()==true) {
+				public_state = "공개";
+			}else {
+				public_state = "비공개";
+			}
+			cell.setCellValue(public_state);
+			
+			
+			cell = row.createCell(10);
+			cell.setCellStyle(bodyStyle);
+
+			String review_state = "";
+			if(dto.isPublic_state()==true) {
+				review_state = "공개";
+			}else {
+				review_state = "비공개";
+			}
+			cell.setCellValue(review_state);
+		}
+		// 컨텐츠 타입과 파일명 지정
+
+		response.setContentType("ms-vnd/excel");
+		int a = 2;
+		String b = Integer.toString(a);
+		
+		
+		SimpleDateFormat frm = new SimpleDateFormat("yyyyMMddHHmmss");
+		
+		Date date = new Date();
+		
+		String time1 = frm.format(date);
+		
+		String filename = "attachment;filename="+time1+".xls";
+		
+		response.setHeader("Content-Disposition", filename );
+
+		// 엑셀 출력
+		wb.write(response.getOutputStream());
+		wb.close();
+	}
+	
+	
 	//상품 추가 하기
 	@RequestMapping("/addproduct")
 	public String addproduct(Model model) {
@@ -91,9 +293,46 @@ public class SellerController {
 	}
 
 	//상품 추가 결과
-	@RequestMapping("/addproductresult")
-	public String addproductresult(ProductDTO dto) {
+	@RequestMapping(value = "/addproductresult", method = {RequestMethod.GET, RequestMethod.POST},
+			headers = ("content-type=multipart/*"))
+	public String addproductresult(ProductDTO dto, HttpServletRequest req, Model model) {
+
+		//multipart 파일을 multi에 담아줌
+		MultipartFile multi = dto.getAthumb_img();
+		
+		
+		
+		try {
+	//		String uploadpath = request.getSession().getServletContext().getRealPath(path);
+			
+			//저장 경로 구하기
+			String uploadpath = "C:\\finalgit\\sunstar\\src\\main\\webapp\\resources\\product_img";
+			System.out.println(uploadpath);
+			
+			//파일이 비어있지 않다면!
+			if(!multi.isEmpty()) {
+				
+				String test = "테스트용_파일이름"+".png";
+			
+				//파일 = 새파일(경로, 파일이름);
+				File file = new File(uploadpath, multi.getOriginalFilename());
+				multi.transferTo(file);
+				
+				String new_file_url_name = uploadpath+"/"+test;
+				
+				File file2 = new File(new_file_url_name);
+				file.renameTo(file2);
+				dto.setThumb_img("resources\\product_img\\" + test);
+			}
+		}catch(IOException e){
+			e.getMessage();
+			
+		}
 		sellerservice.addProduct(dto);
+		
+		
+		System.out.println(dto.getExplains());
+		
 		return "redirect:/productlist";
 	}
 
@@ -186,7 +425,7 @@ public class SellerController {
 
 	}
 
-	//출력
+	//주문목록 출력
 	@RequestMapping(value="/orderexcel/{state}")
 	public void orderexcel(HttpServletResponse response, @PathVariable String state) throws Exception{
 		List<OrderDTO> orderlist = new ArrayList<>();
@@ -302,7 +541,7 @@ public class SellerController {
 			cell.setCellValue(dto.getProduct_code());
 			cell = row.createCell(2);
 			cell.setCellStyle(bodyStyle);
-			cell.setCellValue(dto.getColor()+"/"+dto.getSize()+"/");
+			cell.setCellValue(dto.getOption1()+"/"+dto.getOption2()+"/");
 
 			cell = row.createCell(3);
 			cell.setCellStyle(bodyStyle);
@@ -358,6 +597,90 @@ public class SellerController {
 		wb.close();
 	}
 
+	//주문목록 단계변경
+	@RequestMapping("/change_step/{stp}/{wantChangeOrderCode}")
+	public String changeState(@PathVariable String stp, @PathVariable String wantChangeOrderCode) {
+		
+		System.out.println("stp" +stp);
+		
+		String change_step = "";
+		String[] ordercodes = wantChangeOrderCode.split(",");
+
+		
+		System.out.println("change_step" +  change_step);
+		System.out.println("ordercodes" + ordercodes);
+		System.out.println("wantChange..." + wantChangeOrderCode);
+		
+		if("step3".equals(stp)) {				//배송준비
+			change_step = "배송준비";
+		}else if("step4".equals(stp)) {		//배송중
+			change_step = "배송중";
+		}else if("step5".equals(stp)) {		//배송완료
+			change_step = "배송완료";
+		}else if("step7".equals(stp)) {		//반품대기
+			change_step = "반품대기";
+		}else if("step8".equals(stp)) {		//반품완료
+			change_step = "반품완료";
+		}else if("step9".equals(stp)) {		//교환요청
+			change_step = "교환요청";
+		}else if("step10".equals(stp)) {				//반송대기
+			change_step = "반송대기";
+		}else if("step11".equals(stp)) {				//반송완료 및 배송준비
+			change_step = "반송완료 및 배송준비";
+		}else if("step12".equals(stp)) {				//반품배송중
+			change_step = "반품배송중";
+		}else if("step13".equals(stp)) {				//배송 및 교환완료
+			change_step = "배송 및 교환완료";
+		}else if("step15".equals(stp)) {				//결제취소(판매자사유)
+			change_step = "결체취소(판매자사유)";
+		}
+		
+		for(String ordercode : ordercodes) {	     
+			OrderDTO dto = new OrderDTO();
+			dto.setOrder_code(ordercode);
+			dto.setDelivery_state(change_step);
+			
+			System.out.println(dto.getOrder_code());
+			System.out.println(dto.getDelivery_state());
+			sellerservice.changeStep(dto);
+		}
+		return "redirect:/orders";
+	}
+	
+
+	//운송장번호 입력(업데이트)
+	@RequestMapping("/updateTracking/{codes}/{trackings}")
+	public String updateTracking(@PathVariable String codes, @PathVariable String trackings) {
+		
+		String[] code = codes.split(",");  
+		String[] tracking = trackings.split(",");
+		
+		
+		for(int i = 0 ; i < code.length  ; i++) {
+			OrderDTO dto = new OrderDTO();
+			dto.setOrder_code(code[i]);
+			dto.setTracking_no(tracking[i]);
+			
+			sellerservice.updateTracking(dto);
+		}
+		
+		return "redirect:/orders";
+	}
+	
+	
+/*	@RequestMapping("/updateTracking")
+	public String updateTracking(@RequestParam(required=false) List<String> ordercode, 
+			@RequestParam(required=false) List<String> tracking_no ) {
+		
+		System.out.println(ordercode);
+		System.out.println(tracking_no);
+		
+		return "redirect:/orders";
+		
+		
+	}*/
+	
+	
 	//통계 연결
 	@RequestMapping("/charts")
 	public String charts(Model model) {
@@ -385,7 +708,12 @@ public class SellerController {
 	//판매자 정보
 	@RequestMapping("/sellerinfo")
 	public String sellerinfo(Model model) {
-
+		
+		SellerDTO dto = sellerservice.sellerInfo();
+		
+		dto.setSeller_addr(dto.getSeller_address1()+" "+dto.getSeller_address2()+" "+dto.getSeller_address3());
+		
+		model.addAttribute("dto", dto);
 		model.addAttribute("sellerpage", "seller_info.jsp");
 		return "sellers/temp";
 	}
@@ -404,6 +732,4 @@ public class SellerController {
 		model.addAttribute("contentpage", "sellers/sellers_list.jsp");
 		return "home";
 	}
-
-
 }
