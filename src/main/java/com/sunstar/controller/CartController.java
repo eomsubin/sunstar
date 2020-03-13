@@ -32,18 +32,6 @@ public class CartController {
 	@Autowired
 	private CartService cartservice;
 
-	public String header(Model model) {
-		List<CategoryDTO> clist= mainservice.getCategory();
-	
-		
-		List<CategoryDTO> clist2= mainservice.getCategory2();
-		model.addAttribute("catelist",clist);
-		model.addAttribute("catelist2",clist2);	
-		
-		return "header2";
-		
-	}
-	
 	
 	// 상품 상세보기
 	@RequestMapping(value = "/detailview", method = RequestMethod.GET)
@@ -58,9 +46,18 @@ public class CartController {
 			model.addAttribute("contentpage", "shop/detailview.jsp");
 			// System.out.println(view);
 		}
-		header(model);
+		mainservice.header(model);
 		return "home";
 	}
+	
+	//상세보기 css
+	@RequestMapping(value = "/detailview2", method = RequestMethod.GET)
+	public String detailview2(Model model) {
+		mainservice.header(model);
+		model.addAttribute("contentpage", "shop/detailview2.jsp");
+		return "home";
+	}
+	
 	
 
 	// 카드 담기
@@ -90,7 +87,7 @@ public class CartController {
 	      }else {
 	    	  return "redirect:http://localhost:8080/controller/userlogin";
 	      }
-		header(model);
+		mainservice.header(model);
 		return "home";
 	}
 

@@ -27,4 +27,14 @@
         where p.product_code = #{product_code}
 	</select>
 	
+	<select id="productListCategory" resultType="com.sunstar.dto.ProductDTO" parameterType="string">
+		select p.product_code, product_name, price, cost, shipping_cost, o.option1, o.option2, o.inventory, o.add_price, public_state, review_state, c.lv1, c.lv2, c.lv3, c.lv2code
+		from product_list p  join category c
+		on p.category_code = c.category_code
+		left join options o
+        on p.product_code = o.product_code
+        where c.lv2code = #{lv2}
+        group by p.product_code
+	</select>
+	
 </mapper>

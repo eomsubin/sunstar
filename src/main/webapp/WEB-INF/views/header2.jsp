@@ -197,42 +197,12 @@
                      </div>
 
                      <div class="sinlge-bar shopping">
+
                         <a href="${pageContext.request.contextPath}/cartList" class="single-icon"><i class="ti-bag"></i></a> <!-- <span
                            class="total-count"></span></a> -->
-                        <!-- Shopping Item -->
-                     <!--    <div class="shopping-item">
-                           <div class="dropdown-cart-header">
-                                 <span>2 Items</span>
-                              <a href="#">장바구니 보기</a>
-                           </div>
-                           <ul class="shopping-list">
-                              <li><a href="#" class="remove" title="Remove this item"><i
-                                    class="fa fa-remove"></i></a> <a class="cart-img" href="#"><img
-                                    src="https://via.placeholder.com/70x70" alt="#"></a>
-                                 <h4>
-                                    <a href="#">Woman Ring</a>
-                                 </h4>
-                                 <p class="quantity">
-                                    1x - <span class="amount">$99.00</span>
-                                 </p></li>
-                              <li><a href="#" class="remove" title="Remove this item"><i
-                                    class="fa fa-remove"></i></a> <a class="cart-img" href="#"><img
-                                    src="https://via.placeholder.com/70x70" alt="#"></a>
-                                 <h4>
-                                    <a href="#">Woman Necklace</a>
-                                 </h4>
-                                 <p class="quantity">
-                                    1x - <span class="amount">$35.00</span>
-                                 </p></li>
-                           </ul>
-                           <div class="bottom">
-                              <div class="total">
-                                 <span>Total</span> <span class="total-amount">$134.00</span>
-                              </div>
-                              <a href="checkout.html" class="btn animate">Checkout</a>
-                           </div>
-                        </div> -->
-                        <!--/ End Shopping Item -->
+
+                       
+                      
                      </div>
                   </div>
                </div>
@@ -256,7 +226,7 @@
                               <ul class="sub-category">
                                  <c:forEach var="item2" items="${catelist2 }">
                                  <c:if test="${item.lv1==item2.lv1 }">
-                                 <li><a href="${pageContext.request.contextPath}/${item2.lv2code}">${item2.lv2 }</a></li>
+                                 <li><a href="${pageContext.request.contextPath}/category/${item2.lv2code}">${item2.lv2 }</a></li>
                                  
                                  </c:if>
                               
@@ -264,7 +234,58 @@
                               </ul>
                            </li>
                            </c:forEach>
-                           
+                           <!-- <li><a href="#">디지털/가전 <i class="fa fa-angle-right"
+                                 aria-hidden="true"></i></a>
+                              <ul class="sub-category">
+                                 <li><a href="#">accessories</a></li>
+                                 <li><a href="#">best selling</a></li>
+                                 <li><a href="#">top 100 offer</a></li>
+                                 <li><a href="#">sunglass</a></li>
+                                 <li><a href="#">watch</a></li>
+                                 <li><a href="#">man’s product</a></li>
+                                 <li><a href="#">ladies</a></li>
+                                 <li><a href="#">westrn dress</a></li>
+                                 <li><a href="#">denim </a></li>
+                              </ul></li>
+                           <li><a href="#">가구/인테리어 <i class="fa fa-angle-right"
+                                 aria-hidden="true"></i></a>
+                              <ul class="sub-category">
+                                 <li><a href="#">accessories</a></li>
+                                 <li><a href="#">best selling</a></li>
+                                 <li><a href="#">top 100 offer</a></li>
+                                 <li><a href="#">sunglass</a></li>
+                                 <li><a href="#">watch</a></li>
+                                 <li><a href="#">man’s product</a></li>
+                                 <li><a href="#">ladies</a></li>
+                                 <li><a href="#">westrn dress</a></li>
+                                 <li><a href="#">denim </a></li>
+                              </ul></li>
+                           <li><a href="#">식품 <i class="fa fa-angle-right"
+                                 aria-hidden="true"></i></a>
+                              <ul class="sub-category">
+                                 <li><a href="#">accessories</a></li>
+                                 <li><a href="#">best selling</a></li>
+                                 <li><a href="#">top 100 offer</a></li>
+                                 <li><a href="#">sunglass</a></li>
+                                 <li><a href="#">watch</a></li>
+                                 <li><a href="#">man’s product</a></li>
+                                 <li><a href="#">ladies</a></li>
+                                 <li><a href="#">westrn dress</a></li>
+                                 <li><a href="#">denim </a></li>
+                              </ul></li>
+                           <li><a href="#">반려동물 <i class="fa fa-angle-right"
+                                 aria-hidden="true"></i></a>
+                              <ul class="sub-category">
+                                 <li><a href="#">accessories</a></li>
+                                 <li><a href="#">best selling</a></li>
+                                 <li><a href="#">top 100 offer</a></li>
+                                 <li><a href="#">sunglass</a></li>
+                                 <li><a href="#">watch</a></li>
+                                 <li><a href="#">man’s product</a></li>
+                                 <li><a href="#">ladies</a></li>
+                                 <li><a href="#">westrn dress</a></li>
+                                 <li><a href="#">denim </a></li>
+                              </ul></li> -->
                         </ul>
                      </div>
                   </div>
@@ -275,7 +296,7 @@
                            <div class="navbar-collapse">
                               <div class="nav-inner">
                                  <ul class="nav main-menu menu navbar-nav">
-                                    <li><a href="#">홈</a></li>
+                                    <li class="active"><a href="#">홈</a></li>
                                     <li><a href="#">베스트</a></li>
                                     <li><a href="#">슈퍼딜</a></li>
                                     <li><a href="#">이벤트<i class="ti-angle-down"></i><span
@@ -336,5 +357,4 @@
    <!-- Active JS -->
  <script src="${pageContext.request.contextPath}/resources/js/active.js"></script>
 </body>
-
 </html>

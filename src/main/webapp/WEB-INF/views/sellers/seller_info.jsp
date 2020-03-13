@@ -30,62 +30,117 @@ body {
 				<h6 class="m-0 font-weight-bold text-primary">DataTables
 					Example</h6>
 			</div>
-			<div class="card-body">
-
+			<div class="card-body " style="padding-left: 30px;">
 
 				<!-- 내용 -->
 				<form>
-					<div class="form-row">
+					<input type="hidden" name="${_csrf.parameterName}"
+						value="${_csrf.token}" />
+					<div class="form-row col-md-12">
+
 						<div class="form-group col-md-6">
-							<label for="inputEmail4">Email</label> <input type="email"
-								class="form-control" id="inputEmail4">
+							<label for="inputEmail4">판매자 코드</label> <input type="text"
+								class="form-control" id="inputEmail4" value="${dto.seller_code}" readonly="readonly">
 						</div>
 						<div class="form-group col-md-6">
-							<label for="inputPassword4">Password</label> <input
-								type="password" class="form-control" id="inputPassword4">
+							<label for="inputPassword4">아이디</label> <input type="text"
+								class="form-control" id="inputPassword4" value="${dto.id}" readonly="readonly">
 						</div>
-					</div>
-					<div class="form-group">
-						<label for="inputAddress">Address</label> <input type="text"
-							class="form-control" id="inputAddress" placeholder="1234 Main St">
-					</div>
-					<div class="form-group">
-						<label for="inputAddress2">Address 2</label> <input type="text"
-							class="form-control" id="inputAddress2"
-							placeholder="Apartment, studio, or floor">
-					</div>
-					<div class="form-row">
-						<div class="form-group col-md-6">
-							<label for="inputCity">City</label> <input type="text"
-								class="form-control" id="inputCity">
+
+						<div class="col-md-4 mb-3">
+							<label for="validationDefault01">업체명</label> <input type="text"
+								class="form-control" id="validationDefault01"
+								value="${dto.seller_name}" readonly="readonly" required>
 						</div>
-						<div class="form-group col-md-4">
-							<label for="inputState">State</label> <select id="inputState"
-								class="form-control">
-								<option selected>Choose...</option>
-								<option>...</option>
+						<div class="col-md-4 mb-3">
+							<label for="validationDefault02">전화번호</label> <input type="text"
+								class="form-control" id="validationDefault02"
+								value="${dto.seller_tel}" required>
+						</div>
+						<div class="col-md-4 mb-3">
+							<label for="validationDefault02">이메일</label> <input type="text"
+								class="form-control" id="validationDefault02"
+								value="${dto.seller_email}" required>
+						</div>
+						<div class="col-md-9">
+							<label for="validationDefault03">주소</label> <input type="text"
+								class="form-control" id="validationDefault03"
+								value="${dto.seller_addr}" required>
+						</div>
+						<div class="col-md-3 mb-1">
+							<label for="validationDefault05">우편번호</label> <input type="text"
+								class="form-control" id="validationDefault05"
+								value="${dto.seller_zip}" required>
+						</div>
+						<div class="col-md-3 mb-1">
+							<label for="validationDefault05">은행</label>
+								
+						<select class="form-control" id="validationDefault05"
+								required>>
+								<option value="${dto.bank} selected="selected"> ${dto.bank}</option>
+								<option value="카카오뱅크">카카오뱅크</option>
+								<option value="국민은행">국민은행</option>
+								<option value="기업은행">기업은행</option>
+								<option value="농협은행">농협은행</option>
+								<option value="신한은행">신한은행</option>
+								<option value="산업은행">산업은행</option>
+								<option value="우리은행">우리은행</option>
+								<option value="한국씨티은행">한국씨티은행</option>
+								<option value="하나은행">하나은행</option>
+								<option value="SC제일은행">SC제일은행</option>
+								<option value="경남은행">경남은행</option>
+								<option value="광주은행">광주은행</option>
+								<option value="대구은행">대구은행</option>
+								<option value="도이치은행">도이치은행</option>
+								<option value="뱅크오브아메리카">뱅크오브아메리카</option>
+								<option value="부산은행">부산은행</option>
+								<option value="산림조합중앙회">산림조합중앙회</option>
+								<option value="저축은행">저축은행</option>
+								<option value="새마을금고중앙회">새마을금고중앙회</option>
+								<option value="수협은행">수협은행</option>
+								<option value="신협중앙회">신협중앙회</option>
+								<option value="우체국">우체국</option>
+								<option value="전북은행">전북은행</option>
+								<option value="제주은행">제주은행</option>
+								<option value="중국건설은행">중국건설은행</option>
+								<option value="중국공상은행">중국공상은행</option>
+								<option value="BNP파리바은행">BNP파리바은행</option>
+								<option value="HSBC은행">HSBC은행</option>
+								<option value="JP모간체이스은행">JP모간체이스은행</option>
+								<option value="케이뱅크">케이뱅크</option>
 							</select>
+							
 						</div>
-						<div class="form-group col-md-2">
-							<label for="inputZip">Zip</label> <input type="text"
-								class="form-control" id="inputZip">
+						<div class="col-md-9">
+							<label for="validationDefault03">계좌번호</label>
+							 <input type="text"
+								class="form-control" id="validationDefault03"
+								value="${dto.bank_no}" required>
 						</div>
+						
+						<div class="form-group col-md-6">
+							<label for="inputEmail4">사업자 등록번호</label> <input type="text"
+								class="form-control" id="inputEmail4" readonly="readonly" 
+								value="${dto.business_license}">
+						</div>
+						<div class="form-group col-md-6">
+							<label for="inputPassword4">판매기한
+							
+				<input type="button" class="btn btn-info" value="연장" style="font-size:0.66em; padding:2px 4px 1px 3px; margin: 0 !important;">
+						
+							</label> 
+							
+							<input type="date"
+								class="form-control" id="inputPassword4"
+								value="${dto.seller_deadline}">
+						</div>
+						<button type="submit" class="btn btn-primary">Sign in</button>
+
 					</div>
-					<div class="form-group">
-						<div class="form-check">
-							<input class="form-check-input" type="checkbox" id="gridCheck">
-							<label class="form-check-label" for="gridCheck"> Check me
-								out </label>
-						</div>
-					</div>
-					<button type="submit" class="btn btn-primary">Sign in</button>
 				</form>
 				<!-- 내용 끝 -->
-
-
 			</div>
 		</div>
 	</div>
-
 </body>
 </html>

@@ -7,6 +7,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.web.csrf.CsrfFilter;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -27,12 +28,11 @@ public class ProductTest {
 	@Autowired @Qualifier("productservice")
 	private ProductServiceImpl service;
 	
-
 	@Test
 	public void t1()
 	{
 		ProductDTO dto = service.productview(111);
 		System.out.println(dto);
-		
+
 	}
 }
