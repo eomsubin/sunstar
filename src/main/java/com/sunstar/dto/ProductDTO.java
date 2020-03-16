@@ -51,6 +51,8 @@ public class ProductDTO {
 	private String lv2;
 	private String lv3;
 	
+	private String shipping_company;
+	private int basic_shipping_cost;
 	
 	
 	

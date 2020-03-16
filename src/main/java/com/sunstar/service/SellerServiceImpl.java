@@ -1,11 +1,13 @@
 package com.sunstar.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.sunstar.dto.CategoryDTO;
+import com.sunstar.dto.MakePage;
 import com.sunstar.dto.OptionDTO;
 import com.sunstar.dto.OrderDTO;
 import com.sunstar.dto.ProductDTO;
@@ -120,6 +122,46 @@ public class SellerServiceImpl implements SellerService {
 		mapper.changeReviewState(dto);
 	}
 
+	@Override
+	public void changeInfo(SellerDTO dto) {
+		System.out.println(dto.getState());
+		System.out.println(dto.getVal());
+		
+		
+		dto.setSeller_code("11111");
+		mapper.changeInfo(dto);
+	}
+
+	@Override
+	public int totalCount(String category, String txt) {
+		HashMap<String, Object> hm = new HashMap<>();
+		hm.put("category", category);;
+		hm.put("txt", txt);
+		
+		return mapper.getCount(hm);
+		
+	}
+
+	@Override
+	public List<ProductDTO> productlist(MakePage page) {
+		/*HashMap<String, Object> hm = new HashMap<>();
+		hm.put("category", page.getCategori());
+		hm.put("txt", page.getTxt());
+		hm.put("startRow", page.getStartRow());
+		hm.put("endRow", page.getEndRow());
+		
+		System.out.println("emp service impl test");
+		
+		System.out.println(page.getCategori());
+		System.out.println(page.getTxt());
+		System.out.println(page.getStartRow());
+		System.out.println(page.getEndRow());*/
+		return mapper.productlist(page);
+	}
+
+	
+	
+	
 }                                                                                                                                                         
 		
 		
