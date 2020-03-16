@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -72,6 +73,25 @@ public class ProductController {
 		model.addAttribute("productlist", list);
 		model.addAttribute("contentpage", "ProductList/productList.jsp");
 		return "/home";
+	}
+	
+	
+	// 상품 상세보기
+	@RequestMapping(value = "/detailview2", method = RequestMethod.GET)
+	public String detailview(@RequestParam(defaultValue = "") String product_code, Model model) {
+		if (product_code.equals("")) {
+			System.out.println("값이 없습니다.");
+			return "redirect:http://localhost:8080/controller/userlogin";
+		} else {
+			int product_code1 = Integer.parseInt(product_code);
+			ProductDTO view = productservice.productview(product_code1);
+			
+			model.addAttribute("view", view);
+			model.addAttribute("contentpage", "shop/detailview2.jsp");
+			// System.out.println(view);
+		}
+		mainservice.header(model);
+		return "home";
 	}
 	
 	

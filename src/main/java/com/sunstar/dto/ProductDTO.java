@@ -41,7 +41,7 @@ public class ProductDTO {
 	private String seller_code;
 	
 	private List<OptionDTO> options;
-	
+		  
 	private String option1;
 	private String option2;
 	private int inventory;

@@ -3,7 +3,6 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sunstar.mapper.ProductMapper">
-
 	<select id="getCategory" resultType="com.sunstar.dto.CategoryDTO">
 		select * from category
 	</select>
@@ -17,15 +16,34 @@
 		order by product_code desc
 	</select>
 
-
 	<select id="productview" resultType="com.sunstar.dto.ProductDTO" parameterType="int">
-		select p.product_code, product_name, price, cost, shipping_cost, o.option1, o.option2, o.inventory, o.add_price, public_state, review_state, c.lv1, c.lv2, c.lv3
+		select p.product_code, product_name, price, cost, shipping_cost, public_state, review_state, c.lv1, c.lv2, c.lv3
 		from product_list p  join category c
 		on p.category_code = c.category_code
-		left join options o
-        on p.product_code = o.product_code
         where p.product_code = #{product_code}
 	</select>
+	
+	<!-- <resultMap type="com.sunstar.dto.ProductDTO" id="options">
+	<result property="product_code" column="product_code"></result>
+	<result property="option1" column="option1"></result>
+	<result property="option2" column="option2"></result>
+	<result property="inventory" column="inventory"></result>
+	<result property="add_price" column="add_price"></result>
+	</resultMap>
+	
+	<resultMap type="com.sunstar.dto.ProductDTO" id="optionsMap">
+	<result property="product_code" column="product_code"></result>
+	<result property="options" column="options"></result>
+	</resultMap>
+	 -->
+	<select id="getOptions" resultType="com.sunstar.dto.OptionDTO" parameterType="int">
+	select p.product_code, o.option1, o.option2, o.inventory, o.add_price
+	from product_list p left join options o
+	on p.product_code = o.product_code
+	where p.product_code = #{product_code}
+	</select>
+
+
 	
 	<select id="productListCategory" resultType="com.sunstar.dto.ProductDTO" parameterType="string">
 		select p.product_code, product_name, price, cost, shipping_cost, o.option1, o.option2, o.inventory, o.add_price, public_state, review_state, c.lv1, c.lv2, c.lv3, c.lv2code
