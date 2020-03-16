@@ -41,6 +41,13 @@
 	href="${pageContext.request.contextPath}/resources/css/responsive.css">
 <!-- iamport.payment.js -->
 
+
+<style>
+	.content ul li{	
+		font-size: 0.9em !important;
+		margin-bottom: 5px !important;
+	}
+</style>
 <script type="text/javascript"
 	src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 
@@ -210,18 +217,22 @@
 								<h2>카트</h2>
 								<div class="content">
 								<c:set var="sum" value="0"/>
+																
 								<c:forEach var="odto" items="${odto }">
 									<ul>
+										<li>상품명<span>${odto.product_name }</span><li>
 										<li>상품 금액<span>${odto.price+odto.add_price} 원</span></li>
 										<li>(+) 배송비<span>${odto.shipping_cost } 원</span></li>
+										<li>옵션1<span>${odto.option1 }</span></li>
+										<li>옵션2<span>${odto.option2 }</span></li>
 										<li>수량<span>${odto.cart_quantity } 개</span>
-										<li class="last">총 금액<span>${(odto.price+odto.add_price+odto.shipping_cost)*odto.cart_quantity} 원</span></li>
+										<li class="last" style="color:#f7941d; font-weight: 700;">총 금액<span>${(odto.price+odto.add_price+odto.shipping_cost)*odto.cart_quantity} 원</span></li>
 									
 									</ul>
 									<c:set var="sum" value="${sum+(odto.price+odto.add_price+odto.shipping_cost)*odto.cart_quantity}" />
 								</c:forEach>
 									<ul>
-										<li>결제 금액<span>${sum }원</span></li>
+										<li style="font-size: 1.2em !important; ">결제 금액<span>${sum }원</span></li>
 									</ul>
 								</div>
 							</div>
@@ -276,6 +287,8 @@
 		IMP.init("imp09596317"); // "imp00000000" 대신 발급받은 "가맹점 식별코드"를 사용합니다.
 		var regtel = /^[0-9]+$/;
 		var regEm = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
+		var status="";
+		var message="";
 		//IMP.request_pay(param, callback) 호출
 		function requestPay() {
 
@@ -315,7 +328,7 @@
 
 				return false;
 			}
-
+	
 			else {
 				// name1: 주문자
 				// tel: 휴대전화
@@ -323,12 +336,13 @@
 				// name2: 받는 사람
 				// addr1 addr2 addr3 주소
 				// shiptext: 배송 시 요청사항
+				
 				IMP.request_pay({ // param
 					pg : "inicis",
 					pay_method : "card",
-					merchant_uid : "ORD20180131-0000011",
-					name : "최솔이 콧물",
-					amount : 100,
+					merchant_uid : new Date().getTime(),
+					name : "${odto[0].product_name}",
+					amount : ${sum},
 					buyer_email : email.value,
 					buyer_name : name1.value,
 					buyer_tel : tel.value,
@@ -338,15 +352,31 @@
 					if (rsp.success) {
 
 						// 결제 성공 시 로직,
-						
+						var allData={"order_code":rsp.merchant_uid, "delivery_state":rsp.status,"order_way":rsp.pay_method,"tracking_no":name2.value};
 						$.ajax({
-							url:"${pageContext.request.contextPath}/complete"
+							url:"${pageContext.request.contextPath}/checkout/complete"
 							,type: 'POST'	
 							,dataType: 'JSON'
-							,data:{
-								imp_uid : rsp.imp_uid
+							,contentType: "application/json; charset=utf-8"
+							,data: allData
+								
+							
+								//imp_uid : rsp.imp_uid,
+							   // 'order_code': rsp.merchant_uid,
+								//product_name: rsp.name,
+								//price: rsp.amount,
+								
+								//'delivery_state': rsp.status,
+								//'order_way': rsp.pay_method,
+								//name: rsp.buyer_name,
+								//'tracking_no': name2.value,
+						
+								//tel: rsp.buyer_tel,
+								//shipping_addr2: rsp.buyer_addr,
+								//shipping_zip: rsp.buyer_postcode,
+								//'message': shiptext.value 
 								// 기타 데이터들 추가 전달
-							}
+							
 							
 						}).done(function(data) {
 				    		//[2] 서버에서 REST API로 결제정보확인 및 서비스루틴이 정상적인 경우
@@ -358,6 +388,8 @@
 				    			msg += '카드 승인번호 : ' + rsp.apply_num;
 
 				    			alert(msg);
+				    		
+				    			
 				    		} else {
 				    			//[3] 아직 제대로 결제가 되지 않았습니다.
 				    			//[4] 결제된 금액이 요청한 금액과 달라 결제를 자동취소처리하였습니다.
@@ -370,7 +402,7 @@
 						msg += '상점 거래ID : ' + rsp.merchant_uid;
 						msg += '결제 금액 : ' + rsp.paid_amount;
 						msg += '카드 승인번호 : ' + rsp.apply_num; */
-
+						location.href="${pageContext.request.contextPath}/cartList";
 					} else {
 
 						// 결제 실패 시 로직,

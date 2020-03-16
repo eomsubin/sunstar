@@ -22,10 +22,16 @@ public class PaymentServiceImple implements PaymentService {
 	}
 
 	@Override
-	public List<CartDTO> viewOrdered(String id) {
+	public CartDTO viewOrdered(CartDTO userinfo) {
 		
 		
-		return pm.viewOrdered(id);
+		return pm.viewOrdered(userinfo);
+	}
+	
+	@Override
+	public int addOrder(OrderDTO odto) {
+		
+		return pm.addOrder(odto);
 	}
 
 	

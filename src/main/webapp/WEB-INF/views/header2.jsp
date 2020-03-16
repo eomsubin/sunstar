@@ -229,7 +229,7 @@
                                  <li><a href="${pageContext.request.contextPath}/category/${item2.lv2code}">${item2.lv2 }</a></li>
                                  
                                  </c:if>
-                              
+                           
                                  </c:forEach>
                               </ul>
                            </li>

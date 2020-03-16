@@ -28,6 +28,8 @@ public class OrderDTO {
 	private int inventory;
 	private int add_price;
 	private int price;
+	private String product_name;
+	private String to_name;
 	
 	private String message;
 	

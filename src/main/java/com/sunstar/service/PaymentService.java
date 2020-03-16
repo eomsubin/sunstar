@@ -10,5 +10,8 @@ public interface PaymentService {
 	List<OrderDTO> getOrderList();
 	
 	
-	List<CartDTO> viewOrdered(String id);
+	CartDTO viewOrdered(CartDTO userinfo);
+
+
+	int addOrder(OrderDTO odto);
 }
