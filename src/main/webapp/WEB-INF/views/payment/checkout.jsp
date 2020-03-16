@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -43,7 +46,12 @@
 
 </head>
 <body>
-
+	<form role="form" method="post">
+		<sec:authorize access="isAuthenticated()">
+			<input type="hidden" name="id" class="id"
+				value='<sec:authentication property="principal.UserInfo.id"/>'>
+		</sec:authorize>
+	</form>
 
 
 	<!-- Breadcrumbs -->
@@ -65,51 +73,58 @@
 	<!-- End Breadcrumbs -->
 
 	<!-- Start Checkout -->
+	
 	<section class="shop checkout section">
 
 		<!-- Form -->
 		<form method="post" name="payform" id="payform"
 			onsubmit="return requestPay()" class="form">
+			
 			<input type="hidden" name="${_csrf.parameterName}"
 				value="${_csrf.token}" />
 			<div class="container">
 				<div class="row">
+				
+					
+				
 					<div class="col-lg-8 col-12">
 						<div class="checkout-form">
+							
 							<h2>주문자 정보 입력</h2>
 							<p>주문하시는 분의 정보를 입력해주세요</p>
 							<div class="row">
+								
+									<div class="col-lg-6 col-md-6 col-12">
+										<div class="form-group ">
+											<label for="name1">주문자<span>*</span></label> <input
+												class="form-control" type="text" name="name1" id="name1"
+												placeholder=""  value="${userinfo.name }"
+												required="required" readonly="readonly">
+											<div class="hiddenname1 is-invalid invalid-feedback">*이름을
+												입력해주세요</div>
 
-								<div class="col-lg-6 col-md-6 col-12">
-									<div class="form-group ">
-										<label for="name1">주문자<span>*</span></label> <input
-											class="form-control" type="text" name="name1" id="name1"
-											placeholder="" required="required">
-										<div class="hiddenname1 is-invalid invalid-feedback">*이름을
-											입력해주세요</div>
-
+										</div>
 									</div>
-								</div>
 
-								<div class="col-lg-6 col-md-6 col-12">
-									<div class="form-group">
-										<label>휴대전화<span>*</span></label> <input type="text"
-											class="form-control" name="tel" id="tel" placeholder=""
-											required>
-										<div class="hiddentel is-invalid invalid-feedback">*휴대전화를
-											입력해주세요('-' 제외,숫자만 입력)</div>
+									<div class="col-lg-6 col-md-6 col-12">
+										<div class="form-group">
+											<label>휴대전화<span>*</span></label> <input type="text"
+												class="form-control" name="tel" id="tel" placeholder=""
+												required value="${userinfo.tel }">
+											<div class="hiddentel is-invalid invalid-feedback">*휴대전화를
+												입력해주세요('-' 제외,숫자만 입력)</div>
 
 
+										</div>
 									</div>
-								</div>
-								<div class="col-lg-6 col-md-6 col-12">
-									<div class="form-group">
-										<label>이메일<span>*</span></label> <input type="email"
-											name="email" id="email" placeholder="" required="required">
-										<div class="hiddenemail is-invalid invalid-feedback">*이메일
-											형식에 맞게 입력해주세요</div>
+									<div class="col-lg-6 col-md-6 col-12">
+										<div class="form-group">
+											<label>이메일<span>*</span></label> <input type="email"
+												name="email" id="email" placeholder="" required="required" value="${userinfo.email }">
+											<div class="hiddenemail is-invalid invalid-feedback">*이메일
+												형식에 맞게 입력해주세요</div>
+										</div>
 									</div>
-								</div>
 							</div>
 
 
@@ -146,7 +161,7 @@
 										<div class="form-group">
 											<label>주소<span>*</span></label> <input type="text"
 												name="addr1" id="addr1" placeholder="" required="required"
-												readonly="readonly">
+												readonly="readonly" value="${userinfo.zip }" >
 										</div>
 									</div>
 								</div>
@@ -156,7 +171,7 @@
 								<div class="col-lg-6 col-md-6 col-12">
 									<div class="form-group">
 										<input type="text" name="addr2" id="addr2" placeholder=""
-											required="required" readonly="readonly">
+											required="required" readonly="readonly" value="${userinfo.address1} ${userinfo.address2}">
 									</div>
 								</div>
 							</div>
@@ -164,25 +179,27 @@
 								<div class="col-lg-6 col-md-6 col-12">
 									<div class="form-group">
 										<input type="text" name="addr3" id="addr3" placeholder=""
-											required="required" readonly="readonly">
+											required="required" readonly="readonly" value="${userinfo.address3}">
 
 									</div>
 								</div>
 							</div>
+
 							<label>배송시 요청사항</label>
-							
+
 							<div class="form-group">
-								
-								<textarea id="shiptext" name="shiptext" class="form-control" aria-label="With textarea" rows="2" style="width:500px;" ></textarea>
-								
+
+								<textarea id="shiptext" name="shiptext" class="form-control"
+									aria-label="With textarea" rows="2" style="width: 500px;"></textarea>
+
 							</div>
-							
-	
-			
 
 
 
 
+
+
+						
 							<!--/ End Form -->
 						</div>
 					</div>
@@ -192,10 +209,19 @@
 							<div class="single-widget">
 								<h2>카트</h2>
 								<div class="content">
+								<c:set var="sum" value="0"/>
+								<c:forEach var="odto" items="${odto }">
 									<ul>
-										<li>상품 금액<span>$330.00</span></li>
-										<li>(+) 배송비<span>$10.00</span></li>
-										<li class="last">총 금액<span>$340.00</span></li>
+										<li>상품 금액<span>${odto.price+odto.add_price} 원</span></li>
+										<li>(+) 배송비<span>${odto.shipping_cost } 원</span></li>
+										<li>수량<span>${odto.cart_quantity } 개</span>
+										<li class="last">총 금액<span>${(odto.price+odto.add_price+odto.shipping_cost)*odto.cart_quantity} 원</span></li>
+									
+									</ul>
+									<c:set var="sum" value="${sum+(odto.price+odto.add_price+odto.shipping_cost)*odto.cart_quantity}" />
+								</c:forEach>
+									<ul>
+										<li>결제 금액<span>${sum }원</span></li>
 									</ul>
 								</div>
 							</div>
@@ -228,7 +254,8 @@
 								<div class="content">
 									<div class="button">
 										<!-- <button onclick="requestPay(name1,tel,email,name2,addr1,addr2,addr3)">결제</button> -->
-										<input class="btn btn-sm" type="button" onclick="requestPay()" value="결제하기" style="color:#333;">
+										<input class="btn btn-sm" type="button" onclick="requestPay()"
+											value="결제하기" style="color: #333;">
 									</div>
 								</div>
 							</div>
@@ -237,6 +264,7 @@
 						</div>
 
 					</div>
+					
 				</div>
 
 			</div>
@@ -381,14 +409,15 @@
 	<script
 		src="${pageContext.request.contextPath}/resources/js/finalcountdown.min.js"></script>
 	<!-- Nice Select JS -->
-	
+
 	<script
 		src="${pageContext.request.contextPath}/resources/js/nicesellect.js"></script>
 	<!-- Flex Slider JS -->
 	<script
 		src="${pageContext.request.contextPath}/resources/js/flex-slider.js"></script>
 	<!-- ScrollUp JS -->
-	<script src="${pageContext.request.contextPath}/resources/js/scrollup.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/js/scrollup.js"></script>
 	<!-- Onepage Nav JS -->
 	<script
 		src="${pageContext.request.contextPath}/resources/js/onepage-nav.min.js"></script>

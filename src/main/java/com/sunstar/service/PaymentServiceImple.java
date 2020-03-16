@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.sunstar.dto.CartDTO;
 import com.sunstar.dto.OrderDTO;
 import com.sunstar.mapper.PaymentMapper;
 
@@ -19,6 +20,15 @@ public class PaymentServiceImple implements PaymentService {
 	
 		return pm.getOrderList();
 	}
+
+	@Override
+	public List<CartDTO> viewOrdered(String id) {
+		
+		
+		return pm.viewOrdered(id);
+	}
+
+	
 	
 	
 	
