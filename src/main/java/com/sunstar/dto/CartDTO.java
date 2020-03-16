@@ -35,4 +35,12 @@ public class CartDTO {
 	private String option2;
 	private int add_price;
 	
+	private String name;
+	private String email;
+	private String tel;
+	private String address1;
+	private String address2;
+	private String address3;
+	private String zip;
+	
 }
