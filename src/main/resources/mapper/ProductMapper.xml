@@ -3,31 +3,23 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sunstar.mapper.ProductMapper">
-
-	<select id="getCategory" resultType="com.sunstar.dto.CategoryDTO">
-		select * from category
-	</select>
-
-	<select id="list" resultType="com.sunstar.dto.ProductDTO">
-		select p.product_code, product_name, price, cost, shipping_cost, o.option1, o.option2, o.inventory, o.add_price, public_state, review_state, c.lv1, c.lv2, c.lv3
-		from product_list p  join category c
-		on p.category_code = c.category_code
-		left join options o
-        on p.product_code = o.product_code
-		order by product_code desc
-	</select>
-
-
-	<select id="productview" resultType="com.sunstar.dto.ProductDTO" parameterType="int">
-		select p.product_code, product_name, price, cost, shipping_cost, o.option1, o.option2, o.inventory, o.add_price, public_state, review_state, c.lv1, c.lv2, c.lv3
-		from product_list p  join category c
-		on p.category_code = c.category_code
-		left join options o
-        on p.product_code = o.product_code
+	<!-- bori -->
+    <select id="productview" resultType="com.sunstar.dto.ProductDTO" parameterType="int">
+      select p.product_code, product_name, price, cost, shipping_cost, public_state, review_state, c.lv1, c.lv2, c.lv3
+      from product_list p  join category c
+      on p.category_code = c.category_code
         where p.product_code = #{product_code}
-	</select>
+   </select>
+   
+   <select id="getOptions" resultType="com.sunstar.dto.OptionDTO" parameterType="int">
+   select p.product_code, o.option1, o.option2, o.inventory, o.add_price
+   from product_list p left join options o
+   on p.product_code = o.product_code
+   where p.product_code = #{product_code}
+   </select>
 	
-	<select id="productListCategory" resultType="com.sunstar.dto.ProductDTO" parameterType="string">
+	<!-- jinwoo -->
+	<select id="productListCategorylv2" resultType="com.sunstar.dto.ProductDTO" parameterType="string">
 		select p.product_code, product_name, price, cost, shipping_cost, o.option1, o.option2, o.inventory, o.add_price, public_state, review_state, c.lv1, c.lv2, c.lv3, c.lv2code
 		from product_list p  join category c
 		on p.category_code = c.category_code
@@ -35,6 +27,29 @@
         on p.product_code = o.product_code
         where c.lv2code = #{lv2}
         group by p.product_code
+        order by p.product_code desc
 	</select>
 	
+	<select id="productListCategorylv3" resultType="com.sunstar.dto.ProductDTO" parameterType="com.sunstar.dto.CategoryDTO">
+		select p.product_code, product_name, price, cost, shipping_cost, o.option1, o.option2, o.inventory, o.add_price, public_state, review_state, c.lv1, c.lv2, c.lv3, c.lv2code
+		from product_list p  join category c
+		on p.category_code = c.category_code
+		left join options o
+        on p.product_code = o.product_code
+        where c.category_code = #{lv3} and c.lv2code = #{lv2}
+        group by p.product_code
+        order by p.product_code desc
+	</select>
+
+	<select id="productlv3bylv2" resultType="com.sunstar.dto.CategoryDTO" parameterType="string">
+		select category_code, lv3 
+		from category
+		where lv2code = #{lv2}
+	</select>
+	
+	<select id="productlv2bylv1" resultType="com.sunstar.dto.CategoryDTO" parameterType="string">
+		select distinct lv2, lv2code
+		from category
+		where lv1 = #{lv1}
+	</select>
 </mapper>
