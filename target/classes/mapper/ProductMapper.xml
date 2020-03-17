@@ -19,6 +19,17 @@
    </select>
 	
 	<!-- jinwoo -->
+	<select id="productListCategorylv1" resultType="com.sunstar.dto.ProductDTO" parameterType="string">
+		select p.product_code, product_name, price, cost, shipping_cost, o.option1, o.option2, o.inventory, o.add_price, public_state, review_state, c.lv1, c.lv2, c.lv3, c.lv2code
+		from product_list p  join category c
+		on p.category_code = c.category_code
+		left join options o
+        on p.product_code = o.product_code
+        where c.lv1 = #{lv1}
+        group by p.product_code
+        order by p.product_code desc
+	</select>
+	
 	<select id="productListCategorylv2" resultType="com.sunstar.dto.ProductDTO" parameterType="string">
 		select p.product_code, product_name, price, cost, shipping_cost, o.option1, o.option2, o.inventory, o.add_price, public_state, review_state, c.lv1, c.lv2, c.lv3, c.lv2code
 		from product_list p  join category c
@@ -51,5 +62,10 @@
 		select distinct lv2, lv2code
 		from category
 		where lv1 = #{lv1}
+	</select>
+	
+	<select id="productlv1" resultType="com.sunstar.dto.CategoryDTO" parameterType="string">
+		select distinct lv1
+		from category
 	</select>
 </mapper>

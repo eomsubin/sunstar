@@ -39,6 +39,35 @@ background-color: green;
 
 </style>
 
+
+<script>
+window.onload = function(){
+console.log('start');
+let fileTarget = $('.upload-hidden');
+let filename = '';
+
+fileTarget.on('change', function(){ // 값이 변경되면
+  if(window.FileReader){ // modern browser
+	  filename = $(this)[0].files[0].name;
+	  console.log(filename);
+  }
+  else { // old IE
+	  filename = $(this).val().split('/').pop().split('\\').pop(); // 파일명만 추출
+	  console.log(filename);
+  }
+  // 추출한 파일명 삽입
+  $(this).siblings('.upload-file').empty().append(filename);
+  
+});
+
+
+console.log('end');
+}
+
+
+
+</script>
+
 </head>
 <body>
 	<div class="container-fluid">
@@ -60,8 +89,43 @@ background-color: green;
 
 				<!-- 내용 -->
 
-				<form>
+				<form action="${pageContext.request.contextPath}/settingUpdate" method="post" enctype="multipart/form-data">
+				
+				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+				
 					<div class="form-row">
+
+<div class="row row-cols-1 row-cols-md-3">
+  <div class="col mb-4">
+    <div class="card">
+      <img src="${dto.comm_img1}" class="card-img-top" alt="...">
+      <div class="card-body">
+        <h5 class="card-title">Card title</h5>
+        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+      </div>
+    </div>
+  </div>
+  <div class="col mb-4">
+    <div class="card">
+      <img src="${dto.comm_img2}" class="card-img-top" alt="...">
+      <div class="card-body">
+        <h5 class="card-title">Card title</h5>
+        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+      </div>
+    </div>
+  </div>
+  <div class="col mb-4">
+    <div class="card">
+      <img src="${dto.comm_img3}" class="card-img-top" alt="...">
+      <div class="card-body">
+        <h5 class="card-title">Card title</h5>
+        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content.</p>
+      </div>
+    </div>
+  </div>
+  </div> 
+
+
 
 
 
@@ -71,52 +135,53 @@ background-color: green;
 							<div class="col-sm-10">
 								<div class="custom-file">
 									<input type="file" class="custom-file-input upload-hidden"
-										id="athumb_img" name="athumb_img" required>
+										id="acomm_img1" name="acomm_img1" >
 										 <label
-										class="custom-file-label upload-file" for="adetail_img2">이미지
+										class="custom-file-label upload-file" for="acomm_img1">이미지
 										파일 선택 (가로 550px * 세로 750px 권장)</label>
 
 								</div>
 							</div>
 
 
-							<label for="inputEmail3" class="col-sm-2 col-form-label">공지
+							<label for="acomm_img2" class="col-sm-2 col-form-label">공지
 								이미지2</label>
 							<div class="col-sm-10">
 								<div class="custom-file">
 									<input type="file" class="custom-file-input upload-hidden"
-										id="adetail_img1" name="adetail_img1" required> <label
-										class="custom-file-label upload-file" for="adetail_img1">이미지
+										id="acomm_img2" name="acomm_img2" > <label
+										class="custom-file-label upload-file" for="acomm_img2">이미지
 										파일 선택</label>
 
 								</div>
 							</div>
 
-							<label for="inputEmail3" class="col-sm-2 col-form-label">공지
+							<label for="acomm_img3" class="col-sm-2 col-form-label">공지
 								이미지3</label>
 							<div class="col-sm-10">
 								<div class="custom-file">
 									<input type="file" class="custom-file-input upload-hidden"
-										id="adetail_img2" name="adetail_img2" required> <label
-										class="custom-file-label upload-file" for="adetail_img2">이미지
+										id="acomm_img3" name="acomm_img3" > <label
+										class="custom-file-label upload-file" for="acomm_img3">이미지
 										파일 선택</label>
 
 								</div>
 							</div>
 
-							<label for="inputEmail3" class="col-sm-2 col-form-label">상세
-								이미지 3</label>
+							<label for="aseller_bgcolor" class="col-sm-2 col-form-label">메인
+								이미지 / 로고</label>
 							<div class="col-sm-10">
 								<div class="custom-file">
 									<input type="file" class="custom-file-input upload-hidden"
-										id="adetail_img3" name="adetail_img3" required> <label
-										class="custom-file-label upload-file" for="adetail_img3">이미지
+										id="aseller_bgcolor" name="aseller_bgcolor" > <label
+										class="custom-file-label upload-file" for="aseller_bgcolor">이미지
 										파일 선택</label>
 
 								</div>
 							</div>
-
 						</div>
+						
+						<!-- 
 						<label for="inputState"  class="col-sm-2 col-form-label">State</label>
 						<div class="form-group col-md-10">
 							 <select id="inputState"
@@ -134,7 +199,7 @@ background-color: green;
 								<option>...</option>
 							</select>
 						</div>
-						<!-- ㅇㅇㅇ -->
+						ㅇㅇㅇ
 						<div class="form-group col-md-6">
 							<label for="inputEmail4">Email</label> <input type="email"
 								class="form-control" id="inputEmail4">
@@ -176,8 +241,9 @@ background-color: green;
 							<label class="form-check-label" for="gridCheck"> Check me
 								out </label>
 						</div>
-					</div>
+					</div> -->
 					<button type="submit" class="btn btn-primary">Sign in</button>
+					</div>
 				</form>
 				<!-- 내용 끝 -->
 
