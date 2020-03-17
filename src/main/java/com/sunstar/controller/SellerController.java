@@ -368,8 +368,8 @@ public class SellerController {
 		//multipart 파일을 multi에 담아줌
 		MultipartFile multi = dto.getAthumb_img();
 		MultipartFile multi1 = dto.getAdetail_img1();		
-		MultipartFile multi2 = dto.getAdetail_img1();
-		MultipartFile multi3 = dto.getAdetail_img1();
+		MultipartFile multi2 = dto.getAdetail_img2();
+		MultipartFile multi3 = dto.getAdetail_img3();
 		
 		System.out.println(multi);
 		System.out.println(multi1);
