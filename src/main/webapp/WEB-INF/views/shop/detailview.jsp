@@ -63,8 +63,10 @@ $(document).ready(function(){
 					console.log(data);
 				 	if(data>0){
 				 		alert("장바구니에 상품을 담았습니다.");
+				 		
 				 	}else{
 				 		alert("장바구니에 상품을 담기 실패.");
+				 		
 				 	}
 			}
 			, error : function(e){
@@ -88,7 +90,8 @@ $(document).ready(function(){
 				<input type="hidden" name="product_code" value="${view.product_code}" >
 				
 				<sec:authorize access="isAuthenticated()">
-				<input type="hidden" name="id" class="id" value='<sec:authentication property="principal.UserInfo.id"/>' >
+				<input type="hidden" name="id" class="id" 
+				value='<sec:authentication property="principal.UserInfo.id"/>' >
 				</sec:authorize>
 			</form>
 

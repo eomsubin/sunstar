@@ -4,6 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sunstar.mapper.SellerMapper">
 
+	<parameterMap type="java.util.HashMap" id="HashMap" />
 
 	<!-- 카테고리 목록 불러오기 -->
 	<select id="getCategory" resultType="com.sunstar.dto.CategoryDTO">
@@ -38,11 +39,13 @@
 	
 	<!-- 상픔 리스트 (판매자) -->
 	<select id="list" resultType="com.sunstar.dto.ProductDTO">
-		select p.product_code, product_name, price, cost, shipping_cost, o.option1, o.option2, o.inventory, o.add_price, public_state, review_state, c.lv1, c.lv2, c.lv3, p.product_code
+		select p.product_code, product_name, price, cost, shipping_cost, o.option1, o.option2, o.inventory, o.add_price, public_state, review_state, c.lv1, c.lv2, c.lv3, p.product_code, s.basic_shipping_cost
 		from product_list p  join category c
 		on p.category_code = c.category_code
 		left join options o
-        on p.product_code = o.product_code
+		on p.product_code = o.product_code
+		left join seller s
+		on p.seller_code = s.seller_code
       <!--   where p.product_code = #{seller_code} -->
 		order by product_code desc
 		
@@ -149,10 +152,89 @@
 		where product_code = #{product_code}
 	</update>
 	
-		<update id="changeReviewState" parameterType="com.sunstar.dto.ProductDTO">
+	<update id="changeReviewState" parameterType="com.sunstar.dto.ProductDTO">
 		update product_list
 		set review_state = #{review_state}
-		where product_code = #{product_code}
+		where seller_code = #{seller_code}
 		
 	</update>
+	
+	
+	
+	<update id="changeInfo" parameterType="com.sunstar.dto.SellerDTO">
+		update seller
+ 	 <set>
+      <if test="seller_tel   != null   and 	seller_tel  != ''  	">seller_tel=#{seller_tel}</if>
+      <if test="seller_email != null   and 	seller_email != '' 	">seller_email=#{seller_email}</if>
+      <if test="seller_zip   != null   and seller_zip != '' 	">seller_zip=#{seller_zip}</if>
+      <if test="bank         != null   and bank != '' 			">bank=#{bank}</if>
+      <if test="bank_no      != null   and bank_no != ''	 	">bank_no=#{bank_no}</if>
+      <if test="seller_deadline 	!= null   and seller_deadline     != '' ">seller_deadline=#{seller_deadline}</if>
+      <if test="shipping_company    != null   and shipping_company    != '' ">shipping_company=#{shipping_company}</if>
+      <if test="basic_shipping_cost	!= null   and basic_shipping_cost != '' ">basic_shipping_cost=#{basic_shipping_cost}</if>
+      
+     </set>
+		
+		where seller_code = 11111
+	<!-- 	where seller_code = 11111
+	 -->	
+	
+	</update>
+	
+	
+		<select id="getCount" resultType="int">
+		select count(*)
+		from product_list p  join category c
+		on p.category_code = c.category_code
+		left join options o
+		on p.product_code = o.product_code
+		left join seller s
+		on p.seller_code = s.seller_code
+      <!--   where p.product_code = #{seller_code} -->
+	
+	<!-- 
+		<where>
+			<if test="txt != null and txt != ''">
+				<choose>
+					<when test="category == 'employee_id'">
+						and employee_id = #{txt}
+					</when>
+
+					<when test="category == 'first_name'">
+						and upper(first_name) like '%'||upper(#{txt})||'%'
+						||로 연결 대소문자인지 모르므로 앞뒤에 upper를 붙여서 모두 대문자로 변경 후에 검색한다.
+					</when>
+
+					<when test="category == 'department_name'">
+						and upper(department_name) like '%'||upper(#{txt})||'%'
+					</when>
+					
+					<when test="category == 'hire_date'">
+						and to_char(hire_date, 'yyyy') = #{txt}
+					</when>
+
+				</choose>
+			</if>
+		</where>
+		
+		 -->
+	</select>
+	
+	
+	<!-- parameterMap="HashMap" -->
+	<select id="productlist"  parameterType="com.sunstar.dto.MakePage"  resultType="com.sunstar.dto.ProductDTO">
+		select p.product_code, product_name, price, cost, shipping_cost, o.option1, o.option2, o.inventory, o.add_price, public_state, review_state, c.lv1, c.lv2, c.lv3, p.product_code, s.basic_shipping_cost
+		from product_list p  join category c
+		on p.category_code = c.category_code
+		left join options o
+		on p.product_code = o.product_code
+		left join seller s
+		on p.seller_code = s.seller_code
+      <!--   where p.product_code = #{seller_code} -->
+		order by product_code desc
+		LIMIT #{startRow}, #{endRow}
+	
+	
+	</select>
+	
 </mapper>

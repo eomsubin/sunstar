@@ -32,35 +32,15 @@ public class CartController {
 	@Autowired
 	private CartService cartservice;
 
-	public String header(Model model) {
-		List<CategoryDTO> clist= mainservice.getCategory();
-	
-		
-		List<CategoryDTO> clist2= mainservice.getCategory2();
-		model.addAttribute("catelist",clist);
-		model.addAttribute("catelist2",clist2);	
-		
-		return "header2";
-		
-	}
-	
-	
-	// 상품 상세보기
-	@RequestMapping(value = "/detailview", method = RequestMethod.GET)
-	public String detailview(@RequestParam(defaultValue = "") String product_code, Model model) {
-		if (product_code.equals("")) {
-			System.out.println("값이 없습니다.");
-			return "redirect:http://localhost:8080/controller/userlogin";
-		} else {
-			int product_code1 = Integer.parseInt(product_code);
-			ProductDTO view = productservice.productview(product_code1);
-			model.addAttribute("view", view);
-			model.addAttribute("contentpage", "shop/detailview.jsp");
-			// System.out.println(view);
-		}
-		header(model);
+	 
+/*	//상세보기 css
+	@RequestMapping(value = "/detailview2", method = RequestMethod.GET)
+	public String detailview2(Model model) {
+		mainservice.header(model);
+		model.addAttribute("contentpage", "shop/detailview2.jsp");
 		return "home";
-	}
+	}*/
+	
 	
 
 	// 카드 담기
@@ -68,6 +48,7 @@ public class CartController {
 	@RequestMapping(value = "/detailview/addCart", method = RequestMethod.GET)
 	public int addCart(Model model, CartDTO data) throws Exception {
 		int result = 0;
+		System.out.println("은별천사");
 		result = cartservice.addCart(data);
 		return result;
 	}
@@ -90,7 +71,7 @@ public class CartController {
 	      }else {
 	    	  return "redirect:http://localhost:8080/controller/userlogin";
 	      }
-		header(model);
+		mainservice.header(model);
 		return "home";
 	}
 

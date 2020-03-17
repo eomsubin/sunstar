@@ -6,8 +6,13 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<link rel="stylesheet" type="text/css"
+	href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css">
+<script type="text/javascript" charset="utf8"
+	src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
 
+<link type="text/css" href="//gyrocode.github.io/jquery-datatables-checkboxes/1.2.11/css/dataTables.checkboxes.css" rel="stylesheet" />
+<script type="text/javascript" src="//gyrocode.github.io/jquery-datatables-checkboxes/1.2.11/js/dataTables.checkboxes.min.js"></script>
 <style>
 .btnabs{
 	position:absolute; 
@@ -19,6 +24,85 @@
 }
 
 </style>
+
+<script>
+$(document).ready(function(){
+	
+	let header = "${_csrf.headerName}";
+	let token = "${_csrf.token}";
+		
+		
+    $('#dataTable').DataTable({
+        pageLength: 10,
+        bPaginate: true,
+        bLengthChange: true,
+        lengthMenu : [ [ 10, 50, 100, -1 ], [ 10, 50, 100, "All" ] ],
+        bAutoWidth: false,
+        processing: true,
+        ordering: true,
+        serverSide: false,
+        searching: true,
+
+    	    'columnDefs': [
+    	        {
+    	           'targets': 0,
+    	           'checkboxes': {
+    	              'selectRow': true
+    	           }
+    	        }
+    	     ],
+    	     'select': {
+    	        'style': 'multi',
+    	        'id':'ordercode',
+    	        'name':'ordercode'
+    	        
+    	     },
+    	     'order': [[1, 'asc']],
+        
+        
+        
+        
+        ajax : {
+            "url":"${pageContext.request.contextPath}/datatest2",
+            "type":"POST",
+			"beforeSend" : function(xhr){
+				xhr.setRequestHeader(header, token)
+			}
+            
+            /*   "data": function (item) {
+            	console.log(item);
+            	console.log(item.order_code);
+            	
+            } */
+        },
+        columns: [
+            {data: "order_code"},
+
+            {data: "order_code"},
+            {data: "product_code"},
+            {data: "option1"},
+            {data: "option2"},
+            {data: "add_price"},
+            {data: "inventory"},
+            {data: "price"},
+            {data: "message"},
+            {data: "order_way"},
+            {data: "name"},
+            {data: "tel"},
+            {data: "shipping_addr1"},
+            {data: "shipping_addr2"},
+            {data: "shipping_addr3"},
+
+            {data: "shipping_zip"},
+            {data: "delivery_state"},
+            {data: "tracking_no"}
+        ]
+
+    });
+
+});
+
+</script>
 <script>
 $(document).ready(function() {
 	$('#all').on('click', function() {
@@ -323,14 +407,14 @@ body {
 									
 									<th>주문번호</th>
 									<th>상품 코드</th>
-									<th style="border-left: 2px solid silver; border-right: 2px solid silver;">옵션</th>
+									<th colspan="3" style="border-left: 2px solid silver; border-right: 2px solid silver;">옵션</th>
 									<th>구매 수량</th>
 									<th>금액</th>
 									<th>특이사항</th>
 									<th>결제방법</th>
 									<th>구매자 이름</th>
 									<th>연락처</th>
-									<th>배송지</th>
+									<th colspan="3">배송지</th>
 									<th>우편번호</th>
 									
 									<th style="border-left: 2px solid silver; border-right: 2px solid silver;">주문
@@ -339,37 +423,7 @@ body {
 								</tr>
 							</thead>
 
-							<tbody>
-
-								<c:forEach var="i" items="${orderlist}">
-									<tr>
-										<td><label for="ordercode"></label>
-										
-										<input type="checkbox" id="ordercode" name="ordercode" value="${i.order_code}"></td>
-										<td id="ocode">${i.order_code}</td>
-										<td>${i.product_code}</td>
-										<td style="border-left: 2px solid silver; border-right: 2px solid silver;">${i.option1 }/
-											${i.option2 } / ${i.add_price }</td>
-										<td>${i.inventory}</td>
-										<td>${i.price }</td>
-										<td>${i.message }</td>
-										<td>${i.order_way}</td>
-										<td>${i.name}</td>
-										<td>${i.tel}</td>
-										<td>${i.shipping_addr1}${i.shipping_addr2}
-											${i.shipping_addr3}</td>
-										<td>${i.shipping_zip }</td>
-										<td style="border-left: 2px solid silver; border-right: 2px solid silver;">${i.delivery_state }</td>
-										
-									<%-- 	<td id="tracking${i.order_code}">${i.tracking_no}</td> --%>
-									
-									<td id="ttt">${i.tracking_no}</td>
-									</tr>
-								</c:forEach>
-
-
-
-							</tbody>
+							
 						</table>
 					</form>
 				</div>

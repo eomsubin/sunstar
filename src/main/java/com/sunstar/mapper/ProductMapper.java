@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.sunstar.controller.ProductController;
 import com.sunstar.dto.CategoryDTO;
+import com.sunstar.dto.OptionDTO;
 import com.sunstar.dto.ProductDTO;
 
 @Mapper
@@ -21,5 +22,5 @@ public interface ProductMapper {
 
 	List<CategoryDTO> productlv2bylv1(String lv1); //parkjinwoo
 
-	
+	List<OptionDTO> getOptions(int product_code);
 }

@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -33,13 +35,18 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.fasterxml.jackson.annotation.JsonUnwrapped;
+import com.mysql.cj.xdevapi.JsonArray;
 import com.sunstar.dto.CategoryDTO;
 import com.sunstar.dto.OptionDTO;
 import com.sunstar.dto.OrderDTO;
 import com.sunstar.dto.ProductDTO;
 import com.sunstar.dto.SellerDTO;
+import com.sunstar.dto.DataDTO;
+import com.sunstar.dto.MakePage;
 import com.sunstar.service.FileUploadService;
 import com.sunstar.service.SellerService;
 
@@ -60,9 +67,17 @@ public class SellerController {
 	}
 
 	//상품 목록 보기
-	@RequestMapping("/productlist")
-	public String product(Model model) {
+	@RequestMapping({"/productlist","/productlist/{value}"})
+	public String product(Model model,
+			//@PathVariable(required = false, de) Integer value,
+			@RequestParam(required=false, defaultValue="10") int value,
+			@RequestParam(required=false, defaultValue="1")int currPage, 
+			@RequestParam(required=false, defaultValue="")String category, 
+			@RequestParam(required=false, defaultValue="")String txt
+			) {
 
+		
+		System.out.println("value = ==== ==========" + value);
 		List<ProductDTO> plist = sellerservice.list();		
 
 		model.addAttribute("plist", plist);
@@ -77,6 +92,68 @@ public class SellerController {
 		}
 		model.addAttribute("dlist", dlist);
 		//
+		
+		
+		//페이징 및 검색
+		Pattern p = Pattern.compile("(^[0-9]*$)");
+
+		if(category=="employee_id" || "employee_id".equals(category)) {
+			Matcher m = p.matcher(txt);
+			if(!m.find()) {
+				txt="";
+				model.addAttribute("txt", txt);
+			}else {
+				model.addAttribute("txt",txt);
+			}
+		}
+		
+		int totalCount = sellerservice.totalCount(category, txt);
+		System.out.println(totalCount);
+
+		
+		int sizePerPage = 0;
+		if(value == 0 ) {
+			sizePerPage = 10;
+	
+		}else {
+			sizePerPage = value;
+		}
+		
+		int blockSize = 10;
+		MakePage page = new MakePage(currPage, totalCount, sizePerPage, blockSize);
+		
+		System.out.println(page.getStartRow());
+		System.out.println(page.getEndRow());
+		int a = ( page.getStartRow()  );
+		page.setStartRow(a);
+	//	List<ProductDTO> list = sellerservice.productlist(category, txt, page.getStartRow(), page.getEndRow() );
+		
+		List<ProductDTO> list = sellerservice.productlist(page);
+		
+		System.out.println("======page======");
+		
+		System.out.println(page.getCurrPage());
+		System.out.println(page.getTotalCount());
+		System.out.println(page.getSizePerPage());
+		System.out.println(page.getBlockSize());
+		System.out.println(page.getStartRow());
+		System.out.println(page.getEndRow());
+		System.out.println(page.getStartBlock());
+		System.out.println(page.getEndBlock());
+		System.out.println(page.isPrev());
+		System.out.println(page.isNext());
+		
+		
+		
+		System.out.println("======page==end===");
+		System.out.println("list ::"+list );
+		model.addAttribute("list", list);
+		
+		model.addAttribute("page", page);
+		
+		
+		//페이징 및 검색 끝
+		
 
 		model.addAttribute("sellerpage", "productlist.jsp");
 		return "sellers/temp";
@@ -718,6 +795,55 @@ public class SellerController {
 		return "sellers/temp";
 	}
 
+	@RequestMapping("/changeInfo/{colname}/{newvalues}")
+	public String changeInfo(@PathVariable String colname, @PathVariable String newvalues ) {
+		
+		String[] col = colname.split(",");
+		String[] vals = newvalues.split(",");
+		
+		System.out.println("--col / vals");
+		System.out.println(col[0]);
+		System.out.println(vals[0]);
+		
+
+		System.out.println("--col / vals");
+		String val ="";
+		
+		
+		for(int i=0; i<col.length;i++) {
+			SellerDTO dto = new SellerDTO();
+			
+			if("seller_tel".equals(col[i])) {
+			  dto.setSeller_tel(vals[i]);
+			}else if("seller_email".equals(col[i])) {
+				dto.setSeller_email(vals[i]);
+			}else if("seller_addr".equals(col[i])) {
+				dto.setSeller_address1(vals[i]);
+			}else if("seller_zip".equals(col[i])){
+				dto.setSeller_zip(vals[i]);
+			}else if("bank".equals(col[i])) {
+				dto.setBank(vals[i]);
+			}else if("bank_no".equals(col[i])) {
+				dto.setBank_no(vals[i]);
+			}else if("seller_deadline".equals(col[i])) {
+				dto.setSeller_deadline(vals[i]);
+			}else if("shipping_company".equals(col[i])) {
+				dto.setShipping_company(vals[i]);
+			}else if("basic_shipping_cost".equals(col[i])) {
+				dto.setBasic_shipping_cost(vals[i]);
+			}
+			
+			System.out.println("vals i " + vals[i]);
+			System.out.println("val = " + val);
+			dto.setState(col[i]);
+			dto.setVal(val);
+			sellerservice.changeInfo(dto);
+		}
+		return "redirect:/sellerinfo";
+	}
+	
+	
+	
 	//판매자 설정
 	@RequestMapping("/sellersetting")
 	public String sellersetting(Model model) {
@@ -732,4 +858,51 @@ public class SellerController {
 		model.addAttribute("contentpage", "sellers/sellers_list.jsp");
 		return "home";
 	}
+	
+	
+	//dataTable
+	@RequestMapping("/dataTableTest")
+	public String datatable_test(Model model) {
+		List<OrderDTO> orderlist = sellerservice.orderlist();
+		model.addAttribute("olist", orderlist);
+	
+		model.addAttribute("sellerpage", "datatableTest.jsp");
+		return "sellers/temp";
+
+	}
+	
+	@RequestMapping("/datatest")
+	@ResponseBody
+	public List<OrderDTO> ajaxtest(){
+		List<OrderDTO> data = sellerservice.orderlist();
+
+		return data;
+	}
+
+	
+	@RequestMapping("/datatest2")
+	@ResponseBody
+	public DataDTO bbbtest(){
+		List<OrderDTO> data = sellerservice.orderlist();
+		
+		DataDTO dto = new DataDTO();
+		dto.setAaData(data);
+		return dto;
+	}
+	
+	@RequestMapping("/order")
+	public String order(Model model) {
+
+		List<OrderDTO> orderlist = sellerservice.orderlist();
+		model.addAttribute("orderlist", orderlist);
+		model.addAttribute("sellerpage", "order.jsp");
+		return "sellers/temp";
+
+	}
+
+	
+	
+	
+	
+	
 }

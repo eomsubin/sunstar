@@ -175,6 +175,13 @@
                     <i class="fas fa-fw fa-wrench"></i>
                     <span>설정</span></a>
             </li>
+			
+			<li class="nav-item">
+                <a class="nav-link" href="${pageContext.request.contextPath}/dataTableTest">
+                    <i class="fas fa-fw fa-wrench"></i>
+                    <span>데이터테이블 테스트용</span></a>
+            </li>
+			
 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">

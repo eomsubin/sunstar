@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.sunstar.dao.ProductViewDAO;
 import com.sunstar.dto.CategoryDTO;
+import com.sunstar.dto.OptionDTO;
 import com.sunstar.dto.ProductDTO;
 import com.sunstar.mapper.ProductMapper;
 
@@ -21,7 +22,14 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public ProductDTO productview(int product_code) {
 		// TODO Auto-generated method stub
-		return productmapper.productview(product_code) ;
+		ProductDTO dto = productmapper.productview(product_code) ;
+		
+		
+		List<OptionDTO> option = productmapper.getOptions(product_code);
+		dto.setOptions(option);
+		System.out.println(dto);
+		
+		return dto;
 	}
 
 	@Override //parkjinwoo
@@ -47,9 +55,4 @@ public class ProductServiceImpl implements ProductService {
  
 		return productmapper.productlv2bylv1(lv1);
 	}
-
-	
-	
-	
-
 }

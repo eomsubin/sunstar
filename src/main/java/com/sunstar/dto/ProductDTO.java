@@ -41,7 +41,7 @@ public class ProductDTO {
 	private String seller_code;
 	
 	private List<OptionDTO> options;
-	
+		  
 	private String option1;
 	private String option2;
 	private int inventory;
@@ -51,6 +51,8 @@ public class ProductDTO {
 	private String lv2;
 	private String lv3;
 	
+	private String shipping_company;
+	private int basic_shipping_cost;
 	
 	
 	
