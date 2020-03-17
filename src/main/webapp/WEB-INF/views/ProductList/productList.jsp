@@ -15,12 +15,15 @@
 <style>
 	.col-left{
     overflow: visible;
+    max-width: 15%;
+    flex: 15%;
     min-width: 158px;
     border-right: 2px solid #dadada;
-    
 	}
 	.col-right{
 	min-width: 918px;
+	max-width: 85%;
+    flex: 85%;
 	}
 	.row{
 	min-width: 1080px;
@@ -40,12 +43,38 @@
 	.lv2txt:hover, .lv3txt:hover, .pitem:hover{
 	color: #fbab60;
 	}
+	.grid-container {
+ 	display: grid;
+  	grid-template-columns: auto auto auto auto auto auto;
+	}
+	.grid-container > div{
+  	padding: 10px 0px 10px 10px;
+  	font-size: 13px;
+	}
+	.inner-grid-container {
+ 	display: grid;
+  	grid-template-columns: auto;
+	}
+	.top-grid-container{
+	width: 100%;
+	height: 250px;
+	overflow: hidden;
+	}
+	.top-grid-container img{
+	min-height:100%; 
+	min-width:100%;
+	margin: auto;
+	}
+	.bottom-grid-container{
+	width: auto;
+	height: 100px;
+	}
 	
 </style>
 </head>
 <body>
-<div class="row" style="max-width: 1660px;">
-	<div class="col-left col-2 pl-5 py-1 my-3 lefttxt">
+<div class="row" style="max-width: 100%;">
+	<div class="col-left pl-5 py-1 my-3 lefttxt">
 		<!-- lv1 -->
 		<c:if test="${empty lv2}"><span class="lv1txt">${lv1}</span></c:if>
 		<c:if test="${not empty lv2}"><a href="${pageContext.request.contextPath}/category/${lv1}"><span class="lv1txt">${lv1}</span></a></c:if> 
@@ -72,16 +101,21 @@
 		</ul>
 	</div>
 	
-	<div class="col-right col-10 p-0">
-		${productlist[0]}
-		<ol class="plist">
-		</ol>
+	
+	<div class="grid-container col-right col-10 p-0">	
 		<c:forEach var="plist" items="${productlist}">
-		<span class="pitem"><a href="${pageContext.request.contextPath}/detailview2?product_code=${plist.product_code}">${plist.product_name} ${plist.explains}</a></span>
-		<span><fmt:formatNumber pattern="###,###,###" value="${plist.price}" />원</span>
-		<br>
+		<div class="inner-grid-container">		
+			<div class="top-grid-container">
+				<a href="${pageContext.request.contextPath}/detailview2?product_code=${plist.product_code}"><img style="width: 100%; height: auto; margin-left: 0;" alt="${plist.explains}" src="${pageContext.request.contextPath}/${plist.thumb_img}"></a>
+			</div>
+			<div class="bottom-grid-container">
+			<span class="pitem"><a href="${pageContext.request.contextPath}/detailview2?product_code=${plist.product_code}">${plist.product_name}<br>${plist.explains}</a></span>
+			<br>
+			<span><fmt:formatNumber pattern="###,###,###" value="${plist.price}" />원</span>
+			</div>
+		</div>
 		</c:forEach>
 	</div>
-	</div>
+</div>	
 </body>
 </html>
