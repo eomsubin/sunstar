@@ -206,7 +206,7 @@ $(document).ready(function(){
 						<p>
 							<span>상 품 명 </span>${cartList.product_name}<br /> 
 							<span>옵    션 </span>${cartList.option1}&#45;${cartList.option2}	>
-							&#40;&#43;${cartList.add_price}원 &#41;<br /> 	 <			
+							&#40;&#43;${cartList.add_price}원 &#41;<br /> 	 		
 							<span>구입수량 </span>${cartList.cart_quantity}개<br /> 
 							<span>가 격 </span>
 							<fmt:formatNumber pattern="###,###,###"

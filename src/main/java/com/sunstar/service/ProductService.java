@@ -17,6 +17,10 @@ public interface ProductService {
 
 	public List<CategoryDTO> productlv2bylv1(String lv1); //parkjinwoo
 
+	public List<CategoryDTO> productlv1(String lv1); //parkjinwoo
+
+	public List<ProductDTO> productListCategorylv1(String lv1); //parkjinwoo
+
 	
 
 	

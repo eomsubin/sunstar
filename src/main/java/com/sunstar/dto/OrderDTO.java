@@ -1,5 +1,7 @@
 package com.sunstar.dto;
 
+import java.util.List;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -28,8 +30,20 @@ public class OrderDTO {
 	private int inventory;
 	private int add_price;
 	private int price;
+	private String product_name;
+	private String to_name;
 	
 	private String message;
 	
 	private String shipping_name;
+	
+	
+	private List<Integer> product_codes;
+	private List<Integer> quantities;
+	private List<String> options1;
+	private List<String> options2;
+	private List<Integer> add_prices;
+	
+	
+	
 }

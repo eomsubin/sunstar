@@ -14,6 +14,8 @@ public interface ProductMapper {
 
 	ProductDTO productview(int product_code);
 
+	List<ProductDTO> productListCategorylv1(String lv1); //parkjinwoo
+	
 	List<ProductDTO> productListCategorylv2(String lv2); //parkjinwoo
 
 	List<ProductDTO> productListCategorylv3(CategoryDTO cdto); //parkjinwoo
@@ -23,4 +25,6 @@ public interface ProductMapper {
 	List<CategoryDTO> productlv2bylv1(String lv1); //parkjinwoo
 
 	List<OptionDTO> getOptions(int product_code);
+
+	List<CategoryDTO> productlv1(String lv1); //parkjinwoo
 }

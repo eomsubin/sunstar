@@ -18,6 +18,7 @@
 <link rel="stylesheet"
    href="${pageContext.request.contextPath}/resources/css/jquery.fancybox.min.css">
 
+
 <!-- Nice Select CSS -->
  <link rel="stylesheet"
    href="${pageContext.request.contextPath}/resources/css/niceselect.css">
@@ -218,7 +219,7 @@
                         </h3>
                         <ul class="main-category">
                            <c:forEach var="item" items="${catelist }">
-                           <li><a href="#">${item.lv1} <i class="fa fa-angle-right"
+                           <li><a href="${pageContext.request.contextPath}/category/${item.lv1}">${item.lv1} <i class="fa fa-angle-right"
                                  aria-hidden="true"></i></a>
                               <ul class="sub-category">
                                  <c:forEach var="item2" items="${catelist2 }">
@@ -354,4 +355,5 @@
    <!-- Active JS -->
  <script src="${pageContext.request.contextPath}/resources/js/active.js"></script>
 </body>
+
 </html>
