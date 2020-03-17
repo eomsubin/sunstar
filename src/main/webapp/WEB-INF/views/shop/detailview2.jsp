@@ -240,7 +240,6 @@ $(document).ready(function(){
 								<option selected>선택하세요</option>
 								<c:forEach items="${view.options}" var="option" varStatus="status">
 									<!--선택n)옵션1/옵션2-재고:n개 (+#,###원) -->
-									
 									<option value="${option}">
 									선택${status.index+1}&#41;&#32; ${option.option1} &#47; ${option.option2}&#32;&#45;&#32; 
 									재고 &#32;${option.inventory}개 &#40;&#43;

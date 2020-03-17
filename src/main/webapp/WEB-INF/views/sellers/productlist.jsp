@@ -6,8 +6,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-<link rel="stylesheet" type="text/css"
+   <link rel="stylesheet" type="text/css"
 	href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css">
 
 <style>
@@ -77,11 +76,11 @@
 		$('#changeSizePerPage').on('change', function(){
 		console.log('move!');
 		
-		let value = $('#changeSizePerPage option:selected').val();
+		let psize = $('#changeSizePerPage option:selected').val();
 		
-		console.log(value);
+		console.log(psize);
 		
-		location.href="${pageContext.request.contextPath}/productlist?value="+value;
+		location.href="${pageContext.request.contextPath}/productlist?psize="+psize;
 		
 	})
 		
@@ -388,7 +387,7 @@ body {
 
 					<c:if test="${page.prev}">
 						<a
-							href="productlist?currPage=${page.startBlock-1}&category=${page.categori}&txt=${page.txt}">이전</a>
+							href="productlist?currPage=${page.startBlock-1}&psize=${page.sizePerPage}&txt=${page.txt}">이전</a>
 					</c:if>
 
 					<c:forEach var="i" begin="${page.startBlock}"
@@ -398,14 +397,14 @@ body {
 		</c:if>
 						<c:if test="${i != page.currPage }">
 							<a
-								href="productlist?currPage=${i}&category=${page.categori}&txt=${page.txt}">${i}</a>
+								href="productlist?currPage=${i}&psize=${page.sizePerPage}&txt=${page.txt}">${i}</a>
 						</c:if>
 					</c:forEach>
 
 
 					<c:if test="${page.next}">
 						<a
-							href="productlist?currPage=${page.endBlock+1}&category=${page.categori}&txt=${page.txt}">다음</a>
+							href="productlist?currPage=${page.endBlock+1}&psize=${page.sizePerPage}&txt=${page.txt}">다음</a>
 					</c:if>
 
 				</div>

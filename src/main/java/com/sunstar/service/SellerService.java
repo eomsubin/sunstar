@@ -43,9 +43,11 @@ public interface SellerService {
 
 	void changeInfo(SellerDTO dto);
 
-	int totalCount(String category, String txt);
+	int totalCount(String txt);
 
 	List<ProductDTO> productlist(MakePage page);
+
+	void update_seller_info(SellerDTO dto);
 
 
 
