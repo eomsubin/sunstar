@@ -24,6 +24,7 @@ import com.sunstar.dto.CartDTO;
 import com.sunstar.dto.CategoryDTO;
 import com.sunstar.dto.CustomerUserDetail;
 import com.sunstar.dto.OrderDTO;
+import com.sunstar.dto.OrderListDTO;
 import com.sunstar.service.MainService;
 import com.sunstar.service.PaymentService;
 
@@ -90,7 +91,7 @@ public class PaymentController {
 			
 			model.addAttribute("odto",list);
 
-		//	model.addAttribute("odto",orderdto);
+			//model.addAttribute("odto2",orderdto);
 		
 			model.addAttribute("userinfo",userinfo);
 			
@@ -104,17 +105,15 @@ public class PaymentController {
 	
 	
 	
-	
+	@ResponseBody
 	@RequestMapping(value="/checkout/complete",method=RequestMethod.POST)
-	public int complete(Model model,@RequestBody OrderDTO allData) {
+	public int complete(Model model, @RequestBody OrderDTO allData) {
 		int r=0;
 		
 		
 	    r = paymentservice.addOrder(allData);
+	   
 		
-		System.out.println(allData.getOrder_code());
-		System.out.println(r);
-		System.out.println(allData.toString()+",,,,,,,");
 		return r;
   }
 }

@@ -27,10 +27,15 @@
 	</select>
 	
 	<insert id="addOrder" parameterType="com.sunstar.dto.OrderDTO">
-		insert into ordered(order_code,id,order_way,delivery_state,tracking_no) values(#{order_code},#{id},#{order_way},#{delivery_state},#{tracking_no})
+	insert into ordered(order_code,order_way,delivery_state,id,message) values(#{order_code},#{order_way},#{delivery_state},#{id},#{message})
 	
 	</insert>
 	
+	<insert id="addOrderList" parameterType="com.sunstar.dto.OrderListDTO">
+		
+			insert into order_list(order_code,product_code,quantity,option1,option2,add_price)
+			values(#{order_code},#{product_code},#{quantity},#{option1},#{option2},#{add_price})
+	</insert>
 
 
 </mapper>

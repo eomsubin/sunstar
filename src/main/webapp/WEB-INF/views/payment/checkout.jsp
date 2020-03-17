@@ -102,7 +102,7 @@
 							<div class="row">
 								
 									<div class="col-lg-6 col-md-6 col-12">
-										<div class="form-group ">
+										<div class="form-group">
 											<label for="name1">주문자<span>*</span></label> <input
 												class="form-control" type="text" name="name1" id="name1"
 												placeholder=""  value="${userinfo.name }"
@@ -155,7 +155,7 @@
 									<div class="col-lg-6 col-md-6 col-12">
 										<div class="form-group">
 											<label>받으시는 분<span>*</span></label> <input type="text"
-												name="name2" id="name2" placeholder="" required="required">
+												name="to_name" id="to_name" placeholder="" required="required">
 											<div class="hiddenname2 is-invalid invalid-feedback">*받는
 												분의 이름을 적어주세요</div>
 										</div>
@@ -196,7 +196,7 @@
 
 							<div class="form-group">
 
-								<textarea id="shiptext" name="shiptext" class="form-control"
+								<textarea id="message" name="message" class="form-control"
 									aria-label="With textarea" rows="2" style="width: 500px;"></textarea>
 
 							</div>
@@ -219,7 +219,8 @@
 								<c:set var="sum" value="0"/>
 																
 								<c:forEach var="odto" items="${odto }">
-									<ul>
+									<ul class="bb">
+										<li style="display: none">상품코드<span  class="prod">${odto.product_code }</span></li>
 										<li>상품명<span>${odto.product_name }</span><li>
 										<li>상품 금액<span>${odto.price+odto.add_price} 원</span></li>
 										<li>(+) 배송비<span>${odto.shipping_cost } 원</span></li>
@@ -287,8 +288,8 @@
 		IMP.init("imp09596317"); // "imp00000000" 대신 발급받은 "가맹점 식별코드"를 사용합니다.
 		var regtel = /^[0-9]+$/;
 		var regEm = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
-		var status="";
-		var message="";
+		var csrfHeaderName= "${_csrf.headerName}";
+		var csrfTokenValue= "${_csrf.token}"
 		//IMP.request_pay(param, callback) 호출
 		function requestPay() {
 
@@ -318,9 +319,9 @@
 					$('.hiddenemail').hide(444);
 				})
 				return false;
-			} else if (name2.value == null || name2.value == "") {
+			} else if (to_name.value == null || to_name.value == "") {
 				$('.hiddenname2').show(200);
-				$('#name2').keydown(function(event) {
+				$('#to_name').keydown(function(event) {
 					$('.hiddenname2').hide(444);
 				})
 				return false;
@@ -336,29 +337,102 @@
 				// name2: 받는 사람
 				// addr1 addr2 addr3 주소
 				// shiptext: 배송 시 요청사항
+				let today= new Date();
+				let year = today.getFullYear();
+				let month = today.getMonth()+1;
+				let date = today.getDate();
+				let hours = today.getHours();
+				let minutes = today.getMinutes();
+				
+				if(month<10){
+					month='0'+month;
+				}
+				if(date<10){
+					date='0'+date;
+				}
+				
+				var generateRandom = function(min,max){
+					var ranNum = Math.floor(Math.random()*(max-min+1))+ min;
+					return ranNum;
+				}
+				var message = $('#message').val();
+			
+				/* var codes = new Array();				
+				let bbb= $('.bb').length;
+				for(i=0;i<bbb;i++){
+					let aaaa= $('.prod').eq(i).text();
+					codes.push(aaaa);
+					
+				}
+				
+				console.log(codes); */
+				var product_codes = new Array();
+				var quantities = new Array();
+				var options1 = new Array();
+				var options2 = new Array();
+				var add_prices = new Array(); 
+				 
+				
+				
+
+				<c:forEach var="item" items="${odto}">
+					product_codes.push(${item.product_code});
+					quantities.push(${item.cart_quantity});
+					options1.push(${item.option1});
+					options2.push(${item.option2});
+					add_prices.push(${item.add_price});
+					
+				
+				
+					
+				</c:forEach>
+				
 				
 				IMP.request_pay({ // param
 					pg : "inicis",
 					pay_method : "card",
-					merchant_uid : new Date().getTime(),
+					merchant_uid : ""+year+month+date+hours+minutes+generateRandom(100,999),
 					name : "${odto[0].product_name}",
-					amount : ${sum},
+					amount : "${sum}",
 					buyer_email : email.value,
 					buyer_name : name1.value,
 					buyer_tel : tel.value,
 					buyer_addr : addr2.value + addr3.value,
 					buyer_postcode : addr1.value
 				}, function(rsp) { // callback
+					
+				
 					if (rsp.success) {
-
+						let status= "결제완료";
+						let pay_name= "카드";
+						let userid = "${userinfo.id}";
 						// 결제 성공 시 로직,
-						var allData={"order_code":rsp.merchant_uid, "delivery_state":rsp.status,"order_way":rsp.pay_method,"tracking_no":name2.value};
+						var allData={"order_code":rsp.merchant_uid,
+									"delivery_state":status,
+									"order_way":pay_name,
+									"id": userid,
+									"message": message,
+								    "product_codes": product_codes,
+									"quantities": quantities,
+									"options1": options1,
+									"options2": options2,
+									"add_prices": add_prices
+									};
+						console.log(allData);
+						
+						
 						$.ajax({
 							url:"${pageContext.request.contextPath}/checkout/complete"
 							,type: 'POST'	
 							,dataType: 'JSON'
 							,contentType: "application/json; charset=utf-8"
-							,data: allData
+							,data: JSON.stringify(allData)
+							,beforeSend: function(xhr){
+								xhr.setRequestHeader(csrfHeaderName,csrfTokenValue);
+							}
+						
+								
+							
 								
 							
 								//imp_uid : rsp.imp_uid,
@@ -378,7 +452,7 @@
 								// 기타 데이터들 추가 전달
 							
 							
-						}).done(function(data) {
+						});/* .done(function(data) {
 				    		//[2] 서버에서 REST API로 결제정보확인 및 서비스루틴이 정상적인 경우
 				    		if ( everythings_fine ) {
 				    			var msg = '결제가 완료되었습니다.';
@@ -386,7 +460,7 @@
 				    			msg += '\n상점 거래ID : ' + rsp.merchant_uid;
 				    			msg += '\결제 금액 : ' + rsp.paid_amount;
 				    			msg += '카드 승인번호 : ' + rsp.apply_num;
-
+								
 				    			alert(msg);
 				    		
 				    			
@@ -394,15 +468,15 @@
 				    			//[3] 아직 제대로 결제가 되지 않았습니다.
 				    			//[4] 결제된 금액이 요청한 금액과 달라 결제를 자동취소처리하였습니다.
 				    		}
-				    	});
+				    	}); */
 						
 						
-						/* var msg = '결제가 완료되었습니다.';
+						 var msg = '결제가 완료되었습니다.';
 						msg += '고유ID : ' + rsp.imp_uid;
 						msg += '상점 거래ID : ' + rsp.merchant_uid;
 						msg += '결제 금액 : ' + rsp.paid_amount;
-						msg += '카드 승인번호 : ' + rsp.apply_num; */
-						location.href="${pageContext.request.contextPath}/cartList";
+						msg += '카드 승인번호 : ' + rsp.apply_num; 
+					//	location.href="${pageContext.request.contextPath}/cartList";
 					} else {
 
 						// 결제 실패 시 로직,

@@ -13,5 +13,8 @@ public interface PaymentService {
 	CartDTO viewOrdered(CartDTO userinfo);
 
 
-	int addOrder(OrderDTO odto);
+	int addOrder(OrderDTO allData);
+
+	
+	
 }
