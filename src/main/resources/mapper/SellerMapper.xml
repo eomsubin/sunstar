@@ -4,6 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sunstar.mapper.SellerMapper">
 
+	<parameterMap type="java.util.HashMap" id="HashMap" />
 
 	<!-- 카테고리 목록 불러오기 -->
 	<select id="getCategory" resultType="com.sunstar.dto.CategoryDTO">
@@ -17,8 +18,8 @@
 	
 	<!-- 상품 추가  -->
 	<insert id="addProduct" parameterType="com.sunstar.dto.ProductDTO">
-		insert into product_list(product_name, price, cost, shipping_cost, thumb_img,explains, public_state, review_state, category_code, seller_code, add_date)
-		values(#{product_name},#{price},#{cost},#{shipping_cost},#{thumb_img},#{explains},#{public_state},#{review_state}, #{category_code}, #{seller_code}, now() )
+		insert into product_list(product_name, price, cost, shipping_cost, thumb_img, detail_img1, detail_img2, detail_img3, explains, public_state, review_state, category_code, seller_code, add_date)
+		values(#{product_name},#{price},#{cost},#{shipping_cost},#{thumb_img}, #{detail_img1},  #{detail_img2},  #{detail_img3}, #{explains},#{public_state},#{review_state}, #{category_code}, #{seller_code}, now() )
 	</insert>
 	
 	<!--  -->
@@ -38,11 +39,13 @@
 	
 	<!-- 상픔 리스트 (판매자) -->
 	<select id="list" resultType="com.sunstar.dto.ProductDTO">
-		select p.product_code, product_name, price, cost, shipping_cost, o.option1, o.option2, o.inventory, o.add_price, public_state, review_state, c.lv1, c.lv2, c.lv3, p.product_code
+		select p.product_code, product_name, price, cost, shipping_cost, o.option1, o.option2, o.inventory, o.add_price, public_state, review_state, c.lv1, c.lv2, c.lv3, p.product_code, s.basic_shipping_cost
 		from product_list p  join category c
 		on p.category_code = c.category_code
 		left join options o
-        on p.product_code = o.product_code
+		on p.product_code = o.product_code
+		left join seller s
+		on p.seller_code = s.seller_code
       <!--   where p.product_code = #{seller_code} -->
 		order by product_code desc
 		
@@ -78,7 +81,7 @@
 	<select id="orderlist" resultType="com.sunstar.dto.OrderDTO">
 	
 	   select o.order_code, l.product_code, l.option1, l.option2, l.inventory, l.add_price,  p.price, o.message, 
-			  o.order_way,  c.name, c.tel, s.shipping_addr1, s.shipping_addr2, s.shipping_addr3, s.shipping_zip, o.delivery_state, o.tracking_no
+			  o.order_way,  s.to_name, c.tel, s.shipping_addr1, s.shipping_addr2, s.shipping_addr3, s.shipping_zip, o.delivery_state, o.tracking_no
        from ordered o left join order_list l
        on o.order_code = l.order_code
        inner join customer c 
@@ -149,10 +152,104 @@
 		where product_code = #{product_code}
 	</update>
 	
-		<update id="changeReviewState" parameterType="com.sunstar.dto.ProductDTO">
+	<update id="changeReviewState" parameterType="com.sunstar.dto.ProductDTO">
 		update product_list
 		set review_state = #{review_state}
-		where product_code = #{product_code}
+		where seller_code = #{seller_code}
 		
 	</update>
+	
+	
+	
+	<update id="changeInfo" parameterType="com.sunstar.dto.SellerDTO">
+		update seller
+ 	 <set>
+      <if test="seller_tel   != null   and 	seller_tel  != ''  	">seller_tel=#{seller_tel},</if>
+      <if test="seller_email != null   and 	seller_email != '' 	">seller_email=#{seller_email},</if>
+      <if test="seller_zip   != null   and seller_zip != '' 	">seller_zip=#{seller_zip},</if>
+      <if test="bank         != null   and bank != '' 			">bank=#{bank},</if>
+      <if test="bank_no      != null   and bank_no != ''	 	">bank_no=#{bank_no},</if>
+      <if test="seller_deadline 	!= null   and seller_deadline     != '' ">seller_deadline=#{seller_deadline}</if>
+      <if test="shipping_company    != null   and shipping_company    != '' ">shipping_company=#{shipping_company},</if>
+      <if test="basic_shipping_cost	!= null   and basic_shipping_cost != '' ">basic_shipping_cost=#{basic_shipping_cost}</if>
+      
+     </set>
+		
+		where seller_code = 11111
+	<!-- 	where seller_code = 11111
+	 -->	
+	
+	</update>
+	
+	
+	<select id="getCount" resultType="int">
+		select count(*)
+		from product_list p  join category c
+		on p.category_code = c.category_code
+		left join options o
+		on p.product_code = o.product_code
+		left join seller s
+		on p.seller_code = s.seller_code
+      <!--   where p.product_code = #{seller_code} -->
+
+	<!-- 	<where>
+			<if test="txt != null and txt != ''">
+				<choose>
+					<when test="txt != null and txt != ''">
+						and p.product_code = '%'||#{txt}||'%'
+					</when>
+
+					<when test="txt != null and txt != ''">
+						and p.product_name like '%'||#{txt}||'%'
+				
+					</when>
+				</choose>
+			</if>
+		</where> -->
+		
+	</select>
+	
+	
+	<!-- parameterMap="HashMap" -->
+	<select id="productlist"  parameterType="com.sunstar.dto.MakePage"  resultType="com.sunstar.dto.ProductDTO">
+		
+		
+		
+		select p.product_code, product_name, price, cost, shipping_cost, o.option1, o.option2, o.inventory, o.add_price, public_state, review_state, c.lv1, c.lv2, c.lv3, p.product_code, s.basic_shipping_cost
+		from product_list p  join category c
+		on p.category_code = c.category_code
+		left join options o
+		on p.product_code = o.product_code
+		left join seller s
+		on p.seller_code = s.seller_code
+      <!--   where p.product_code = #{seller_code} -->
+    
+      <!-- <where>
+			<if test="product_code != null and product_code != ''">
+				and p.product_code = '%'||#{txt}||'%'
+			</if>
+			<if test="product_name != null and product_name != ''">
+					
+						and p.product_name like '%'||#{txt}||'%'
+			</if>
+		</where>  -->
+		
+		order by product_code desc
+		LIMIT #{startRow}, #{sizePerPage}
+	
+	</select>
+	
+	
+	<update id="update_seller_info" parameterType="com.sunstar.dto.SellerDTO">
+		update seller
+
+	 	<set>
+	      <if test="comm_img1   != null   and 	comm_img1  != ''  	">comm_img1=#{comm_img1},</if>
+	      <if test="comm_img2 	!= null   and 	comm_img2 != '' 	">comm_img2=#{comm_img2},</if>
+	      <if test="comm_img3   != null   and 	comm_img3 != '' 	">comm_img3=#{comm_img3},</if>
+	      <if test="seller_bgcolor  != null   and 	seller_bgcolor != '' ">seller_bgcolor=#{seller_bgcolor}</if>
+	 
+	    </set>	
+			where seller_code  = 11111
+		</update>
 </mapper>

@@ -14,9 +14,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.mysql.cj.util.DnsSrv.SrvRecord;
 import com.sunstar.dao.ProductViewDAO;
 import com.sunstar.dto.AuthDTO;
 import com.sunstar.dto.CategoryDTO;
@@ -38,13 +40,7 @@ public class ProductController {
 
 	@Autowired
 	private ProductService productservice;
-	
-/*	@Autowired @Qualifier("userservice")
-	private UserService service;
-	
-	@Autowired @Qualifier("AuthService")
-	private AuthService service2;*/
-	
+
 	@Autowired
 	private MainService mainservice;	
 	
@@ -57,9 +53,29 @@ public class ProductController {
 		return "header2";
 	}
 	
-	@RequestMapping("/category/{lv2}")
-	public String productList(Model model, @PathVariable String lv2, Principal principal) {
+	@RequestMapping("/category/{lv1}")
+	public String productListlv1(Model model, @PathVariable String lv1) {
 		header(model);
+		
+		//lv1  카테고리 list
+		List<CategoryDTO> categorylistlv1 =productservice.productlv1(lv1);
+		model.addAttribute("categorylistlv1", categorylistlv1);
+		
+		//lv1 > lv2 카테고리 list
+		List<CategoryDTO> categorylistlv2 =productservice.productlv2bylv1(lv1);
+		model.addAttribute("categorylistlv2", categorylistlv2);
+
+		//lv2 카테고리 상품 list
+		List<ProductDTO> productlist =productservice.productListCategorylv1(lv1);
+		model.addAttribute("productlist", productlist);
+		
+		model.addAttribute("contentpage", "ProductList/productList.jsp");
+		return "/home";
+	}
+	@RequestMapping("/category/{lv1}/{lv2}")
+	public String productListlv2(Model model, @PathVariable String lv1 ,@PathVariable String lv2, Principal principal) {
+		header(model);
+		// security id, name
 		if(principal!=null)
 		{
 		System.out.println(principal);
@@ -67,11 +83,67 @@ public class ProductController {
 		System.out.println(detail.getUsername());
 		System.out.println(detail.getId());
 		}
-		List<ProductDTO> list =productservice.productListCategory(lv2);
+		
+		//lv1 > lv2 카테고리 list
+		List<CategoryDTO> categorylistlv2 =productservice.productlv2bylv1(lv1);
+		model.addAttribute("categorylistlv2", categorylistlv2);
+
+		//lv2 > lv3 카테고리 list
+		List<CategoryDTO> categorylistlv3 =productservice.productlv3bylv2(lv2); 
+		model.addAttribute("categorylistlv3", categorylistlv3);
+		
 		//lv2 카테고리 상품 list
-		model.addAttribute("productlist", list);
+		List<ProductDTO> productlist =productservice.productListCategorylv2(lv2);
+		model.addAttribute("productlist", productlist);
+
+		
+		
 		model.addAttribute("contentpage", "ProductList/productList.jsp");
 		return "/home";
+	}
+	
+	@RequestMapping("/category/{lv1}/{lv2}/{lv3}")
+	public String productListlv3(Model model, @PathVariable String lv1 ,@PathVariable String lv2,@PathVariable String lv3) {
+		header(model);
+		//lv1 > lv2 카테고리 list
+		List<CategoryDTO> categorylistlv2 =productservice.productlv2bylv1(lv1);
+		model.addAttribute("categorylistlv2", categorylistlv2);
+
+		//lv2 > lv3 카테고리 list
+		List<CategoryDTO> categorylistlv3 =productservice.productlv3bylv2(lv2); 
+		model.addAttribute("categorylistlv3", categorylistlv3);
+
+		//lv3 카테고리 상품 list
+		CategoryDTO cdto = new CategoryDTO();
+		cdto.setLv2(lv2);
+		cdto.setLv3(lv3);
+		List<ProductDTO> productlist =productservice.productListCategorylv3(cdto);
+		model.addAttribute("productlist", productlist);
+		
+		
+		model.addAttribute("contentpage", "ProductList/productList.jsp");
+		return "/home";
+	}
+	
+	
+	
+	
+	// 상품 상세보기
+	@RequestMapping(value = "/detailview2", method = RequestMethod.GET)
+	public String detailview(@RequestParam(defaultValue = "") String product_code, Model model) {
+		if (product_code.equals("")) {
+			System.out.println("값이 없습니다.");
+			return "redirect:http://localhost:8080/controller/userlogin";
+		} else {
+			int product_code1 = Integer.parseInt(product_code);
+			ProductDTO view = productservice.productview(product_code1);
+			
+			model.addAttribute("view", view); // detail, option detail --> 장바구니 또는 결제 가야하는게 목표  
+			model.addAttribute("contentpage", "shop/detailview2.jsp");
+			// System.out.println(view);
+		}
+		mainservice.header(model);
+		return "home";
 	}
 	
 	

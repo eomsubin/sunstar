@@ -349,7 +349,7 @@ body {
 										<td id="ocode">${i.order_code}</td>
 										<td>${i.product_code}</td>
 										<td style="border-left: 2px solid silver; border-right: 2px solid silver;">${i.option1 }/
-											${i.option2 } / ${i.inventory} / ${i.add_price }</td>
+											${i.option2 } / ${i.add_price }</td>
 										<td>${i.inventory}</td>
 										<td>${i.price }</td>
 										<td>${i.message }</td>

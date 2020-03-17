@@ -3,6 +3,7 @@ package com.sunstar.service;
 import java.util.List;
 
 import com.sunstar.dto.CategoryDTO;
+import com.sunstar.dto.MakePage;
 import com.sunstar.dto.OptionDTO;
 import com.sunstar.dto.OrderDTO;
 import com.sunstar.dto.ProductDTO;
@@ -37,7 +38,17 @@ public interface SellerService {
 	SellerDTO sellerInfo();
 
 	void changePublicState(ProductDTO dto);
+	
 	void changeReviewState(ProductDTO dto);
+
+	void changeInfo(SellerDTO dto);
+
+	int totalCount(String txt);
+
+	List<ProductDTO> productlist(MakePage page);
+
+	void update_seller_info(SellerDTO dto);
+
 
 
 }

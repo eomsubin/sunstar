@@ -12,7 +12,65 @@
 body {
 	font-size: 0.77em;
 }
+
+.change-border{
+
+ border: 2px solid #4e73df; 
+}
+
 </style>
+
+<script>
+
+$(document).ready(function(){
+	
+	let colname = new Array();
+	let newvalues = new Array();
+	
+	//폼에 변화가 생기면
+	$('.form-control').on('change', function(){
+		console.log('move!');
+		
+		//굵은 테두리 css 추가
+		$(this).addClass('change-border');
+
+		//name이 뭔지 파악하고
+		let name = $(this).attr('name');
+		let value = $(this).text($('input').attr('name')).val();
+		
+		console.log(name);
+		console.log(value);
+
+		colname.push(name);
+		newvalues.push(value);		
+	})
+	
+	$('#changeInfo').on('click', function(){
+		
+
+		console.log(colname);
+		console.log(newvalues);
+		location.href = "${pageContext.request.contextPath}/changeInfo/"+colname+ "/"+newvalues;
+	})
+	
+	
+	
+			
+
+})
+
+
+	
+</Script>
+<script>
+
+function changeInfo(){
+	
+	location.href = "${pageContext.request.contextPath}/changeInfo/"+colname+ "/"+newvalues;
+}
+
+</script>
+
 
 </head>
 <body>
@@ -40,43 +98,43 @@ body {
 
 						<div class="form-group col-md-6">
 							<label for="inputEmail4">판매자 코드</label> <input type="text"
-								class="form-control" id="inputEmail4" value="${dto.seller_code}" readonly="readonly">
+								class="form-control" name="seller_code" id="seller_code" value="${dto.seller_code}" readonly="readonly">
 						</div>
 						<div class="form-group col-md-6">
 							<label for="inputPassword4">아이디</label> <input type="text"
-								class="form-control" id="inputPassword4" value="${dto.id}" readonly="readonly">
+								class="form-control" name="id" id="id" value="${dto.id}" readonly="readonly">
 						</div>
 
 						<div class="col-md-4 mb-3">
 							<label for="validationDefault01">업체명</label> <input type="text"
-								class="form-control" id="validationDefault01"
+								class="form-control" id="seller_name" name="seller_name"
 								value="${dto.seller_name}" readonly="readonly" required>
 						</div>
 						<div class="col-md-4 mb-3">
 							<label for="validationDefault02">전화번호</label> <input type="text"
-								class="form-control" id="validationDefault02"
+								class="form-control" id="seller_tel" name="seller_tel"
 								value="${dto.seller_tel}" required>
 						</div>
 						<div class="col-md-4 mb-3">
-							<label for="validationDefault02">이메일</label> <input type="text"
-								class="form-control" id="validationDefault02"
+							<label for="validationDefault02">이메일</label> <input type="email"
+								class="form-control" id="seller_email" name="seller_email"
 								value="${dto.seller_email}" required>
 						</div>
 						<div class="col-md-9">
-							<label for="validationDefault03">주소</label> <input type="text"
-								class="form-control" id="validationDefault03"
+							<label for="validationDefault03">주소</label> <input type="text" 
+								class="form-control" id="seller_addr" name="seller_addr"
 								value="${dto.seller_addr}" required>
 						</div>
 						<div class="col-md-3 mb-1">
 							<label for="validationDefault05">우편번호</label> <input type="text"
-								class="form-control" id="validationDefault05"
+								class="form-control" id="seller_zip" name="seller_zip"
 								value="${dto.seller_zip}" required>
 						</div>
 						<div class="col-md-3 mb-1">
 							<label for="validationDefault05">은행</label>
 								
-						<select class="form-control" id="validationDefault05"
-								required>>
+						<select class="form-control" id="bank" name="bank"
+								required>
 								<option value="${dto.bank} selected="selected"> ${dto.bank}</option>
 								<option value="카카오뱅크">카카오뱅크</option>
 								<option value="국민은행">국민은행</option>
@@ -114,13 +172,13 @@ body {
 						<div class="col-md-9">
 							<label for="validationDefault03">계좌번호</label>
 							 <input type="text"
-								class="form-control" id="validationDefault03"
+								class="form-control" id="bank_no" name="bank_no"
 								value="${dto.bank_no}" required>
 						</div>
 						
 						<div class="form-group col-md-6">
-							<label for="inputEmail4">사업자 등록번호</label> <input type="text"
-								class="form-control" id="inputEmail4" readonly="readonly" 
+							<label for="business_license">사업자 등록번호</label> <input type="text"
+								class="form-control" id="business_license" name="business_license" readonly="readonly" 
 								value="${dto.business_license}">
 						</div>
 						<div class="form-group col-md-6">
@@ -131,10 +189,38 @@ body {
 							</label> 
 							
 							<input type="date"
-								class="form-control" id="inputPassword4"
+								class="form-control" id="seller_deadline" name="seller_deadline"
 								value="${dto.seller_deadline}">
 						</div>
-						<button type="submit" class="btn btn-primary">Sign in</button>
+						
+						
+						<div class="col-md-6">
+							<label for="validationDefault05">계약 택배사</label>
+								
+						<select class="form-control" id="shipping_company" name="shipping_company" >
+								<option value="${dto.shipping_company}" selected="selected">현재 - ${dto.shipping_company}</option>
+								<option value="한진택배">한진택배</option>
+								<option value="CJ대한통운">CJ대한통운</option>
+								<option value="KGB택배">KGB택배</option>
+								<option value="우체국택배">우체국택배</option>
+								<option value="롯데택배">롯데택배</option>
+								<option value="Fedex">Fedex</option>
+							</select>
+							
+						</div>
+						<div class="col-md-6">
+							<label for="validationDefault03">기본 배송비</label>
+							 <input type="text"
+								class="form-control" id="basic_shipping_cost" name="basic_shipping_cost" placeholder="${dto.basic_shipping_cost}" >
+						</div>
+						
+						
+						
+						
+						<div></div>
+						<label></label>
+						<br>
+						<button type="button" id="changeInfo" class="btn btn-primary" style="margin-top: 10px; margin-left: 5px;">Sign in</button>
 
 					</div>
 				</form>

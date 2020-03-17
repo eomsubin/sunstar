@@ -1,5 +1,7 @@
 package com.sunstar.dto;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -23,4 +25,20 @@ public class SellerDTO {
 	private String seller_color;
 	private String seller_bgcolor;
 	private String seller_addr;
+	private String shipping_company;
+	private String basic_shipping_cost;
+	private String state;
+	private String val;
+
+	private String comm_img1;
+	private String comm_img2;
+	private String comm_img3;
+	
+	private MultipartFile acomm_img1;
+	private MultipartFile acomm_img2;
+	private MultipartFile acomm_img3;
+	private MultipartFile aseller_bgcolor;
+
+	
 }
+

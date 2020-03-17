@@ -18,6 +18,7 @@
 <link rel="stylesheet"
    href="${pageContext.request.contextPath}/resources/css/jquery.fancybox.min.css">
 
+
 <!-- Nice Select CSS -->
  <link rel="stylesheet"
    href="${pageContext.request.contextPath}/resources/css/niceselect.css">
@@ -200,9 +201,6 @@
 
                         <a href="${pageContext.request.contextPath}/cartList" class="single-icon"><i class="ti-bag"></i></a> <!-- <span
                            class="total-count"></span></a> -->
-
-                       
-                      
                      </div>
                   </div>
                </div>
@@ -221,15 +219,15 @@
                         </h3>
                         <ul class="main-category">
                            <c:forEach var="item" items="${catelist }">
-                           <li><a href="#">${item.lv1} <i class="fa fa-angle-right"
+                           <li><a href="${pageContext.request.contextPath}/category/${item.lv1}">${item.lv1} <i class="fa fa-angle-right"
                                  aria-hidden="true"></i></a>
                               <ul class="sub-category">
                                  <c:forEach var="item2" items="${catelist2 }">
                                  <c:if test="${item.lv1==item2.lv1 }">
-                                 <li><a href="${pageContext.request.contextPath}/category/${item2.lv2code}">${item2.lv2 }</a></li>
+                                 <li><a href="${pageContext.request.contextPath}/category/${item.lv1}/${item2.lv2code}">${item2.lv2 }</a></li>
                                  
                                  </c:if>
-                           
+                              
                                  </c:forEach>
                               </ul>
                            </li>
@@ -357,4 +355,5 @@
    <!-- Active JS -->
  <script src="${pageContext.request.contextPath}/resources/js/active.js"></script>
 </body>
+
 </html>

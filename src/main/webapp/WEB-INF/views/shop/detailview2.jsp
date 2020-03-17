@@ -18,32 +18,62 @@ display: inline-block
 }
 </style>
 <script>
+
 $(document).ready(function(){
-	$(".plus").click(function(){
-		var num = $(".numBox").val();
-		var plusNum = Number(num)+1;
+
+	$("select").change(function(){
+		var option = $("#selectoption option:selected").val();
+		var option1 = $("#selectoption option:selected").data("seloption1");
+		var option2 = $("#selectoption option:selected").data("seloption2");
+		var addprice = $("#selectoption option:selected").data("seladdprice");
+		var inventory = $("#selectoption option:selected").data("optioninventory");
 		
-		if( plusNum > ${view.inventory}){
-			$(".numBox").val(num);
-		}else{
-			$(".numBox").val(plusNum);
-		}
+		$(".cresult").append("<p>"+option1+"&#32;&#47;&#32;"+option2+"&#32;&#40;&#43;"+addprice+"원&#41;"+"<br>"
+							+"<button class='minus'>&#45;</button>"
+							+"<input type='number' class='numBox'  min='1' max="+inventory+" value='1'>"
+							+"<button class='plus'>&#43;</button>"
+							+"<button id='optiondel'>삭제</button>"
+							+"<hr class='my-3'>");
 		});
 	
-	$(".minus").click(function(){
-		var num = $(".numBox").val();
-		var minusNum = Number(num)-1;
+	//end
+	
+	$(document).on("click",".minus",function(){
+		var num = $(this).next().val();
+		var minusNum = (num)-1;
 		
 		if( minusNum < 1){
-			$(".numBox").val(num);
+			$(this).next().val(num);
 		}else{
-			$(".numBox").val(minusNum);
+			$(this).next().val(minusNum);
 		}
-		});
+	});
+	//end
 	
-	$(".addCart").click(function(){
-		var product_code = ${view.product_code};
-		var cart_quantity = $(".numBox").val();
+	$(document).on("click",".plus",function(){
+		var num=$(this).prev().val();
+		var plusNum= Number(num)+1;
+		var inventory=$("#selectoption option:selected").data("optioninventory");
+		
+	 	if(plusNum>inventory){
+	 		$(this).prev().val(inventory);
+		}else{
+			$(this).prev().val(plusNum);
+		}
+		}); 
+	
+	
+	$(document).on("click","#optiondel",function(){
+		console.log($(this)); //button#optiondel
+		$(this).parent().next().remove();
+		$(this).parent().remove();
+	});
+	//end
+	
+	$(".cart_btn").click(function(){
+		
+		var product_code = ${view.product_code}; 
+		//var cart_quantity = $(".numBox").val();
 		console.log(product_code);
 		
 		let id = $('.id').val();
@@ -55,10 +85,8 @@ $(document).ready(function(){
 		var data = {
 				"id" : id
 				,"product_code" : product_code
-				,"cart_quantity" : cart_quantity
+	//				,"cart_quantity" : cart_quantity
 		};
-		console.log(data);
-			
 			
 	 	$.ajax({
 			url : "detailview/addCart"
@@ -77,12 +105,11 @@ $(document).ready(function(){
 				console.log(e);
 			}
 		})
-	});
-	
+		//end ajax
+		});
+		//end cart_btn
 });
-
 </script>
-
 <title>SBBJ</title>
 </head>
 <body>
@@ -93,32 +120,34 @@ $(document).ready(function(){
         <a class="nav-link active" href="#">홈</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link active" href="#">lvl1</a>
+        <a class="nav-link active" href="#">${view.lv1}</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">lvl2</a>
+        <a class="nav-link" href="#">${view.lv2}</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">lvl3</a>
+        <a class="nav-link" href="#">${view.lv3}</a>
         </li>
         </ul>
    </div>
+	
+	<br><br>
+	
 
 
 	<div class="wrapper">
 
 		<section>
 			<form role="form" method="post">
-				<input type="hidden" name="product_code"
-					value="${view.product_code}">
-
+				<input type="hidden" name="product_code" value="${view.product_code}" >
+				
 				<sec:authorize access="isAuthenticated()">
-					<input type="hidden" name="id" class="id"
-						value='<sec:authentication property="principal.UserInfo.id"/>'>
+				<input type="hidden" name="id" class="id" 
+				value='<sec:authentication property="principal.UserInfo.id"/>' >
 				</sec:authorize>
 			</form>
 			
-
+			
 
 			<div class="container p-0">
 				<!-- 상단 -->
@@ -133,10 +162,10 @@ $(document).ready(function(){
 								<li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
 								<li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
 							</ol>
-							<div class="carousel-inner" style="width: 600px; height: 600px;">
+							<div class="carousel-inner" style="width: 550px; height: 750px;">
 								<div class="carousel-item active">
 									<img
-										src="http://image.auction.co.kr/itemimage/1b/c7/b0/1bc7b054d6.jpg"
+										src="${view.thumb_img}"
 										class="d-block w-100" alt="...">
 								</div>
 								<div class="carousel-item">
@@ -168,21 +197,23 @@ $(document).ready(function(){
 						<div class="prod_info">
 							<div class="d-flex bd-highlight my-3"
 								style="border-bottom: 1px solid #dadada">
-								<div class="p-2 bd-highlight">seller</div>
-								<div class="ml-auto p-2 bd-highlight">123123</div>
+								<div class="p-2 bd-highlight">${view.seller_code}</div>
+								<div class="ml-auto p-2 bd-highlight">${view.product_code}</div>
 							</div>
 						</div>
 
 						<!-- 상품명 -->
 						<h1 class="itemtit">
-							<span class="text__item-title">3D 입체 사진 1+1+1 / 3장</span>
+							<span class="text__item-title">${view.product_name}</span>
 						</h1>
 
 						<!-- 금액&amp;공유영역 -->
 						<div class="price_wrap d-flex">
 							<!-- 금액 -->
 							<div class="price mr-auto">
-								<strong class="price_real">10,000,000<span class="unit">원</span></strong>
+								<h2 class="price_real ml-2">
+								<fmt:formatNumber pattern="###,###,###" value="${view.price}" />
+								</h2>
 							</div>
 							<!-- 공유 -->
 							<div class="sns_area">
@@ -192,44 +223,70 @@ $(document).ready(function(){
 								</button>
 							</div>
 						</div>
-
+						
 						<!-- 배송 -->
-						<div class="delivery_info bg-light">
+						<div class="delivery_info bg-light my-3 p-2">
 							<ul style="list-style: none; padding: 0">
-								<li class="delivery_item" id="delevery_li">
-									<button id="delivery_btn" class="btn btn-light btn-block"
-										style="text-align: left">
-										배송비 - <em>주문시 결제</em>
-									</button>
-									<div class="delivery_view">
+								<li class="delivery_item" id="delevery_li" style="width: 100%">
+									<button id="delivery_btn" class="btn btn-light btn-block" style="text-align: left">배송비 &#45;
+									<c:choose>
+									<c:when test="${view.shipping_cost == 0}">무료배송</button>
+										<div class="delivery_view ml-3">
 										<ul style="list-style: none">
-											<li><span>조건부무료</span><span> 20,000 이상 무료</span></li>
-											<li><span>추가배송비</span><span> 제주도 3,000원</span></li>
+										<li><span>추가 배송비  &#58;  </span>제주도 3,000원</li>
+										</ul></div>
+									</c:when>
+									<c:otherwise>조건부 무료</button>
+									<div class="delivery_view ml-3">
+										<ul style="list-style: none">
+											<li><span>배송비  &#58;  </span><fmt:formatNumber pattern="###,###,###" value="${view.shipping_cost}"/>원</li>
+											<br>
+											<li><span>조건부 무료  &#58;  </span><fmt:formatNumber pattern="###,###,###" value="${view.basic_shipping_cost}"/>원 이상</li>
+											<br>
+											<li><span>추가 배송비  &#58;  </span>제주도 3,000원</li>
 										</ul>
 									</div>
+									</c:otherwise>
+									</c:choose>
 								</li>
 							</ul>
 						</div>
-
+								
+						
+						
+	
+						
 						<!-- 상품 옵션 -->
 						<fieldset>
-							<legend>옵션선택 폼</legend>
+							<legend>옵션선택</legend>
 							<!-- 선택옵션전체 -->
-							<div class="select-item">
-								<!-- 선택옵션 -->
-								<div class="select_option_form">
-									<!-- 주문옵션 상품-->
-									<div class="select_option_wrap"></div>
-								</div>
+							<select class="custom-select mb-2" id="selectoption">
+								<option value="" disabled selected hidden>선택하세요</option>
+								<c:forEach items="${view.options}" var="option" varStatus="status">
+									<!--선택n)옵션1/옵션2-재고:n개 (+#,###원) -->
+									<option data-optioninventory="${option.inventory}" data-seloption1="${option.option1}" data-seloption2="${option.option2}" data-seladdprice="${option.add_price}" value="${option}">
+									
+									<%-- <c:if test="${not empty option.option1 and not empty option.option2 and not empty option.add_price}">선택${status.index+1}&#41;&#32; ${option.option1} &#47; ${option.option2} &#45;&#32; 
+									재고 &#32;${option.inventory}개 &#40;&#43;<fmt:formatNumber pattern="###,###,###" value="${option.add_price}"/>원&#41;</c:if> --%>
+									<c:if test="${not empty option.option1}">선택${status.index+1}&#41;&#32;${option.option1}</c:if>
+									<c:if test="${not empty option.option2}">&#47; ${option.option2}&#32;</c:if>
+									<c:if test="${option.add_price>0}"> &#40;&#43;<fmt:formatNumber pattern="###,###,###" value="${option.add_price}"/>원&#41;</c:if>
+									&#45;&#32;재고 &#32;${option.inventory}개
+								</c:forEach>
+							</select>
+							
+							
+							<!-- 옵션 선택 완료 -->
+							<div class="cresult">
+							
 							</div>
 
-
-							<!-- 옵션 선택 완료 -->
+<%-- 							<!-- 옵션 선택 완료 -->
 							<div class="chooselist">
 								<ul class="add_items">
 									<li class="add_item">
 										<p class="area_item">
-											<span class="item_options">옵션1 <br> 옵션2 <br>
+											<span class="item_options">${view.option1} <br> ${view.option2} <br>
 												추가금
 											</span>
 										</p> <!--수량 조절-->
@@ -242,14 +299,14 @@ $(document).ready(function(){
 										</p>
 									</li>
 								</ul>
-							</div>
+							</div> --%>
 
 							<!--구매,장바구니 버튼-->
-							<div class="ordercart_btn">
-								<button class="cart_btn btn btn btn-outline-dark btn-lg"
-									type="button" style="width: 45%">장바구니</button>
+							<div class="ordercart_btn my-3">
+								<button class="cart_btn btn btn-outline-dark btn-lg"
+									type="button" style="width: 49%">장바구니</button>
 								<button class="buy_btn btn btn-danger btn-lg" type="button"
-									style="width: 45%">구매하기</button>
+									style="width: 49%">구매하기</button>
 							</div>
 						</fieldset>
 
@@ -269,9 +326,6 @@ $(document).ready(function(){
   </li>
   <li class="nav-item">
     <a class="nav-link" href="#">상품문의</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="#">판매자정보</a>
   </li>
 </ul>
 </div>

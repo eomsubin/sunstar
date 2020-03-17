@@ -90,7 +90,8 @@ $(document).ready(function(){
 				<input type="hidden" name="product_code" value="${view.product_code}" >
 				
 				<sec:authorize access="isAuthenticated()">
-				<input type="hidden" name="id" class="id" value='<sec:authentication property="principal.UserInfo.id"/>' >
+				<input type="hidden" name="id" class="id" 
+				value='<sec:authentication property="principal.UserInfo.id"/>' >
 				</sec:authorize>
 			</form>
 
