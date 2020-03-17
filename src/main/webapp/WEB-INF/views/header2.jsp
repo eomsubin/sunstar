@@ -200,9 +200,6 @@
 
                         <a href="${pageContext.request.contextPath}/cartList" class="single-icon"><i class="ti-bag"></i></a> <!-- <span
                            class="total-count"></span></a> -->
-
-                       
-                      
                      </div>
                   </div>
                </div>
@@ -226,7 +223,7 @@
                               <ul class="sub-category">
                                  <c:forEach var="item2" items="${catelist2 }">
                                  <c:if test="${item.lv1==item2.lv1 }">
-                                 <li><a href="${pageContext.request.contextPath}/category/${item2.lv2code}">${item2.lv2 }</a></li>
+                                 <li><a href="${pageContext.request.contextPath}/category/${item.lv1}/${item2.lv2code}">${item2.lv2 }</a></li>
                                  
                                  </c:if>
                               
