@@ -55,6 +55,8 @@ public interface SellerMapper {
 
 	List<ProductDTO> productlist(MakePage page);
 
+	void update_seller_info(SellerDTO dto);
+
 
 
 

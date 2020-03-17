@@ -39,6 +39,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
+import com.google.api.client.util.Data;
 import com.mysql.cj.xdevapi.JsonArray;
 import com.sunstar.dto.CategoryDTO;
 import com.sunstar.dto.OptionDTO;
@@ -67,37 +68,17 @@ public class SellerController {
 	}
 
 	//상품 목록 보기
-	@RequestMapping({"/productlist","/productlist/{value}"})
+	@RequestMapping("/productlist")
 	public String product(Model model,
-			//@PathVariable(required = false, de) Integer value,
-			@RequestParam(required=false, defaultValue="10") int value,
-			@RequestParam(required=false, defaultValue="1")int currPage, 
-			@RequestParam(required=false, defaultValue="")String category, 
+			@RequestParam(required=false, defaultValue="1")int currPage,
+			@RequestParam(required=false, defaultValue="10")int psize,
 			@RequestParam(required=false, defaultValue="")String txt
 			) {
 
-		
-		System.out.println("value = ==== ==========" + value);
-		List<ProductDTO> plist = sellerservice.list();		
-
-		model.addAttribute("plist", plist);
-
-		//
-		//페이지에 카테고리 표시
-		List<CategoryDTO> clist = sellerservice.getCategory();
-		List<CategoryDTO> dlist = new ArrayList<>();
-		for(CategoryDTO dto : clist) {
-			dto.setLv123(dto.getLv1()+" - "+dto.getLv2()+" - "+dto.getLv3()); 
-			dlist.add(dto);
-		}
-		model.addAttribute("dlist", dlist);
-		//
-		
-		
 		//페이징 및 검색
-		Pattern p = Pattern.compile("(^[0-9]*$)");
+/*		Pattern p = Pattern.compile("(^[0-9]*$)");
 
-		if(category=="employee_id" || "employee_id".equals(category)) {
+		if(txt != null || !txt.equals("")) {
 			Matcher m = p.matcher(txt);
 			if(!m.find()) {
 				txt="";
@@ -105,56 +86,66 @@ public class SellerController {
 			}else {
 				model.addAttribute("txt",txt);
 			}
-		}
+		}*/
 		
-		int totalCount = sellerservice.totalCount(category, txt);
+		//총 갯수 구하기
+		int totalCount = sellerservice.totalCount(txt);
 		System.out.println(totalCount);
 
-		
-		int sizePerPage = 0;
-		if(value == 0 ) {
-			sizePerPage = 10;
-	
+		MakePage pa = new MakePage();
+		pa.setSizePerPage(10); 
+		if(psize == 0 ) {
+			pa.setSizePerPage(10); 
 		}else {
-			sizePerPage = value;
+			pa.setSizePerPage(psize); 
 		}
 		
 		int blockSize = 10;
-		MakePage page = new MakePage(currPage, totalCount, sizePerPage, blockSize);
+		MakePage page = new MakePage(currPage, totalCount, pa.getSizePerPage(), blockSize);
+		
 		
 		System.out.println(page.getStartRow());
 		System.out.println(page.getEndRow());
 		int a = ( page.getStartRow()  );
+		
+			
 		page.setStartRow(a);
+		
+		System.out.println("입력psize: "+ psize);
+		
+		System.out.println(page.getSizePerPage());
 	//	List<ProductDTO> list = sellerservice.productlist(category, txt, page.getStartRow(), page.getEndRow() );
+		
+		
+		System.out.println("======page======");
+
+		page.setStartRow(page.getStartRow()-1);
+		
+		System.out.println("현재페이지"+page.getCurrPage());
+		System.out.println("총 갯수"+page.getTotalCount());
+		System.out.println("1페이지당 표시개수"+page.getSizePerPage());
+		System.out.println("블럭사이즈"+page.getBlockSize());
+		System.out.println("시작줄"+page.getStartRow());
+		System.out.println("끝줄"+page.getEndRow());
+		System.out.println("시작블럭"+page.getStartBlock());
+		System.out.println("끝블럭"+page.getEndBlock());
+		System.out.println("이전있니"+page.isPrev());
+		System.out.println("다음있니"+page.isNext());
+		System.out.println("======page==end===");
 		
 		List<ProductDTO> list = sellerservice.productlist(page);
 		
-		System.out.println("======page======");
-		
-		System.out.println(page.getCurrPage());
-		System.out.println(page.getTotalCount());
-		System.out.println(page.getSizePerPage());
-		System.out.println(page.getBlockSize());
-		System.out.println(page.getStartRow());
-		System.out.println(page.getEndRow());
-		System.out.println(page.getStartBlock());
-		System.out.println(page.getEndBlock());
-		System.out.println(page.isPrev());
-		System.out.println(page.isNext());
 		
 		
 		
-		System.out.println("======page==end===");
-		System.out.println("list ::"+list );
+	//	System.out.println("list ::"+list );
 		model.addAttribute("list", list);
 		
 		model.addAttribute("page", page);
 		
 		
-		//페이징 및 검색 끝
+		//페이징 및  끝
 		
-
 		model.addAttribute("sellerpage", "productlist.jsp");
 		return "sellers/temp";
 	}
@@ -376,36 +367,75 @@ public class SellerController {
 
 		//multipart 파일을 multi에 담아줌
 		MultipartFile multi = dto.getAthumb_img();
+		MultipartFile multi1 = dto.getAdetail_img1();		
+		MultipartFile multi2 = dto.getAdetail_img1();
+		MultipartFile multi3 = dto.getAdetail_img1();
 		
-		
+		System.out.println(multi);
+		System.out.println(multi1);
+		System.out.println(multi2);
+		System.out.println(multi3);
+		SimpleDateFormat frm = new SimpleDateFormat("yyyyMMddHHmmss");
+		Date date = new Date();
+		String time1 = frm.format(date);
+		String thumb = "thumb_"+time1+".jpg";
+		String detail1 = "detail1_" + time1+".jpg";
+		String detail2 = "detail2_" + time1+".jpg";
+		String detail3 = "detail3_" + time1+".jpg";
 		
 		try {
-	//		String uploadpath = request.getSession().getServletContext().getRealPath(path);
-			
 			//저장 경로 구하기
 			String uploadpath = "C:\\finalgit\\sunstar\\src\\main\\webapp\\resources\\product_img";
 			System.out.println(uploadpath);
 			
 			//파일이 비어있지 않다면!
 			if(!multi.isEmpty()) {
-				
-				String test = "테스트용_파일이름"+".png";
-			
 				//파일 = 새파일(경로, 파일이름);
 				File file = new File(uploadpath, multi.getOriginalFilename());
 				multi.transferTo(file);
-				
-				String new_file_url_name = uploadpath+"/"+test;
-				
+				String new_file_url_name = uploadpath+"/"+thumb;
 				File file2 = new File(new_file_url_name);
 				file.renameTo(file2);
-				dto.setThumb_img("resources\\product_img\\" + test);
+				dto.setThumb_img("resources\\product_img\\" + thumb);
 			}
+			
+			if(!multi1.isEmpty()) {
+				//파일 = 새파일(경로, 파일이름);
+				File file1 = new File(uploadpath, multi1.getOriginalFilename());
+				multi1.transferTo(file1);
+				String new_file_url_name = uploadpath+"/"+detail1;
+				File nfile1 = new File(new_file_url_name);
+				file1.renameTo(nfile1);
+				dto.setDetail_img1("resources\\product_img\\" + detail1);
+			}
+
+			if(!multi2.isEmpty()) {
+				//파일 = 새파일(경로, 파일이름);
+				File file2 = new File(uploadpath, multi2.getOriginalFilename());
+				multi2.transferTo(file2);
+				String new_file_url_name = uploadpath+"/"+detail2;
+				File nfile2 = new File(new_file_url_name);
+				file2.renameTo(nfile2);
+				dto.setDetail_img2("resources\\product_img\\" + detail2);
+			}
+
+			if(!multi3.isEmpty()) {
+				//파일 = 새파일(경로, 파일이름);
+				File file3 = new File(uploadpath, multi3.getOriginalFilename());
+				multi3.transferTo(file3);
+				String new_file_url_name = uploadpath+"/"+detail3;
+				File nfile3 = new File(new_file_url_name);
+				file3.renameTo(nfile3);
+				dto.setDetail_img3("resources\\product_img\\" + detail3);
+			}
+			
+			
 		}catch(IOException e){
 			e.getMessage();
 			
 		}
 		sellerservice.addProduct(dto);
+		System.out.println(dto);
 		
 		
 		System.out.println(dto.getExplains());
@@ -847,10 +877,105 @@ public class SellerController {
 	//판매자 설정
 	@RequestMapping("/sellersetting")
 	public String sellersetting(Model model) {
-
+		SellerDTO dto = sellerservice.sellerInfo();
+		model.addAttribute("dto", dto);
+		System.out.println(dto.getComm_img1());
 		model.addAttribute("sellerpage", "seller_setting.jsp");
 		return "sellers/temp";
 	}
+	
+	//판매자 설정 리절트
+	@RequestMapping(value="/settingUpdate", method = {RequestMethod.GET, RequestMethod.POST},
+			headers = ("content-type=multipart/*"))
+	public String settingUpdate(Model model, SellerDTO dto) {
+		
+		//
+		//multipart 파일을 multi에 담아줌
+		MultipartFile multi = dto.getAseller_bgcolor();
+		MultipartFile multi1 = dto.getAcomm_img1();
+		MultipartFile multi2 = dto.getAcomm_img2();
+		MultipartFile multi3 = dto.getAcomm_img3();
+		
+		System.out.println(multi);
+		System.out.println(multi1);
+		System.out.println(multi2);
+		System.out.println(multi3);
+		SimpleDateFormat frm = new SimpleDateFormat("yyyyMMddHHmmss");
+		Date date = new Date();
+		String time1 = frm.format(date);
+		String bgcolor = "bgcolor"+time1+".jpg";
+		String comm1 = "comm_img1_" + time1+".jpg";
+		String comm2 = "comm_img2_" + time1+".jpg";
+		String comm3 = "comm_img3_" + time1+".jpg";
+		
+		try {
+			//저장 경로 구하기
+			String uploadpath = "C:\\finalgit\\sunstar\\src\\main\\webapp\\resources\\comm_img";
+			System.out.println(uploadpath);
+			
+			//파일이 비어있지 않다면!
+			if(!multi.isEmpty()) {
+				//파일 = 새파일(경로, 파일이름);
+				File file = new File(uploadpath, multi.getOriginalFilename());
+				multi.transferTo(file);
+				String new_file_url_name = uploadpath+"/"+bgcolor;
+				File file2 = new File(new_file_url_name);
+				file.renameTo(file2);
+				dto.setSeller_bgcolor("resources\\comm_img\\" + bgcolor);
+				
+			}
+			
+			if(!multi1.isEmpty()) {
+				//파일 = 새파일(경로, 파일이름);
+				File file1 = new File(uploadpath, multi1.getOriginalFilename());
+				multi1.transferTo(file1);
+				String new_file_url_name = uploadpath+"/"+comm1;
+				File nfile1 = new File(new_file_url_name);
+				file1.renameTo(nfile1);
+				dto.setComm_img1("resources\\comm_img\\" + comm1);
+			}
+
+			if(!multi2.isEmpty()) {
+				//파일 = 새파일(경로, 파일이름);
+				File file2 = new File(uploadpath, multi2.getOriginalFilename());
+				multi2.transferTo(file2);
+				String new_file_url_name = uploadpath+"/"+comm2;
+				File nfile2 = new File(new_file_url_name);
+				file2.renameTo(nfile2);
+				dto.setComm_img2("resources\\comm_img\\" + comm2);
+			}
+
+			if(!multi3.isEmpty()) {
+				//파일 = 새파일(경로, 파일이름);
+				File file3 = new File(uploadpath, multi3.getOriginalFilename());
+				multi3.transferTo(file3);
+				String new_file_url_name = uploadpath+"/"+comm3;
+				File nfile3 = new File(new_file_url_name);
+				file3.renameTo(nfile3);
+				dto.setComm_img3("resources\\comm_img\\" + comm3);
+			}
+			
+			
+		}catch(IOException e){
+			e.getMessage();
+			
+		}
+		
+		System.out.println(dto);
+
+		sellerservice.update_seller_info(dto);
+		System.out.println(dto.getComm_img1());
+		System.out.println(dto.getComm_img2());
+		System.out.println(dto.getComm_img3());
+		
+		
+		//
+		model.addAttribute("sellerpage", "seller_setting.jsp");
+		return "sellers/temp";
+	}
+	
+	
+	
 
 	//판매자별 상품리스트
 	@RequestMapping("/seller_list")
