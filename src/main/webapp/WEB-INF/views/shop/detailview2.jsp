@@ -162,7 +162,7 @@ $(document).ready(function(){
 								<li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
 								<li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
 							</ol>
-							<div class="carousel-inner" style="width: 600px; height: 600px;">
+							<div class="carousel-inner" style="width: 550px; height: 750px;">
 								<div class="carousel-item active">
 									<img
 										src="${view.thumb_img}"
@@ -228,17 +228,26 @@ $(document).ready(function(){
 						<div class="delivery_info bg-light my-3 p-2">
 							<ul style="list-style: none; padding: 0">
 								<li class="delivery_item" id="delevery_li" style="width: 100%">
-									<button id="delivery_btn" class="btn btn-light btn-block"
-										style="text-align: left">
-										배송비 &#45; <fmt:formatNumber pattern="###,###,###" value="${view.shipping_cost}"/>원
-									</button>
+									<button id="delivery_btn" class="btn btn-light btn-block" style="text-align: left">배송비 &#45;
+									<c:choose>
+									<c:when test="${view.shipping_cost == 0}">무료배송</button>
+										<div class="delivery_view ml-3">
+										<ul style="list-style: none">
+										<li><span>추가 배송비  &#58;  </span>제주도 3,000원</li>
+										</ul></div>
+									</c:when>
+									<c:otherwise>조건부 무료</button>
 									<div class="delivery_view ml-3">
 										<ul style="list-style: none">
-											<li><span>조건부 무료  &#58;  </span>200,000원 이상</li>
+											<li><span>배송비  &#58;  </span><fmt:formatNumber pattern="###,###,###" value="${view.shipping_cost}"/>원</li>
+											<br>
+											<li><span>조건부 무료  &#58;  </span><fmt:formatNumber pattern="###,###,###" value="${view.basic_shipping_cost}"/>원 이상</li>
 											<br>
 											<li><span>추가 배송비  &#58;  </span>제주도 3,000원</li>
 										</ul>
 									</div>
+									</c:otherwise>
+									</c:choose>
 								</li>
 							</ul>
 						</div>
@@ -259,8 +268,6 @@ $(document).ready(function(){
 									
 									<%-- <c:if test="${not empty option.option1 and not empty option.option2 and not empty option.add_price}">선택${status.index+1}&#41;&#32; ${option.option1} &#47; ${option.option2} &#45;&#32; 
 									재고 &#32;${option.inventory}개 &#40;&#43;<fmt:formatNumber pattern="###,###,###" value="${option.add_price}"/>원&#41;</c:if> --%>
-									
-									
 									<c:if test="${not empty option.option1}">선택${status.index+1}&#41;&#32;${option.option1}</c:if>
 									<c:if test="${not empty option.option2}">&#47; ${option.option2}&#32;</c:if>
 									<c:if test="${option.add_price>0}"> &#40;&#43;<fmt:formatNumber pattern="###,###,###" value="${option.add_price}"/>원&#41;</c:if>
@@ -319,9 +326,6 @@ $(document).ready(function(){
   </li>
   <li class="nav-item">
     <a class="nav-link" href="#">상품문의</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="#">판매자정보</a>
   </li>
 </ul>
 </div>
