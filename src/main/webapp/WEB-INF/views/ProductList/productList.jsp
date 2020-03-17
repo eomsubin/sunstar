@@ -69,7 +69,7 @@
 		</ol>
 		
 		<c:forEach var="plist" items="${productlist}">
-		<span class="pitem"><a href="${pageContext.request.contextPath}/detailview?product_code=${plist.product_code}">${plist.product_name} ${plist.explains}</a></span>
+		<span class="pitem"><a href="${pageContext.request.contextPath}/detailview2?product_code=${plist.product_code}">${plist.product_name} ${plist.explains}</a></span>
 		<span><fmt:formatNumber pattern="###,###,###" value="${plist.price}" />원</span>
 		<br>
 		</c:forEach>
