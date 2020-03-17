@@ -138,7 +138,7 @@ public class ProductController {
 			int product_code1 = Integer.parseInt(product_code);
 			ProductDTO view = productservice.productview(product_code1);
 			
-			model.addAttribute("view", view);
+			model.addAttribute("view", view); // detail, option detail --> 장바구니 또는 결제 가야하는게 목표  
 			model.addAttribute("contentpage", "shop/detailview2.jsp");
 			// System.out.println(view);
 		}
