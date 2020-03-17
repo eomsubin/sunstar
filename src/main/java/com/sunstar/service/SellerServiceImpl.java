@@ -160,6 +160,11 @@ public class SellerServiceImpl implements SellerService {
 		mapper.update_seller_info(dto);
 	}
 
+	@Override
+	public List<ProductDTO> product_list_user() {
+		return mapper.product_list_user();
+	}
+
 	
 	
 	

@@ -12,60 +12,92 @@
 body {
 	font-size: 0.77em;
 }
-select option{
 
-height:110px;
-
-}
-#option_pink{
-background-color: pink;
-}
-#option_purple{
-height:50px;
-background-color: purple;
-}
-#option_silver{
-height:50px;
-background-color: silver;
-}
-#option_black{
-height:50px;
-background-color: black;
-}
-#option_green{
-height:50px;
-background-color: green;
+select option {
+	font-size: 2em;
+	font-weight: 700;
 }
 
+#opt_a {
+	color: #143d59;
+	background-color: #f4b41a;
+}
+
+#opt_b {
+	color: #7bd9c1;
+	background-color: #200371;
+}
+
+#opt_c {
+	color: #ff7129;
+	background-color: #2e2f29;
+}
+
+#opt_d {
+	color: #5b0e2e;
+	background-color: #fea982;
+}
+
+#opt_e {
+	color: #5f0020;
+	background-color: #01dbda;
+}
+
+#opt_f {
+	color: #f3b019;
+	background-color: #01164f;
+}
+
+#opt_g {
+	color: #239135;
+	background-color: #ffd65a;
+}
+
+#opt_h {
+	
+}
+
+#opt_l {
+	
+}
+
+#opt_m {
+	
+}
+
+#opt_n {
+	
+}
 </style>
 
-
 <script>
-window.onload = function(){
-console.log('start');
-let fileTarget = $('.upload-hidden');
-let filename = '';
+	$(document).ready(function() {
 
-fileTarget.on('change', function(){ // 값이 변경되면
-  if(window.FileReader){ // modern browser
-	  filename = $(this)[0].files[0].name;
-	  console.log(filename);
-  }
-  else { // old IE
-	  filename = $(this).val().split('/').pop().split('\\').pop(); // 파일명만 추출
-	  console.log(filename);
-  }
-  // 추출한 파일명 삽입
-  $(this).siblings('.upload-file').empty().append(filename);
-  
-});
+		$('')
 
+	})
+</script>
+<script>
+	window.onload = function() {
+		console.log('start');
+		let fileTarget = $('.upload-hidden');
+		let filename = '';
 
-console.log('end');
-}
+		fileTarget.on('change', function() { // 값이 변경되면
+			if (window.FileReader) { // modern browser
+				filename = $(this)[0].files[0].name;
+				console.log(filename);
+			} else { // old IE
+				filename = $(this).val().split('/').pop().split('\\').pop(); // 파일명만 추출
+				console.log(filename);
+			}
+			// 추출한 파일명 삽입
+			$(this).siblings('.upload-file').empty().append(filename);
 
+		});
 
-
+		console.log('end');
+	}
 </script>
 
 </head>
@@ -81,168 +113,105 @@ console.log('end');
 		<!-- DataTales Example -->
 		<div class="card shadow mb-4">
 			<div class="card-header py-3">
-				<h6 class="m-0 font-weight-bold text-primary">DataTables
-					Example</h6>
+				<h6 class="m-0 font-weight-bold text-primary">사이트 설정</h6>
 			</div>
 			<div class="card-body">
 
 
 				<!-- 내용 -->
 
-				<form action="${pageContext.request.contextPath}/settingUpdate" method="post" enctype="multipart/form-data">
-				
-				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-				
+				<form action="${pageContext.request.contextPath}/settingUpdate"
+					method="post" enctype="multipart/form-data">
+
+					<input type="hidden" name="${_csrf.parameterName}"
+						value="${_csrf.token}" />
+
 					<div class="form-row">
 
-<div class="row row-cols-1 row-cols-md-3">
-  <div class="col mb-4">
-    <div class="card">
-      <img src="${dto.comm_img1}" class="card-img-top" alt="...">
-      <div class="card-body">
-        <h5 class="card-title">Card title</h5>
-        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-      </div>
-    </div>
-  </div>
-  <div class="col mb-4">
-    <div class="card">
-      <img src="${dto.comm_img2}" class="card-img-top" alt="...">
-      <div class="card-body">
-        <h5 class="card-title">Card title</h5>
-        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-      </div>
-    </div>
-  </div>
-  <div class="col mb-4">
-    <div class="card">
-      <img src="${dto.comm_img3}" class="card-img-top" alt="...">
-      <div class="card-body">
-        <h5 class="card-title">Card title</h5>
-        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content.</p>
-      </div>
-    </div>
-  </div>
-  </div> 
+						<div class="row row-cols-1 row-cols-md-3">
+							<div class="col mb-3">
+								<div class="card">
+									<img src="${dto.comm_img1}" class="card-img-top" alt="...">
+									<div class="card-body">
+										<h5 class="card-title">현재 공지 이미지 1</h5>
+										<label for="athumb_img" class="col-sm-6 col-form-label">공지
+											이미지1</label>
+										<div class="col-sm-14">
+											<div class="custom-file">
+												<input type="file" class="custom-file-input upload-hidden"
+													id="acomm_img1" name="acomm_img1"> <label
+													class="custom-file-label upload-file" for="acomm_img1">이미지
+													파일 선택 (가로 550px * 세로 750px 권장)</label>
 
+											</div>
+										</div>
 
+									</div>
+								</div>
+							</div>
+							<div class="col mb-3">
+								<div class="card">
+									<img src="${dto.comm_img2}" class="card-img-top" alt="...">
+									<div class="card-body">
+										<h5 class="card-title">현재 공지 이미지 2</h5>
+										<label for="acomm_img2" class="col-sm-6 col-form-label">공지
+											이미지2</label>
+										<div class="col-sm-14">
+											<div class="custom-file">
+												<input type="file" class="custom-file-input upload-hidden"
+													id="acomm_img2" name="acomm_img2"> <label
+													class="custom-file-label upload-file" for="acomm_img2">이미지
+													파일 선택 </label>
 
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col mb-3">
+								<div class="card">
+									<img src="${dto.comm_img3}" class="card-img-top" alt="...">
+									<div class="card-body">
+										<h5 class="card-title">현재 공지 이미지 3</h5>
+										<label for="athumb_img" class="col-sm-6 col-form-label">공지
+											이미지1</label>
+										<div class="col-sm-14">
+											<div class="custom-file">
+												<input type="file" class="custom-file-input upload-hidden"
+													id="acomm_img3" name="acomm_img3"> <label
+													class="custom-file-label upload-file" for="acomm_img3">이미지
+													파일 선택</label>
 
-
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
 						<div class="form-group row">
-							<label for="athumb_img" class="col-sm-2 col-form-label">공지
-								이미지1</label>
-							<div class="col-sm-10">
-								<div class="custom-file">
-									<input type="file" class="custom-file-input upload-hidden"
-										id="acomm_img1" name="acomm_img1" >
-										 <label
-										class="custom-file-label upload-file" for="acomm_img1">이미지
-										파일 선택 (가로 550px * 세로 750px 권장)</label>
-
-								</div>
-							</div>
-
-
-							<label for="acomm_img2" class="col-sm-2 col-form-label">공지
-								이미지2</label>
-							<div class="col-sm-10">
-								<div class="custom-file">
-									<input type="file" class="custom-file-input upload-hidden"
-										id="acomm_img2" name="acomm_img2" > <label
-										class="custom-file-label upload-file" for="acomm_img2">이미지
-										파일 선택</label>
-
-								</div>
-							</div>
-
-							<label for="acomm_img3" class="col-sm-2 col-form-label">공지
-								이미지3</label>
-							<div class="col-sm-10">
-								<div class="custom-file">
-									<input type="file" class="custom-file-input upload-hidden"
-										id="acomm_img3" name="acomm_img3" > <label
-										class="custom-file-label upload-file" for="acomm_img3">이미지
-										파일 선택</label>
-
-								</div>
-							</div>
-
-							<label for="aseller_bgcolor" class="col-sm-2 col-form-label">메인
-								이미지 / 로고</label>
-							<div class="col-sm-10">
-								<div class="custom-file">
-									<input type="file" class="custom-file-input upload-hidden"
-										id="aseller_bgcolor" name="aseller_bgcolor" > <label
-										class="custom-file-label upload-file" for="aseller_bgcolor">이미지
-										파일 선택</label>
-
-								</div>
-							</div>
+							
 						</div>
-						
-						<!-- 
-						<label for="inputState"  class="col-sm-2 col-form-label">State</label>
-						<div class="form-group col-md-10">
-							 <select id="inputState"
+						<label for="inputState" class="col-sm-2 col-form-label" style="position: relative; left:56px; top:5px;">메인
+							컬러 변경</label>
+						<div class="form-group col-md-10" style="position: relative; margin-bottom: 35px;">
+							<select id="seller_color" name="seller_color"
 								class="form-control">
 								<option selected>Choose...</option>
-								<option value="pink" id="option_pink" >분홍</option>
-								<option value="purple" id="option_purple">보라</option>
-								<option value="silver" id="option_silver">은색</option>
-								<option value="black" id="option_blakc">검정</option>
-								<option value="green" id="option_green">초록</option>
-								<option>...</option>
-								<option>...</option>
-								<option>...</option>
-								<option>...</option>
-								<option>...</option>
+								<option value="opt_a" id="opt_a">샘플 컬러 1</option>
+								<option value="opt_b" id="opt_b">샘플 컬러 2</option>
+								<option value="opt_c" id="opt_c">샘플 컬러 3</option>
+								<option value="opt_d" id="opt_d">샘플 컬러 4</option>
+								<option value="opt_e" id="opt_e">샘플 컬러 5</option>
+								<option value="opt_f" id="opt_f">샘플 컬러 6</option>
+								<option value="opt_g" id="opt_g">샘플 컬러 7</option>
 							</select>
 						</div>
-						ㅇㅇㅇ
-						<div class="form-group col-md-6">
-							<label for="inputEmail4">Email</label> <input type="email"
-								class="form-control" id="inputEmail4">
+
+						<button type="submit" class="btn btn-primary" ">정보 업데이트</button>
+						<div class="col-sm-10" style="text-align: right; margin-left: 100px; bottom:30px;">
+							<a href="#"> 구매 회원으로 전환 </a>
+
 						</div>
-						<div class="form-group col-md-6">
-							<label for="inputPassword4">Password</label> <input
-								type="password" class="form-control" id="inputPassword4">
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="inputAddress">Address</label> <input type="text"
-							class="form-control" id="inputAddress" placeholder="1234 Main St">
-					</div>
-					<div class="form-group">
-						<label for="inputAddress2">Address 2</label> <input type="text"
-							class="form-control" id="inputAddress2"
-							placeholder="Apartment, studio, or floor">
-					</div>
-					<div class="form-row">
-						<div class="form-group col-md-6">
-							<label for="inputCity">City</label> <input type="text"
-								class="form-control" id="inputCity">
-						</div>
-						<div class="form-group col-md-4">
-							<label for="inputState">State</label> <select id="inputState"
-								class="form-control">
-								<option selected>Choose...</option>
-								<option>...</option>
-							</select>
-						</div>
-						<div class="form-group col-md-2">
-							<label for="inputZip">Zip</label> <input type="text"
-								class="form-control" id="inputZip">
-						</div>
-					</div>
-					<div class="form-group">
-						<div class="form-check">
-							<input class="form-check-input" type="checkbox" id="gridCheck">
-							<label class="form-check-label" for="gridCheck"> Check me
-								out </label>
-						</div>
-					</div> -->
-					<button type="submit" class="btn btn-primary">Sign in</button>
 					</div>
 				</form>
 				<!-- 내용 끝 -->

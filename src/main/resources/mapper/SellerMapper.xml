@@ -90,6 +90,7 @@
        on c.id = s.id
        left join product_list p
        on l.product_code = p.product_code
+		order by order_code desc
 		<!-- where seller_code = 'solyi' -->
 	</select>
 	
@@ -247,9 +248,18 @@
 	      <if test="comm_img1   != null   and 	comm_img1  != ''  	">comm_img1=#{comm_img1},</if>
 	      <if test="comm_img2 	!= null   and 	comm_img2 != '' 	">comm_img2=#{comm_img2},</if>
 	      <if test="comm_img3   != null   and 	comm_img3 != '' 	">comm_img3=#{comm_img3},</if>
-	      <if test="seller_bgcolor  != null   and 	seller_bgcolor != '' ">seller_bgcolor=#{seller_bgcolor}</if>
-	 
+	      <if test="seller_bgcolor  != null   and 	seller_bgcolor != '' ">seller_bgcolor=#{seller_bgcolor},</if>
+	 	  <if test="seller_color  != null   and 	seller_color != '' ">seller_color=#{seller_color}</if>
+	 	
 	    </set>	
 			where seller_code  = 11111
 		</update>
+		
+		
+		<select id="product_list_user"  resultType="com.sunstar.dto.ProductDTO">
+		select *
+		from product_list
+		order by product_code desc
+		limit 7,8
+		</select>
 </mapper>
