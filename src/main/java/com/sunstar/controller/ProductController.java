@@ -53,6 +53,25 @@ public class ProductController {
 		return "header2";
 	}
 	
+	@RequestMapping("/category/{lv1}")
+	public String productListlv1(Model model, @PathVariable String lv1) {
+		header(model);
+		
+		//lv1  카테고리 list
+		List<CategoryDTO> categorylistlv1 =productservice.productlv1(lv1);
+		model.addAttribute("categorylistlv1", categorylistlv1);
+		
+		//lv1 > lv2 카테고리 list
+		List<CategoryDTO> categorylistlv2 =productservice.productlv2bylv1(lv1);
+		model.addAttribute("categorylistlv2", categorylistlv2);
+
+		//lv2 카테고리 상품 list
+		List<ProductDTO> productlist =productservice.productListCategorylv1(lv1);
+		model.addAttribute("productlist", productlist);
+		
+		model.addAttribute("contentpage", "ProductList/productList.jsp");
+		return "/home";
+	}
 	@RequestMapping("/category/{lv1}/{lv2}")
 	public String productListlv2(Model model, @PathVariable String lv1 ,@PathVariable String lv2, Principal principal) {
 		header(model);
@@ -84,17 +103,8 @@ public class ProductController {
 	}
 	
 	@RequestMapping("/category/{lv1}/{lv2}/{lv3}")
-	public String productListlv3(Model model, @PathVariable String lv1 ,@PathVariable String lv2,@PathVariable String lv3, Principal principal) {
+	public String productListlv3(Model model, @PathVariable String lv1 ,@PathVariable String lv2,@PathVariable String lv3) {
 		header(model);
-		// security id, name
-		if(principal!=null)
-		{
-		System.out.println(principal);
-		CustomerUserDetail detail = (CustomerUserDetail)((Authentication)principal).getPrincipal();
-		System.out.println(detail.getUsername());
-		System.out.println(detail.getId());
-		}
-		
 		//lv1 > lv2 카테고리 list
 		List<CategoryDTO> categorylistlv2 =productservice.productlv2bylv1(lv1);
 		model.addAttribute("categorylistlv2", categorylistlv2);

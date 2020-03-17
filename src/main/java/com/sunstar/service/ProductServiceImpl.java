@@ -33,6 +33,12 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override //parkjinwoo
+	public List<ProductDTO> productListCategorylv1(String lv1) {
+		// TODO Auto-generated method stub
+		return productmapper.productListCategorylv1(lv1);
+	}
+	
+	@Override //parkjinwoo
 	public List<ProductDTO> productListCategorylv2(String lv2) {
 		
 		return productmapper.productListCategorylv2(lv2);
@@ -54,5 +60,11 @@ public class ProductServiceImpl implements ProductService {
 	public List<CategoryDTO> productlv2bylv1(String lv1) {
  
 		return productmapper.productlv2bylv1(lv1);
+	}
+
+	@Override //parkjinwoo
+	public List<CategoryDTO> productlv1(String lv1) {
+		// TODO Auto-generated method stub
+		return productmapper.productlv1(lv1);
 	}
 }
