@@ -47,6 +47,7 @@ public class ProductDTO {
 	private int inventory;
 	private int add_price;
 	
+	private List<CategoryDTO> categorydto;
 	private String lv1;
 	private String lv2;
 	private String lv3;
