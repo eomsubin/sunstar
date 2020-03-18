@@ -53,10 +53,6 @@ $(document).ready(function(){
 		location.href = "${pageContext.request.contextPath}/changeInfo/"+colname+ "/"+newvalues;
 	})
 	
-	
-	
-			
-
 })
 
 
@@ -194,7 +190,7 @@ function changeInfo(){
 						</div>
 						
 						
-						<div class="col-md-6">
+						<div class="col-md-4">
 							<label for="validationDefault05">계약 택배사</label>
 								
 						<select class="form-control" id="shipping_company" name="shipping_company" >
@@ -208,19 +204,27 @@ function changeInfo(){
 							</select>
 							
 						</div>
-						<div class="col-md-6">
+						<div class="col-md-4">
 							<label for="validationDefault03">기본 배송비</label>
 							 <input type="text"
 								class="form-control" id="basic_shipping_cost" name="basic_shipping_cost" placeholder="${dto.basic_shipping_cost}" >
 						</div>
-						
+						<div class="col-md-4">
+							<label for="free_shipping_cost">무료 배송 기준액</label>
+							 <input type="text"
+								class="form-control" id="free_shipping_cost" name="free_shipping_cost" placeholder="${dto.free_shipping_cost}" >
+						</div>
 						
 						
 						
 						<div></div>
 						<label></label>
 						<br>
-						<button type="button" id="changeInfo" class="btn btn-primary" style="margin-top: 10px; margin-left: 5px;">Sign in</button>
+						<button type="button" id="changeInfo" class="btn btn-primary" style="margin-top: 10px; margin-left: 5px;">정보 업데이트</button>
+						<div class="col-sm-10" style="text-align: left;top:25px; ">
+							<a href="#"> 업체 관련 정보 변경이 아닌 [회원 정보]를 변경 하시려면 여기를 클릭하세요 </a>
+
+						</div>
 
 					</div>
 				</form>

@@ -799,7 +799,9 @@ public class SellerController {
 	//정산 신청
 	@RequestMapping("/requestaccounting")
 	public String requestaccounting(Model model) {
-
+		
+		
+		
 		model.addAttribute("sellerpage", "requestaccounting.jsp");
 		return "sellers/temp";
 	}
@@ -962,11 +964,12 @@ public class SellerController {
 		}
 		
 		System.out.println(dto);
-
+		
 		sellerservice.update_seller_info(dto);
 		System.out.println(dto.getComm_img1());
 		System.out.println(dto.getComm_img2());
 		System.out.println(dto.getComm_img3());
+		
 		
 		
 		//
@@ -980,6 +983,18 @@ public class SellerController {
 	//판매자별 상품리스트
 	@RequestMapping("/seller_list")
 	public String seller_list(Model model) {
+		
+		List<ProductDTO> pdto = sellerservice.list();
+		SellerDTO sdto = sellerservice.sellerInfo();
+		List<ProductDTO> productlist = sellerservice.product_list_user();
+
+		System.out.println(sdto.getSeller_code());
+		System.out.println(sdto.getSeller_color());
+		
+		model.addAttribute("productlist",productlist);
+
+		model.addAttribute("pdto", pdto);
+		model.addAttribute("sdto", sdto);
 		model.addAttribute("contentpage", "sellers/sellers_list.jsp");
 		return "home";
 	}

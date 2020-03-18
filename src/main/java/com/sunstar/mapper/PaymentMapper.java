@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.sunstar.dto.CartDTO;
 import com.sunstar.dto.OrderDTO;
+import com.sunstar.dto.OrderListDTO;
 
 @Mapper
 public interface PaymentMapper {
@@ -13,7 +14,13 @@ public interface PaymentMapper {
 	List<OrderDTO> getOrderList();
 	
 	
-	List<CartDTO> viewOrdered(String id);
+	CartDTO viewOrdered(CartDTO userinfo);
+
+
+	int addOrder(OrderDTO odto);
+
+
+	int addOrderList(OrderListDTO order);
 	
 	
 }

@@ -57,6 +57,8 @@ public interface SellerMapper {
 
 	void update_seller_info(SellerDTO dto);
 
+	List<ProductDTO> product_list_user();
+
 
 
 

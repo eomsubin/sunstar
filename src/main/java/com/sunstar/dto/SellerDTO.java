@@ -21,12 +21,10 @@ public class SellerDTO {
 	private String bank_no;
 	private String business_license;
 	private String seller_deadline;
-	private String seller_logo;
-	private String seller_color;
-	private String seller_bgcolor;
 	private String seller_addr;
 	private String shipping_company;
 	private String basic_shipping_cost;
+	private String free_shipping_cost;
 	private String state;
 	private String val;
 
@@ -39,6 +37,11 @@ public class SellerDTO {
 	private MultipartFile acomm_img3;
 	private MultipartFile aseller_bgcolor;
 
+	private String seller_logo;
+	private String seller_color;
+	private String seller_bgcolor;
+	
+	private String optcol;
 	
 }
 

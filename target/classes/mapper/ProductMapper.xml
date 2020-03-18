@@ -23,7 +23,7 @@
 	
 	<!-- jinwoo -->
 	<select id="productListCategorylv1" resultType="com.sunstar.dto.ProductDTO" parameterType="string">
-		select p.product_code, product_name, price, cost, shipping_cost, o.option1, o.option2, o.inventory, o.add_price, public_state, review_state, c.lv1, c.lv2, c.lv3, c.lv2code
+		select p.product_code, thumb_img, product_name, price, cost, shipping_cost, seller_code, explains, o.option1, o.option2, o.inventory, o.add_price, public_state, review_state, c.lv1, c.lv2, c.lv3, c.lv2code
 		from product_list p  join category c
 		on p.category_code = c.category_code
 		left join options o
@@ -34,7 +34,7 @@
 	</select>
 	
 	<select id="productListCategorylv2" resultType="com.sunstar.dto.ProductDTO" parameterType="string">
-		select p.product_code, product_name, price, cost, shipping_cost, o.option1, o.option2, o.inventory, o.add_price, public_state, review_state, c.lv1, c.lv2, c.lv3, c.lv2code
+		select p.product_code, thumb_img, product_name, price, cost, shipping_cost, seller_code, explains, o.option1, o.option2, o.inventory, o.add_price, public_state, review_state, c.lv1, c.lv2, c.lv3, c.lv2code
 		from product_list p  join category c
 		on p.category_code = c.category_code
 		left join options o
@@ -45,7 +45,7 @@
 	</select>
 	
 	<select id="productListCategorylv3" resultType="com.sunstar.dto.ProductDTO" parameterType="com.sunstar.dto.CategoryDTO">
-		select p.product_code, product_name, price, cost, shipping_cost, o.option1, o.option2, o.inventory, o.add_price, public_state, review_state, c.lv1, c.lv2, c.lv3, c.lv2code
+		select p.product_code, thumb_img, product_name, price, cost, shipping_cost, seller_code, explains, o.option1, o.option2, o.inventory, o.add_price, public_state, review_state, c.lv1, c.lv2, c.lv3, c.lv2code
 		from product_list p  join category c
 		on p.category_code = c.category_code
 		left join options o

@@ -10,7 +10,7 @@
 	
 	</select> -->
 	
-	<select id="viewOrdered" resultType="com.sunstar.dto.CartDTO" parameterType="int" >
+	<select id="viewOrdered" resultType="com.sunstar.dto.CartDTO" parameterType="com.sunstar.dto.CartDTO">
 		select p.price,c.cart_no, c.id, c.product_code,p.product_name,c.cart_quantity,p.shipping_cost,p.seller_code,o.option1,o.option2,o.add_price,t.name,t.tel,t.email,t.address1,t.address2,t.address3,t.zip
     	from cart c left join product_list p
     	on c.product_code = p.product_code
@@ -20,13 +20,22 @@
     	on t.id = c.id
     	where c.id=#{id}
     	and c.cart_no=#{cart_no}
-   		order by c.cart_no;
+   		order by c.cart_no
     
     	
 		
 	</select>
 	
+	<insert id="addOrder" parameterType="com.sunstar.dto.OrderDTO">
+	insert into ordered(order_code,order_way,delivery_state,id,message) values(#{order_code},#{order_way},#{delivery_state},#{id},#{message})
 	
+	</insert>
+	
+	<insert id="addOrderList" parameterType="com.sunstar.dto.OrderListDTO">
+		
+			insert into order_list(order_code,product_code,quantity,option1,option2,add_price)
+			values(#{order_code},#{product_code},#{quantity},#{option1},#{option2},#{add_price})
+	</insert>
 
 
 </mapper>

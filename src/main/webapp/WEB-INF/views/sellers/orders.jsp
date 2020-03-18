@@ -9,15 +9,14 @@
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 
 <style>
-.btnabs{
-	position:absolute; 
-	margin-left:3px;
-
-}
-.newtrackingbtn{
-	display:none;
+.btnabs {
+	position: absolute;
+	margin-left: 3px;
 }
 
+.newtrackingbtn {
+	display: none;
+}
 </style>
 <script>
 $(document).ready(function() {
@@ -67,6 +66,27 @@ $(document).ready(function() {
 		});
 		
 	})
+	
+	
+	
+	
+	/*  */
+	    genRowspan("td .ocode");
+		function genRowspan(className){
+			$('.ocode').each(function(){
+				var rows = $(".ocode:contains('"+$(this).text()+"')"); 
+				
+				if(rows.length > 1){ 
+					rows.eq(0).attr("rowspan", rows.length);//중복되는 첫번째 td에 rowspan값 세팅 
+					rows.not(":eq(0)").remove();//중복되는 td를 삭제 
+				} 
+			}); 
+			
+	
+		}
+		
+
+	/*  */
 })
 					
 </script>
@@ -196,7 +216,8 @@ body {
 			</div>
 			<div class="card-body">
 				<div class="table-responsive">
-					<form method="post" id="trac" action="${pageContext.request.contextPath}/updateTracking">
+					<form method="post" id="trac"
+						action="${pageContext.request.contextPath}/updateTracking">
 						<input type="hidden" name="${_csrf.parameterName}"
 							value="${_csrf.token}" />
 						<!-- 	<button type="button" id="btnaddinventory" class="btn btn-primary">선택 재고 추가</button> -->
@@ -213,32 +234,35 @@ body {
 
 
 						<!-- Example single danger button -->
-							<button type="button" class="btn btn-primary dropdown-toggle"
-								data-toggle="dropdown" aria-haspopup="true"
-								aria-expanded="false">선택 단계 변경</button>
-							<div class="dropdown-menu">
-								<a class="dropdown-item" onclick="changeStep('step3')">배송준비</a>
-								<a class="dropdown-item" onclick="changeStep('step4')">배송중</a>
-								<a class="dropdown-item" onclick="changeStep('step5')">배송완료</a>
+						<button type="button" class="btn btn-primary dropdown-toggle"
+							data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">선택
+							단계 변경</button>
+						<div class="dropdown-menu">
+							<a class="dropdown-item" onclick="changeStep('step3')">배송준비</a> <a
+								class="dropdown-item" onclick="changeStep('step4')">배송중</a> <a
+								class="dropdown-item" onclick="changeStep('step5')">배송완료</a>
 							<div class="dropdown-divider"></div>
-								<a class="dropdown-item" onclick="changeStep('step7')">반품대기</a>
-								<a class="dropdown-item" onclick="changeStep('step8')">반품완료</a>
+							<a class="dropdown-item" onclick="changeStep('step7')">반품대기</a> <a
+								class="dropdown-item" onclick="changeStep('step8')">반품완료</a>
 							<div class="dropdown-divider"></div>
-								<a class="dropdown-item" onclick="changeStep('step9')">교환요청</a>
-								<a class="dropdown-item" onclick="changeStep('step10')">반송대기</a>
-								<a class="dropdown-item" onclick="changeStep('step11')">반송완료 및 배송준비</a>
-								<a class="dropdown-item" onclick="changeStep('step12')">배송중</a>
-								<a class="dropdown-item" onclick="changeStep('step13')">배송 및 교환완료</a>
-							<div class="dropdown-divider"></div>									
-								<a class="dropdown-item" onclick="changeStep('step15')">결체취소(판매자사유)</a>
-							</div>
-							
-							<input type="button" class="btnabs trackingbtn btn btn-primary" value="선택주문 운송장번호 입력" >
-							<input type="button" class="btnabs newtrackingbtn btn btn-primary" value="변경 확정" onclick="arrr()">
-								
+							<a class="dropdown-item" onclick="changeStep('step9')">교환요청</a> <a
+								class="dropdown-item" onclick="changeStep('step10')">반송대기</a> <a
+								class="dropdown-item" onclick="changeStep('step11')">반송완료 및
+								배송준비</a> <a class="dropdown-item" onclick="changeStep('step12')">배송중</a>
+							<a class="dropdown-item" onclick="changeStep('step13')">배송 및
+								교환완료</a>
+							<div class="dropdown-divider"></div>
+							<a class="dropdown-item" onclick="changeStep('step15')">결체취소(판매자사유)</a>
+						</div>
 
-<!-- 모달인가? -->
-					<!-- 	<button type="button" id="change_state_modal" class="btn btn-primary">선택 단계 변경</button> -->
+						<input type="button" class="btnabs trackingbtn btn btn-primary"
+							value="선택주문 운송장번호 입력"> <input type="button"
+							class="btnabs newtrackingbtn btn btn-primary" value="변경 확정"
+							onclick="arrr()">
+
+
+						<!-- 모달인가? -->
+						<!-- 	<button type="button" id="change_state_modal" class="btn btn-primary">선택 단계 변경</button> -->
 
 						<!-- update Modal -->
 						<form>
@@ -281,7 +305,7 @@ body {
 						</form>
 
 						<!-- delete Button trigger modal -->
-				<!-- 		<button type="button" id="btndeletemodal" class="btn btn-danger">
+						<!-- 		<button type="button" id="btndeletemodal" class="btn btn-danger">
 							삭제 모달 테스트
 						</button> -->
 
@@ -318,12 +342,13 @@ body {
 							<thead>
 								<tr>
 									<th style="width: 50px"><input type="checkbox" id="all"></th>
-									
-										
-									
+
+
+
 									<th>주문번호</th>
 									<th>상품 코드</th>
-									<th style="border-left: 2px solid silver; border-right: 2px solid silver;">옵션</th>
+									<th
+										style="border-left: 2px solid silver; border-right: 2px solid silver;">옵션</th>
 									<th>구매 수량</th>
 									<th>금액</th>
 									<th>특이사항</th>
@@ -332,23 +357,27 @@ body {
 									<th>연락처</th>
 									<th>배송지</th>
 									<th>우편번호</th>
-									
-									<th style="border-left: 2px solid silver; border-right: 2px solid silver;">주문
+
+									<th
+										style="border-left: 2px solid silver; border-right: 2px solid silver;">주문
 										상태</th>
 									<th>운송장번호</th>
 								</tr>
 							</thead>
 
 							<tbody>
-
 								<c:forEach var="i" items="${orderlist}">
 									<tr>
-										<td><label for="ordercode"></label>
-										
-										<input type="checkbox" id="ordercode" name="ordercode" value="${i.order_code}"></td>
-										<td id="ocode">${i.order_code}</td>
+										<td><label for="ordercode"></label> <input
+											type="checkbox" id="ordercode" name="ordercode"
+											value="${i.order_code}"></td>
+
+
+
+										<td id="ocode" class="ocode">${i.order_code}</td>
 										<td>${i.product_code}</td>
-										<td style="border-left: 2px solid silver; border-right: 2px solid silver;">${i.option1 }/
+										<td
+											style="border-left: 2px solid silver; border-right: 2px solid silver;">${i.option1 }/
 											${i.option2 } / ${i.add_price }</td>
 										<td>${i.inventory}</td>
 										<td>${i.price }</td>
@@ -359,11 +388,12 @@ body {
 										<td>${i.shipping_addr1}${i.shipping_addr2}
 											${i.shipping_addr3}</td>
 										<td>${i.shipping_zip }</td>
-										<td style="border-left: 2px solid silver; border-right: 2px solid silver;">${i.delivery_state }</td>
-										
-									<%-- 	<td id="tracking${i.order_code}">${i.tracking_no}</td> --%>
-									
-									<td id="ttt">${i.tracking_no}</td>
+										<td
+											style="border-left: 2px solid silver; border-right: 2px solid silver;">${i.delivery_state }</td>
+
+										<%-- 	<td id="tracking${i.order_code}">${i.tracking_no}</td> --%>
+
+										<td id="ttt">${i.tracking_no}</td>
 									</tr>
 								</c:forEach>
 

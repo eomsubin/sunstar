@@ -18,6 +18,7 @@
 <link rel="stylesheet"
    href="${pageContext.request.contextPath}/resources/css/jquery.fancybox.min.css">
 
+
 <!-- Nice Select CSS -->
  <link rel="stylesheet"
    href="${pageContext.request.contextPath}/resources/css/niceselect.css">
@@ -354,4 +355,5 @@
    <!-- Active JS -->
  <script src="${pageContext.request.contextPath}/resources/js/active.js"></script>
 </body>
+
 </html>
