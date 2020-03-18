@@ -1,0 +1,290 @@
+@charset "EUC-KR";
+
+/*======================================
+   Start Shop Sidebar CSS
+========================================*/
+.shop-sidebar .single-widget {
+	margin-top: 30px;
+	background: #EFFBF8;
+	padding: 30px;
+}
+.shop-sidebar .single-widget:first-child {
+	margin-top: 0;
+}
+.shop-sidebar .single-widget .title {
+	position: relative;
+	font-size: 18px;
+	font-weight: 500;
+	text-transform: capitalize;
+	margin-bottom: 25px;
+	display: block;
+	border-bottom: 1px solid #ddd;
+	padding-bottom: 15px;
+}
+/* Shop Price */
+.shop .range .price-filter {
+	display: block;
+	margin-top: 20px;
+}
+.shop .range #slider-range {
+	box-shadow: none;
+	border: none;
+	height: 4px;
+	background: #F7941D;
+	color: #F7941D;
+	border-radius: 0px;
+}
+.shop .range #slider-range .ui-slider-range {
+	box-shadow: none;
+	background: #222;
+	border-radius: 0px;
+	border: none;
+}
+.shop .range .ui-slider-handle.ui-state-default.ui-corner-all {
+	width: 14px;
+	height: 14px;
+	line-height: 10px;
+	background: #222;
+	border: none;
+	border-radius: 100%;
+	top: -5px;
+}
+.shop .range .label-input {
+	margin-top: 15px;
+}
+.shop .range .label-input span{
+	margin-right:5px;
+	color:#282828;
+}
+.shop .range .ui-slider-handle.ui-state-default.ui-corner-all {
+	background: #F7941D;
+	color: #F7941D;
+	cursor:pointer;
+}
+.shop .range .label-input input {
+	border: none;
+	margin: 0;
+	font-weight: 600;
+	font-size: 14px;
+	color: #222;
+	background: transparent;
+}
+.shop .range .check-box-list {
+	margin-top: 15px;
+}
+.shop .range .check-box-list li {
+	margin-bottom: 5px;
+}
+.shop .range .check-box-list li:last-child{
+	margin:0;
+}
+.shop .range .check-box-list li label input {
+	display: inline-block;
+	margin-right: 6px;
+	position: relative;
+	top: 1px;
+}
+.shop .range .check-box-list li label {
+	margin: 0;
+	font-size: 14px;
+	font-weight: 400;
+	color:#333;
+	cursor:pointer;
+}
+.shop .range .check-box-list .count{
+	margin-left:5px;
+	color:#666;
+}
+/* Category List */
+.shop-sidebar .categor-list {
+	margin-top: 10px;
+}
+.shop-sidebar .categor-list li{
+	
+}
+.shop-sidebar .categor-list li {
+	margin-bottom: 10px;
+}
+.shop-sidebar .categor-list li:last-child{
+	margin-bottom:0px;
+}
+.shop-sidebar .categor-list li a {
+	display: inline-block;
+	color: #666;
+	font-weight: 400;
+	font-size: 14px;
+	text-transform: capitalize;
+}
+.shop-sidebar .categor-list li a:hover{
+	color:#F7941D;
+}
+/* Recent Post */
+.shop-sidebar .single-post {
+	position: relative;
+	margin-top: 30px;
+    padding-bottom: 30px;
+	border-bottom: 1px solid #ddd;
+}
+.shop-sidebar .single-post.first{
+	padding-top:0px;
+}
+.shop-sidebar .single-post:last-child{
+	padding-bottom:0px;
+	border:none;
+}
+.shop-sidebar .single-post .image img{
+	height: 80px;
+	width: 80px;
+	position:absolute;
+	left:0;
+	top:0;
+	border-radius:100%;
+}
+.shop-sidebar .single-post .content{
+	padding-left:100px;
+}
+.shop-sidebar .single-post .content h5 {
+	line-height: 18px;
+}
+.shop-sidebar .single-post .content h5 a {
+	color: #222;
+	font-weight: 500;
+	font-size: 14px;
+	font-weight: 500;
+	display: block;
+}
+.shop-sidebar .single-post .content h5 a:hover{
+	color:#F7941D;
+}
+.shop-sidebar .single-post .content .price {
+	display: block;
+	color: #333;
+	font-weight: 500;
+	margin: 5px 0 0px 0;
+	text-transform: uppercase;
+	font-size: 14px;
+}
+.shop-sidebar .single-post .reviews li{
+	display:inline-block;
+}
+.shop-sidebar .single-post .reviews li i{
+	color:#999;
+}
+.shop-sidebar .single-post .reviews li.yellow i{
+	color:#F7941D;
+}
+/* Shop Topbar */
+.shop .shop-top {
+	clear: both;
+	background: #f6f7fb;
+	padding: 18px 20px 50px 20px;
+}
+.shop .shop-shorter {
+	float: left;
+}
+.shop .single-shorter {
+	display: inline-block;
+	margin-right: 10px;
+}
+.shop .single-shorter:last-child{
+	margin:0;
+}
+.shop .single-shorter label {
+	display: inline-block;
+	float: left;
+	margin: 4px 5px 0 0;
+	font-weight:500;
+}
+.shop .single-shorter option{}
+.shop .nice-select {
+	clear: initial;
+	display: inline-block;
+	margin: 0;
+	border: 1px solid #e6e6e6;
+	border-radius: 0px;
+	height: auto;
+	width: auto;
+	border-radius: 0px;
+}
+.shop .nice-select::after{
+	border-color:#888;
+}
+.shop .nice-select .list {
+	border-radius:0px;
+}
+.shop .nice-select .option.selected {
+	font-weight: 500;
+}
+.shop .nice-select .list li{
+	color:#666;
+	border-radius:0px;
+}
+.shop .nice-select .list li:hover{
+	background:#F7941D;
+	color:#fff;
+}
+.shop .view-mode {
+	float: right;
+}
+.shop .view-mode li {
+	display: inline-block;
+	margin-right: 5px;
+}
+.shop .view-mode li:last-child{
+	margin:0;
+}
+.shop .view-mode li a {
+	width: 43px;
+	height: 32px;
+	background: transparent;
+	border: 1px solid #77777775;
+	text-align: center;
+	display: block;
+	line-height: 32px;
+	color: #888;
+	border-radius: 0px;
+}
+.shop .view-mode li.active a,
+.shop .view-mode li:hover a {
+	background: #F7941D;
+	color:#fff;
+	border-color:transparent;
+}
+/*======================================
+   End Shop Sidebar CSS
+========================================*/
+
+.user-title{
+	
+	position:relative;
+	bottom:30px;
+	right:116px;
+	text-align: center;
+	
+} 
+
+.info-form{
+	
+	position: relative;
+	left:260px;
+	top: 20px;
+	
+}
+
+.info-tel{
+	
+	position: relative;
+	right:-47px;
+	
+	margin-top: 40px;
+}
+
+.info-form2{
+	
+	position: relative;
+	left:260px;
+	top:20px;
+	width:300px;
+}
+
+
