@@ -36,7 +36,7 @@ public class PaymentServiceImple implements PaymentService {
 	@Override
 	public int addOrder(OrderDTO odto) {
 		pm.addOrder(odto);
-		System.out.println("1      "+odto);
+		
 		
 			for(int i=0; i<odto.getProduct_codes().size();i++) {
 				OrderListDTO order = new OrderListDTO();
@@ -52,12 +52,19 @@ public class PaymentServiceImple implements PaymentService {
 				pm.addOrderList(order);
 			}
 			
-	
+			pm.addShip(odto);
 		
 			return 0;
 		 
 	}
 
+	@Override
+	public List<OrderDTO> buylist(String id) {
+		
+		
+		return pm.buylist(id);
+	}
+	
 	
 
 	

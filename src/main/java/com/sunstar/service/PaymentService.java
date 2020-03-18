@@ -15,6 +15,9 @@ public interface PaymentService {
 
 	int addOrder(OrderDTO allData);
 
+
+	List<OrderDTO> buylist(String id);
+
 	
 	
 }

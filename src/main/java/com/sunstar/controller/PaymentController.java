@@ -41,7 +41,7 @@ public class PaymentController {
 	
 	
 	
-
+    // 카트에서의 값가지고 주문페이지 넘어가기
 	@RequestMapping(value="/checkout", method = RequestMethod.POST)
 	public String checkout( Model model, Principal principal,@RequestParam String[] chBox )
 	{
@@ -76,16 +76,17 @@ public class PaymentController {
 			for(String i: chBox) {
 				cart_no=Integer.parseInt(i);
 				
-				System.out.println(cart_no);
+				
 				userinfo.setCart_no(cart_no);
+				
 				CartDTO orderdto = paymentservice.viewOrdered(userinfo);
-				System.out.println(orderdto);
-				System.out.println(cart_no);
+			
+				
 				list.add(orderdto);
 				
 			}
 						
-			
+			System.out.println(list);
 			
 			
 			
@@ -104,7 +105,7 @@ public class PaymentController {
 	
 	
 	
-	
+	// 결제 완료 후 데이터 받아와서 주문 목록에 추가하기
 	@ResponseBody
 	@RequestMapping(value="/checkout/complete",method=RequestMethod.POST)
 	public int complete(Model model, @RequestBody OrderDTO allData) {

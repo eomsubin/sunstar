@@ -21,6 +21,12 @@ public interface PaymentMapper {
 
 
 	int addOrderList(OrderListDTO order);
+
+
+	int addShip(OrderDTO odto);
+
+
+	List<OrderDTO> buylist(String id);
 	
 	
 }

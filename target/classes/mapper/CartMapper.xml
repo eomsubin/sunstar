@@ -8,7 +8,7 @@
 	<selectKey resultType="int" keyProperty="cart_no" order="BEFORE"  >
 	select Max(cart_no)+1 from cart
 	</selectKey>
-	insert into cart(cart_no, id, product_code, cart_quantity) values(#{cart_no}, #{id}, #{product_code}, #{cart_quantity});
+	insert into cart(cart_no, id, product_code, cart_quantity, option1, option2, add_price) values(#{cart_no}, #{id}, #{product_code}, #{cart_quantity}, #{option1}, #{option2}, #{add_price});
 	</insert>
 	
 	<select id="cartList" resultType="com.sunstar.dto.CartDTO" >
