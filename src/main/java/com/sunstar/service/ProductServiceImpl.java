@@ -48,5 +48,8 @@ public class ProductServiceImpl implements ProductService {
 		return productmapper.gettotalcount(map);
 	}
 
-
+	@Override // 제품 판매자 parkjinwoo
+	public List<String> getproductsellername(HashMap<String, Object> map) {
+		return productmapper.getproductsellername(map);
+	}
 }

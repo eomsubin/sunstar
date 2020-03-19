@@ -9,6 +9,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.security.SecureRandom;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -17,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.web.csrf.CsrfFilter;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,14 +29,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sunstar.dto.AuthDTO;
 import com.sunstar.dto.CartDTO;
 import com.sunstar.dto.CategoryDTO;
+import com.sunstar.dto.CustomerDTO;
 import com.sunstar.dto.NuserDTO;
 import com.sunstar.dto.NuserinfoDTO;
 import com.sunstar.dto.ProductDTO;
+import com.sunstar.service.AuthService;
 import com.sunstar.service.CartService;
 import com.sunstar.service.MainService;
 import com.sunstar.service.ProductService;
+import com.sunstar.service.UserService;
 
 
 /**
@@ -47,6 +53,11 @@ public class HomeController {
 	private MainService mainservice;	
 		
 
+	@Autowired @Qualifier("userservice")
+	private UserService userservice;
+	
+	@Autowired @Qualifier("AuthService")
+	private AuthService authservice;
 	/*@ResponseBody
 	@RequestMapping("/abc")
 	public List<CategoryDTO> abc(){
@@ -155,6 +166,22 @@ public class HomeController {
   	      }
   	      	NuserinfoDTO userinfo = new ObjectMapper().readValue(res.toString(), NuserinfoDTO.class);
   	      	System.out.println(userinfo);
+  	      	if(userservice.customeridcheck(userinfo.getResponse().get("id"))<1)
+  	      		{
+  	      			CustomerDTO dto = new CustomerDTO();
+	
+	  	      		dto.setId(userinfo.getResponse().get("id"));
+	  	      		dto.setPassword(userinfo.getResponse().get("id"));
+	  	      		dto.setName(userinfo.getResponse().get("name"));
+	  	      		dto.setEmail(userinfo.getResponse().get("email"));
+	  	      		dto.setEnable(true);
+	  	      		
+	  	      		ArrayList<AuthDTO> auth = new ArrayList<AuthDTO>();
+	  	      		auth.add(new AuthDTO("jinwoo","ROLE_USER"));
+	  	      		dto.setAuthlist(auth);
+	  	      		
+	  	      		userservice.join_Customer(dto);
+  	      		};
   	      	/*String error="";
   	      	if(!userinfo.getResponse().containsKey("name")) {
   	      		error="¿Ã∏ß";
@@ -186,8 +213,8 @@ public class HomeController {
   	      		System.out.println(apiURL);
   	      		return "redirect:"+apiURL;
   	      	}*/
-  	      /*session.setAttribute("user", user);
-  	      session.setAttribute("userinfo", userinfo);*/
+  	      session.setAttribute("user", user);
+  	      /*session.setAttribute("userinfo", userinfo);*/
   	      	session.setAttribute("naverlogin", userinfo.getResponse().get("id"));
 	      }
 	    } catch (Exception e) {
@@ -237,7 +264,7 @@ public class HomeController {
 			 System.out.println(e);
 		}
 		session.removeAttribute("user");
-		session.removeAttribute("userinfo");
+		/*session.removeAttribute("userinfo");*/
 		}
 		/*session.invalidate();*/
 	}
