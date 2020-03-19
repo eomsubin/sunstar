@@ -2,7 +2,14 @@ package com.sunstar.controller;
 
 import java.security.Principal;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.jsp.jstl.core.IteratedExpression;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -24,6 +31,7 @@ import com.sunstar.dto.AuthDTO;
 import com.sunstar.dto.CategoryDTO;
 import com.sunstar.dto.CustomerDTO;
 import com.sunstar.dto.CustomerUserDetail;
+import com.sunstar.dto.MakePage;
 import com.sunstar.dto.ProductDTO;
 import com.sunstar.service.AuthService;
 import com.sunstar.service.MainService;
@@ -53,10 +61,107 @@ public class ProductController {
 		return "header2";
 	}
 	
-	@RequestMapping("/category/{lv1}")
-	public String productListlv1(Model model, @PathVariable String lv1) {
+	@RequestMapping("/list")
+	public String productListlv1(Model model, HttpServletRequest httpServletRequest, @RequestParam HashMap<String, Object> map) {
 		header(model);
+		//param
+		Iterator<String> ita = map.keySet().iterator();
+		while(ita.hasNext())
+		{
+			String key = ita.next();
+			System.out.println(key+", "+map.get(key));
+		}
+		//check category lv
+		String category = (String)map.get("category");
+		List<CategoryDTO> categorylist = productservice.getcategorylist();
+		HashMap<String, String> categorymap = new HashMap<>();
+		for(CategoryDTO dto : categorylist)
+		{
+			if(dto.getCategory_code().equals(category))
+			{
+				map.put("where", "lv3");
+				map.put("lv1", dto.getLv1());
+				map.put("lv2", dto.getLv2());
+				map.put("lv2code", dto.getLv2code());
+				map.put("lv3", dto.getLv3());
+				categorymap.put(dto.getLv3(), dto.getCategory_code());
+				break;
+			}
+			if(dto.getLv2code().equals(category))
+			{
+				map.put("where", "lv2");
+				map.put("lv1", dto.getLv1());
+				map.put("lv2", dto.getLv2());
+				map.put("lv2code", dto.getLv2code());
+				categorymap.put(dto.getLv3(), dto.getCategory_code());
+			}
+			if(dto.getLv1().equals(category))
+			{
+				map.put("where", "lv1" );
+				map.put("lv1", dto.getLv1());
+				categorymap.put(dto.getLv2(), dto.getLv2code());
+			}
+		}
+		map.put("categorymap", categorymap);
+		// end category
 		
+		
+		// paging
+		int totalCount = Integer.parseInt(productservice.gettotalcount(map));
+		
+		String curr =(String)map.get("curr");
+		if(curr == null) 
+			curr="1";
+		int currpage = Integer.parseInt(curr);
+		int sizePerPage=9;
+		int blockSize=10;
+		MakePage page = new MakePage(currpage, totalCount, sizePerPage, blockSize);
+		map.put("page", page);
+		// end pagin
+				
+		// select productlist
+		List<ProductDTO> productlist = productservice.getproductList(map);
+		model.addAttribute("productlist", productlist);
+		// end select productlist
+		
+		// seller name
+		List<String> seller_name = new ArrayList<>();//seller name
+		for(ProductDTO dto : productlist)
+		{
+			if(!seller_name.contains(dto.getSeller_name()))
+				seller_name.add(dto.getSeller_name());
+		}
+		map.put("sellername", seller_name);
+		// end seller name
+		
+		model.addAttribute("page", page);
+		model.addAttribute("map", map);
+		model.addAttribute("contentpage", "ProductList/productList.jsp");
+		return "/home";
+	}
+	/*@RequestMapping("/category/{lv1}")
+	public String productListlv1(Model model, @PathVariable String lv1, HttpServletRequest httpServletRequest, @RequestParam HashMap<String, Object> map) {
+		header(model);
+		//param
+		Iterator<String> ita = map.keySet().iterator();
+		while(ita.hasNext())
+		{
+			String key = ita.next();
+			System.out.println(key+", "+map.get(key));
+		}
+		
+
+		//lv1 카테고리 상품 list, seller name
+		List<ProductDTO> productlistlv1 =productservice.productListCategorylv1(lv1);//lv1 카테고리 상품 list
+		List<String> seller_name = new ArrayList<>();//seller name
+				for(ProductDTO dto : productlistlv1)
+				{
+					if(!seller_name.contains(dto.getSeller_name()))
+						seller_name.add(dto.getSeller_name());
+				}
+		//model.addAttribute("sellerlist",seller_name);
+		//end 
+
 		//lv1  카테고리 list
 		List<CategoryDTO> categorylistlv1 =productservice.productlv1(lv1);
 		model.addAttribute("categorylistlv1", categorylistlv1);
@@ -65,14 +170,18 @@ public class ProductController {
 		List<CategoryDTO> categorylistlv2 =productservice.productlv2bylv1(lv1);
 		model.addAttribute("categorylistlv2", categorylistlv2);
 
-		//lv2 카테고리 상품 list
-		List<ProductDTO> productlist =productservice.productListCategorylv1(lv1);
+		
+		//lv1 카테고리 상품 search list
+		List<ProductDTO> productlist =productservice.productListCategorylv1(map);
 		model.addAttribute("productlist", productlist);
+		
+		
+
 		
 		model.addAttribute("contentpage", "ProductList/productList.jsp");
 		return "/home";
-	}
-	@RequestMapping("/category/{lv1}/{lv2}")
+	}*/
+	/*@RequestMapping("/category/{lv1}/{lv2}")
 	public String productListlv2(Model model, @PathVariable String lv1 ,@PathVariable String lv2, Principal principal) {
 		header(model);
 		// security id, name
@@ -95,8 +204,15 @@ public class ProductController {
 		//lv2 카테고리 상품 list
 		List<ProductDTO> productlist =productservice.productListCategorylv2(lv2);
 		model.addAttribute("productlist", productlist);
-
 		
+		//seller_name
+		List<String> seller_name = new ArrayList<>();
+		for(ProductDTO dto : productlist)
+		{
+			if(!seller_name.contains(dto.getSeller_name()))
+				seller_name.add(dto.getSeller_name());
+		}
+		model.addAttribute("sellerlist",seller_name);
 		
 		model.addAttribute("contentpage", "ProductList/productList.jsp");
 		return "/home";
@@ -120,13 +236,18 @@ public class ProductController {
 		List<ProductDTO> productlist =productservice.productListCategorylv3(cdto);
 		model.addAttribute("productlist", productlist);
 		
+		//seller_name
+		List<String> seller_name = new ArrayList<>();
+		for(ProductDTO dto : productlist)
+		{
+			if(!seller_name.contains(dto.getSeller_name()))
+				seller_name.add(dto.getSeller_name());
+		}
+		model.addAttribute("sellerlist",seller_name);
 		
 		model.addAttribute("contentpage", "ProductList/productList.jsp");
 		return "/home";
-	}
-	
-	
-	
+	}*/
 	
 	// 상품 상세보기
 	@RequestMapping(value = "/detailview2", method = RequestMethod.GET)

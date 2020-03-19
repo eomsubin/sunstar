@@ -2,6 +2,7 @@ package com.sunstar.service;
 
 
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,40 +32,21 @@ public class ProductServiceImpl implements ProductService {
 		
 		return dto;
 	}
-
-	@Override //parkjinwoo
-	public List<ProductDTO> productListCategorylv1(String lv1) {
-		// TODO Auto-generated method stub
-		return productmapper.productListCategorylv1(lv1);
-	}
 	
-	@Override //parkjinwoo
-	public List<ProductDTO> productListCategorylv2(String lv2) {
-		
-		return productmapper.productListCategorylv2(lv2);
-	}
-	
-	@Override //parkjinwoo
-	public List<ProductDTO> productListCategorylv3(CategoryDTO cdto) {
-
-		return productmapper.productListCategorylv3(cdto);
+	@Override // 모든 카테고리 parkjinwoo
+	public List<CategoryDTO> getcategorylist() {
+		return productmapper.getcategorylist();
 	}
 
-	@Override //parkjinwoo
-	public List<CategoryDTO> productlv3bylv2(String lv2) {
-
-		return productmapper.productlv3bylv2(lv2);
+	@Override // 상품 리스트 parkjinwoo
+	public List<ProductDTO> getproductList(HashMap<String, Object> map) {
+		return productmapper.getproductList(map);
 	}
 
-	@Override //parkjinwoo
-	public List<CategoryDTO> productlv2bylv1(String lv1) {
- 
-		return productmapper.productlv2bylv1(lv1);
+	@Override // 자료 수 parkjinwoo
+	public String gettotalcount(HashMap<String, Object> map) {
+		return productmapper.gettotalcount(map);
 	}
 
-	@Override //parkjinwoo
-	public List<CategoryDTO> productlv1(String lv1) {
-		// TODO Auto-generated method stub
-		return productmapper.productlv1(lv1);
-	}
+
 }

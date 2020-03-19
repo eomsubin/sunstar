@@ -22,47 +22,119 @@
    </select>
 	
 	<!-- jinwoo -->
-	<select id="productListCategorylv1" resultType="com.sunstar.dto.ProductDTO" parameterType="string">
-		select p.product_code, thumb_img, product_name, price, cost, shipping_cost, seller_code, explains, o.option1, o.option2, o.inventory, o.add_price, public_state, review_state, c.lv1, c.lv2, c.lv3, c.lv2code
-		from product_list p  join category c
-		on p.category_code = c.category_code
-		left join options o
-        on p.product_code = o.product_code
-        where c.lv1 = #{lv1}
-        group by p.product_code
-        order by p.product_code desc
+	
+	<select id="getcategorylist" resultType="com.sunstar.dto.CategoryDTO">
+	select lv1, lv2, lv2code, lv3, category_code
+	from category
 	</select>
 	
-	<select id="productListCategorylv2" resultType="com.sunstar.dto.ProductDTO" parameterType="string">
-		select p.product_code, thumb_img, product_name, price, cost, shipping_cost, seller_code, explains, o.option1, o.option2, o.inventory, o.add_price, public_state, review_state, c.lv1, c.lv2, c.lv3, c.lv2code
-		from product_list p  join category c
+	<select id="gettotalcount" resultType="string" parameterType="string">
+	select count(*)
+    from product_list p  
+    join category c
+	on p.category_code = c.category_code
+	left join options o
+    on p.product_code = o.product_code
+    join seller s
+    on s.seller_code = p.seller_code
+	 <where>
+	 	<if test="where == 'lv1'">
+	 		c.lv1 = #{category}
+	 	</if>
+	 	<if test="where == 'lv2'">
+	 		and c.lv2code = #{category}
+	 	</if>
+	 	<if test="where == 'lv3'">
+	 		and c.category_code = #{category}
+	 	</if>
+	 	<if test="s != null">
+	 		and s.seller_name = #{s}
+	 	</if>
+	 </where>	 
+	</select>
+	
+	<select id="getproductList" resultType="com.sunstar.dto.ProductDTO" parameterType="string">
+	 select p.product_code, p.price, p.product_name, p.thumb_img, p.explains, p.category_code, p.add_date, c.lv3, c.lv2, c.lv1, c.lv2code, s.seller_name, s.basic_shipping_cost
+     from product_list p  
+     join category c
+	 on p.category_code = c.category_code
+	 left join options o
+     on p.product_code = o.product_code
+     join seller s
+     on s.seller_code = p.seller_code
+	 <where>
+	 	<if test="where == 'lv1'">
+	 		c.lv1 = #{category}
+	 	</if>
+	 	<if test="where == 'lv2'">
+	 		and c.lv2code = #{category}
+	 	</if>
+	 	<if test="where == 'lv3'">
+	 		and c.category_code = #{category}
+	 	</if>
+	 	<if test="s != null">
+	 		and s.seller_name = #{s}
+	 	</if>
+	 </where>	 
+	 
+	 group by p.product_code
+	 order by p.product_code desc;
+	</select>
+	
+	
+	<!-- <select id="productListCategorylv1" resultType="com.sunstar.dto.ProductDTO" parameterType="string">
+        select p.product_code, p.price, p.product_name, p.thumb_img, p.explains, p.category_code, p.add_date, c.lv3, c.lv2, c.lv1, c.lv2code, s.seller_name, s.basic_shipping_cost
+        from product_list p  
+        join category c
 		on p.category_code = c.category_code
 		left join options o
         on p.product_code = o.product_code
+        join seller s
+        on s.seller_code = p.seller_code
+		where c.lv1 = #{lv1}
+		<if test="s != null">
+		and s.seller_name = #{s}
+		</if>
+		group by p.product_code
+		order by p.product_code desc;
+	</select>
+	
+	<select id="productListCategorylv2" resultType="com.sunstar.dto.ProductDTO" parameterType="string">        
+        select p.product_code, p.price, p.product_name, p.thumb_img, p.explains, p.category_code, p.add_date, c.lv3, c.lv2, c.lv1, c.lv2code, s.seller_name, s.basic_shipping_cost
+        from product_list p  
+        join category c
+		on p.category_code = c.category_code
+		left join options o
+        on p.product_code = o.product_code
+        join seller s
+        on s.seller_code = p.seller_code
         where c.lv2code = #{lv2}
-        group by p.product_code
-        order by p.product_code desc
+		group by p.product_code
+		order by p.product_code desc;
 	</select>
 	
 	<select id="productListCategorylv3" resultType="com.sunstar.dto.ProductDTO" parameterType="com.sunstar.dto.CategoryDTO">
-		select p.product_code, thumb_img, product_name, price, cost, shipping_cost, seller_code, explains, o.option1, o.option2, o.inventory, o.add_price, public_state, review_state, c.lv1, c.lv2, c.lv3, c.lv2code
-		from product_list p  join category c
+        select p.product_code, p.price, p.product_name, p.thumb_img, p.explains, p.category_code, p.add_date, c.lv3, c.lv2, c.lv1, c.lv2code, s.seller_name, s.basic_shipping_cost
+        from product_list p  
+        join category c
 		on p.category_code = c.category_code
 		left join options o
         on p.product_code = o.product_code
+        join seller s
+        on s.seller_code = p.seller_code
         where c.category_code = #{lv3} and c.lv2code = #{lv2}
-        group by p.product_code
-        order by p.product_code desc
+		group by p.product_code
+		order by p.product_code desc;
 	</select>
 
 	<select id="productlv3bylv2" resultType="com.sunstar.dto.CategoryDTO" parameterType="string">
-		select category_code, lv3 
+		select category_code, lv3, lv2, lv2code 
 		from category
 		where lv2code = #{lv2}
 	</select>
 	
 	<select id="productlv2bylv1" resultType="com.sunstar.dto.CategoryDTO" parameterType="string">
-		select distinct lv2, lv2code
+		select distinct lv2, lv2code, lv1
 		from category
 		where lv1 = #{lv1}
 	</select>
@@ -70,5 +142,5 @@
 	<select id="productlv1" resultType="com.sunstar.dto.CategoryDTO" parameterType="string">
 		select distinct lv1
 		from category
-	</select>
+	</select> -->
 </mapper>
