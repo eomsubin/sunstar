@@ -177,7 +177,7 @@ public class HomeController {
 	  	      		dto.setEnable(true);
 	  	      		
 	  	      		ArrayList<AuthDTO> auth = new ArrayList<AuthDTO>();
-	  	      		auth.add(new AuthDTO("jinwoo","ROLE_USER"));
+	  	      		auth.add(new AuthDTO(dto.getId(),"ROLE_USER"));
 	  	      		dto.setAuthlist(auth);
 	  	      		
 	  	      		userservice.join_Customer(dto);
