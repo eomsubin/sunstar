@@ -35,9 +35,6 @@ $(document).ready(function(){
 							+"<button class='plus'>&#43;</button>"
 							+"<button id='optiondel'>삭제</button>"
 							+"<hr class='my-3'>");
-		
-	
-		
 		});
 	
 	//end
