@@ -68,6 +68,8 @@ public interface SellerMapper {
 
 	List<OrderDTO> getDayProfit(String order_code);
 
+	int getShipping_Cost(int seller_code);
+
 
 
 

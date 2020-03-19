@@ -55,8 +55,6 @@
 }
 </style>
 
-
-
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <!-- include summernote css/js -->
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.16/dist/summernote.min.css" rel="stylesheet">
@@ -64,11 +62,14 @@
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.16/dist/summernote.min.js"></script>
 <script>
 $(document).ready(function() {
-	$('#option_delete').on('click', function(){
-		$('#addoptions').chile('.form-group').empty();
-	})
+
 	
 	
+/* 	$('#option_delete1').click(function(){
+		console.log('aaaa');
+		$('.addoptionsmore').empty();a
+/	$('#addoptions').empty();
+	}) */
 	$('#summernote').summernote({
 		  toolbar: [
 		    // [groupName, [list of button]]
@@ -85,42 +86,87 @@ $(document).ready(function() {
 		});
 });
 </script>
+<script>
 
+
+</script>
 
 <script>
+let a = new Array();
+
+let i = 1;
+
 $(document).ready(function(){
-	let i = 1;
 	$('#addoption').on('click', function(){
+        i = 1;
+		while( a.includes(i) ){
+			i++;
+		}
 		
 let frm ='';  
-frm+=' <div class="form-group row">                                                                                                      ';
-frm+='     <label for="options" class="col-sm-2 col-form-label">옵션'+i+' <button id="#option_delete"> 옵션 추가 취소 </button>	</label>                                                        ';
-
-
-frm+='        <div class="col-sm-10">                                                                                                     ';
+frm+=' <div class="form-group row addoptionsmore">                                                                                       ';
+frm+='     <label for="options" class="col-sm-2 col-form-label">옵션'+i+' </label>                                                        ';
+frm+='        <div class="col-sm-10">                                                                                                    ';
 frm+='             <div class="col-sm-2 frmsort">                                                                                        ';
-frm+='                 <label for="options['+i+'].option1" class=" col-form-label">옵션1</label>                                             ';
-frm+='                 <input type="text" class="form-control " name="options['+i+'].option1" id="options['+i+'].option1">                   ';
+frm+='                 <label for="options['+i+'].option1" class=" col-form-label">옵션1</label>                                          ';
+frm+='                 <input type="text" class="form-control " name="options['+i+'].option1" id="options['+i+'].option1">               ';
+frm+='                 <input type="hidden" class="form-control ival" value="'+i+'">                  									 ';
 frm+='             </div>                                                                                                                ';
 frm+='             <div class="col-sm-2 frmsort">                                                                                        ';
-frm+='                 <label for="options['+i+']..option1" class=" col-form-label">옵션2</label>                                            ';
-frm+='                 <input type="text" class="form-control " name="options['+i+'].option2" id="options['+i+'].option2">                     ';
+frm+='                 <label for="options['+i+']..option1" class=" col-form-label">옵션2</label>                                         ';
+frm+='                 <input type="text" class="form-control " name="options['+i+'].option2" id="options['+i+'].option2">               ';
 frm+='             </div>                                                                                                                ';
 frm+='             <div class="col-sm-2 frmsort">                                                                                        ';
 frm+='                 <label for="options['+i+'].inventory" class="  col-form-label">재고</label>                                        ';
-frm+='                 <input type="text" class="form-control  is-invalid" name="options['+i+'].inventory" id="options['+i+'].inventory">  ';
+frm+='                 <input type="text" class="form-control " name="options['+i+'].inventory" id="options['+i+'].inventory" required>  ';
 frm+='             </div>                                                                                                                ';
 frm+='             <div class="col-sm-2 frmsort">                                                                                        ';
-frm+='                 <label for="options['+i+'].add_price" class=" col-form-label">추가 금액</label>                                   ';
-frm+='                 <input type="text" class="form-control  is-invalid" name="options['+i+'].add_price" id="options['+i+'].add_price"> ';
+frm+='                 <label for="options['+i+'].add_price" class=" col-form-label">추가 금액</label>                                      ';
+frm+='                 <input type="text" class="form-control " name="options['+i+'].add_price" id="options['+i+'].add_price" required>  ';
+frm+='             </div>                                                                                                                ';
+frm+='             <div class="col-sm-2 frmsort">                                                                                        ';
+frm+='                 <button type="button" class="del_opt_btn btn btn-info">취소 </button>												 ';
 frm+='             </div>                                                                                                                ';
 frm+='                                                                                                                                   ';
-frm+='             <button id="addoption" type="button"> + 옵션 추가</button>                                                               ';
 frm+='         </div>                                                                                                                    ';
 frm+=' </div>                                                                                                                            ';
-i++;
-$('#addoptions').append(frm);
+		$('#addoptions').append(frm);
+		console.log(i);
+
+		a.push(i);
+		
+		console.log('추가한후 a 값 : ');
+		console.log(a);
+		i++;
 })
+let b ;
+	
+$(document).on('click', '.del_opt_btn', function(){
+	$(this).parent().parent().parent().remove();
+	
+	b = $(this).parent().parent().find('.ival').val();
+
+	console.log('삭제한 옵션의 값 : ');
+	console.log(b);
+	
+	
+	
+	b*=1;
+	let c = a.indexOf(b);
+	console.log('a배열에서 b값의 자리 : ');
+	console.log(c);
+	
+	
+	a.splice(c, 1);
+	console.log('삭제후 a 값 : ');
+	console.log(a);
+	
+	i= b;
+	console.log('삭제후 i값 : ');
+	console.log(i);
+}) 
+
+
 })
 
 </script>
@@ -152,7 +198,134 @@ console.log('end');
 
 
 </script>
+<script>
+	function validate(){
+		let product_name = document.addfm.product_name;
+		let price = document.addfm.price;
+		let cost = document.addfm.cost;
+		let category_code = document.addfm.category_code;
+		let athumb_img = document.addfm.athumb_img;
+	 	let opt1 = document.addfm.elements['options[0].option1'];
+		let opt2 = document.addfm.elements['options[0].option2'];
+		
+		let inventory = document.addfm.elements['options[0].inventory'];
+		let add_price = document.addfm.elements['options[0].add_price'];
+		
+		
+	 	let opt3 = document.addfm.elements['options[1].option1'];
 
+		var vnum= /^[0-9]+$/
+		
+		
+		if(product_name == null ||product_name.value == '' ){
+			alert('상품명을 입력해주세요');
+			
+			let addOptionsCount = document.getElementById('addoptions');
+			let bbb = addOptionsCount.childElementCount;
+			//let aaa = $('div.addoptionsmore').length();
+			console.log(aaa);
+			console.log(bbb);
+			
+			
+			product_name.focus();
+			return false;
+		}else if(price == null ||price.value == '' ){
+			alert('판매가를 입력해주세요');
+			price.focus();
+			return false;
+		}else if(!vnum.test(price.value)){
+			alert('판매가는 숫자만 입력 할 수 있습니다');
+			price.focus();
+			return false;
+		}else if(cost == null ||cost.value == '' ){
+			alert('원가를 입력해주세요');
+			cost.focus();
+			return false;
+		}else if(!vnum.test(cost.value)){
+			alert('판매가는 숫자만 입력 할 수 있습니다');
+			cost.focus();
+			return false;
+		} else if(opt1 == null || opt1.value== ''){
+			alert('옵션1을 입력해주세요');
+			opt1.focus();
+			return false;
+		}else if(opt2 == null || opt2.value== ''){
+			alert('옵션2를 입력해주세요');
+			opt.focus();
+			return false;
+		}else if(inventory.value == null || inventory.value ==''){
+			alert('재고를 입력해주세요');
+			inventory.focus();
+			return false;
+		}else if(!vnum.test(inventory.value)){
+			alert('재고는 숫자만 입력 할 수 있습니다.');
+			inventory.focus();
+			return false;
+		}else if(add_price.value == null || add_price.value ==''){
+			alert('추가금액을 입력해주세요. 추가금액이 없을 경우 0 입력');
+			add_price.focus();
+			return false;
+		}else if(!vnum.test(inventory.value)){
+			alert('추가금액은 숫자만 입력 할 수 있습니다.');
+			inventory.focus();
+			return false;
+		}else if(category_code.value == null || category_code.value ==''){
+			alert('카테고리를 선택 해 주세요');
+			category_code.focus();
+			return false;
+		}else if(athumb_img == null ||athumb_img.value == '' ){
+			alert('썸네일을 첨부해주세요');
+			athumb_img.focus();
+			
+			console.log(opt3);
+			return false;
+		} else if(opt3.value !=''  ){
+			
+			
+			for(a = 1 ; a < bbb.length+1; a++){
+				console.log(a);
+			 	let opt1 = document.addfm.elements['options['+a+'].option1'];
+				let opt2 = document.addfm.elements['options['+a+'].option2'];
+				
+				console.log(opt1);
+				console.log(opt2);
+				let inventory = document.addfm.elements['options['+a+'].inventory'];
+				let add_price = document.addfm.elements['options['+a+'].add_price'];
+				
+				
+				if(opt1 == null || opt1.value== ''){
+					alert('옵션1을 입력해주세요');
+					opt1.focus();
+					return false;
+				}else if(opt2 == null || opt2.value== ''){
+					alert('옵션2를 입력해주세요');
+					opt.focus();
+					return false;
+				}else if(inventory.value == null || inventory.value ==''){
+					alert('재고를 입력해주세요');
+					inventory.focus();
+					return false;
+				}else if(!vnum.test(inventory.value)){
+					alert('재고는 숫자만 입력 할 수 있습니다.');
+					inventory.focus();
+					return false;
+				}else if(add_price.value == null || add_price.value ==''){
+					alert('추가금액을 입력해주세요. 추가금액이 없을 경우 0 입력');
+					add_price.focus();
+					return false;
+				}else if(!vnum.test(inventory.value)){
+					alert('추가금액은 숫자만 입력 할 수 있습니다.');
+					inventory.focus();
+					return false;
+				}else{
+					true;
+				}
+			}  
+		}else{
+			return true;
+		}
+	}
+</script>
 
 
 
@@ -171,21 +344,18 @@ console.log('end');
 		<!-- DataTales Example -->
 		<div class="card shadow mb-4">
 			<div class="card-header py-3">
-				<h6 class="m-0 font-weight-bold text-primary">DataTables
-					Example</h6>
+				<h6 class="m-0 font-weight-bold text-primary">상품 추가 폼</h6>
 			</div>
 			<div class="card-body">
 			
 			
-				<form action="${pageContext.request.contextPath}/addproductresult" method="post"  enctype="multipart/form-data" class="needs-validation" novalidate>
+				<form action="${pageContext.request.contextPath}/addproductresult" name="addfm" method="post" onsubmit="return validate();" enctype="multipart/form-data" class="needs-validation" novalidate>
 						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 
 					<div class="form-group row">
 						<label for="product_name" class="col-sm-2 col-form-label">상품명</label>
 						<div class="col-sm-10">
-							<input type="text" class=" form-control"
-								name="product_name" id="product_name" required>
-						
+							<input type="text" class=" form-control" name="product_name" id="product_name" >
 							<div class="invalid-tooltip">필수 입력 사항 / 리스트에 노출될 상품명을
 								입력해주세요</div>
 
@@ -194,9 +364,7 @@ console.log('end');
 					<div class="form-group row">
 						<label for="price" class="col-sm-2 col-form-label">판매가</label>
 						<div class="col-sm-10">
-							<input type="text" class="form-control" name="price"
-								id="price" required >
-				
+							<input type="text" class="form-control" name="price" id="price"  >
 							<div class="invalid-tooltip">필수 입력 사항 / 소비자에게 판매할 금액을
 								입력해주세요</div>
 						</div>
@@ -205,8 +373,7 @@ console.log('end');
 					<div class="form-group row">
 						<label for="cost" class="col-sm-2 col-form-label">원가</label>
 						<div class="col-sm-10">
-							<input type="text" class="form-control " name="cost"
-								id="cost" required>
+							<input type="text" class="form-control " name="cost" id="cost"  >
 							<div class="invalid-tooltip">필수 입력 사항 / 상품 입고 원가를 입력해주세요</div>
 						</div>
 					</div>
@@ -215,7 +382,7 @@ console.log('end');
 						<label for="shipping_cost" class="col-sm-2 col-form-label">배송비</label>
 						<div class="col-sm-10">
 							<input type="text" class="form-control "
-								name="shipping_cost" id="shipping_cost" required>
+								name="shipping_cost" id="shipping_cost" value="${shipping_cost}" >
 							<div class="invalid-tooltip">필수 입력 사항 / 1회 배송비를 입력해주세요</div>
 						</div>
 					</div>
@@ -237,18 +404,18 @@ console.log('end');
 							<div class="col-sm-2  frmsort">
 								<label for="options[0].inventory" class="  col-form-label">재고</label>
 								<input type="text" class="form-control "
-									name="options[0].inventory" id="options[0].inventory" required>
+									name="options[0].inventory" id="options[0].inventory" >
 								<div class="invalid-tooltip">필수 입력 사항 / 재고량을 입력해주세요</div>
 									
 							</div>
 							<div class="col-sm-2 frmsort">
 								<label for="options[0].add_price" class=" col-form-label">추가
 									금액</label> <input type="text" class=" form-control"
-									name="options[0].add_price" id="options[0].add_price" required>
+									name="options[0].add_price" id="options[0].add_price" palceholder="0" >
 								<div class="invalid-tooltip">필수 입력 사항 / 추가금액이 없을시 0 입력</div>
 							</div>
 
-							<button id="addoption" type="button">+ 옵션 추가</button>
+							<button id="addoption" class="btn btn-info" type="button">+ 옵션 추가</button>
 						</div>
 					</div>
 
@@ -262,11 +429,10 @@ console.log('end');
 						<div class="col-sm-10">
 							<select class="custom-select" name="category_code"
 								id="category_code" data-rel="chosen">
-								<option value=""></option>
 								<option selected disabled value="">분류 선택</option>
 
 								<c:forEach var="i" items="${dlist}">
-									<option value="${i.category_code}">${i.lv123}</option>
+									<option  value="${i.category_code}">${i.lv123}</option>
 								</c:forEach>
 
 							</select>
@@ -280,8 +446,8 @@ console.log('end');
 						<div class="col-sm-10">
 							<div class="custom-file">
 								<input type="file" class="custom-file-input upload-hidden"
-									id="athumb_img" name="athumb_img" required> <label
-									class="custom-file-label upload-file" for="adetail_img2">이미지
+									id="athumb_img" name="athumb_img" > <label
+									class="custom-file-label upload-file" for="athumb_img">이미지
 									파일 선택 (가로 550px * 세로 750px 권장)</label>
 
 							</div>
@@ -293,7 +459,7 @@ console.log('end');
 						<div class="col-sm-10">
 							<div class="custom-file">
 								<input type="file" class="custom-file-input upload-hidden" 
-									id="adetail_img1"  name="adetail_img1" required> <label
+									id="adetail_img1"  name="adetail_img1" > <label
 									class="custom-file-label upload-file" for="adetail_img1">이미지
 									파일 선택</label>
 
@@ -305,7 +471,7 @@ console.log('end');
 						<div class="col-sm-10">
 							<div class="custom-file">
 								<input type="file" class="custom-file-input upload-hidden"
-									id="adetail_img2" name="adetail_img2" required> <label
+									id="adetail_img2" name="adetail_img2" > <label
 									class="custom-file-label upload-file" for="adetail_img2">이미지
 									파일 선택</label>
 
@@ -317,7 +483,7 @@ console.log('end');
 						<div class="col-sm-10">
 							<div class="custom-file">
 								<input type="file" class="custom-file-input upload-hidden"
-									id="adetail_img3" name="adetail_img3" required> <label
+									id="adetail_img3" name="adetail_img3" > <label
 									class="custom-file-label upload-file" for="adetail_img3">이미지
 									파일 선택</label>
 
@@ -335,12 +501,6 @@ console.log('end');
 
 
 
-
-
-
-					
-					
-					
 					<div class="form-group row">
 						<div class="col-sm-2">공개 여부</div>
 						<div class="col-sm-10">
@@ -363,8 +523,11 @@ console.log('end');
 
 
 					<div class="form-group row">
-						<div class="col-sm-10">
-							<button type="submit" class="btn btn-primary">Sign in</button>
+						<div class="col-sm-10"> <!-- onsubmit="return validate();" -->
+					<!-- 	onclick="return validate()" -->
+							<input type="submit" class="btn btn-primary" value="상품 등록"    onclick="return validate()" >
+							<input type="reset" class="btn btn-secondary" value="초기화">
+							
 						</div>
 					</div>
 

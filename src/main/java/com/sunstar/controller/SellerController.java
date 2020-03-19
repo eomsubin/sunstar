@@ -385,7 +385,16 @@ public class SellerController {
 			dlist.add(dto);
 		}
 		model.addAttribute("dlist", dlist);
-
+		
+		//기본배송비 불러오기
+		SellerDTO dto = sellerservice.sellerInfo();
+		String basic_shipping_cost = dto.getBasic_shipping_cost();
+		
+		
+		model.addAttribute("shipping_cost", basic_shipping_cost);
+		
+		
+		
 		model.addAttribute("sellerpage", "addsproduct.jsp");
 		return "sellers/temp";
 	}
@@ -1248,8 +1257,13 @@ public class SellerController {
 		System.out.println(">>> \n"+ dto +"\n<<<");
 		return "redirect:/productlist";
 		
+	}
+	
+	@RequestMapping("/product_qna")
+	public String product_qna(Model model) {
 
-		
+		model.addAttribute("sellerpage", "product_qna.jsp");
+		return "sellers/temp";
 	}
 }
 
