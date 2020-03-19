@@ -105,7 +105,6 @@ public class ProductController {
 		map.put("categorymap", categorymap);
 		// end category
 		
-		
 		// paging
 		int totalCount = Integer.parseInt(productservice.gettotalcount(map));
 		
@@ -125,129 +124,19 @@ public class ProductController {
 		// end select productlist
 		
 		// seller name
-		List<String> seller_name = new ArrayList<>();//seller name
+		List<String> seller_name = productservice.getproductsellername(map);//seller name
 		for(ProductDTO dto : productlist)
-		{
+		{ 
 			if(!seller_name.contains(dto.getSeller_name()))
 				seller_name.add(dto.getSeller_name());
 		}
 		map.put("sellername", seller_name);
 		// end seller name
 		
-		model.addAttribute("page", page);
 		model.addAttribute("map", map);
 		model.addAttribute("contentpage", "ProductList/productList.jsp");
 		return "/home";
 	}
-	/*@RequestMapping("/category/{lv1}")
-	public String productListlv1(Model model, @PathVariable String lv1, HttpServletRequest httpServletRequest, @RequestParam HashMap<String, Object> map) {
-		header(model);
-		//param
-		Iterator<String> ita = map.keySet().iterator();
-		while(ita.hasNext())
-		{
-			String key = ita.next();
-			System.out.println(key+", "+map.get(key));
-		}
-		
-
-		//lv1 카테고리 상품 list, seller name
-		List<ProductDTO> productlistlv1 =productservice.productListCategorylv1(lv1);//lv1 카테고리 상품 list
-		List<String> seller_name = new ArrayList<>();//seller name
-				for(ProductDTO dto : productlistlv1)
-				{
-					if(!seller_name.contains(dto.getSeller_name()))
-						seller_name.add(dto.getSeller_name());
-				}
-		//model.addAttribute("sellerlist",seller_name);
-		//end 
-
-		//lv1  카테고리 list
-		List<CategoryDTO> categorylistlv1 =productservice.productlv1(lv1);
-		model.addAttribute("categorylistlv1", categorylistlv1);
-		
-		//lv1 > lv2 카테고리 list
-		List<CategoryDTO> categorylistlv2 =productservice.productlv2bylv1(lv1);
-		model.addAttribute("categorylistlv2", categorylistlv2);
-
-		
-		//lv1 카테고리 상품 search list
-		List<ProductDTO> productlist =productservice.productListCategorylv1(map);
-		model.addAttribute("productlist", productlist);
-		
-		
-
-		
-		model.addAttribute("contentpage", "ProductList/productList.jsp");
-		return "/home";
-	}*/
-	/*@RequestMapping("/category/{lv1}/{lv2}")
-	public String productListlv2(Model model, @PathVariable String lv1 ,@PathVariable String lv2, Principal principal) {
-		header(model);
-		// security id, name
-		if(principal!=null)
-		{
-		System.out.println(principal);
-		CustomerUserDetail detail = (CustomerUserDetail)((Authentication)principal).getPrincipal();
-		System.out.println(detail.getUsername());
-		System.out.println(detail.getId());
-		}
-		
-		//lv1 > lv2 카테고리 list
-		List<CategoryDTO> categorylistlv2 =productservice.productlv2bylv1(lv1);
-		model.addAttribute("categorylistlv2", categorylistlv2);
-
-		//lv2 > lv3 카테고리 list
-		List<CategoryDTO> categorylistlv3 =productservice.productlv3bylv2(lv2); 
-		model.addAttribute("categorylistlv3", categorylistlv3);
-		
-		//lv2 카테고리 상품 list
-		List<ProductDTO> productlist =productservice.productListCategorylv2(lv2);
-		model.addAttribute("productlist", productlist);
-		
-		//seller_name
-		List<String> seller_name = new ArrayList<>();
-		for(ProductDTO dto : productlist)
-		{
-			if(!seller_name.contains(dto.getSeller_name()))
-				seller_name.add(dto.getSeller_name());
-		}
-		model.addAttribute("sellerlist",seller_name);
-		
-		model.addAttribute("contentpage", "ProductList/productList.jsp");
-		return "/home";
-	}
-	
-	@RequestMapping("/category/{lv1}/{lv2}/{lv3}")
-	public String productListlv3(Model model, @PathVariable String lv1 ,@PathVariable String lv2,@PathVariable String lv3) {
-		header(model);
-		//lv1 > lv2 카테고리 list
-		List<CategoryDTO> categorylistlv2 =productservice.productlv2bylv1(lv1);
-		model.addAttribute("categorylistlv2", categorylistlv2);
-
-		//lv2 > lv3 카테고리 list
-		List<CategoryDTO> categorylistlv3 =productservice.productlv3bylv2(lv2); 
-		model.addAttribute("categorylistlv3", categorylistlv3);
-
-		//lv3 카테고리 상품 list
-		CategoryDTO cdto = new CategoryDTO();
-		cdto.setLv2(lv2);
-		cdto.setLv3(lv3);
-		List<ProductDTO> productlist =productservice.productListCategorylv3(cdto);
-		model.addAttribute("productlist", productlist);
-		
-		//seller_name
-		List<String> seller_name = new ArrayList<>();
-		for(ProductDTO dto : productlist)
-		{
-			if(!seller_name.contains(dto.getSeller_name()))
-				seller_name.add(dto.getSeller_name());
-		}
-		model.addAttribute("sellerlist",seller_name);
-		
-		model.addAttribute("contentpage", "ProductList/productList.jsp");
-		return "/home";
-	}*/
 	
 	// 상품 상세보기
 	@RequestMapping(value = "/detailview2", method = RequestMethod.GET)

@@ -23,5 +23,7 @@ public interface ProductMapper {
 
 	String gettotalcount(HashMap<String, Object> map);// 자료 수 parkjinwoo
 
+	List<String> getproductsellername(HashMap<String, Object> map); // 상품 판매자 parkjinwoo
+
 	
 }

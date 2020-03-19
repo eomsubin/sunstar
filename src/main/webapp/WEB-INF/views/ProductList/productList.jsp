@@ -542,7 +542,6 @@
 <body>
 <!-- category list -->
 ${map}
-${page}
 <div class="breadcrumbs">
 			<div class="container">
 				<div class="row">
@@ -742,7 +741,7 @@ ${page}
 										</div> -->
 									</div>
 									<div class="product-content">
-										<h3><a href="${pageContext.request.contextPath}/detailview2?product_code=${plist.product_code}">${plist.product_name}</a></h3>
+										<h3><a href="${pageContext.request.contextPath}/detailview2?product_code=${plist.product_code}">${plist.product_name} ${plist.seller_name}</a></h3>
 										<div class="product-price">
 											<span><fmt:formatNumber pattern="###,###,###" value="${plist.price}"/>원</span>
 										</div>

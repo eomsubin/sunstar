@@ -37,22 +37,27 @@ public class SellerServiceImpl implements SellerService {
 		//상품코드 생성
 		mapper.addProduct(dto);
 		
-		//옵션 수만큼 반복
-		for(int i =0; i<dto.getOptions().size(); i++) {
-			//상품코드 불러와서
-		//	ProductDTO dto2 = mapper.aProduct();
-			//그 상품코드에 맞는 옵션 추가
-			System.out.println("****");
+		if(dto.getOptions().size()==0) {
 			
-			OptionDTO dto2 = new OptionDTO();
-			dto2.setProduct_code(mapper.aProduct());
-			dto2.setOption1(dto.getOptions().get(i).getOption1());
-			dto2.setOption2(dto.getOptions().get(i).getOption2());
-			dto2.setInventory(dto.getOptions().get(i).getInventory());
-			dto2.setAdd_price(dto.getOptions().get(i).getAdd_price());
-			mapper.addOptions(dto2);
+		}else {
+			//옵션 수만큼 반복
+			for(int i =0; i<dto.getOptions().size(); i++) {
+				
+				
+				//상품코드 불러와서
+			//	ProductDTO dto2 = mapper.aProduct();
+				//그 상품코드에 맞는 옵션 추가
+				System.out.println("****");
+				
+				OptionDTO dto2 = new OptionDTO();
+				dto2.setProduct_code(mapper.aProduct());
+				dto2.setOption1(dto.getOptions().get(i).getOption1());
+				dto2.setOption2(dto.getOptions().get(i).getOption2());
+				dto2.setInventory(dto.getOptions().get(i).getInventory());
+				dto2.setAdd_price(dto.getOptions().get(i).getAdd_price());
+				mapper.addOptions(dto2);
+			}
 		}
-
 	}
 
 	@Override
@@ -186,6 +191,12 @@ public class SellerServiceImpl implements SellerService {
 	public List<OrderDTO> getDayProfit(String order_code) {
 		// TODO Auto-generated method stub
 		return mapper.getDayProfit(order_code);
+	}
+
+	@Override
+	public int getShipping_Cost(int seller_code) {
+		// TODO Auto-generated method stub
+		return mapper.getShipping_Cost(seller_code);
 	}
 
 	

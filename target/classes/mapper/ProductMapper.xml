@@ -22,6 +22,24 @@
    </select>
 	
 	<!-- jinwoo -->
+	<select id="getproductsellername" resultType="string" parameterType="string">
+	select distinct seller_name from seller s
+    join product_list p
+    on s.seller_Code = p.seller_code
+    join category c 
+    on c.category_code = p.category_code 
+    <where>
+	 	<if test="where == 'lv1'">
+	 		c.lv1 = #{category}
+	 	</if>
+	 	<if test="where == 'lv2'">
+	 		and c.lv2code = #{category}
+	 	</if>
+	 	<if test="where == 'lv3'">
+	 		and c.category_code = #{category}
+	 	</if>
+	 </where>	 
+	</select>
 	
 	<select id="getcategorylist" resultType="com.sunstar.dto.CategoryDTO">
 	select lv1, lv2, lv2code, lv3, category_code
@@ -78,7 +96,8 @@
 	 </where>	 
 	 
 	 group by p.product_code
-	 order by p.product_code desc;
+	 order by p.product_code desc
+	 limit #{page.startRow}, #{page.endRow};
 	</select>
 	
 	

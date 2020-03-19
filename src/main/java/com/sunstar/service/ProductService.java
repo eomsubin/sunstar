@@ -15,7 +15,9 @@ public interface ProductService {
 	// 力前 府胶飘
 	public List<ProductDTO> getproductList(HashMap<String, Object> map); //parkjinwoo
 	// 力前 荐 
-	public String gettotalcount(HashMap<String, Object> map); // parkjinwoo
+	public String gettotalcount(HashMap<String, Object> map); //parkjinwoo
+	// 力前 魄概磊
+	public List<String> getproductsellername(HashMap<String, Object> map);
 
 
 

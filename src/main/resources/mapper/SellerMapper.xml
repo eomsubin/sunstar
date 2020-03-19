@@ -81,13 +81,11 @@
 	<select id="orderlist" resultType="com.sunstar.dto.OrderDTO">
 	
 	   select o.order_code, l.product_code, l.option1, l.option2, l.quantity, l.add_price,  p.price, o.message, 
-			  o.order_way,  s.to_name, c.tel, s.shipping_addr1, s.shipping_addr2, s.shipping_addr3, s.shipping_zip, o.delivery_state, o.tracking_no
+			  o.order_way,  o.to_name, c.tel, o.shipping_addr1, o.shipping_addr2, o.shipping_addr3, o.shipping_zip, o.delivery_state, o.tracking_no
        from ordered o left join order_list l
        on o.order_code = l.order_code
        inner join customer c 
        on o.id = c.id
-       left join ship s
-       on c.id = s.id
        left join product_list p
        on l.product_code = p.product_code
 		order by order_code desc
@@ -142,7 +140,7 @@
 	<select id="sellerInfo" resultType="com.sunstar.dto.SellerDTO">
 		select *
 		from seller
-		where id= 'solyi'
+		where seller_code = 11111
 		<!-- 나중에 parameter type에  id도 추가 -->
 	
 	</select>
@@ -319,7 +317,12 @@
 			on l.product_code  = p.product_code
 			where o.order_code like CONCAT(#{order_code},'%');
 
-
+		</select>
+		
+		<select id="getShipping_Cost" parameterType="com.sunstar.dto.SellerDTO" resultType="com.sunstar.dto.SellerDTO">
+			select basic_shipping_cost
+			from seller
+			where seller_code = #{seller_code}
 		
 		</select>
 </mapper>
