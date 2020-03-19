@@ -219,12 +219,12 @@
                         </h3>
                         <ul class="main-category">
                            <c:forEach var="item" items="${catelist }">
-                           <li><a href="${pageContext.request.contextPath}/category/${item.lv1}">${item.lv1} <i class="fa fa-angle-right"
+                           <li><a href="${pageContext.request.contextPath}/list?category=${item.lv1}">${item.lv1} <i class="fa fa-angle-right"
                                  aria-hidden="true"></i></a>
                               <ul class="sub-category">
                                  <c:forEach var="item2" items="${catelist2 }">
                                  <c:if test="${item.lv1==item2.lv1 }">
-                                 <li><a href="${pageContext.request.contextPath}/category/${item.lv1}/${item2.lv2code}">${item2.lv2 }</a></li>
+                                 <li><a href="${pageContext.request.contextPath}/list?category=${item2.lv2code}">${item2.lv2 }</a></li>
                                  
                                  </c:if>
                               

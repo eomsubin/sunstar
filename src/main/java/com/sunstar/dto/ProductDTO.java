@@ -49,8 +49,11 @@ public class ProductDTO {
 	
 	private String lv1;
 	private String lv2;
+	private String lv2code;
 	private String lv3;
 	
+	//seller
+	private String seller_name;
 	private String shipping_company;
 	private int basic_shipping_cost;
 	

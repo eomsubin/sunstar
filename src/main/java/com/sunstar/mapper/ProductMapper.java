@@ -1,5 +1,6 @@
 package com.sunstar.mapper;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -14,17 +15,13 @@ public interface ProductMapper {
 
 	ProductDTO productview(int product_code);
 
-	List<ProductDTO> productListCategorylv1(String lv1); //parkjinwoo
-	
-	List<ProductDTO> productListCategorylv2(String lv2); //parkjinwoo
-
-	List<ProductDTO> productListCategorylv3(CategoryDTO cdto); //parkjinwoo
-	
-	List<CategoryDTO> productlv3bylv2(String lv2); //parkjinwoo
-
-	List<CategoryDTO> productlv2bylv1(String lv1); //parkjinwoo
-
 	List<OptionDTO> getOptions(int product_code);
 
-	List<CategoryDTO> productlv1(String lv1); //parkjinwoo
+	List<CategoryDTO> getcategorylist(); // 모든 카테고리 parkjinwoo
+
+	List<ProductDTO> getproductList(HashMap<String, Object> map); // 상품 리스트 parkjinwoo
+
+	String gettotalcount(HashMap<String, Object> map);// 자료 수 parkjinwoo
+
+	
 }
