@@ -39,7 +39,7 @@
 	
 	<!-- 상픔 리스트 (판매자) -->
 	<select id="list" resultType="com.sunstar.dto.ProductDTO">
-		select p.product_code, product_name, price, cost, shipping_cost, o.option1, o.option2, o.inventory, o.add_price, public_state, review_state, c.lv1, c.lv2, c.lv3, p.product_code, s.basic_shipping_cost
+		select p.product_code, product_name, price, cost, shipping_cost, o.option1, o.option2, o.inventory, o.add_price, thumb_img, detail_img1, detail_img2, detail_img3,explains, public_state, review_state, c.lv1, c.lv2, c.lv3, p.product_code, s.basic_shipping_cost
 		from product_list p  join category c
 		on p.category_code = c.category_code
 		left join options o
@@ -80,7 +80,7 @@
 	<!-- 주문목록 -->
 	<select id="orderlist" resultType="com.sunstar.dto.OrderDTO">
 	
-	   select o.order_code, l.product_code, l.option1, l.option2, l.inventory, l.add_price,  p.price, o.message, 
+	   select o.order_code, l.product_code, l.option1, l.option2, l.quantity, l.add_price,  p.price, o.message, 
 			  o.order_way,  s.to_name, c.tel, s.shipping_addr1, s.shipping_addr2, s.shipping_addr3, s.shipping_zip, o.delivery_state, o.tracking_no
        from ordered o left join order_list l
        on o.order_code = l.order_code
@@ -216,7 +216,8 @@
 		
 		
 		
-		select p.product_code, product_name, price, cost, shipping_cost, o.option1, o.option2, o.inventory, o.add_price, public_state, review_state, c.lv1, c.lv2, c.lv3, p.product_code, s.basic_shipping_cost
+		select p.product_code, product_name, price, cost, shipping_cost, o.option1, o.option2, o.inventory, o.add_price, thumb_img, detail_img1, detail_img2, detail_img3, explains,
+		 public_state, review_state, c.lv1, c.lv2, c.lv3, p.product_code, s.basic_shipping_cost
 		from product_list p  join category c
 		on p.category_code = c.category_code
 		left join options o
@@ -261,5 +262,64 @@
 		from product_list
 		order by product_code desc
 		limit 7,8
+		</select>
+		
+		
+		<select id="viewStepOrder" parameterType="string" resultType="com.sunstar.dto.OrderDTO">
+			select o.order_code, l.product_code, l.option1, l.option2, l.inventory, l.add_price,  p.price, o.message, 
+			o.order_way,  s.to_name, c.tel, s.shipping_addr1, s.shipping_addr2, s.shipping_addr3, s.shipping_zip, o.delivery_state, o.tracking_no
+			from ordered o left join order_list l
+			on o.order_code = l.order_code
+			inner join customer c 
+			on o.id = c.id
+			left join ship s
+			on c.id = s.id
+			left join product_list p
+			on l.product_code = p.product_code
+			where delivery_state = #{view_step}
+			order by order_code desc
+		</select>
+		
+		
+		<select id="viewProduct"  parameterType="int"  resultType="com.sunstar.dto.ProductDTO">
+		
+		select p.product_code, product_name, price, cost, shipping_cost, o.option1, o.option2, o.inventory, o.add_price, thumb_img, detail_img1, detail_img2, detail_img3, explains,
+		public_state, review_state, c.lv1, c.lv2, c.lv3, p.product_code, s.basic_shipping_cost
+		from product_list p  join category c
+		on p.category_code = c.category_code
+		left join options o
+		on p.product_code = o.product_code
+		left join seller s
+		on p.seller_code = s.seller_code
+		
+		where p.product_code = #{pcd}
+		
+		</select>
+		
+		<update id="updateProduct" parameterType="com.sunstar.dto.ProductDTO">
+			update product_list
+			
+	 	<set>
+	      <if test="product_name   != null   and 	product_name  != ''  	">	product_name=#{product_name},</if>
+	      <if test="price 	!= null   and 	price 	!= '' 	">	price=#{price},</if>
+	      <if test="cost != null   and 	cost != '' 	">	cost=#{cost},</if>
+	      <if test="shipping_cost != null   and 	shipping_cost != '' 	">	shipping_cost=#{shipping_cost},</if>
+	      <if test="true	">	public_state=#{public_state},</if>
+	      <if test="true">	review_state=#{review_state}</if>
+	    </set>	
+			 	where product_code = #{product_code}
+		</update>
+		
+		
+		<select id="getDayProfit" parameterType="string" resultType="com.sunstar.dto.OrderDTO">
+			select *
+			from ordered o left join order_list l
+			on o.order_code = l.order_code
+			left join product_list p 
+			on l.product_code  = p.product_code
+			where o.order_code like CONCAT(#{order_code},'%');
+
+
+		
 		</select>
 </mapper>

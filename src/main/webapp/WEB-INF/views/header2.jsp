@@ -96,7 +96,7 @@
                               href="${pageContext.request.contextPath}/RegistrationBuyer">회원가입</a></li>
                         </sec:authorize>
                         <sec:authorize access="isAuthenticated()">
-                           <li><i class="ti-user"></i> <a href="#">마이페이지</a></li>
+                           <li><i class="ti-user"></i> <a href="${pageContext.request.contextPath }/mypage/info">마이페이지</a></li>
                         </sec:authorize>
 
                         <sec:authorize access="isAnonymous()">

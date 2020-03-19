@@ -25,10 +25,11 @@ $(document).ready(function(){
 		var option = $("#selectoption option:selected").val();
 		var option1 = $("#selectoption option:selected").data("seloption1");
 		var option2 = $("#selectoption option:selected").data("seloption2");
-		var addprice = $("#selectoption option:selected").data("seladdprice");
+		var add_price = $("#selectoption option:selected").data("seladd_price");
 		var inventory = $("#selectoption option:selected").data("optioninventory");
 		
-		$(".cresult").append("<p>"+option1+"&#32;&#47;&#32;"+option2+"&#32;&#40;&#43;"+addprice+"원&#41;"+"<br>"
+		$(".cresult").append("<p class='test' data-option1="+option1+" data-option2="+option2+" data-add_price="+add_price+">"
+							+option1+"&#32;&#47;&#32;"+option2+"&#32;&#40;&#43;"+add_price+"원&#41;"+"<br>"
 							+"<button class='minus'>&#45;</button>"
 							+"<input type='number' class='numBox'  min='1' max="+inventory+" value='1'>"
 							+"<button class='plus'>&#43;</button>"
@@ -64,48 +65,54 @@ $(document).ready(function(){
 	
 	
 	$(document).on("click","#optiondel",function(){
-		console.log($(this)); //button#optiondel
+		 //button#optiondel
 		$(this).parent().next().remove();
 		$(this).parent().remove();
 	});
 	//end
 	
-	$(".cart_btn").click(function(){
-		
-		var product_code = ${view.product_code}; 
-		//var cart_quantity = $(".numBox").val();
-		console.log(product_code);
-		
+	$(document).on("click",".cart_btn",function(){
 		let id = $('.id').val();
-		console.log(id);
+		var product_code = ${view.product_code};
+		
 		if(id==null){
 			alert("로그인 하십시오.");
 		}
+		var cart_quantity = $('.numBox').val(); 
+		var ajax_last_num = 0;
+		var current_ajax_num = ajax_last_num;
+		$.each($(".test"),function(index,value){
+			var data = {
+					"id" : id
+					,"product_code" : product_code
+					,"cart_quantity" : cart_quantity
+					,"option1" : $(this).data("option1")
+					,"option2" :  $(this).data("option2")
+					,"add_price" : $(this).data("add_price")
+					,"cart_quantity" : $(this).find(".numBox").val()
+			};
+
+		 	$.ajax({
+				url : "detailview/addCart"
+				, data : data
+				, dataType : "json"
+				, async: false
+				, beforeSend:function(data){ 
+					ajax_last_num = ajax_last_num + 1; 
+				}
+				, success : function(data){
+						if(current_ajax_num == ajax_last_num - 1)
+					 		alert("장바구니에 상품을 담았습니다.");
+					 	}
+				, error : function(e){
+					alert("장바구니에 담을 수 없습니다.")
+					console.log(e);
+				}
+			})//end ajax
+		}); //end each
 		
-		var data = {
-				"id" : id
-				,"product_code" : product_code
-	//				,"cart_quantity" : cart_quantity
-		};
-			
-	 	$.ajax({
-			url : "detailview/addCart"
-			, data : data
-			, dataType : "json"
-			, success : function(data){
-					console.log(data);
-				 	if(data>0){
-				 		alert("장바구니에 상품을 담았습니다.");
-				 	}else{
-				 		alert("장바구니에 상품을 담기 실패.");
-				 	}
-			}
-			, error : function(e){
-				alert("장바구니에 담을 수 없습니다.")
-				console.log(e);
-			}
-		})
-		//end ajax
+		
+		
 		});
 		//end cart_btn
 });
@@ -264,7 +271,7 @@ $(document).ready(function(){
 								<option value="" disabled selected hidden>선택하세요</option>
 								<c:forEach items="${view.options}" var="option" varStatus="status">
 									<!--선택n)옵션1/옵션2-재고:n개 (+#,###원) -->
-									<option data-optioninventory="${option.inventory}" data-seloption1="${option.option1}" data-seloption2="${option.option2}" data-seladdprice="${option.add_price}" value="${option}">
+									<option data-optioninventory="${option.inventory}" data-seloption1="${option.option1}" data-seloption2="${option.option2}" data-seladd_price="${option.add_price}" value="${option}">
 									
 									<%-- <c:if test="${not empty option.option1 and not empty option.option2 and not empty option.add_price}">선택${status.index+1}&#41;&#32; ${option.option1} &#47; ${option.option2} &#45;&#32; 
 									재고 &#32;${option.inventory}개 &#40;&#43;<fmt:formatNumber pattern="###,###,###" value="${option.add_price}"/>원&#41;</c:if> --%>
@@ -277,29 +284,9 @@ $(document).ready(function(){
 							
 							
 							<!-- 옵션 선택 완료 -->
-							<div class="cresult">
-							
-							</div>
+							<div class="cresult"></div>
 
-<%-- 							<!-- 옵션 선택 완료 -->
-							<div class="chooselist">
-								<ul class="add_items">
-									<li class="add_item">
-										<p class="area_item">
-											<span class="item_options">${view.option1} <br> ${view.option2} <br>
-												추가금
-											</span>
-										</p> <!--수량 조절-->
-										<p class="Stock_ctrl">
-											<span> 구입수량 </span>
-											<button type="button" class="minus">-</button>
-											<input type="number" class="numBox" min="1"
-												max="${view.inventory}" value="1" />
-											<button type="button" class="plus">+</button>
-										</p>
-									</li>
-								</ul>
-							</div> --%>
+							<div class="ctotal"></div>
 
 							<!--구매,장바구니 버튼-->
 							<div class="ordercart_btn my-3">
