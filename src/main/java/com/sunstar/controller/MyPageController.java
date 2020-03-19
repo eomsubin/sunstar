@@ -37,6 +37,7 @@ public class MyPageController {
 		    
 			CustomerDTO info = mpservice.getUserInfo(id);
 			info.setTel(info.getTel().replaceAll("-", ""));
+	
 			model.addAttribute("info",info);
 			model.addAttribute("contentpage","Mypage/mypage.jsp");
 			
@@ -79,5 +80,31 @@ public class MyPageController {
 		
 		
 		return "redirect:/mypage/info";
+	}
+	
+	@RequestMapping("/info/pwupdate")
+	public String pwUpdate(Model model,Principal principal) {
+		
+		mainservice.header(model);
+		if(principal!=null) {
+			
+			CustomerUserDetail userdetail = (CustomerUserDetail)((Authentication)principal).getPrincipal();
+			
+			String id = userdetail.getUsername();
+		    
+			CustomerDTO info = mpservice.getUserInfo(id);
+			info.setTel(info.getTel().replaceAll("-", ""));
+	
+			model.addAttribute("info",info);
+			model.addAttribute("contentpage","Mypage/pwupdate.jsp");
+			
+		}else {
+			return "redirect:/";
+		}
+			
+		
+		
+		
+		return "home";
 	}
 }

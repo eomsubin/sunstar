@@ -67,6 +67,13 @@ function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2, zipNo
 	console.log($('#zip').val(zipNo));
 };
 
+function pwUpdate(){
+	
+	location.href="${pageContext.request.contextPath}/info/pwupdate"
+	
+}
+
+
 </script>
 </head>
 <body>
@@ -121,8 +128,8 @@ function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2, zipNo
 						</div>
 						<div class="form-group">
 							<label>비밀번호</label>
-							<button type="button"
-								class="btn btn-outline-secondary form-control">비밀번호 변경</button>
+							<button type="button" 
+								class="btn btn-outline-secondary form-control" onclick="pwUpdate()" name="password">비밀번호 변경</button>
 						</div>
 					</div>
 					<h3 class="info-tel">연락처</h3>
