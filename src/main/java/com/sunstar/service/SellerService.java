@@ -2,6 +2,7 @@ package com.sunstar.service;
 
 import java.util.List;
 
+import com.sunstar.dto.CartDTO;
 import com.sunstar.dto.CategoryDTO;
 import com.sunstar.dto.MakePage;
 import com.sunstar.dto.OptionDTO;
@@ -50,6 +51,14 @@ public interface SellerService {
 	void update_seller_info(SellerDTO dto);
 
 	List<ProductDTO> product_list_user();
+
+	List<OrderDTO> viewStepOrder(String view_step);
+
+	ProductDTO viewProduct(int pcd);
+
+	void updateProduct(ProductDTO dto);
+
+	List<OrderDTO> getDayProfit(String order_code);
 
 
 

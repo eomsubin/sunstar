@@ -11,7 +11,7 @@
 	</select> -->
 	
 	<select id="viewOrdered" resultType="com.sunstar.dto.CartDTO" parameterType="com.sunstar.dto.CartDTO">
-		select p.price,c.cart_no, c.id, c.product_code,p.product_name,c.cart_quantity,p.shipping_cost,p.seller_code,o.option1,o.option2,o.add_price,t.name,t.tel,t.email,t.address1,t.address2,t.address3,t.zip
+		select p.price,c.cart_no, c.id, c.product_code,p.product_name,p.thumb_img,c.cart_quantity,p.shipping_cost,p.seller_code,o.option1,o.option2,o.add_price,t.name,t.tel,t.email,t.address1,t.address2,t.address3,t.zip
     	from cart c left join product_list p
     	on c.product_code = p.product_code
     	left join options o
@@ -26,6 +26,7 @@
 		
 	</select>
 	
+	
 	<insert id="addOrder" parameterType="com.sunstar.dto.OrderDTO">
 	insert into ordered(order_code,order_way,delivery_state,id,message) values(#{order_code},#{order_way},#{delivery_state},#{id},#{message})
 	
@@ -36,6 +37,18 @@
 			insert into order_list(order_code,product_code,quantity,option1,option2,add_price)
 			values(#{order_code},#{product_code},#{quantity},#{option1},#{option2},#{add_price})
 	</insert>
-
+	<insert id="addShip" parameterType="com.sunstar.dto.OrderDTO">
+			insert into ship(id,shipping_addr1,shipping_addr2,shipping_addr3,shipping_zip,order_code,to_name,shipping_name)
+			values(#{id},#{shipping_addr1},#{shipping_addr2},#{shipping_addr3},#{shipping_zip},#{order_code},#{to_name},#{shipping_name})
+	</insert>
+	
+	<select id="buylist" resultType="com.sunstar.dto.OrderDTO" parameterType="string">
+		select o.order_code,product_name,thumb_img,price,quantity,delivery_state
+		from order_list l left join ordered o
+		on l.order_code = o.order_code
+		left join product_list p
+		on l.product_code = p.product_code
+		where id=#{id}
+	</select>
 
 </mapper>

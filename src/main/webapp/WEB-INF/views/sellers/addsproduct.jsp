@@ -346,7 +346,7 @@ console.log('end');
 						<div class="col-sm-10">
 							<div class="form-check">
 								<input class="form-check-input" type="checkbox"
-									id="public_state" name="public_state" value="1" checked="">
+									id="public_state" name="public_state" checked="">
 								<label class="form-check-label" for="gridCheck1"> 상품을 공개
 									할 경우 체크 </label>
 
@@ -354,7 +354,7 @@ console.log('end');
 							</div>
 							<div class="form-check">
 								<input class="form-check-input" type="checkbox"
-									id="review_state" name="review_state" value="1" checked="">
+									id="review_state" name="review_state" checked="">
 								<label class="form-check-label" for="gridCheck1"> 상품에 대한
 									리뷰를 공개 할 경우 체크 </label>
 							</div>

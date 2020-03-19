@@ -19,86 +19,121 @@
 }
 </style>
 <script>
-$(document).ready(function() {
-	$('#all').on('click', function() {
-		if ($('#all').prop('checked')) {
-			$('input[type=checkbox]').prop('checked', true);
-		} else {
-			$('input[type=checkbox]').prop(
-					'checked', false);
-		}
-	});
+	$(document)
+			.ready(
+					function() {
+						$('#all').on(
+								'click',
+								function() {
+									if ($('#all').prop('checked')) {
+										$('input[type=checkbox]').prop(
+												'checked', true);
+									} else {
+										$('input[type=checkbox]').prop(
+												'checked', false);
+									}
+								});
 
-	$('#btnupdateinventorymodal').on('click', function() {
-		$('#updateinventorymodal').modal();
-	})
+						$('#btnupdateinventorymodal').on('click', function() {
+							$('#updateinventorymodal').modal();
+						})
 
-	$('#btndeletemodal').on('click', function() {
-		$('#deletemodal').modal();
-	})
-	$('#btndelete').on('click',	function() {
-		$("input[name=pcode]:checked").each(function() {
-			var pcode = $(this).val();
-			console.log(pcode);
-			location.href = "${pageContext.request.contextPath}/deleteproduct/"+ pcode;
-		});
-	});
-	
-	
+						$('#btndeletemodal').on('click', function() {
+							$('#deletemodal').modal();
+						})
+						$('#btndelete')
+								.on(
+										'click',
+										function() {
+											$("input[name=pcode]:checked")
+													.each(
+															function() {
+																var pcode = $(
+																		this)
+																		.val();
+																console
+																		.log(pcode);
+																location.href = "${pageContext.request.contextPath}/deleteproduct/"
+																		+ pcode;
+															});
+										});
 
-	//운송장입력 버튼을 누르면, 체크한 상품들의 운송장 번호를 
-	$('.trackingbtn').on('click',function(){
-		let items = new Array();
-		$('.trackingbtn').hide();
-		$('.newtrackingbtn').show();
-		
-		$('input:checkbox[name="ordercode"]:checked').each(function(item){
-			let checked_items = $(this).val();
-			
-			let trc = 	$(this).parent().parent().find('td').eq(13)	;
+						//운송장입력 버튼을 누르면, 체크한 상품들의 운송장 번호를 
+						$('.trackingbtn')
+								.on(
+										'click',
+										function() {
+											let items = new Array();
+											$('.trackingbtn').hide();
+											$('.newtrackingbtn').show();
 
-			console.log($(this).parent().parent().find('td').eq(13).text());
+											$(
+													'input:checkbox[name="ordercode"]:checked')
+													.each(
+															function(item) {
+																let checked_items = $(
+																		this)
+																		.val();
 
-			
-			trc.empty();
-			trc.append('<input type="text" name="tracking_no">');  
-			items.push(checked_items);
-		});
-		
-	})
-	
-	
-	
-	
-	/*  */
-	    genRowspan("td .ocode");
-		function genRowspan(className){
-			$('.ocode').each(function(){
-				var rows = $(".ocode:contains('"+$(this).text()+"')"); 
-				
-				if(rows.length > 1){ 
-					rows.eq(0).attr("rowspan", rows.length);//중복되는 첫번째 td에 rowspan값 세팅 
-					rows.not(":eq(0)").remove();//중복되는 td를 삭제 
-				} 
-			}); 
-			
-	
-		}
-		
+																let trc = $(
+																		this)
+																		.parent()
+																		.parent()
+																		.find(
+																				'td')
+																		.eq(13);
 
-	/*  */
-})
-					
+																console
+																		.log($(
+																				this)
+																				.parent()
+																				.parent()
+																				.find(
+																						'td')
+																				.eq(
+																						13)
+																				.text());
+
+																trc.empty();
+																trc
+																		.append('<input type="text" name="tracking_no">');
+																items
+																		.push(checked_items);
+															});
+
+										})
+
+						/*  */
+						genRowspan("td .ocode");
+						function genRowspan(className) {
+							$('.ocode').each(
+									function() {
+										var rows = $(".ocode:contains('"
+												+ $(this).text() + "')");
+
+										if (rows.length > 1) {
+											rows.eq(0).attr("rowspan",
+													rows.length);//중복되는 첫번째 td에 rowspan값 세팅 
+											rows.not(":eq(0)").remove();//중복되는 td를 삭제 
+										}
+									});
+
+						}
+
+						/*  */
+					})
 </script>
 <script>
 	function allprint() {
 		let state = 'all';
-		location.href = "${pageContext.request.contextPath}/orderexcel/"+ state;
+		location.href = "${pageContext.request.contextPath}/orderexcel/"
+				+ state;
 	}
 
 	function shippingprint() {
 		let state = 'shipping_list';
-		location.href = "${pageContext.request.contextPath}/orderexcel/"+ state;
+		location.href = "${pageContext.request.contextPath}/orderexcel/"
+				+ state;
 	}
 
 	function checkprint() {
@@ -121,10 +156,11 @@ $(document).ready(function() {
 		console.log(state);
 		console.log("+state++");
 
-		location.href = "${pageContext.request.contextPath}/orderexcel/"+ state;
+		location.href = "${pageContext.request.contextPath}/orderexcel/"
+				+ state;
 	}
-	
-	function changeStep(step){
+
+	function changeStep(step) {
 		let stp = step;
 		let ckbox = document.getElementsByName("ordercode");
 		let ckboxlengh = ckbox.length;
@@ -145,51 +181,54 @@ $(document).ready(function() {
 		console.log(wantChangeOrderCode);
 		console.log("++step++");
 		console.log(stp);
-		location.href = "${pageContext.request.contextPath}/change_step/"+ stp +"/"+ wantChangeOrderCode;
+		location.href = "${pageContext.request.contextPath}/change_step/" + stp
+				+ "/" + wantChangeOrderCode;
+	}
+
+	function viewStep(step){
+		let stp = step;
+		
+		location.href = "${pageContext.request.contextPath}/view_step/" + stp
 	}
 	
-	
-	function arrr(){
+	function arrr() {
 
 		let ckbox = document.getElementsByName("ordercode");
 		let tracking = document.getElementsByName("tracking_no");
 		let ckboxlengh = ckbox.length;
 		let checked = 0;
-		
+
 		console.log(tracking.length);
 		console.log("length", ckboxlengh);
-				
+
 		let codes = new Array();
 		let trackings = new Array();
-		
-		
+
 		let i = 0;
 		let j = 1;
 		let ocode = '';
 		let tnum = '';
-		let count = 0 ;
-		
-		
-		while( i < ckboxlengh  ){
-			
-			
-			if(ckbox[i].checked == true){
+		let count = 0;
+
+		while (i < ckboxlengh) {
+
+			if (ckbox[i].checked == true) {
 				ocode = ckbox[i].value;
 				codes.push(ocode);
 				count++; //체크박스가 true 인 갯수
-				
-				tnum = tracking[count-1].value;
+
+				tnum = tracking[count - 1].value;
 				trackings.push(tnum);
 			}
 			i++;
 		}
-		
+
 		console.log("codes", codes);
 		console.log("trackings", trackings);
-		
 
-		location.href = "${pageContext.request.contextPath}/updateTracking/"+ codes + "/" + trackings;
-		
+		location.href = "${pageContext.request.contextPath}/updateTracking/"
+				+ codes + "/" + trackings;
+
 	}
 </script>
 
@@ -232,8 +271,38 @@ body {
 						<button type="button" class="btn btn-danger">임시</button>
 						<!-- id="btndelete" -->
 
-
+				
+										<div class="btn-group">
+				
 						<!-- Example single danger button -->
+						<button type="button" class="btn btn-primary dropdown-toggle"
+							data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">단계별 리스트</button>
+						<div class="dropdown-menu">
+						<a href="${pageContext.request.contextPath}/orders" class="dropdown-item" >전체보기</a>
+						
+							<div class="dropdown-divider"></div>
+						
+							<a class="dropdown-item" onclick="viewStep('step3')">배송준비</a> <a
+								class="dropdown-item" onclick="viewStep('step4')">배송중</a> <a
+								class="dropdown-item" onclick="viewStep('step5')">배송완료</a>
+							<div class="dropdown-divider"></div>
+							<a class="dropdown-item" onclick="viewStep('step7')">반품대기</a> <a
+								class="dropdown-item" onclick="viewStep('step8')">반품완료</a>
+							<div class="dropdown-divider"></div>
+							<a class="dropdown-item" onclick="viewStep('step9')">교환요청</a> <a
+								class="dropdown-item" onclick="viewStep('step10')">반송대기</a> <a
+								class="dropdown-item" onclick="viewStep('step11')">반송완료 및
+								배송준비</a> <a class="dropdown-item" onclick="viewStep('step12')">배송중</a>
+							<a class="dropdown-item" onclick="viewStep('step13')">배송 및
+								교환완료</a>
+							<div class="dropdown-divider"></div>
+							<a class="dropdown-item" onclick="viewStep('step15')">결체취소(판매자사유)</a>
+						</div>
+				
+</div>
+						<!-- Example single danger button -->
+								<div class="btn-group">
+		
 						<button type="button" class="btn btn-primary dropdown-toggle"
 							data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">선택
 							단계 변경</button>
@@ -254,7 +323,7 @@ body {
 							<div class="dropdown-divider"></div>
 							<a class="dropdown-item" onclick="changeStep('step15')">결체취소(판매자사유)</a>
 						</div>
-
+</div>
 						<input type="button" class="btnabs trackingbtn btn btn-primary"
 							value="선택주문 운송장번호 입력"> <input type="button"
 							class="btnabs newtrackingbtn btn btn-primary" value="변경 확정"
@@ -379,11 +448,11 @@ body {
 										<td
 											style="border-left: 2px solid silver; border-right: 2px solid silver;">${i.option1 }/
 											${i.option2 } / ${i.add_price }</td>
-										<td>${i.inventory}</td>
+										<td>${i.quantity}</td>
 										<td>${i.price }</td>
 										<td>${i.message }</td>
 										<td>${i.order_way}</td>
-										<td>${i.name}</td>
+										<td>${i.to_name}</td>
 										<td>${i.tel}</td>
 										<td>${i.shipping_addr1}${i.shipping_addr2}
 											${i.shipping_addr3}</td>

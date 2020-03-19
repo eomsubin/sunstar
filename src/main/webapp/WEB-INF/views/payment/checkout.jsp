@@ -167,7 +167,7 @@
 									<div class="col-lg-4 col-md-4 col-2">
 										<div class="form-group">
 											<label>주소<span>*</span></label> <input type="text"
-												name="addr1" id="addr1" placeholder="" required="required"
+												name="shipping_zip" id="shipping_zip" placeholder="" required="required"
 												readonly="readonly" value="${userinfo.zip }" >
 										</div>
 									</div>
@@ -177,15 +177,17 @@
 							<div class="row">
 								<div class="col-lg-6 col-md-6 col-12">
 									<div class="form-group">
-										<input type="text" name="addr2" id="addr2" placeholder=""
+										<input type="text" name="shipping_addr1" id="shipping_addr1" placeholder=""
 											required="required" readonly="readonly" value="${userinfo.address1} ${userinfo.address2}">
+							
+											<input type="hidden" name="shipping_addr2" id="shipping_addr2" value="${userinfo.address2 }">
 									</div>
 								</div>
 							</div>
 							<div class="row">
 								<div class="col-lg-6 col-md-6 col-12">
 									<div class="form-group">
-										<input type="text" name="addr3" id="addr3" placeholder=""
+										<input type="text" name="shipping_addr3" id="shipping_addr3" placeholder=""
 											required="required" readonly="readonly" value="${userinfo.address3}">
 
 									</div>
@@ -221,6 +223,9 @@
 								<c:forEach var="odto" items="${odto }">
 									<ul class="bb">
 										<li style="display: none">상품코드<span  class="prod">${odto.product_code }</span></li>
+										
+										<li style="width:200px;  position: relative; left:85px; bottom:15px; "><img src="${pageContext.request.contextPath }/${odto.thumb_img }"></li>
+										
 										<li>상품명<span>${odto.product_name }</span><li>
 										<li>상품 금액<span>${odto.price+odto.add_price} 원</span></li>
 										<li>(+) 배송비<span>${odto.shipping_cost } 원</span></li>
@@ -350,6 +355,9 @@
 				if(date<10){
 					date='0'+date;
 				}
+				if(minutes<10){
+					minutes='0'+minutes;
+				}
 				
 				var generateRandom = function(min,max){
 					var ranNum = Math.floor(Math.random()*(max-min+1))+ min;
@@ -397,8 +405,8 @@
 					buyer_email : email.value,
 					buyer_name : name1.value,
 					buyer_tel : tel.value,
-					buyer_addr : addr2.value + addr3.value,
-					buyer_postcode : addr1.value
+					buyer_addr : shipping_addr1.value+shipping_addr3.value,
+					buyer_postcode : shipping_zip.value
 				}, function(rsp) { // callback
 					
 				
@@ -416,7 +424,13 @@
 									"quantities": quantities,
 									"options1": options1,
 									"options2": options2,
-									"add_prices": add_prices
+									"add_prices": add_prices,
+									"shipping_zip": "${userinfo.zip}",
+									"to_name": to_name.value,
+									"shipping_addr1": "${userinfo.address1}",
+									"shipping_addr2": "${userinfo.address2}",
+									"shipping_addr3": "${userinfo.address3}",
+									"shipping_name": "나의 배송지"
 									};
 						console.log(allData);
 						

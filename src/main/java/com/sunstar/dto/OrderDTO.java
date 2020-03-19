@@ -44,6 +44,7 @@ public class OrderDTO {
 	private List<String> options2;
 	private List<Integer> add_prices;
 	
-	
+	private int shipping_cost;
+	private String thumb_img;
 	
 }

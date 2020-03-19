@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.sunstar.dto.CartDTO;
 import com.sunstar.dto.CategoryDTO;
 import com.sunstar.dto.MakePage;
 import com.sunstar.dto.OptionDTO;
@@ -163,6 +164,28 @@ public class SellerServiceImpl implements SellerService {
 	@Override
 	public List<ProductDTO> product_list_user() {
 		return mapper.product_list_user();
+	}
+
+	@Override
+	public List<OrderDTO> viewStepOrder(String view_step) {
+		return mapper.viewStepOrder(view_step);
+	}
+
+	@Override
+	public ProductDTO viewProduct(int pcd) {
+		// TODO Auto-generated method stub
+		return mapper.viewProduct(pcd);
+	}
+
+	@Override
+	public void updateProduct(ProductDTO dto) {
+		mapper.updateProduct(dto);
+	}
+
+	@Override
+	public List<OrderDTO> getDayProfit(String order_code) {
+		// TODO Auto-generated method stub
+		return mapper.getDayProfit(order_code);
 	}
 
 	
