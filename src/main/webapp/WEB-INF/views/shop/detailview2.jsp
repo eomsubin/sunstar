@@ -68,13 +68,20 @@ width: 36px;
  }
 
 .selprice {
-color:red;
-  
-    line-height: 25px;
+    
     color: #222;
     font-size: 18px !important;
-    font-weight: bold;; 
+    font-weight: bold;
 }
+
+.units{
+  color: #757575;
+    font-size: 18px !important;
+    font-weight: bold;
+    display: block;
+    
+}
+
 
 .bottomtest{
  display: block;
@@ -97,16 +104,28 @@ margin-bottom: 4px;
 margin-left: 6px
 }
 
+.ctotal{
+font-size: 21px;
+font-weight: bolder;
+text-align-last: end;
+color:#222 
+}
+
+.total{
+color:#222;
+font-stretch: wider;
+margin-left: 10px;
+
+}
+
 </style>
 
 
 <script>
 
 $(document).ready(function(){
-	
-	
+	$(".ctotal").append("총 구매금액<p class='total'>");
 
-	
 	//옵션 선택
 	$("select").change(function(){
 		var option = $("#selectoption option:selected").val();
@@ -115,43 +134,57 @@ $(document).ready(function(){
 		var add_price = $("#selectoption option:selected").data("seladd_price");
 		var inventory = $("#selectoption option:selected").data("optioninventory");
 		var price = ${view.price}
-		var num=$(this).next().next('p').find('.numBox');
 		var selprice=${view.price}+$("#selectoption option:selected").data("seladd_price");
 		var totalprice=0;
 		
 		$(".cresult").append("<div class='test'>"
-							+"<p class='toptest' data-option1="+option1+" data-option2="+option2+" data-add_price="+add_price+">"
+							+"<p class='toptest' data-option1="+option1+" data-option2="+option2+" data-add_price="+add_price+" data-price="+price+">"
 							+option1+"&#32;&#47;&#32;"+option2+"&#32;&#40;&#43;"+add_price+"원&#41;"+"<br></p>"
 							+"<p><button class='minus'>&#45;</button>"
 							+"<input type='text' class='numBox'  min='1' max="+inventory+" value='1'>"
 							+"<button class='plus'>&#43;</button>"
 							+"<span class='bottomtest'>"
-							+"<span class='selprice'>"+(price+add_price)+"원"+"</span>"
+							+"<span class='selprice'>"+(price+add_price)+"원</span>"
+//							+"<div class='units'></div>"
 							+"<button id='optiondel'><img src='${pageContext.request.contextPath}/resources/icons/close4.png'/></button>"
 							+"</span></p></div>"
 							);
 		
-		
-		
-		var total = Number($(".ctotal").find('p').text())+(price+add_price);
-		$(".ctotal").find('p').text(total);
-		
-			
-		
+		getTotalprice();
+		//var total = Number($(".ctotal").find('p').text())+(price+add_price);
+		//$(".ctotal").find('p').text(total);
 	});
-	$(".ctotal").append("총 구매금액<p class='total'>");
 	
-	
+	function getTotalprice(){
+		var sum= 0;
+		var selprice = $(".selprice");
+		
+		$.each(selprice,function(index, item){
+			console.log($(".selprice:eq("+index+")").text().slice(0,$(".selprice").text().length-1));
+			sum +=Number($(".selprice:eq("+index+")").text().slice(0,$(".selprice:eq("+index+")").text().length-1));
+			
+		});
+		$(".ctotal").find('p').text(sum+"원");
+	}
 	//제품 수량 조정(-)
 	$(document).on("click",".minus",function(){
 		var num = $(this).next().val();
 		var minusNum = (num)-1;
+		var chageprice=$('.selprice').text();
+		
 		
 		if( minusNum < 1){
 			$(this).next().val(num);
 		}else{
 			$(this).next().val(minusNum);
+			var changeprice = (Number($(this).parent().prev().data("add_price"))+Number($(this).parent().prev().data("price")))*Number(minusNum);
+			$(this).next().next().next().find('.selprice').text(changeprice+"원");
+			getTotalprice();
 		}
+	});
+	
+	$(document).on("change",".numBox",function(){
+		alert($(this).val());
 	});
 	
 	//제품 수량 조정(+)
@@ -164,14 +197,16 @@ $(document).ready(function(){
 	 		$(this).prev().val(inventory);
 		}else{
 			$(this).prev().val(plusNum);
+			var changeprice = (Number($(this).parent().prev().data("add_price"))+Number($(this).parent().prev().data("price")))*Number(plusNum);
+			$(this).next().find('.selprice').text(changeprice+"원");
+			getTotalprice();
 		}
 		}); 
 	
 	//제품 삭제
 	$(document).on("click","#optiondel",function(){
 		 //button#optiondel
-		$(this).parent().next().remove();
-		$(this).parent().remove();
+		$(this).parent().parent().parent().remove();
 	});
 	//end
 	
@@ -387,16 +422,20 @@ $(document).ready(function(){
 							
 							
 							<!-- 옵션 선택 완료 -->
-							<div class="cresult"></div>
+							<div class="cresult">
+							</div>
 
-							<div class="ctotal"></div>
+							<div class="ctotal my-3">
+							
+							</div>
+							
 
 							<!--구매,장바구니 버튼-->
-							<div class="ordercart_btn my-3">
+							<div class="ordercart_btn mb-3 ml-1">
 								<button class="cart_btn btn btn-outline-dark btn-lg"
-									type="button" style="width: 49%">장바구니</button>
+									type="button" style="width: 49%; height:60px; font-weight: bolder; font-size:25px; ">장바구니</button>
 								<button class="buy_btn btn btn-danger btn-lg" type="button"
-									style="width: 49%">구매하기</button>
+									style="width: 49%; height:60px; font-weight: bolder; font-size:25px">구매하기</button>
 							</div>
 						</fieldset>
 
