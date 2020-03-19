@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sunstar.mapper.MyPageMapper">
+	<update id="infoUpdate" parameterType="com.sunstar.dto.CustomerDTO">
+		update customer
+		set address1=#{address1},address2=#{address2},address3=#{address3},zip=#{zip}
+		where id=#{id}	
+	
+	</update>
+	
+	<select id="getUserInfo" resultType="com.sunstar.dto.CustomerDTO" parameterType="string">
+		select *
+		from customer
+		where id=#{id} 
+	
+	</select>
+	
+</mapper>

@@ -48,8 +48,40 @@
 		margin-bottom: 5px !important;
 	}
 </style>
+<script>
+//팝업 API
+//opener관련 오류가 발생하는 경우 아래 주석을 해지하고, 사용자의 도메인정보를 입력합니다. ("팝업API 호출 소스"도 동일하게 적용시켜야 합니다.)
+//document.domain = "abc.go.kr";
+function goPopup(){
+	// 호출된 페이지(jusopopup.jsp)에서 실제 주소검색URL(http://www.juso.go.kr/addrlink/addrLinkUrl.do)를 호출하게 됩니다.
+ var pop = window.open("${pageContext.request.contextPath}/addr","pop","width=570,height=420, scrollbars=yes, resizable=yes"); 
+ 
+	// 모바일 웹인 경우, 호출된 페이지(jusopopup.jsp)에서 실제 주소검색URL(http://www.juso.go.kr/addrlink/addrMobileLinkUrl.do)를 호출하게 됩니다.
+ //var pop = window.open("/popup/jusoPopup.jsp","pop","scrollbars=yes, resizable=yes"); 
+};
+/** API 서비스 제공항목 확대 (2017.02) **/
+function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2, zipNo){
+	// 팝업페이지에서 주소입력한 정보를 받아서, 현 페이지에 정보를 등록합니다.
+	console.log("roadAddrPart1", roadAddrPart1);
+	console.log("addrDetail", addrDetail);
+	console.log("roadAddrPart2", roadAddrPart2);
+	console.log("zipNo", zipNo);
+	console.log("roadFullAddr",roadFullAddr);
+	
+	
+	
+	console.log($('#roadAddrPart1').val(roadAddrPart1));
+	console.log($('#shipping_addr2').val(roadAddrPart2));
+	console.log($('#shipping_addr1').val(roadAddrPart1));
+	console.log($('#shipping_addr3').val(addrDetail));
+	
+	console.log($('#shipping_zip').val(zipNo));
+};
+
+</script>
 <script type="text/javascript"
 	src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+
 
 </head>
 <body>
@@ -97,8 +129,8 @@
 					<div class="col-lg-8 col-12">
 						<div class="checkout-form">
 							
-							<h2>주문자 정보 입력</h2>
-							<p>주문하시는 분의 정보를 입력해주세요</p>
+							<h2>주문자 정보</h2>
+							<p>주문하시는 분의 정보를 확인해주세요</p>
 							<div class="row">
 								
 									<div class="col-lg-6 col-md-6 col-12">
@@ -117,7 +149,7 @@
 										<div class="form-group">
 											<label>휴대전화<span>*</span></label> <input type="text"
 												class="form-control" name="tel" id="tel" placeholder=""
-												required value="${userinfo.tel }">
+												required value="${userinfo.tel }" readonly="readonly">
 											<div class="hiddentel is-invalid invalid-feedback">*휴대전화를
 												입력해주세요('-' 제외,숫자만 입력)</div>
 
@@ -127,7 +159,7 @@
 									<div class="col-lg-6 col-md-6 col-12">
 										<div class="form-group">
 											<label>이메일<span>*</span></label> <input type="email"
-												name="email" id="email" placeholder="" required="required" value="${userinfo.email }">
+												name="email" id="email" placeholder="" required="required" readonly="readonly" value="${userinfo.email }">
 											<div class="hiddenemail is-invalid invalid-feedback">*이메일
 												형식에 맞게 입력해주세요</div>
 										</div>
@@ -168,7 +200,8 @@
 										<div class="form-group">
 											<label>주소<span>*</span></label> <input type="text"
 												name="shipping_zip" id="shipping_zip" placeholder="" required="required"
-												readonly="readonly" value="${userinfo.zip }" >
+												 value="${userinfo.zip }" >
+												<button type="button"  onclick="goPopup();" style="position: relative; left:330px; bottom:44px;"class="btn btn-secondary btn-lg" >주소 찾기</button>
 										</div>
 									</div>
 								</div>
@@ -178,9 +211,20 @@
 								<div class="col-lg-6 col-md-6 col-12">
 									<div class="form-group">
 										<input type="text" name="shipping_addr1" id="shipping_addr1" placeholder=""
-											required="required" readonly="readonly" value="${userinfo.address1} ${userinfo.address2}">
+											required="required"  value="${userinfo.address1}">
 							
-											<input type="hidden" name="shipping_addr2" id="shipping_addr2" value="${userinfo.address2 }">
+											
+									</div>
+								</div>
+							</div>
+							
+							<div class="row">
+								<div class="col-lg-6 col-md-6 col-12">
+									<div class="form-group">
+										<input type="text" name="shipping_addr2" id="shipping_addr2" placeholder=""
+											required="required"  value="${userinfo.address2}">
+										
+
 									</div>
 								</div>
 							</div>
@@ -188,7 +232,8 @@
 								<div class="col-lg-6 col-md-6 col-12">
 									<div class="form-group">
 										<input type="text" name="shipping_addr3" id="shipping_addr3" placeholder=""
-											required="required" readonly="readonly" value="${userinfo.address3}">
+											required="required"  value="${userinfo.address3}">
+										
 
 									</div>
 								</div>
@@ -355,6 +400,9 @@
 				if(date<10){
 					date='0'+date;
 				}
+				if(hours<10){
+					hours='0'+hours;
+				}
 				if(minutes<10){
 					minutes='0'+minutes;
 				}
@@ -386,8 +434,8 @@
 				<c:forEach var="item" items="${odto}">
 					product_codes.push(${item.product_code});
 					quantities.push(${item.cart_quantity});
-					options1.push(${item.option1});
-					options2.push(${item.option2});
+					options1.push("${item.option1}");
+					options2.push("${item.option2}");
 					add_prices.push(${item.add_price});
 					
 				
@@ -427,9 +475,9 @@
 									"add_prices": add_prices,
 									"shipping_zip": "${userinfo.zip}",
 									"to_name": to_name.value,
-									"shipping_addr1": "${userinfo.address1}",
-									"shipping_addr2": "${userinfo.address2}",
-									"shipping_addr3": "${userinfo.address3}",
+									"shipping_addr1": shipping_addr1.value,
+									"shipping_addr2": shipping_addr2.value,
+									"shipping_addr3": shipping_addr3.value,
 									"shipping_name": "나의 배송지"
 									};
 						console.log(allData);
@@ -490,7 +538,7 @@
 						msg += '상점 거래ID : ' + rsp.merchant_uid;
 						msg += '결제 금액 : ' + rsp.paid_amount;
 						msg += '카드 승인번호 : ' + rsp.apply_num; 
-					//	location.href="${pageContext.request.contextPath}/cartList";
+						location.href="${pageContext.request.contextPath}/mypage/order";
 					} else {
 
 						// 결제 실패 시 로직,

@@ -73,11 +73,11 @@
 				<table class="table" style="position: relative;  width:850px; top:30px;">
 					<thead>
 						<tr>
-							<th scope="col">주문번호</th>
-							<th scope="col">상품정보</th>
-							<th scope="col">상품명</th>
-							<th scope="col">상품금액</th>
-							<th scope="col">수량</th>
+							<th scope="col" style="width:120px;">주문번호</th>
+							<th scope="col" style="width:150px; text-align: center;">상품정보</th>
+							<th scope="col" style="text-align: center; width:200px;">상품명</th>
+							<th scope="col">상품금액(수량)</th>
+							<th scope="col">배송비</th>
 							<th scope="col">주문상태</th>
 						</tr>
 					</thead>
@@ -85,12 +85,14 @@
 						
 						<c:forEach var="pay" items="${buylist }">
 						<tr>
-							<th scope="row" style="width:150px;">${pay.order_code }</th>
-							<td style="width:100px;"><img src="${pageContext.request.contextPath }/${pay.thumb_img }"></td>
-							<td>${pay.product_name }</td>
-							<td>${pay.price }</td>
-							<td>${pay.quantity }</td>
-							<td>${pay.delivery_state}</td>
+							<th scope="row" style="width:180px; vertical-align: middle;">${pay.order_code }</th>
+							
+							
+							<td><img src="${pageContext.request.contextPath }/${pay.thumb_img }"></td>
+							<td style="vertical-align: middle; text-align: center;">${pay.product_name }</td>
+							<td style="vertical-align: middle;">${(pay.price+pay.add_price)*pay.quantity}원  (${pay.quantity })</td>
+							<td style="vertical-align: middle;">${pay.shipping_cost}원</td>
+							<td style="vertical-align: middle;">${pay.delivery_state}</td>
 						</tr>
 						</c:forEach>
 						
