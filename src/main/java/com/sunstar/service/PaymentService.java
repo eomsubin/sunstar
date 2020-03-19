@@ -18,6 +18,9 @@ public interface PaymentService {
 
 	List<OrderDTO> buylist(String id);
 
+
+	CartDTO getUserInfo(String id);
+
 	
 	
 }

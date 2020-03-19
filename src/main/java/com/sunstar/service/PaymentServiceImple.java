@@ -52,7 +52,7 @@ public class PaymentServiceImple implements PaymentService {
 				pm.addOrderList(order);
 			}
 			
-			pm.addShip(odto);
+			
 		
 			return 0;
 		 
@@ -63,6 +63,12 @@ public class PaymentServiceImple implements PaymentService {
 		
 		
 		return pm.buylist(id);
+	}
+
+	@Override
+	public CartDTO getUserInfo(String id) {
+		
+		return pm.getUserInfo(id);
 	}
 	
 	

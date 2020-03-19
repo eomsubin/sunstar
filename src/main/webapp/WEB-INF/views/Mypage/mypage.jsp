@@ -40,7 +40,34 @@
 	href="${pageContext.request.contextPath}/resources/css/mypage.css">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/responsive.css">
+<script>
+//팝업 API
+// opener관련 오류가 발생하는 경우 아래 주석을 해지하고, 사용자의 도메인정보를 입력합니다. ("팝업API 호출 소스"도 동일하게 적용시켜야 합니다.)
+//document.domain = "abc.go.kr";
+function goPopup(){
+	// 호출된 페이지(jusopopup.jsp)에서 실제 주소검색URL(http://www.juso.go.kr/addrlink/addrLinkUrl.do)를 호출하게 됩니다.
+    var pop = window.open("${pageContext.request.contextPath}/addr","pop","width=570,height=420, scrollbars=yes, resizable=yes"); 
+    
+	// 모바일 웹인 경우, 호출된 페이지(jusopopup.jsp)에서 실제 주소검색URL(http://www.juso.go.kr/addrlink/addrMobileLinkUrl.do)를 호출하게 됩니다.
+    //var pop = window.open("/popup/jusoPopup.jsp","pop","scrollbars=yes, resizable=yes"); 
+};
+/** API 서비스 제공항목 확대 (2017.02) **/
+function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2, zipNo){
+	// 팝업페이지에서 주소입력한 정보를 받아서, 현 페이지에 정보를 등록합니다.
+	console.log("roadAddrPart1", roadAddrPart1);
+	console.log("addrDetail", addrDetail);
+	console.log("roadAddrPart2", roadAddrPart2);
+	console.log("zipNo", zipNo);
+	console.log("roadFullAddr",roadFullAddr);
+	console.log($('#roadAddrPart1').val(roadAddrPart1));
+	
+	console.log($('#address2').val(roadAddrPart2));
+	console.log($('#address1').val(roadAddrPart1));
+	console.log($('#address3').val(addrDetail));
+	console.log($('#zip').val(zipNo));
+};
 
+</script>
 </head>
 <body>
 	<form role="form" method="post">
@@ -78,17 +105,19 @@
 					</div>
 				</div>
 				<!-- sidebar -->
-				<form>
+				<form method="post" action="${pageContext.request.contextPath}/info/update">
+					<input type="hidden" name="${_csrf.parameterName}"
+					value="${_csrf.token}" />
 					<div class="info-form">
 						<div class="form-group">
 							<label for="exampleInputEmail1">이름</label> <input type="text"
-								class="form-control" id="exampleInputEmail1"
-								aria-describedby="emailHelp" value="${info.name }" readonly="readonly">
+								class="form-control" id="name1"
+								aria-describedby="emailHelp" value="${info.name }" name="name"readonly="readonly">
 
 						</div>
 						<div class="form-group">
 							<label for="exampleInputPassword1">아이디</label> <input type="text"
-								class="form-control" id="exampleInputPassword1" value="${info.id }" readonly="readonly">
+								class="form-control" id="id" name="id"value="${info.id }" readonly="readonly">
 						</div>
 						<div class="form-group">
 							<label>비밀번호</label>
@@ -102,13 +131,13 @@
 						<div class="form-group">
 							
 							<label>휴대폰번호</label> <input type="text" class="form-control"
-								id="tel" value="${info.tel }">
+								id="tel" value="${info.tel }" name="tel">
 							<button type="button" style="position: relative; left:330px; bottom:44px;"class="btn btn-secondary btn-lg" >변경</button>
 						</div>
 						<div class="form-group">
 							
 							<label>이메일</label> <input type="email" class="form-control"
-								id="email" value="${info.email }">
+								id="email" value="${info.email }" name="email">
 							<button type="button" style="position: relative; left:330px; bottom:44px;"class="btn btn-secondary btn-lg" >변경</button>
 						</div>
 						
@@ -120,20 +149,28 @@
 
 						<div class="form-group">
 							
-							 <input type="text" class="form-control"
+							 <input type="text" class="form-control" name="zip"
 								id="zip" value="${info.zip }" readonly="readonly">
-							<button type="button" style="position: relative; left:330px; bottom:44px;"class="btn btn-secondary btn-lg" >주소 찾기</button>
+							<button type="button"  onclick="goPopup();" style="position: relative; left:330px; bottom:44px;"class="btn btn-secondary btn-lg" >주소 찾기</button>
 						</div>
 						<div class="form-group">
-								 <input type="text" class="form-control"
-								id="address1" value="${info.address1 }  ${info.address2}" readonly="readonly">
+								 <input type="text" class="form-control" name="address1"
+								id="address1" value="${info.address1 }" readonly="readonly">
 						
 						</div>
-						 <input type="text" class="form-control"
-								id="address2" value="${info.address3 }" readonly="readonly">
+						<div class="form-group">
+						 <input type="text" class="form-control" name="address2"
+								id="address2" value="${info.address2}" readonly="readonly">
+						 
+						</div>
+						  <input type="text" class="form-control" name="address3"
+								id="address3" value="${info.address3}" readonly="readonly">
 						
-					
 					</div>	
+					<div class="info-form" style="margin-top: 60px; text-align: center;">
+						<input class="btn btn-primary" type="submit" value="확인" class="form-control" style="text-align: left;">
+						<input class="btn btn-primary" type="reset" value="취소" class="form-control">
+					</div>
 				</form>
 			</div>
 		</div>

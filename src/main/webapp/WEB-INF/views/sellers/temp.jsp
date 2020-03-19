@@ -69,6 +69,7 @@
                         <h6 class="collapse-header">**************</h6>
                         <a class="collapse-item" href="${pageContext.request.contextPath}/productlist">상품 목록</a>
                         <a class="collapse-item" href="${pageContext.request.contextPath}/addproduct">상품 추가</a>
+                        <a class="collapse-item" href="${pageContext.request.contextPath}/product_qna">상품 문의</a>
                     </div>
                 </div>
             </li>
@@ -83,7 +84,7 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">주문관리</h6>
                         <a class="collapse-item" href="${pageContext.request.contextPath}/orders">주문 관리</a>
-                        <a class="collapse-item" href="utilities-color.html">Colors</a>
+                        <a class="collapse-item" href="utilities-color.html">줌</a>
                         <a class="collapse-item" href="utilities-border.html">Borders</a>
                         <a class="collapse-item" href="utilities-animation.html">Animations</a>
                         <a class="collapse-item" href="utilities-other.html">Other</a>
@@ -174,12 +175,6 @@
                 <a class="nav-link" href="${pageContext.request.contextPath}/sellersetting">
                     <i class="fas fa-fw fa-wrench"></i>
                     <span>설정</span></a>
-            </li>
-			
-			<li class="nav-item">
-                <a class="nav-link" href="${pageContext.request.contextPath}/dataTableTest">
-                    <i class="fas fa-fw fa-wrench"></i>
-                    <span>데이터테이블 테스트용</span></a>
             </li>
 			
 

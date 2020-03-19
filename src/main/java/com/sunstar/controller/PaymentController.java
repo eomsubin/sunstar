@@ -22,10 +22,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sunstar.dto.CartDTO;
 import com.sunstar.dto.CategoryDTO;
+import com.sunstar.dto.CustomerDTO;
 import com.sunstar.dto.CustomerUserDetail;
 import com.sunstar.dto.OrderDTO;
 import com.sunstar.dto.OrderListDTO;
 import com.sunstar.service.MainService;
+import com.sunstar.service.MyPageService;
 import com.sunstar.service.PaymentService;
 
 @Controller
@@ -35,7 +37,8 @@ public class PaymentController {
 	@Autowired
 	private PaymentService paymentservice;
 	
-	
+	@Autowired
+	private MyPageService mpservice;
 	
 	
 	
@@ -51,32 +54,22 @@ public class PaymentController {
 			CustomerUserDetail userdetail = (CustomerUserDetail)((Authentication)principal).getPrincipal();
 			String id = userdetail.getUsername();
 			
-			String tel= userdetail.getTel();
-			String name= userdetail.getId();
-			String email= userdetail.getEmail();
-			String address1= userdetail.getAddress1();
-			String address2= userdetail.getAddress2();
-			String address3= userdetail.getAddress3();
-			String zip= userdetail.getZip();
+	
 			
-			tel= tel.replaceAll("-","");
-			
+			CustomerDTO info = mpservice.getUserInfo(id);
+			info.setTel(info.getTel().replaceAll("-", ""));
 			CartDTO userinfo= new CartDTO();
+			
 			userinfo.setId(id);
-			userinfo.setName(name);
-			userinfo.setTel(tel);
-			userinfo.setEmail(email);
-			userinfo.setAddress1(address1);
-			userinfo.setAddress2(address2);
-			userinfo.setAddress3(address3);
-			userinfo.setZip(zip);
+			System.out.println(id);
+			
 			int cart_no=0;
 			
 			List<CartDTO> list = new ArrayList<>();
 			for(String i: chBox) {
 				cart_no=Integer.parseInt(i);
 				
-				
+				System.out.println(cart_no);
 				userinfo.setCart_no(cart_no);
 				
 				CartDTO orderdto = paymentservice.viewOrdered(userinfo);
@@ -94,7 +87,7 @@ public class PaymentController {
 
 			//model.addAttribute("odto2",orderdto);
 		
-			model.addAttribute("userinfo",userinfo);
+			model.addAttribute("userinfo",info);
 			
 			model.addAttribute("contentpage", "payment/checkout.jsp");       
 		}else {
