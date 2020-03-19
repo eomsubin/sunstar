@@ -1,5 +1,6 @@
 package com.sunstar.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.sunstar.dao.ProductViewDAO;
@@ -8,18 +9,15 @@ import com.sunstar.dto.ProductDTO;
 
 public interface ProductService {
 	public ProductDTO productview(int product_code);
-
-	public List<ProductDTO> productListCategorylv2(String lv2); //parkjinwoo
-
-	public List<ProductDTO> productListCategorylv3(CategoryDTO cdto); //parkjinwoo
 	
-	public List<CategoryDTO> productlv3bylv2(String lv2);//parkjinwoo
+	// 葛电 墨抛绊府
+	public List<CategoryDTO> getcategorylist(); //parkjinwoo 
+	// 力前 府胶飘
+	public List<ProductDTO> getproductList(HashMap<String, Object> map); //parkjinwoo
+	// 力前 荐 
+	public String gettotalcount(HashMap<String, Object> map); // parkjinwoo
 
-	public List<CategoryDTO> productlv2bylv1(String lv1); //parkjinwoo
 
-	public List<CategoryDTO> productlv1(String lv1); //parkjinwoo
-
-	public List<ProductDTO> productListCategorylv1(String lv1); //parkjinwoo
 
 	
 

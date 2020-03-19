@@ -12,7 +12,6 @@ public class CategoryDTO {
 	private String lv2;
 	private String lv3;
 	private String lv123;
-	
 	private String lv2code;
 	
 }
