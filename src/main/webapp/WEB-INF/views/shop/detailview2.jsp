@@ -12,33 +12,137 @@
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
 ul li{
 display: inline-block
 }
+
+.test{
+padding: 12px 15px 15px;
+margin-bottom : 12px;
+background: #fafafa;
+border:1px solid #f2f2f2;
+border-bottom: 1px solid #cccccc;
+color : rgb(102, 102, 102);
+
+}
+.toptest{
+border-bottom: 1px dotted #e2e2e3;
+margin-bottom: 11px;
+line-height:20px;
+padding: 0px 0px 12px;
+font-size : 15px !important;
+color : #233549 !important;
+}
+
+.numBox{
+width: 36px;
+    height: 28px;
+    border: 1px solid #cccccc;
+    line-height: 19px;
+    color: #233549;
+    font-size: 14px;
+    text-align: center !important;
+    padding: 0px !important;
+    border-radius: 0px !important;
+    }
+ 
+ .plus{
+ 
+ width: 25px;
+ height: 28px;
+ border-radius: 0px !important;
+ background-color: #ffffff;
+ border-left: 0;
+ }
+
+
+ .minus{
+
+ width: 25px;
+ height: 28px;
+ border-radius: 0px !important;
+ background-color: #ffffff;
+ border-right: 0;
+ }
+
+.selprice {
+color:red;
+  
+    line-height: 25px;
+    color: #222;
+    font-size: 18px !important;
+    font-weight: bold;; 
+}
+
+.bottomtest{
+ display: block;
+    float: right;
+
+}
+
+#optiondel{
+width: 12px;
+height: auto;
+background-color: #fafafa;
+border: 0;
+
+
+}
+
+#optiondel img{
+align-items: center;
+margin-bottom: 4px;
+margin-left: 6px
+}
+
 </style>
+
+
 <script>
 
 $(document).ready(function(){
+	
+	
 
+	
+	//옵션 선택
 	$("select").change(function(){
 		var option = $("#selectoption option:selected").val();
 		var option1 = $("#selectoption option:selected").data("seloption1");
 		var option2 = $("#selectoption option:selected").data("seloption2");
 		var add_price = $("#selectoption option:selected").data("seladd_price");
 		var inventory = $("#selectoption option:selected").data("optioninventory");
+		var price = ${view.price}
+		var num=$(this).next().next('p').find('.numBox');
+		var selprice=${view.price}+$("#selectoption option:selected").data("seladd_price");
+		var totalprice=0;
 		
-		$(".cresult").append("<p class='test' data-option1="+option1+" data-option2="+option2+" data-add_price="+add_price+">"
-							+option1+"&#32;&#47;&#32;"+option2+"&#32;&#40;&#43;"+add_price+"원&#41;"+"<br>"
-							+"<button class='minus'>&#45;</button>"
-							+"<input type='number' class='numBox'  min='1' max="+inventory+" value='1'>"
+		$(".cresult").append("<div class='test'>"
+							+"<p class='toptest' data-option1="+option1+" data-option2="+option2+" data-add_price="+add_price+">"
+							+option1+"&#32;&#47;&#32;"+option2+"&#32;&#40;&#43;"+add_price+"원&#41;"+"<br></p>"
+							+"<p><button class='minus'>&#45;</button>"
+							+"<input type='text' class='numBox'  min='1' max="+inventory+" value='1'>"
 							+"<button class='plus'>&#43;</button>"
-							+"<button id='optiondel'>삭제</button>"
-							+"<hr class='my-3'>");
-		});
+							+"<span class='bottomtest'>"
+							+"<span class='selprice'>"+(price+add_price)+"원"+"</span>"
+							+"<button id='optiondel'><img src='${pageContext.request.contextPath}/resources/icons/close4.png'/></button>"
+							+"</span></p></div>"
+							);
+		
+		
+		
+		var total = Number($(".ctotal").find('p').text())+(price+add_price);
+		$(".ctotal").find('p').text(total);
+		
+			
+		
+	});
+	$(".ctotal").append("총 구매금액<p class='total'>");
 	
-	//end
 	
+	//제품 수량 조정(-)
 	$(document).on("click",".minus",function(){
 		var num = $(this).next().val();
 		var minusNum = (num)-1;
@@ -49,8 +153,8 @@ $(document).ready(function(){
 			$(this).next().val(minusNum);
 		}
 	});
-	//end
 	
+	//제품 수량 조정(+)
 	$(document).on("click",".plus",function(){
 		var num=$(this).prev().val();
 		var plusNum= Number(num)+1;
@@ -63,7 +167,7 @@ $(document).ready(function(){
 		}
 		}); 
 	
-	
+	//제품 삭제
 	$(document).on("click","#optiondel",function(){
 		 //button#optiondel
 		$(this).parent().next().remove();
@@ -71,6 +175,7 @@ $(document).ready(function(){
 	});
 	//end
 	
+	//장바구니 담기
 	$(document).on("click",".cart_btn",function(){
 		let id = $('.id').val();
 		var product_code = ${view.product_code};
@@ -79,6 +184,7 @@ $(document).ready(function(){
 			alert("로그인 하십시오.");
 		}
 		var cart_quantity = $('.numBox').val(); 
+		
 		var ajax_last_num = 0;
 		var current_ajax_num = ajax_last_num;
 		$.each($(".test"),function(index,value){
@@ -110,9 +216,6 @@ $(document).ready(function(){
 				}
 			})//end ajax
 		}); //end each
-		
-		
-		
 		});
 		//end cart_btn
 });
