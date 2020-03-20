@@ -386,7 +386,7 @@ $(document).ready(function(){
 										<ul style="list-style: none">
 											<li><span>배송비  &#58;  </span><fmt:formatNumber pattern="###,###,###" value="${view.shipping_cost}"/>원</li>
 											<br>
-											<li><span>조건부 무료  &#58;  </span><fmt:formatNumber pattern="###,###,###" value="${view.basic_shipping_cost}"/>원 이상</li>
+											<li><span>조건부 무료  &#58;  </span><fmt:formatNumber pattern="###,###,###" value="${view.free_shipping_cost}"/>원 이상</li>
 											<br>
 											<li><span>추가 배송비  &#58;  </span>제주도 3,000원</li>
 										</ul>
