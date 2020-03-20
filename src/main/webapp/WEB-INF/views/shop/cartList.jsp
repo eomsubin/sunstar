@@ -239,6 +239,36 @@ $(document).ready(function(){
 				<button type="submit" class="buyit_btn">주문하기</button>
 			</div>
 		</div>
+		
+		
+		<div class="row">
+                <div class="col-12">
+                    <!-- Total Amount -->
+                    <div class="total-amount">
+                        <div class="row">
+                            <div class="col-lg-2 left">
+                                        <h2>전체 합계</h2>
+                            </div>
+                            <div class="col-lg-10">
+                                <div class="right">
+                                    <ul>
+                                        <li>상품수<span>1</span></li>
+                                        <li>상품금액<span>10000</span></li>
+                                        <li>배송비<span>0</span></li>
+                                        <li class="last">전체 주문금액<span>10000</span></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-lg-12 text-center">
+                                <button class="buyit_btn"  type="submit" >주문하기</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!--/ End Total Amount -->
+                </div>
+            </div>
+		
+		
 	</div>
 	</form>
 </body>
