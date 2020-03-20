@@ -36,7 +36,7 @@ public class MakePage {
 	private void calData() {
 		
 		startRow = (currPage-1)*sizePerPage;
-		endRow	 = sizePerPage;
+		endRow	 = startRow +sizePerPage-1;
 		if(endRow > totalCount) {
 			endRow = totalCount;
 		}

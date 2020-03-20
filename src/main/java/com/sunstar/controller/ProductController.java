@@ -71,6 +71,10 @@ public class ProductController {
 			String key = ita.next();
 			System.out.println(key+", "+map.get(key));
 		}
+		if("".equals(map.get("s")))
+			map.remove("s");
+		
+		// end param
 		//check category lv
 		String category = (String)map.get("category");
 		List<CategoryDTO> categorylist = productservice.getcategorylist();
@@ -112,11 +116,23 @@ public class ProductController {
 		if(curr == null) 
 			curr="1";
 		int currpage = Integer.parseInt(curr);
-		int sizePerPage=9;
+		int sizePerPage=6;
+		if(!(map.get("ps")==null))
+		{
+			sizePerPage = Integer.parseInt((String)map.get("ps"));
+		}
 		int blockSize=10;
 		MakePage page = new MakePage(currpage, totalCount, sizePerPage, blockSize);
 		map.put("page", page);
-		// end pagin
+		List<String> pagesize = new ArrayList<>();
+		pagesize.add("6");
+		pagesize.add("9");
+		pagesize.add("15");
+		pagesize.add("25");
+		pagesize.add("35");
+		pagesize.add("50");
+		map.put("pagesize",pagesize);
+		// end paging
 				
 		// select productlist
 		List<ProductDTO> productlist = productservice.getproductList(map);

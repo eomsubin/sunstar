@@ -97,7 +97,7 @@
 	 
 	 group by p.product_code
 	 order by p.product_code desc
-	 limit #{page.startRow}, #{page.endRow};
+	 limit #{page.startRow}, #{page.sizePerPage};
 	</select>
 	
 	

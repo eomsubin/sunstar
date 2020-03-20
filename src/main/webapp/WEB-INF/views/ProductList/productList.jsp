@@ -537,11 +537,39 @@
 	color:#fff;
 	border-color:transparent;
 }
+	.page-link{
+	color: black;
+	border: 0px solid silver;
+	background-color: #f6f7fb;
+}
+	.pagination > .disabled > a{
+	background-color: #f6f7fb !important;
+}
+.navidiv{
+	background: #f6f7fb;
+	padding: 18px 20px 18px 20px;
+	margin-top: 50px;
+	clear: both;
+}
+.page-item.active .page-link {
+    z-index: 3;
+    color: #fff;
+    background-color: #fbab60;
+    border-color: #fbab60;
+    border-radius: 20px;
+}
+.page-item a:hover {
+	color: #fbab60;
+}
 </style>
+<script>
+	$(document).ready(function(){
+		console.log($(location).attr('href'));
+	})
+</script>
 </head>
 <body>
 <!-- category list -->
-${map}
 <div class="breadcrumbs">
 			<div class="container">
 				<div class="row">
@@ -680,7 +708,8 @@ ${map}
 									<h3 class="title">판매자</h3>
 									<ul class="categor-list">
 									<c:forEach var="sellername" items="${map.sellername}">
-											<li><a href="${pageContext.request.contextPath}/list?category=${map.category}&s=${sellername}">${sellername}</a></li>
+											<c:if test="${map.s eq sellername}"><li><a style="font-weight:600;" href="${pageContext.request.contextPath}/list?category=${map.category}&s=${sellername}">${sellername}</a></li></c:if>
+											<c:if test="${map.s ne sellername}"><li><a href="${pageContext.request.contextPath}/list?category=${map.category}&s=${sellername}">${sellername}</a></li></c:if>
 									</c:forEach>
 									</ul>
 								</div>
@@ -695,20 +724,36 @@ ${map}
 									<div class="shop-shorter">
 										<div class="single-shorter">
 											<label>노출 :</label>
-											<select style="display: none;">
+											<!-- <select style="display: none;">
 												<option selected="selected">09</option>
 												<option>15</option>
 												<option>25</option>
 												<option>30</option>
-											</select><div class="nice-select" tabindex="0"><span class="current">09</span><ul class="list"><li data-value="09" class="option selected">09</li><li data-value="15" class="option">15</li><li data-value="25" class="option">25</li><li data-value="30" class="option">30</li></ul></div>
+											</select> -->
+											<div class="nice-select" tabindex="0">
+											<span class="current">${map.page.sizePerPage}</span>
+												<ul class="list">
+													<c:forEach var="size" items="${map.pagesize}">
+													<a href="${pageContext.request.contextPath}/list?category=${map.category}&s=${map.s}&ps=${size}"><li class="option">${size}</li></a>
+													</c:forEach>
+												</ul>
+											</div>
 										</div>
 										<div class="single-shorter">
 											<label>정렬 :</label>
-											<select style="display: none;">
+											<!-- <select style="display: none;">
 												<option selected="selected">등록순</option>
 												<option>가격</option>
 												<option>이름</option>
-											</select><div class="nice-select" tabindex="0"><span class="current">등록순</span><ul class="list"><li data-value="등록순" class="option selected">등록순</li><li data-value="가격" class="option">가격</li><li data-value="이름" class="option">이름</li></ul></div>
+											</select> -->
+											<div class="nice-select" tabindex="0">
+											<span class="current">등록순</span>
+												<ul class="list">
+													<li data-value="등록순" class="option selected">등록순</li>
+													<li data-value="가격" class="option">가격</li>
+													<li data-value="이름" class="option">이름</li>
+												</ul>
+											</div>
 										</div>
 									</div>
 									<!-- <ul class="view-mode">
@@ -749,6 +794,23 @@ ${map}
 								</div>
 							</div>
 							</c:forEach>
+						</div>
+						<div class="row justify-content-center navidiv"><!--  mt-5 justify-content-center -->
+							<nav aria-label="Page navigation">
+							  <ul class="pagination ">
+							    <!-- 이전 블록 -->
+						   		    <c:if test="${map.page.prev}"><li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/list?category=${map.category}&s=${map.s}&curr=${map.page.startBlock-1}&ps=${map.page.sizePerPage}" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li></c:if>
+								    <c:if test="${!map.page.prev}"><li class="page-item disabled"><a class="page-link" href="${pageContext.request.contextPath}/list?category=${map.category}&s=${map.s}&curr=${map.page.startBlock-1}&ps=${map.page.sizePerPage}" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li></c:if> 
+							    <!-- 현재 리스트 -->
+							    <c:forEach var="index" begin="${map.page.startBlock}" end="${map.page.endBlock}">
+										<c:if test="${map.page.currPage eq index}"><li class="page-item active"><a class="page-link" href="${pageContext.request.contextPath}/list?category=${map.category}&s=${map.s}&curr=${index}&ps=${map.page.sizePerPage}">${index}</a></li></c:if>
+										<c:if test="${map.page.currPage ne index}"><li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/list?category=${map.category}&s=${map.s}&curr=${index}&ps=${map.page.sizePerPage}">${index}</a></li></c:if>
+								</c:forEach>
+							    <!-- 다음 블록 -->
+							    	<c:if test="${map.page.next}"><li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/list?category=${map.category}&s=${map.s}&curr=${map.page.endBlock+1}&ps=${map.page.sizePerPage}" aria-label="Previous"><span aria-hidden="true">&raquo;</span></a></li></c:if>
+								    <c:if test="${!map.page.next}"><li class="page-item disabled"><a class="page-link" href="${pageContext.request.contextPath}/list?category=${map.category}&s=${map.s}&curr=${map.pageendBlock+1}&ps=${map.page.sizePerPage}" aria-label="Previous"><span aria-hidden="true">&raquo;</span></a></li></c:if>
+							  </ul>
+							</nav>
 						</div>
 					</div>
 				</div>
