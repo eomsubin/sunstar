@@ -75,6 +75,7 @@ public class ProductController {
 			map.remove("s");
 		
 		// end param
+		
 		//check category lv
 		String category = (String)map.get("category");
 		List<CategoryDTO> categorylist = productservice.getcategorylist();
@@ -133,19 +134,28 @@ public class ProductController {
 		pagesize.add("50");
 		map.put("pagesize",pagesize);
 		// end paging
+		
+		// sort
+				if(map.get("sort")==null || "".equals(map.get("sort")))
+					map.put("sort", "최신순");
+				List<String> sortlist= new ArrayList<>();
+				sortlist.add("최신순");
+				sortlist.add("과거순");
+				sortlist.add("이름내림");
+				sortlist.add("이름오름");
+				sortlist.add("비싼순");
+				sortlist.add("저렴순");
+				map.put("sortlist",sortlist);	
+		//end sort
 				
-		// select productlist
+		// select productlist				
 		List<ProductDTO> productlist = productservice.getproductList(map);
 		model.addAttribute("productlist", productlist);
 		// end select productlist
 		
 		// seller name
 		List<String> seller_name = productservice.getproductsellername(map);//seller name
-		for(ProductDTO dto : productlist)
-		{ 
-			if(!seller_name.contains(dto.getSeller_name()))
-				seller_name.add(dto.getSeller_name());
-		}
+		
 		map.put("sellername", seller_name);
 		// end seller name
 		
