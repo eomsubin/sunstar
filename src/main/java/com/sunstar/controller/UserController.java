@@ -3,8 +3,13 @@ package com.sunstar.controller;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.mail.internet.MimeMessage;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -24,8 +29,8 @@ public class UserController {
 	@Autowired @Qualifier("userservice")
 	private UserService service;
 	
-	@Autowired @Qualifier("AuthService")
-	private AuthService service2;
+	@Autowired
+	private JavaMailSenderImpl mailSender;
 	
 	@RequestMapping("/RegistrationBuyer")
 	public String RegistrationBuyer(Model model) {
@@ -48,10 +53,23 @@ public class UserController {
 		ArrayList<AuthDTO> arr = new ArrayList<AuthDTO>();
 		arr.add(new AuthDTO(dto.getId(),"ROLE_USER"));
 		dto.setAuthlist(arr);
-		
 		service.join_Customer(dto);
 		
-		return "redirect:http://localhost:8080/controller/userlogin";
+		//회원가입 email 전송
+		  final MimeMessagePreparator pp = new MimeMessagePreparator() { 
+		         @Override
+		         public void prepare(MimeMessage mimeMessage) throws Exception {
+		            final MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true, "utf-8");
+		            helper.setFrom("sbbj_sunstar@naver.com");
+		            helper.setTo(dto.getEmail());
+		            helper.setSubject("[쓰삐제] 회원가입을 환영합니다.");
+		            helper.setText("<b>"+dto.getName()+"님 회원가입을 환영합니다.</b>"
+		                  + "<br>"
+		                  + "<img src="+"https://ssl.pstatic.net/tveta/libs/1260/1260649/19aabf7c9a09e0d9ed84_20200211140438611.jpg"+">", true);
+		         }
+		      };
+		  mailSender.send(pp);
+	      return "redirect:http://localhost:8080/controller/userlogin";
 	}
 	
 	@RequestMapping("/registercustomer/customeridcheck/{id}")
@@ -78,6 +96,36 @@ public class UserController {
 			return result;
 	}
 	
+	@RequestMapping("/userlogin/FindID")
+	public String FindID(Model model) {
+		model.addAttribute("contentpage", "../User/FindID.jsp");
+		return "Registration/register";
+	}
 	
-	
+	@RequestMapping("/userlogin/getCertificationNum")
+	@ResponseBody
+	public String getCertificationNum(Model model, @RequestParam HashMap<String, String> map) {
+		System.out.println(map.get("email"));
+		System.out.println(map.get("name"));
+		System.out.println((int)(Math.random()*1000000));
+		String CertificationNum = ""+(int)(Math.random()*1000000);;
+		map.put("CertificationNum", CertificationNum );
+		/*int result = service.getCertificationNum;*/ 		
+		//ID 찾기 email 전송
+		  final MimeMessagePreparator pp = new MimeMessagePreparator() { 
+		         @Override
+		         public void prepare(MimeMessage mimeMessage) throws Exception {
+		            final MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true, "utf-8");
+		            helper.setFrom("sbbj_sunstar@naver.com");
+		            helper.setTo(map.get("email"));
+		            helper.setSubject("[쓰삐제] 아이디 찾기 용 인증번호입니다.");
+		            helper.setText("<b> 인증번호 :"+map.get("CertificationNum")+"</b>"
+		                  + "<br>"
+		                  + "<img src="+"https://ssl.pstatic.net/tveta/libs/1260/1260649/19aabf7c9a09e0d9ed84_20200211140438611.jpg"+">", true);
+		         }
+		      };
+		  mailSender.send(pp);
+		  
+		return CertificationNum;
+	}
 }

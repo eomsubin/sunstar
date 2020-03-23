@@ -19,7 +19,7 @@ import com.zaxxer.hikari.HikariDataSource;
 @RunWith(SpringJUnit4ClassRunner.class)
 public class SunstarTest {
 	
-	@Autowired
+	/*@Autowired
 	private HikariConfig dbconf;
 	
 	@Autowired
@@ -31,15 +31,16 @@ public class SunstarTest {
 	@Autowired
 	private DataSourceTransactionManager transactionManager;
 	
-	
+	*/
 	
 	
 	@Test
 	public void t1()
 	{
 		//assertNotNull(dbconf);
-		assertNotNull(ds);
-/*		assertNotNull(sqlsessionFactory);
+		/*assertNotNull(ds);*/
+/*		assertNotNull(sqlsessionFactory); 
 		assertNotNull(transactionManager);*/
+		System.out.println((int)(Math.random()*1000000));
 	}
 }

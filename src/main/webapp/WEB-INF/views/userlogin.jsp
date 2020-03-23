@@ -298,8 +298,8 @@ $(document).ready(function(){
 				</div>
 		    	<div class="links">
                    <p class="member">
-                    <a id="goFindID" href="#">아이디찾기</a>
-                    <a id="goFindPassword" href="#">비밀번호찾기</a>
+                    <a id="goFindID" href="${pageContext.request.contextPath}/userlogin/FindID">아이디찾기</a>
+                    <a id="goFindPassword" href="${pageContext.request.contextPath}/userlogin/FindPW">비밀번호찾기</a>
                     <a id="goDefault" href="RegistrationBuyer" class="join">회원가입</a>
                    </p>
 					<div class="box__social-links mt-3">

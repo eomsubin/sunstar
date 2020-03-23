@@ -60,6 +60,6 @@
   	separator=", " close=" " >
   	(#{item.id},#{item.auth})
   	</foreach>
-  	
   	</insert>
+  	
 </mapper>

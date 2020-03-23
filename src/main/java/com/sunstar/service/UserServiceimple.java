@@ -45,5 +45,5 @@ public class UserServiceimple implements UserService{
 	public int customerpwcheck(HashMap<String, String> map) {
 		map.put("pw", encoder.encode(map.get("pw")));
 		return dao.customerpwcheck(map);
-	}	
+	}
 }

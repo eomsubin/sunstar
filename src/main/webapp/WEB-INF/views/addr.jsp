@@ -47,7 +47,7 @@
 
 function init(){
    var url =  location.href;
-   var confmKey = "devU01TX0FVVEgyMDIwMDMxMzExMTcwMzEwOTU0MDU=";
+   var confmKey = "devU01TX0FVVEgyMDIwMDMyMzExMDYwNDEwOTU2OTQ=";
    var resultType = "4"; // 도로명주소 검색결과 화면 출력내용, 1 : 도로명, 2 : 도로명+지번, 3 : 도로명+상세건물명, 4 : 도로명+지번+상세건물명
    var inputYn= "<%=inputYn%>";
    if(inputYn != "Y"){
@@ -69,8 +69,8 @@ function init(){
       <input type="hidden" id="confmKey" name="confmKey" value=""/>
       <input type="hidden" id="returnUrl" name="returnUrl" value=""/>
       <input type="hidden" id="resultType" name="resultType" value=""/>
-      <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-      
+      <!-- <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>  -->
+
       <!-- 해당시스템의 인코딩타입이 EUC-KR일경우에만 추가 START-->
       <!-- 
       <input type="hidden" id="encodingType" name="encodingType" value="EUC-KR"/>
