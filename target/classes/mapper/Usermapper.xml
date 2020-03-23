@@ -36,18 +36,18 @@
 	where id=#{id}
 	</select>
 	
-	<select id="customerpwcheck" resultType="int" parameterType="string">
-	select count(*)
-	from customer
-	where id=#{id} and password=#{pw}
-	</select>
-	
-	
 	<select id="customeremailcheck" resultType="int" parameterType="string">
 	select count(*)
 	from customer
 	where email=#{email}
 	</select>
+	
+	<select id="customerfindid" resultType="com.sunstar.dto.CustomerDTO" parameterType="string">
+	select id, name, join_date 
+	from customer
+	where name = #{name} and email = #{email} 
+	</select>
+	
 	
 	<insert id="join_Customer" parameterType="com.sunstar.dto.CustomerDTO">
   	insert into customer(id, name, tel, email, password, address1, address2, address3, zip, enable, join_date)

@@ -220,24 +220,8 @@ $(document).ready(function(){
 		if(result<1){
 			$('.links').prepend("<p class='alert p-0 m-0 ml-5 pl-3'> 아이디가 존재하지 않습니다..")
 			}else{
-				$.ajax({
-					url : "registercustomer/customerpwcheck/"+id+"/"+pw
-					,dataType : "json"
-					,async: false
-					,success:function(data){
-						console.log(data);
-						result = data;
-					}
-					,error:function(e){
-						console.log(e);
-					}
-				});
-				if(result>0){
-				$('form').submit();
-				}else{
-				$('.links').prepend("<p class='alert p-0 m-0 ml-5 pl-3'> 비밀번호를 다시 확인해 주세요.")
-				}
-		}
+				('form').submit();
+			}
 		}
 		event.preventDefault();
 	})		

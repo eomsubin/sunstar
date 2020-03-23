@@ -79,14 +79,6 @@ public class UserController {
 			return result;
 	}
 	
-	@RequestMapping("/registercustomer/customerpwcheck/{id}/{pw}")
-	@ResponseBody
-	public int customerPwCheck(@PathVariable HashMap<String, String> map) {
-		
-		int result = service.customerpwcheck(map);
-			return result;
-	}
-	
 	@RequestMapping("/registercustomer/customeremailcheck")
 	@ResponseBody
 	public int customerEmailCheck(@RequestParam String email) {
@@ -102,12 +94,24 @@ public class UserController {
 		return "Registration/register";
 	}
 	
+	@RequestMapping("/userlogin/FindID/FindIdComplete")
+	public String FindIdComplete(Model model, @ModelAttribute CustomerDTO dto, String email1) {
+		dto.setEmail(dto.getEmail()+"@"+email1);
+		HashMap<String, String> map = new HashMap<>();
+		map.put("name", dto.getName());
+		map.put("email", dto.getEmail());
+		CustomerDTO finddto = service.customerfindid(map);
+		model.addAttribute("finduser", finddto);
+		
+		model.addAttribute("contentpage", "../User/FindIdComplete.jsp");
+		return "Registration/register";
+	}
+	
+	
+	
 	@RequestMapping("/userlogin/getCertificationNum")
 	@ResponseBody
 	public String getCertificationNum(Model model, @RequestParam HashMap<String, String> map) {
-		System.out.println(map.get("email"));
-		System.out.println(map.get("name"));
-		System.out.println((int)(Math.random()*1000000));
 		String CertificationNum = ""+(int)(Math.random()*1000000);;
 		map.put("CertificationNum", CertificationNum );
 		/*int result = service.getCertificationNum;*/ 		

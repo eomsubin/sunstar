@@ -139,16 +139,24 @@ input, select{
 			}
 		}
 		
+		
+		let result="0";
+		let Certification="0";
 		// 인증번호 확인
 		function Cnumckeck(){
-			if(result=="0" || Certification=="")
+			if(result=="0")
 				{
-				
-				}
+				alert("인증번호를 발급받으세요.");
+				return false;
+			}else if(result==$('#cknum').val()){
+				return true;
+			}else{
+				$('.uncknumalert').remove();
+				$('#cknum').parent().append("<p class='alert uncknumalert p-0 my-2 ml-3'>인증번호를 정확히 입력해주세요.</p>");
+				return false
+			}
 			return false;
 		}
-		let result="0";
-		let Certification="";
 		// 인증번호 발급
 		$('.getCertificationNum').click(function(){
 			if(namecheck() && emailcheck()){
@@ -164,6 +172,10 @@ input, select{
 				,success:function(data){
 					console.log(data);
 					result = data;
+					alert("인증번호 발송 요청이 완료되었습니다. 인증번호가 오지 않는 경우, 입력한 이름/이메일주소 확인 후 다시 요청해주세요.");
+					setTimer();
+					clearInterval(Interval);
+					Interval = setInterval(Timer,1000);
 				}
 				,error:function(e){
 					console.log(e);
@@ -173,7 +185,32 @@ input, select{
 				//end ajax;
 			}
 		})
-	
+		//end 인증번호 발급
+		//타이머
+		let Interval;
+		let min;
+		let sec;
+		function setTimer(){
+			min=9;
+			sec=59;
+			$('.uncknumalert').remove();
+		};
+		function Timer(){
+			$('.cknumalert').remove();
+			$('#cknum').parent().append("<p class='alert cknumalert p-0 my-2 ml-3'>인증번호 입력해주세요. "+min+"분 "+sec--+"초 남았습니다.</p>");
+			if(sec<1)
+				{
+				min--;
+				sec=59;
+			}
+			if(min<0){
+				$('.cknumalert').remove();
+				$('#cknum').parent().append("<p class='alert cknumalert p-0 my-2 ml-3'>인증번호를 다시 요청해주세요.</p>");
+				clearInterval(Interval);
+				result="0";
+			}		
+		}
+		//end 타이머
 	});
 </script>
 </head>
@@ -186,7 +223,7 @@ input, select{
 		</div>
 		<div class="mx-auto row align-items-top" style="width: 600px; height: 670px;">
 		<div class="col">
-		<form method="post" action="${pageContext.request.contextPath}/registercustomer/insertcustomer">
+		<form method="post" action="${pageContext.request.contextPath}/userlogin/FindID/FindIdComplete">
 				<div class="reg_formbox py-0">
 				<ul class="list-group">
 				  	<li class="list-group-item"><input style="width: 450px;" type="text" name="name" id="name" placeholder="이름" maxlength="10"></li>			

@@ -42,8 +42,7 @@ public class UserServiceimple implements UserService{
 	}
 
 	@Override
-	public int customerpwcheck(HashMap<String, String> map) {
-		map.put("pw", encoder.encode(map.get("pw")));
-		return dao.customerpwcheck(map);
+	public CustomerDTO customerfindid(HashMap<String, String> map) {
+		return dao.customerfindid(map);
 	}
 }
