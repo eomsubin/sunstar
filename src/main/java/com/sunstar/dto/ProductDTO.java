@@ -17,6 +17,8 @@ public class ProductDTO {
 	private int price;
 	private int cost;
 	private int shipping_cost;
+	private int free_shipping_cost;
+	
 	private MultipartFile athumb_img;
 	private MultipartFile acomm_img1;
 	private MultipartFile acomm_img2;
