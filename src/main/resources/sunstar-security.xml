@@ -7,13 +7,14 @@
       <bean id="userLoginSuccess" class="com.sunstar.handler.UserLoginSucessHandler"></bean>
 
      
+	<security:http pattern="/resources/comm_img/**" security="none"/>
 	<security:http pattern="/resources/css/**" security="none"/>
 	<security:http pattern="/resources/js/**" security="none"/>
 	
 	
 	<security:http use-expressions="true">
 		<security:intercept-url pattern="/all" access="permitAll"/>
-		<security:intercept-url	pattern="/manager" access="hasRole('ROLE_MANAGER')" />
+		<security:intercept-url	pattern="/seller/**" access="hasRole('ROLE_MANAGER')" />
 		<security:intercept-url pattern="/admin" access="hasRole('ROLE_ADMIN')" />
 		<security:intercept-url	pattern="/member" access="isAuthenticated()" />
 		<security:form-login login-page="/userlogin" authentication-success-handler-ref="userLoginSuccess"/> <!-- default login사용 -->            

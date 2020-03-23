@@ -164,6 +164,9 @@
     font-size: 11px;
     letter-spacing: -.5px;
     }
+    .links .alert{
+    	color: red;
+    }
 </style>
 <script>
 $(document).ready(function(){
@@ -194,11 +197,12 @@ $(document).ready(function(){
 	
 	$('input[type="submit"]').click(function(){
 		let id = $('#username').val();
-		let pw = $('#password').val(); 
+		let pw = $('#password').val();
+		$('.alert').remove();
 		if(id.length<1){
-			alert('아이디를 입력하세요.');
+			$('.links').prepend("<p class='alert p-0 m-0 ml-5 pl-3'> 아이디를 입력하세요.")
 		}else if(pw.length<1){
-			alert('비밀번호를 입력하세요.');
+			$('.links').prepend("<p class='alert p-0 m-0 ml-5 pl-3'> 비밀번호를 입력하세요.")
 		}else{
 		let result = 0;
 		$.ajax({
@@ -214,10 +218,10 @@ $(document).ready(function(){
 			}
 		});
 		if(result<1){
-			alert('아이디가 존재하지 않습니다.')
-		}else{
-			$('form').submit();
-		}
+			$('.links').prepend("<p class='alert p-0 m-0 ml-5 pl-3'> 아이디가 존재하지 않습니다..")
+			}else{
+				('form').submit();
+			}
 		}
 		event.preventDefault();
 	})		
@@ -278,8 +282,8 @@ $(document).ready(function(){
 				</div>
 		    	<div class="links">
                    <p class="member">
-                    <a id="goFindID" href="#">아이디찾기</a>
-                    <a id="goFindPassword" href="#">비밀번호찾기</a>
+                    <a id="goFindID" href="${pageContext.request.contextPath}/userlogin/FindID">아이디찾기</a>
+                    <a id="goFindPassword" href="${pageContext.request.contextPath}/userlogin/FindPW">비밀번호찾기</a>
                     <a id="goDefault" href="RegistrationBuyer" class="join">회원가입</a>
                    </p>
 					<div class="box__social-links mt-3">

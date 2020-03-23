@@ -110,6 +110,17 @@
          <artifactId>commons-io</artifactId>
          <version>2.6</version>
       </dependency>
+      <!-- sendemail -->
+      <dependency>
+         <groupId>org.springframework</groupId>
+         <artifactId>spring-context-support</artifactId>
+         <version>${org.springframework-version}</version>
+      </dependency>
+      <dependency>
+         <groupId>com.sun.mail</groupId>
+         <artifactId>javax.mail</artifactId>
+         <version>1.5.6</version>
+      </dependency>
       <!-- Spring-security -->
       <!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-core -->
       <dependency>

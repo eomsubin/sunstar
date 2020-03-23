@@ -58,6 +58,7 @@ public class HomeController {
 	
 	@Autowired @Qualifier("AuthService")
 	private AuthService authservice;
+	
 	/*@ResponseBody
 	@RequestMapping("/abc")
 	public List<CategoryDTO> abc(){

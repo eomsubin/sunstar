@@ -42,6 +42,13 @@
 	where email=#{email}
 	</select>
 	
+	<select id="customerfindid" resultType="com.sunstar.dto.CustomerDTO" parameterType="string">
+	select id, name, join_date 
+	from customer
+	where name = #{name} and email = #{email} 
+	</select>
+	
+	
 	<insert id="join_Customer" parameterType="com.sunstar.dto.CustomerDTO">
   	insert into customer(id, name, tel, email, password, address1, address2, address3, zip, enable, join_date)
   	values(#{id}, #{name}, #{tel}, #{email}, #{password}, #{address1}, #{address2}, #{address3}, #{zip}, #{enable}, now())
@@ -53,6 +60,6 @@
   	separator=", " close=" " >
   	(#{item.id},#{item.auth})
   	</foreach>
-  	
   	</insert>
+  	
 </mapper>

@@ -8,6 +8,7 @@ import com.sunstar.dto.MakePage;
 import com.sunstar.dto.OptionDTO;
 import com.sunstar.dto.OrderDTO;
 import com.sunstar.dto.ProductDTO;
+import com.sunstar.dto.QnaDTO;
 import com.sunstar.dto.SellerDTO;
 
 public interface SellerService {
@@ -54,13 +55,28 @@ public interface SellerService {
 
 	List<OrderDTO> viewStepOrder(String view_step);
 
-	ProductDTO viewProduct(int pcd);
+	List<ProductDTO> viewProduct(int pcd);
 
 	void updateProduct(ProductDTO dto);
 
 	List<OrderDTO> getDayProfit(String order_code);
 
 	int getShipping_Cost(int seller_code);
+
+	String getSellerCode(String id);
+	
+	int getReadyCount(String seller_code);
+
+	int getExchangeCount(String seller_code);
+
+	int getBringBack(String seller_code);
+
+	int getWaitAnswer(String seller_code);
+
+	List<QnaDTO> getQnaList(String seller_code);
+
+	void qna_reply(QnaDTO dto);
+
 
 
 
