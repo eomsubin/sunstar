@@ -9,8 +9,10 @@ public interface UserService {
 
 	public int customeridcheck(String id);
 
-	public int customeremailcheck(String email);
+	public int customeremailcheck(HashMap<String, String> map);
 
-	public int customerpwcheck(HashMap<String, String> map);
+	public CustomerDTO customerfindid(HashMap<String, String> map);
+
+	public int SetNewPassowrd(HashMap<String, String> map);
 	
 }

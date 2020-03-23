@@ -576,7 +576,6 @@
 </script>
 </head>
 <body>
-${map}
 <!-- category list -->
 <div class="breadcrumbs">
 			<div class="container">
