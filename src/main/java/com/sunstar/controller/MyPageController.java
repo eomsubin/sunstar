@@ -13,6 +13,7 @@ import com.sunstar.dto.CustomerDTO;
 import com.sunstar.dto.CustomerUserDetail;
 import com.sunstar.dto.OrderDTO;
 import com.sunstar.service.MainService;
+import com.sunstar.service.MyPageService;
 import com.sunstar.service.PaymentService;
 
 @Controller
@@ -21,6 +22,8 @@ public class MyPageController {
 	private MainService mainservice;	
 	@Autowired
 	private PaymentService paymentservice;
+	@Autowired
+	private MyPageService mpservice;
 	
 	@RequestMapping("/mypage/info")
 	public String mypage(Model model,Principal principal) {
@@ -31,25 +34,10 @@ public class MyPageController {
 			CustomerUserDetail userdetail = (CustomerUserDetail)((Authentication)principal).getPrincipal();
 			
 			String id = userdetail.getUsername();
-			String name = userdetail.getId();
-			String email = userdetail.getEmail();
-			String tel = userdetail.getTel();
-			String address1= userdetail.getAddress1();
-			String address2= userdetail.getAddress2();
-			String address3= userdetail.getAddress3();
-			String zip= userdetail.getZip();
-			
-			tel= tel.replaceAll("-","");
-			CustomerDTO info = new CustomerDTO();
-			info.setId(id);
-			info.setName(name);
-			info.setEmail(email);
-			info.setTel(tel);
-			info.setAddress1(address1);
-			info.setAddress2(address2);
-			info.setAddress3(address3);
-			info.setZip(zip);
-			
+		    
+			CustomerDTO info = mpservice.getUserInfo(id);
+			info.setTel(info.getTel().replaceAll("-", ""));
+	
 			model.addAttribute("info",info);
 			model.addAttribute("contentpage","Mypage/mypage.jsp");
 			
@@ -78,6 +66,43 @@ public class MyPageController {
 		}else {
 			return "redirect:/";
 		}
+		
+		
+		return "home";
+	}
+	
+	@RequestMapping("/info/update")
+	public String infoUpdate(CustomerDTO info) {
+		
+		
+		mpservice.infoUpdate(info);
+		
+		
+		
+		return "redirect:/mypage/info";
+	}
+	
+	@RequestMapping("/info/pwupdate")
+	public String pwUpdate(Model model,Principal principal) {
+		
+		mainservice.header(model);
+		if(principal!=null) {
+			
+			CustomerUserDetail userdetail = (CustomerUserDetail)((Authentication)principal).getPrincipal();
+			
+			String id = userdetail.getUsername();
+		    
+			CustomerDTO info = mpservice.getUserInfo(id);
+			info.setTel(info.getTel().replaceAll("-", ""));
+	
+			model.addAttribute("info",info);
+			model.addAttribute("contentpage","Mypage/pwupdate.jsp");
+			
+		}else {
+			return "redirect:/";
+		}
+			
+		
 		
 		
 		return "home";

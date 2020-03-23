@@ -164,6 +164,9 @@
     font-size: 11px;
     letter-spacing: -.5px;
     }
+    .links .alert{
+    	color: red;
+    }
 </style>
 <script>
 $(document).ready(function(){
@@ -194,11 +197,12 @@ $(document).ready(function(){
 	
 	$('input[type="submit"]').click(function(){
 		let id = $('#username').val();
-		let pw = $('#password').val(); 
+		let pw = $('#password').val();
+		$('.alert').remove();
 		if(id.length<1){
-			alert('아이디를 입력하세요.');
+			$('.links').prepend("<p class='alert p-0 m-0 ml-5 pl-3'> 아이디를 입력하세요.")
 		}else if(pw.length<1){
-			alert('비밀번호를 입력하세요.');
+			$('.links').prepend("<p class='alert p-0 m-0 ml-5 pl-3'> 비밀번호를 입력하세요.")
 		}else{
 		let result = 0;
 		$.ajax({
@@ -214,9 +218,25 @@ $(document).ready(function(){
 			}
 		});
 		if(result<1){
-			alert('아이디가 존재하지 않습니다.')
-		}else{
-			$('form').submit();
+			$('.links').prepend("<p class='alert p-0 m-0 ml-5 pl-3'> 아이디가 존재하지 않습니다..")
+			}else{
+				$.ajax({
+					url : "registercustomer/customerpwcheck/"+id+"/"+pw
+					,dataType : "json"
+					,async: false
+					,success:function(data){
+						console.log(data);
+						result = data;
+					}
+					,error:function(e){
+						console.log(e);
+					}
+				});
+				if(result>0){
+				$('form').submit();
+				}else{
+				$('.links').prepend("<p class='alert p-0 m-0 ml-5 pl-3'> 비밀번호를 다시 확인해 주세요.")
+				}
 		}
 		}
 		event.preventDefault();
