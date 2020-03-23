@@ -3,6 +3,7 @@ package com.sunstar.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.security.Principal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -46,12 +47,14 @@ import com.sunstar.dto.CategoryDTO;
 import com.sunstar.dto.OptionDTO;
 import com.sunstar.dto.OrderDTO;
 import com.sunstar.dto.ProductDTO;
+import com.sunstar.dto.QnaDTO;
 import com.sunstar.dto.SellerDTO;
 import com.sunstar.dto.DataDTO;
 import com.sunstar.dto.MakePage;
 import com.sunstar.service.FileUploadService;
 import com.sunstar.service.SellerService;
 
+@RequestMapping("/seller/*")
 @Controller
 public class SellerController {
 
@@ -60,10 +63,38 @@ public class SellerController {
 	@Autowired
 	private FileUploadService fileservice;
 
-
+	public String getId( Model model, Principal principal) {
+		String id = "";
+	    if(principal!=null) {
+	      	 id= principal.getName();
+	      	
+	      	System.out.println(id);
+	    }
+	    return id;
+	}
+	
+	
 	@RequestMapping("/seller")
-	public String seller(Model model) {
-
+	public String seller(Model model,  Principal principal) {
+		//id 가져오는 방법
+		String id= getId(model, principal);
+		System.out.println(id);
+		
+		String seller_code = sellerservice.getSellerCode(id);
+		
+		int ready = sellerservice.getReadyCount(seller_code);
+		int exchange =  sellerservice.getExchangeCount(seller_code);
+		int bringBack = sellerservice.getBringBack(seller_code);
+		int waitAnswer = sellerservice.getWaitAnswer(seller_code);
+		
+		
+		System.out.println(ready + "/" + exchange + "/" + bringBack + "/" + waitAnswer);
+		
+		model.addAttribute("ready", ready);
+		model.addAttribute("exchange", exchange);
+		model.addAttribute("bringback", bringBack);
+		model.addAttribute("waitAnswer",waitAnswer);
+		
 		model.addAttribute("sellerpage", "temp_main.jsp");
 		return "sellers/temp";
 	}
@@ -120,7 +151,7 @@ public class SellerController {
 
 		System.out.println("======page======");
 
-		page.setStartRow(page.getStartRow()-1);
+		page.setStartRow(page.getStartRow());
 
 		System.out.println("현재페이지"+page.getCurrPage());
 		System.out.println("총 갯수"+page.getTotalCount());
@@ -157,13 +188,13 @@ public class SellerController {
 	}
 
 	//상품 상세보기
-	@ResponseBody
+/*	@ResponseBody
 	@RequestMapping("/detailview/{pcode}")
 	public ProductDTO detailview(@PathVariable String pcode) {
 
 		int pcd = Integer.parseInt(pcode);
 
-		ProductDTO dto = sellerservice.viewProduct(pcd);
+		List<ProductDTO> dto = sellerservice.viewProduct(pcd);
 		System.out.println(dto);
 
 		//페이지에 카테고리 표시
@@ -172,13 +203,10 @@ public class SellerController {
 		for(CategoryDTO a : clist) {
 			a.setLv123(a.getLv1()+" - "+a.getLv2()+" - "+a.getLv3()); 
 			dlist.add(a);
-
-			dto.setCategorydto(dlist);
+			//dto.setCategorydto(dlist);
 		}
-
-
 		return dto;
-	}
+	}*/
 
 
 	@RequestMapping("/changePublicState/{changePublicState}/{pcodes}")
@@ -208,7 +236,7 @@ public class SellerController {
 				sellerservice.changeReviewState(dto); 
 			}
 		}
-		return "redirect:/productlist";
+		return "redirect:/seller/productlist";
 	}
 
 	//상품목록 출력
@@ -479,7 +507,7 @@ public class SellerController {
 
 		System.out.println(dto.getExplains());
 
-		return "redirect:/productlist";
+		return "redirect:/seller/productlist";
 	}
 
 	//상품 삭제
@@ -487,7 +515,7 @@ public class SellerController {
 	public String deleteproduct(@PathVariable int pcode ) {
 
 		sellerservice.deleteProduct(pcode);
-		return "redirect:/productlist";
+		return "redirect:/seller/productlist";
 	}
 
 
@@ -556,7 +584,7 @@ public class SellerController {
 			sellerservice.updateinventory(dto);
 		}*/
 
-		return "redirect:/productlist";
+		return "redirect:/seller/productlist";
 	}
 
 
@@ -831,7 +859,7 @@ public class SellerController {
 			System.out.println(dto.getDelivery_state());
 			sellerservice.changeStep(dto);
 		}
-		return "redirect:/orders";
+		return "redirect:/seller/orders";
 	}
 
 
@@ -851,7 +879,7 @@ public class SellerController {
 			sellerservice.updateTracking(dto);
 		}
 
-		return "redirect:/orders";
+		return "redirect:/seller/orders";
 	}
 
 
@@ -862,7 +890,7 @@ public class SellerController {
 		System.out.println(ordercode);
 		System.out.println(tracking_no);
 
-		return "redirect:/orders";
+		return "redirect:/seller/orders";
 
 
 	}*/
@@ -1004,7 +1032,7 @@ public class SellerController {
 			dto.setVal(val);
 			sellerservice.changeInfo(dto);
 		}
-		return "redirect:/sellerinfo";
+		return "redirect:/seller/sellerinfo";
 	}
 
 
@@ -1026,12 +1054,12 @@ public class SellerController {
 
 		//
 		//multipart 파일을 multi에 담아줌
-		MultipartFile multi = dto.getAseller_bgcolor();
+	//	MultipartFile multi = dto.getAseller_bgcolor();
 		MultipartFile multi1 = dto.getAcomm_img1();
 		MultipartFile multi2 = dto.getAcomm_img2();
 		MultipartFile multi3 = dto.getAcomm_img3();
 
-		System.out.println(multi);
+		//System.out.println(multi);
 		System.out.println(multi1);
 		System.out.println(multi2);
 		System.out.println(multi3);
@@ -1049,7 +1077,7 @@ public class SellerController {
 			System.out.println(uploadpath);
 
 			//파일이 비어있지 않다면!
-			if(!multi.isEmpty()) {
+			/*if(!multi.isEmpty()) {
 				//파일 = 새파일(경로, 파일이름);
 				File file = new File(uploadpath, multi.getOriginalFilename());
 				multi.transferTo(file);
@@ -1058,7 +1086,7 @@ public class SellerController {
 				file.renameTo(file2);
 				dto.setSeller_bgcolor("resources\\comm_img\\" + bgcolor);
 
-			}
+			}*/
 
 			if(!multi1.isEmpty()) {
 				//파일 = 새파일(경로, 파일이름);
@@ -1104,8 +1132,7 @@ public class SellerController {
 		System.out.println(dto.getComm_img3());
 
 
-		model.addAttribute("sellerpage", "seller_setting.jsp");
-		return "sellers/temp";
+		return "redirect:/seller/sellersetting";
 	}
 
 
@@ -1255,16 +1282,55 @@ public class SellerController {
 
 		sellerservice.updateProduct(dto);
 		System.out.println(">>> \n"+ dto +"\n<<<");
-		return "redirect:/productlist";
+		return "redirect:/seller/productlist";
 		
 	}
 	
 	@RequestMapping("/product_qna")
-	public String product_qna(Model model) {
-
+	public String product_qna(Model model, Principal principal) {
+		//id 가져오는 방법
+		String id= getId(model, principal);
+		System.out.println(id);
+		
+		String seller_code = sellerservice.getSellerCode(id);
+	
+		List<QnaDTO> list = sellerservice.getQnaList(seller_code);
+		
+		model.addAttribute("list", list);
 		model.addAttribute("sellerpage", "product_qna.jsp");
 		return "sellers/temp";
 	}
+	
+	
+	@RequestMapping("/qna_reply")
+	public String qna_reply(Model model, QnaDTO dto) {
+		
+		dto.setQna_state("답변완료");
+		sellerservice.qna_reply(dto);
+		
+		return "redirect:/seller/product_qna";
+	}
+	
+	@RequestMapping("/qna_reply_del")
+	public String qna_reply_del(Model model, QnaDTO dto) {
+		
+		dto.setQna_state("답변대기");
+		dto.setQna_reply(null);
+		dto.setReply_date(null);
+		sellerservice.qna_reply(dto);
+		return "redirect:/seller/product_qna";
+	}
+	
+/*	@RequestMapping("/deadline")
+	public String deadline(MultipartFile deadline_file, String deadline) {
+		
+		
+		
+		
+		return "redirect:/seller/seller_info";
+		
+		
+	}*/
 }
 
 

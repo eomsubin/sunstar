@@ -3,10 +3,10 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
 <title>Insert title here</title>
 
 <style>
@@ -109,12 +109,12 @@ frm+='     <label for="options" class="col-sm-2 col-form-label">옵션'+i+' </la
 frm+='        <div class="col-sm-10">                                                                                                    ';
 frm+='             <div class="col-sm-2 frmsort">                                                                                        ';
 frm+='                 <label for="options['+i+'].option1" class=" col-form-label">옵션1</label>                                          ';
-frm+='                 <input type="text" class="form-control " name="options['+i+'].option1" id="options['+i+'].option1">               ';
+frm+='                 <input type="text" class="form-control " name="options['+i+'].option1" id="options['+i+'].option1" required>               ';
 frm+='                 <input type="hidden" class="form-control ival" value="'+i+'">                  									 ';
 frm+='             </div>                                                                                                                ';
 frm+='             <div class="col-sm-2 frmsort">                                                                                        ';
 frm+='                 <label for="options['+i+']..option1" class=" col-form-label">옵션2</label>                                         ';
-frm+='                 <input type="text" class="form-control " name="options['+i+'].option2" id="options['+i+'].option2">               ';
+frm+='                 <input type="text" class="form-control " name="options['+i+'].option2" id="options['+i+'].option2" >               ';
 frm+='             </div>                                                                                                                ';
 frm+='             <div class="col-sm-2 frmsort">                                                                                        ';
 frm+='                 <label for="options['+i+'].inventory" class="  col-form-label">재고</label>                                        ';
@@ -198,7 +198,7 @@ console.log('end');
 
 
 </script>
-<script>
+<!-- <script>
 	function validate(){
 		let product_name = document.addfm.product_name;
 		let price = document.addfm.price;
@@ -317,16 +317,33 @@ console.log('end');
 					alert('추가금액은 숫자만 입력 할 수 있습니다.');
 					inventory.focus();
 					return false;
-				}else{
-					true;
 				}
 			}  
 		}else{
 			return true;
 		}
 	}
+</script> -->
+<script>
+// Example starter JavaScript for disabling form submissions if there are invalid fields
+(function() {
+  'use strict';
+  window.addEventListener('load', function() {
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    var forms = document.getElementsByClassName('needs-validation');
+    // Loop over them and prevent submission
+    var validation = Array.prototype.filter.call(forms, function(form) {
+      form.addEventListener('submit', function(event) {
+        if (form.checkValidity() === false) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+        form.classList.add('was-validated');
+      }, false);
+    });
+  }, false);
+})();
 </script>
-
 
 
 
@@ -347,15 +364,15 @@ console.log('end');
 				<h6 class="m-0 font-weight-bold text-primary">상품 추가 폼</h6>
 			</div>
 			<div class="card-body">
+		<!-- 	onsubmit="return validate();"  -->
 			
-			
-				<form action="${pageContext.request.contextPath}/addproductresult" name="addfm" method="post" onsubmit="return validate();" enctype="multipart/form-data" class="needs-validation" novalidate>
+				<form action="${pageContext.request.contextPath}/seller/addproductresult" name="addfm" method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
 						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 
 					<div class="form-group row">
 						<label for="product_name" class="col-sm-2 col-form-label">상품명</label>
 						<div class="col-sm-10">
-							<input type="text" class=" form-control" name="product_name" id="product_name" >
+							<input type="text" class=" form-control" name="product_name" id="product_name" required>
 							<div class="invalid-tooltip">필수 입력 사항 / 리스트에 노출될 상품명을
 								입력해주세요</div>
 
@@ -364,7 +381,7 @@ console.log('end');
 					<div class="form-group row">
 						<label for="price" class="col-sm-2 col-form-label">판매가</label>
 						<div class="col-sm-10">
-							<input type="text" class="form-control" name="price" id="price"  >
+							<input type="text" class="form-control" name="price" id="price" required  >
 							<div class="invalid-tooltip">필수 입력 사항 / 소비자에게 판매할 금액을
 								입력해주세요</div>
 						</div>
@@ -373,7 +390,7 @@ console.log('end');
 					<div class="form-group row">
 						<label for="cost" class="col-sm-2 col-form-label">원가</label>
 						<div class="col-sm-10">
-							<input type="text" class="form-control " name="cost" id="cost"  >
+							<input type="text" class="form-control " name="cost" id="cost"  required>
 							<div class="invalid-tooltip">필수 입력 사항 / 상품 입고 원가를 입력해주세요</div>
 						</div>
 					</div>
@@ -382,7 +399,7 @@ console.log('end');
 						<label for="shipping_cost" class="col-sm-2 col-form-label">배송비</label>
 						<div class="col-sm-10">
 							<input type="text" class="form-control "
-								name="shipping_cost" id="shipping_cost" value="${shipping_cost}" >
+								name="shipping_cost" id="shipping_cost" value="${shipping_cost}" required>
 							<div class="invalid-tooltip">필수 입력 사항 / 1회 배송비를 입력해주세요</div>
 						</div>
 					</div>
@@ -404,14 +421,14 @@ console.log('end');
 							<div class="col-sm-2  frmsort">
 								<label for="options[0].inventory" class="  col-form-label">재고</label>
 								<input type="text" class="form-control "
-									name="options[0].inventory" id="options[0].inventory" >
+									name="options[0].inventory" id="options[0].inventory" required>
 								<div class="invalid-tooltip">필수 입력 사항 / 재고량을 입력해주세요</div>
 									
 							</div>
 							<div class="col-sm-2 frmsort">
 								<label for="options[0].add_price" class=" col-form-label">추가
 									금액</label> <input type="text" class=" form-control"
-									name="options[0].add_price" id="options[0].add_price" palceholder="0" >
+									name="options[0].add_price" id="options[0].add_price" palceholder="0" required>
 								<div class="invalid-tooltip">필수 입력 사항 / 추가금액이 없을시 0 입력</div>
 							</div>
 
@@ -428,7 +445,7 @@ console.log('end');
 						<label for="inputEmail3" class="col-sm-2 col-form-label">카테고리</label>
 						<div class="col-sm-10">
 							<select class="custom-select" name="category_code"
-								id="category_code" data-rel="chosen">
+								id="category_code" data-rel="chosen" required>
 								<option selected disabled value="">분류 선택</option>
 
 								<c:forEach var="i" items="${dlist}">
@@ -446,8 +463,8 @@ console.log('end');
 						<div class="col-sm-10">
 							<div class="custom-file">
 								<input type="file" class="custom-file-input upload-hidden"
-									id="athumb_img" name="athumb_img" > <label
-									class="custom-file-label upload-file" for="athumb_img">이미지
+									id="athumb_img" name="athumb_img" required > <label
+									class="custom-file-label upload-file" for="athumb_img" >이미지
 									파일 선택 (가로 550px * 세로 750px 권장)</label>
 
 							</div>
@@ -493,9 +510,9 @@ console.log('end');
 					</div>
 					
 					<div class="form-group row">
-						<label for="inputEmail3" class="col-sm-2 col-form-label">상품 설명</label>
+						<label for="inputEmail3" class="col-sm-2 col-form-label" >상품 설명</label>
 						<div class="col-sm-10">
-							<textarea id="summernote" name="explains"></textarea>
+							<textarea id="summernote" name="explains" required></textarea>
 						</div>
 					</div>
 
@@ -507,7 +524,7 @@ console.log('end');
 							<div class="form-check">
 								<input class="form-check-input" type="checkbox"
 									id="public_state" name="public_state" checked="">
-								<label class="form-check-label" for="gridCheck1"> 상품을 공개
+								<label class="form-check-label" for="gridCheck1" > 상품을 공개
 									할 경우 체크 </label>
 
 
@@ -525,7 +542,7 @@ console.log('end');
 					<div class="form-group row">
 						<div class="col-sm-10"> <!-- onsubmit="return validate();" -->
 					<!-- 	onclick="return validate()" -->
-							<input type="submit" class="btn btn-primary" value="상품 등록"    onclick="return validate()" >
+							<input type="submit" class="btn btn-primary" value="상품 등록"    >
 							<input type="reset" class="btn btn-secondary" value="초기화">
 							
 						</div>
