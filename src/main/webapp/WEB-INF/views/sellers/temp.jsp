@@ -1,9 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+    <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -25,7 +26,11 @@
 </head>
 
 <body id="page-top">
-
+<form role="form" method="post">
+      <sec:authorize access="hasRole('ROLE_MANAGER')">
+         <input type="hidden" name="id" class="id" value='<sec:authentication property="principal.UserInfo.id"/>'>
+      </sec:authorize>
+</form>
     <!-- Page Wrapper -->
     <div id="wrapper">
 
@@ -33,7 +38,7 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="${pageContext.request.contextPath}/seller">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="${pageContext.request.contextPath}/seller/seller">
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
@@ -45,7 +50,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="${pageContext.request.contextPath}/">
+                <a class="nav-link" href="${pageContext.request.contextPath}/controller">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>스삐제로 돌아가기</span></a>
             </li>
@@ -67,9 +72,9 @@
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">**************</h6>
-                        <a class="collapse-item" href="${pageContext.request.contextPath}/productlist">상품 목록</a>
-                        <a class="collapse-item" href="${pageContext.request.contextPath}/addproduct">상품 추가</a>
-                        <a class="collapse-item" href="${pageContext.request.contextPath}/product_qna">상품 문의</a>
+                        <a class="collapse-item" href="${pageContext.request.contextPath}/seller/productlist">상품 목록</a>
+                        <a class="collapse-item" href="${pageContext.request.contextPath}/seller/addproduct">상품 추가</a>
+                        <a class="collapse-item" href="${pageContext.request.contextPath}/seller/product_qna">상품 문의</a>
                     </div>
                 </div>
             </li>
@@ -83,7 +88,7 @@
                 <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">주문관리</h6>
-                        <a class="collapse-item" href="${pageContext.request.contextPath}/orders">주문 관리</a>
+                        <a class="collapse-item" href="${pageContext.request.contextPath}/seller/orders">주문 관리</a>
                         <a class="collapse-item" href="utilities-color.html">줌</a>
                         <a class="collapse-item" href="utilities-border.html">Borders</a>
                         <a class="collapse-item" href="utilities-animation.html">Animations</a>
@@ -109,20 +114,20 @@
                 <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">통계</h6>
-                        <a class="collapse-item" href="${pageContext.request.contextPath}/charts">통계</a>
+                        <a class="collapse-item" href="${pageContext.request.contextPath}/seller/charts">통계</a>
                         <a class="collapse-item" href="register.html">Register</a>
                         <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
                         <div class="collapse-divider"></div>
                         <h6 class="collapse-header">정산</h6>
-                        <a class="collapse-item" href="${pageContext.request.contextPath}/requestaccounting">정산 신청</a>
-                        <a class="collapse-item" href="${pageContext.request.contextPath}/accounting">정산 내역 확인</a>
+                        <a class="collapse-item" href="${pageContext.request.contextPath}/seller/requestaccounting">정산 신청</a>
+                        <a class="collapse-item" href="${pageContext.request.contextPath}/seller/accounting">정산 내역 확인</a>
                     </div>
                 </div>
             </li>
 <%-- 
 			<!-- Nav Item - Charts -->
             <li class="nav-item">
-                <a class="nav-link" href="${pageContext.request.contextPath}/accounting">
+                <a class="nav-link" href="${pageContext.request.contextPath}/seller/accounting">
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>정산</span></a>
             </li>
@@ -137,8 +142,8 @@
                 <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">정산 관리</h6>
-                        <a class="collapse-item" href="${pageContext.request.contextPath}/requestaccounting">정산 신청</a>
-                        <a class="collapse-item" href="${pageContext.request.contextPath}/accounting">정산 내역 확인</a>
+                        <a class="collapse-item" href="${pageContext.request.contextPath}/seller/requestaccounting">정산 신청</a>
+                        <a class="collapse-item" href="${pageContext.request.contextPath}/seller/accounting">정산 내역 확인</a>
                     </div>
                 </div>
             </li>
@@ -153,7 +158,7 @@
             
             <!-- Nav Item - Charts -->
             <li class="nav-item">
-                <a class="nav-link" href="${pageContext.request.contextPath}/charts">
+                <a class="nav-link" href="${pageContext.request.contextPath}/seller/charts">
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>통계</span></a>
             </li>
@@ -165,14 +170,14 @@
             
             <!-- Nav Item - Tables -->
             <li class="nav-item">
-                <a class="nav-link" href="${pageContext.request.contextPath}/sellerinfo">
+                <a class="nav-link" href="${pageContext.request.contextPath}/seller/sellerinfo">
                     <i class="fas fa-fw fa-wrench"></i>
                     <span>내 정보 확인</span></a>
             </li>
             
             <!-- Nav Item - Tables -->
             <li class="nav-item">
-                <a class="nav-link" href="${pageContext.request.contextPath}/sellersetting">
+                <a class="nav-link" href="${pageContext.request.contextPath}/seller/sellersetting">
                     <i class="fas fa-fw fa-wrench"></i>
                     <span>설정</span></a>
             </li>
@@ -243,7 +248,7 @@
 	            
 	            <!--  -->
 	             <li class="nav-item dropdown no-arrow mx-1">
-	             <a href="${pageContext.request.contextPath}/seller_list" class="nav-link dropdown-toggle" >
+	             <a href="${pageContext.request.contextPath}/seller/seller_list" class="nav-link dropdown-toggle" >
 	                <i class="fas fa-home fa-fw"></i>
 	              </a>
 	             

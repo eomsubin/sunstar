@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
 <title>Insert title here</title>
 
 <style>
@@ -60,197 +60,206 @@ $(document).ready(function() {
 	console.log("1"+pcode);
 	
 	$.ajax({
-		url : "${pageContext.request.contextPath}/detailview/"+pcode , 
-		dataType:"Json",
-		beforeSend : function(xhr){
-			xhr.setRequestHeader(header, token)
-		},
-		success: function(data){
-			
-			console.log(data);
-			console.log(data.product_code);
-			
-			$('.modal-content').empty();
-			
-			let m ='';
-                                     
-			m+='			<form action="${pageContext.request.contextPath}/productUpdate" enctype="multipart/form-data"  method="post" >                                                                                                        ';
+	      url : "${pageContext.request.contextPath}/seller/detailview/"+pcode , 
+	      dataType:"Json",
+	      beforeSend : function(xhr){
+	         xhr.setRequestHeader(header, token)
+	      },
+	      success: function(data){
+	         
+	         console.log(data);
+	         console.log(data.product_code);
+	         
+	         $('.modal-content').empty();
+	         
+	         let m ='';
+	                                     
+	         m+='         <form action="${pageContext.request.contextPath}/seller/productUpdate" enctype="multipart/form-data"  method="post" >                                                                                                        ';
 
-m+='		<div class="modal-header">                                                                                        ';
-m+='		<h5 class="modal-title" id="exampleModalLabel">상품 상세보기 및 수정</h5>                                                  ';
-m+='		<button type="button" class="close" data-dismiss="modal"                                                          ';
-m+='			aria-label="Close">                                                                                           ';
-m+='			<span aria-hidden="true">&times;</span>                                                                       ';
-m+='		</button>                                                                                                         ';
-m+='	</div>                                                                                                                ';
-m+='	<div class="modal-body">                                                                                              ';
-m+='		<p style="color:red; font-weight:700;"> 상품명, 판매가, 원가, 배송비, 이미지, 공개여부만 변경 가능합니다. </p>';
-m+='		 <p>상품코드 :'+data.product_code +'</p>';
-m+='		<div class="card-body">                                                                                           ';
-m+='				<input type="hidden" name="${_csrf.parameterName}"                                                        ';
-m+='					value="${_csrf.token}" /> <input type="hidden" name="product_code" value="'+data.product_code+'">';                       
-m+='				<div class="form-group row">                                                                              ';
-m+='					<label for="product_name" class="col-sm-2 col-form-label">상품명</label>                                 ';
-m+='					<div class="col-sm-10">                                                                               ';
-m+='						<input type="text" class=" form-control" name="product_name"                                      ';
-m+='							value="'+data.product_name+ '  ">                                                                   ';
-m+='						<div class="invalid-tooltip">필수 입력 사항 / 리스트에 노출될 상품명을 입력해주세요</div>                                ';
-m+='					</div>                                                                                                ';
-m+='				</div>                                                                                                    ';
-m+='				<div class="form-group row">                                                                              ';
-m+='					<label for="price" class="col-sm-2 col-form-label">판매가</label>                                        ';
-m+='					<div class="col-sm-10">                                                                               ';
-m+='						<input type="text" class="form-control" name="price"                                              ';
-m+='							value="' + data.price + '">                                                                           ';
-m+='						<div class="invalid-tooltip">필수 입력 사항 / 소비자에게 판매할 금액을 입력해주세요</div>                                ';
-m+='					</div>                                                                                                ';
-m+='				</div>                                                                                                    ';
-m+='	                                                                                                                      ';
-m+='				<div class="form-group row">                                                                              ';
-m+='					<label for="cost" class="col-sm-2 col-form-label">원가</label>                                          ';
-m+='					<div class="col-sm-10">                                                                               ';
-m+='						<input type="text" class="form-control " name="cost"                                              ';
-m+='							value="' +data.cost+'">                                                                            ';
-m+='						<div class="invalid-tooltip">필수 입력 사항 / 상품 입고 원가를 입력해주세요</div>                                    ';
-m+='					</div>                                                                                                ';
-m+='				</div>                                                                                                    ';
-m+='				<div class="form-group row">                                                                              ';
-m+='					<label for="shipping_cost" class="col-sm-2 col-form-label">배송비</label>                                ';
-m+='					<div class="col-sm-10">                                                                               ';
-m+='						<input type="text" class="form-control " name="shipping_cost"                                     ';
-m+='							value="'+data.shipping_cost+'">                                                                   ';
-m+='						<div class="invalid-tooltip">필수 입력 사항 / 1회 배송비를 입력해주세요</div>                                      ';
-m+='					</div>                                                                                                ';
-m+='				</div>                                                                                                    ';
-m+='				<div>                                                                                                     ';
-m+='					<div class="form-group row">                                                                          ';
-m+='						<label for="options" class="col-sm-2 col-form-label">옵션</label>                                   ';
-m+='						<div class="col-sm-12">                                                                           ';
-m+='							<div class="col-sm-2 frmsort">                                                                ';
-m+='								<label for="options[0].option1" class=" col-form-label">옵션1</label>                       ';
-m+='								<input type="text" class="form-control "                                                  ';
-m+='									name="options[0].option1" placeholder="ex)색상 ,,"                                      ';
-m+='									value="'+data.option1+'" readonly="readonly">                                                                 ';
-m+='							</div>                                                                                        ';
-m+='							<div class="col-sm-2 frmsort">                                                                ';
-m+='								<label for="options[0].option2" class=" col-form-label">옵션2</label>                       ';
-m+='								<input type="text" class="form-control "                                                  ';
-m+='									name="options[0].option2" placeholder="ex)사이즈 ,,"                                     ';
-m+='									value="'+data.option2+'" readonly="readonly">                                                                 ';
-m+='							</div>                                                                                        ';
-m+='							<div class="col-sm-2  frmsort">                                                               ';
-m+='								<label for="options[0].inventory" class="  col-form-label">재고</label>                     ';
-m+='								<input type="text" class="form-control "   readonly="readonly"                               ';
-m+='									name="options[0].inventory" value="'+data.inventory+'">                                   ';
-m+='								<div class="invalid-tooltip">필수 입력 사항 / 재고량을 입력해주세요</div>                                 ';
-m+='							</div>                                                                                        ';
-m+='							<div class="col-sm-2 frmsort">                                                                ';
-m+='								<label for="options[0].add_price" class=" col-form-label">추가                              ';
-m+='									금액</label> <input type="text" class=" form-control"      readonly="readonly"           ';
-m+='									name="options[0].add_price" value="'+data.add_price+'">                                   ';
-m+='								<div class="invalid-tooltip">필수 입력 사항 / 추가금액이 없을시 0 입력</div>                              ';
-m+='							</div>                                                                                        ';
-m+='	                                                                                                                      ';
-m+='						</div>                                                                                            ';
-m+='					</div>                                                                                                ';
-m+='				</div>                                                                                                    ';
-m+='				<div id="addoptions"></div>                                                                               ';
-m+='				<div class="form-group row">                                                                              ';
-m+='					<label for="inputEmail3" class="col-sm-2 col-form-label">카테고리</label>                                 ';
-m+='					<div class="col-sm-10">                                                                               ';
-m+='	                      <input type="text" class=" form-control" name="category" id="category" value="'+data.lv1 +' - '+ data.lv2+ ' - '+ data.lv3+'" readonly="readonly">                                                                                                ';
-m+='					</div>                                                                                                ';
-m+='				</div>                                                                                                    ';
-m+='				<div>                                                                                                     ';
-m+='					<img src="'+data.thumb_img+'" style="width:24%;">                                                 ';
-m+='					<img src="'+data.detail_img1+'" style="width:24%;">                                                 ';
-m+='					<img src="'+data.detail_img2+'" style="width:24%;">                                                 ';
-m+='					<img src="'+data.detail_img3+'" style="width:24%;">                                                 ';
-m+='				</div>                                                                                                    ';
-m+='				<div class="form-group row">                                                                              ';
-m+='					<label for="athumb_img" class="col-sm-2 col-form-label">썸네일                                           ';
-m+='						이미지</label>                                                                                       ';
-m+='					<div class="col-sm-10">                                                                               ';
-m+='						<div class="custom-file">                                                                         ';
-m+='							<input type="file" class="custom-file-input upload-hidden"                                    ';
-m+='								name="athumb_img"> <label                                                                 ';
-m+='								class="custom-file-label upload-file" for="adetail_img2">이미지                              ';
-m+='								파일 선택 (가로 550px * 세로 750px 권장)</label>                                                    ';
-m+='						</div>                                                                                            ';
-m+='					</div>                                                                                                ';
-m+='					<label for="inputEmail3" class="col-sm-2 col-form-label">상세                                           ';
-m+='						이미지 1</label>                                                                                     ';
-m+='					<div class="col-sm-10">                                                                               ';
-m+='						<div class="custom-file">                                                                         ';
-m+='							<input type="file" class="custom-file-input upload-hidden"                                    ';
-m+='								name="adetail_img1"> <label                                                               ';
-m+='								class="custom-file-label upload-file" for="adetail_img1">이미지                              ';
-m+='								파일 선택</label>                                                                             ';
-m+='						</div>                                                                                            ';
-m+='					</div>                                                                                                ';
-m+='					<label for="inputEmail3" class="col-sm-2 col-form-label">상세                                           ';
-m+='						이미지 2</label>                                                                                     ';
-m+='					<div class="col-sm-10">                                                                               ';
-m+='						<div class="custom-file">                                                                         ';
-m+='							<input type="file" class="custom-file-input upload-hidden"                                    ';
-m+='								" name="adetail_img2"> <label                                                             ';
-m+='								class="custom-file-label upload-file" for="adetail_img2">이미지                              ';
-m+='								파일 선택</label>                                                                             ';
-m+='						</div>                                                                                            ';
-m+='					</div>                                                                                                ';
-m+='					<label for="inputEmail3" class="col-sm-2 col-form-label">상세                                           ';
-m+='						이미지 3</label>                                                                                     ';
-m+='					<div class="col-sm-10">                                                                               ';
-m+='						<div class="custom-file">                                                                         ';
-m+='							<input type="file" class="custom-file-input upload-hidden"                                    ';
-m+='								name="adetail_img3"> <label                                                               ';
-m+='								class="custom-file-label upload-file" for="adetail_img3">이미지                              ';
-m+='								파일 선택</label>                                                                             ';
-m+='						</div>                                                                                            ';
-m+='					</div>                                                                                                ';
-m+='				</div>                                                                                                    ';
-m+='				<div class="form-group row">                                                                              ';
-m+='					<label for="inputEmail3" class="col-sm-2 col-form-label">상품                                           ';
-m+='						설명</label>                                                                                        ';
-m+='					<div class="col-sm-10">                                                                               ';
-m+='						<textarea class="summernote" name="explains" readonly="readonly" rows="4" cols="96">'+data.explains+'</textarea>                             ';
-m+='					</div>                                                                                                ';
-m+='				</div>                                                                                                    ';
-m+='				<div class="form-group row">                                                                              ';
-m+='					<div class="col-sm-2">공개 여부</div>                                                                     ';
-m+='					<div class="col-sm-10">                                                                               ';
-m+='						<div class="form-check">                                                                          ';
-m+='							<input class="form-check-input" type="checkbox"                                               ';
-m+='								name="public_state" checked=""> <label                                          ';
-m+='								class="form-check-label" for="gridCheck1"> 상품을 공개 할 경우 체크                                 ';
-m+='							</label>                                                                                      ';
-m+='						</div>                                                                                            ';
-m+='						<div class="form-check">                                                                          ';
-m+='							<input class="form-check-input" type="checkbox"                                               ';
-m+='								name="review_state" checked=""> <label                                          ';
-m+='								class="form-check-label" for="gridCheck1"> 상품에 대한 리뷰를 공개                                  ';
-m+='								할 경우 체크 </label>                                                                          ';
-m+='						</div>                                                                                            ';
-m+='					</div>                                                                                                ';
-m+='				</div>                                                                                                    ';
-m+='			                                                                                      ';
-m+='		</div>                                                                                                            ';
-m+='	</div>                                                                                                                ';
-m+='	<div class="modal-footer">                                                                                            ';
-m+='		<button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>                               ';
-m+='		<input type="submit" class="btn btn-primary" value="정보 업데이트">                                              ';
-m+='	</div>    </form>                                                                                                             ';
-                                                                                                                             			
-			
+	m+='      <div class="modal-header">                                                                                        ';
+	m+='      <h5 class="modal-title" id="exampleModalLabel">상품 상세보기 및 수정</h5>                                                  ';
+	m+='      <button type="button" class="close" data-dismiss="modal"                                                          ';
+	m+='         aria-label="Close">                                                                                           ';
+	m+='         <span aria-hidden="true">&times;</span>                                                                       ';
+	m+='      </button>                                                                                                         ';
+	m+='   </div>                                                                                                                ';
+	m+='   <div class="modal-body">                                                                                              ';
+	m+='      <p style="color:red; font-weight:700;"> 상품명, 판매가, 원가, 배송비, 이미지, 공개여부만 변경 가능합니다. </p>';
+	m+='       <p>상품코드 :'+data.product_code +'</p>';
+	m+='      <div class="card-body">                                                                                           ';
+	m+='            <input type="hidden" name="${_csrf.parameterName}"                                                        ';
+	m+='               value="${_csrf.token}" /> <input type="hidden" name="product_code" value="'+data[0].product_code+'">';                       
+	m+='            <div class="form-group row">                                                                              ';
+	m+='               <label for="product_name" class="col-sm-2 col-form-label">상품명</label>                                 ';
+	m+='               <div class="col-sm-10">                                                                               ';
+	m+='                  <input type="text" class=" form-control" name="product_name"                                      ';
+	m+='                     value="'+data[0].product_name+ '  ">                                                                   ';
+	m+='                  <div class="invalid-tooltip">필수 입력 사항 / 리스트에 노출될 상품명을 입력해주세요</div>                                ';
+	m+='               </div>                                                                                                ';
+	m+='            </div>                                                                                                    ';
+	m+='            <div class="form-group row">                                                                              ';
+	m+='               <label for="price" class="col-sm-2 col-form-label">판매가</label>                                        ';
+	m+='               <div class="col-sm-10">                                                                               ';
+	m+='                  <input type="text" class="form-control" name="price"                                              ';
+	m+='                     value="' + data[0].price + '">                                                                           ';
+	m+='                  <div class="invalid-tooltip">필수 입력 사항 / 소비자에게 판매할 금액을 입력해주세요</div>                                ';
+	m+='               </div>                                                                                                ';
+	m+='            </div>                                                                                                    ';
+	m+='                                                                                                                         ';
+	m+='            <div class="form-group row">                                                                              ';
+	m+='               <label for="cost" class="col-sm-2 col-form-label">원가</label>                                          ';
+	m+='               <div class="col-sm-10">                                                                               ';
+	m+='                  <input type="text" class="form-control " name="cost"                                              ';
+	m+='                     value="' +data[0].cost+'">                                                                            ';
+	m+='                  <div class="invalid-tooltip">필수 입력 사항 / 상품 입고 원가를 입력해주세요</div>                                    ';
+	m+='               </div>                                                                                                ';
+	m+='            </div>                                                                                                    ';
+	m+='            <div class="form-group row">                                                                              ';
+	m+='               <label for="shipping_cost" class="col-sm-2 col-form-label">배송비</label>                                ';
+	m+='               <div class="col-sm-10">                                                                               ';
+	m+='                  <input type="text" class="form-control " name="shipping_cost"                                     ';
+	m+='                     value="'+data[0].shipping_cost+'">                                                                   ';
+	m+='                  <div class="invalid-tooltip">필수 입력 사항 / 1회 배송비를 입력해주세요</div>                                      ';
+	m+='               </div>                                                                                                ';
+	m+='            </div>                                                                                                    ';
+	
+	
+	$.each(data,function(index, item){
+		m+='            <div>                                                                                                     ';
+		m+='               <div class="form-group row">                                                                          ';
+		m+='                  <label for="options" class="col-sm-2 col-form-label">옵션</label>                                   ';
+		m+='                  <div class="col-sm-12">                                                                           ';
+		m+='                     <div class="col-sm-2 frmsort">                                                                ';
+		m+='                        <label for="options[0].option1" class=" col-form-label">옵션1</label>                       ';
+		m+='                        <input type="text" class="form-control "                                                  ';
+		m+='                           name="options[0].option1" placeholder="ex)색상 ,,"                                      ';
+		m+='                           value="'+item.option1+'" readonly="readonly">                                                                 ';
+		m+='                     </div>                                                                                        ';
+		m+='                     <div class="col-sm-2 frmsort">                                                                ';
+		m+='                        <label for="options[0].option2" class=" col-form-label">옵션2</label>                       ';
+		m+='                        <input type="text" class="form-control "                                                  ';
+		m+='                           name="options[0].option2" placeholder="ex)사이즈 ,,"                                     ';
+		m+='                           value="'+item.option2+'" readonly="readonly">                                                                 ';
+		m+='                     </div>                                                                                        ';
+		m+='                     <div class="col-sm-2  frmsort">                                                               ';
+		m+='                        <label for="options[0].inventory" class="  col-form-label">재고</label>                     ';
+		m+='                        <input type="text" class="form-control "   readonly="readonly"                               ';
+		m+='                           name="options[0].inventory" value="'+item.inventory+'">                                   ';
+		m+='                        <div class="invalid-tooltip">필수 입력 사항 / 재고량을 입력해주세요</div>                                 ';
+		m+='                     </div>                                                                                        ';
+		m+='                     <div class="col-sm-2 frmsort">                                                                ';
+		m+='                        <label for="options[0].add_price" class=" col-form-label">추가                              ';
+		m+='                           금액</label> <input type="text" class=" form-control"      readonly="readonly"           ';
+		m+='                           name="options[0].add_price" value="'+item.add_price+'">                                   ';
+		m+='                        <div class="invalid-tooltip">필수 입력 사항 / 추가금액이 없을시 0 입력</div>                              ';
+		m+='                     </div>                                                                                        ';
+		m+='                                                                                                                         ';
+		m+='                  </div>                                                                                            ';
+		m+='               </div>                                                                                                ';
+		m+='            </div>                                                                                                    ';
 		
-			
-			$('.modal-content').append(m);
-			$('#modalplus').modal('show');
-		},error:function(data){
-			console.log(data);
-		}
 	})
-}); 					
+	
+	
+
+	m+='            <div id="addoptions"></div>                                                                               ';
+	m+='            <div class="form-group row">                                                                              ';
+	m+='               <label for="inputEmail3" class="col-sm-2 col-form-label">카테고리</label>                                 ';
+	m+='               <div class="col-sm-10">                                                                               ';
+	m+='                         <input type="text" class=" form-control" name="category" id="category" value="'+data[0].lv1 +' - '+ data[0].lv2+ ' - '+ data[0].lv3+'" readonly="readonly">                                                                                                ';
+	m+='               </div>                                                                                                ';
+	m+='            </div>                                                                                                    ';
+	m+='            <div>                                                                                                     ';
+	m+='               <img src="'+data[0].thumb_img+'" style="width:24%;">                                                 ';
+	m+='               <img src="'+data[0].detail_img1+'" style="width:24%;">                                                 ';
+	m+='               <img src="'+data[0].detail_img2+'" style="width:24%;">                                                 ';
+	m+='               <img src="'+data[0].detail_img3+'" style="width:24%;">                                                 ';
+	m+='            </div>                                                                                                    ';
+	m+='            <div class="form-group row">                                                                              ';
+	m+='               <label for="athumb_img" class="col-sm-2 col-form-label">썸네일                                           ';
+	m+='                  이미지</label>                                                                                       ';
+	m+='               <div class="col-sm-10">                                                                               ';
+	m+='                  <div class="custom-file">                                                                         ';
+	m+='                     <input type="file" class="custom-file-input upload-hidden"                                    ';
+	m+='                        name="athumb_img"> <label                                                                 ';
+	m+='                        class="custom-file-label upload-file" for="adetail_img2">이미지                              ';
+	m+='                        파일 선택 (가로 550px * 세로 750px 권장)</label>                                                    ';
+	m+='                  </div>                                                                                            ';
+	m+='               </div>                                                                                                ';
+	m+='               <label for="inputEmail3" class="col-sm-2 col-form-label">상세                                           ';
+	m+='                  이미지 1</label>                                                                                     ';
+	m+='               <div class="col-sm-10">                                                                               ';
+	m+='                  <div class="custom-file">                                                                         ';
+	m+='                     <input type="file" class="custom-file-input upload-hidden"                                    ';
+	m+='                        name="adetail_img1"> <label                                                               ';
+	m+='                        class="custom-file-label upload-file" for="adetail_img1">이미지                              ';
+	m+='                        파일 선택</label>                                                                             ';
+	m+='                  </div>                                                                                            ';
+	m+='               </div>                                                                                                ';
+	m+='               <label for="inputEmail3" class="col-sm-2 col-form-label">상세                                           ';
+	m+='                  이미지 2</label>                                                                                     ';
+	m+='               <div class="col-sm-10">                                                                               ';
+	m+='                  <div class="custom-file">                                                                         ';
+	m+='                     <input type="file" class="custom-file-input upload-hidden"                                    ';
+	m+='                        " name="adetail_img2"> <label                                                             ';
+	m+='                        class="custom-file-label upload-file" for="adetail_img2">이미지                              ';
+	m+='                        파일 선택</label>                                                                             ';
+	m+='                  </div>                                                                                            ';
+	m+='               </div>                                                                                                ';
+	m+='               <label for="inputEmail3" class="col-sm-2 col-form-label">상세                                           ';
+	m+='                  이미지 3</label>                                                                                     ';
+	m+='               <div class="col-sm-10">                                                                               ';
+	m+='                  <div class="custom-file">                                                                         ';
+	m+='                     <input type="file" class="custom-file-input upload-hidden"                                    ';
+	m+='                        name="adetail_img3"> <label                                                               ';
+	m+='                        class="custom-file-label upload-file" for="adetail_img3">이미지                              ';
+	m+='                        파일 선택</label>                                                                             ';
+	m+='                  </div>                                                                                            ';
+	m+='               </div>                                                                                                ';
+	m+='            </div>                                                                                                    ';
+	m+='            <div class="form-group row">                                                                              ';
+	m+='               <label for="inputEmail3" class="col-sm-2 col-form-label">상품                                           ';
+	m+='                  설명</label>                                                                                        ';
+	m+='               <div class="col-sm-10">                                                                               ';
+	m+='                  <textarea class="summernote" name="explains" readonly="readonly" rows="4" cols="96">'+data[0].explains+'</textarea>                             ';
+	m+='               </div>                                                                                                ';
+	m+='            </div>                                                                                                    ';
+	m+='            <div class="form-group row">                                                                              ';
+	m+='               <div class="col-sm-2">공개 여부</div>                                                                     ';
+	m+='               <div class="col-sm-10">                                                                               ';
+	m+='                  <div class="form-check">                                                                          ';
+	m+='                     <input class="form-check-input" type="checkbox"                                               ';
+	m+='                        name="public_state" checked=""> <label                                          ';
+	m+='                        class="form-check-label" for="gridCheck1"> 상품을 공개 할 경우 체크                                 ';
+	m+='                     </label>                                                                                      ';
+	m+='                  </div>                                                                                            ';
+	m+='                  <div class="form-check">                                                                          ';
+	m+='                     <input class="form-check-input" type="checkbox"                                               ';
+	m+='                        name="review_state" checked=""> <label                                          ';
+	m+='                        class="form-check-label" for="gridCheck1"> 상품에 대한 리뷰를 공개                                  ';
+	m+='                        할 경우 체크 </label>                                                                          ';
+	m+='                  </div>                                                                                            ';
+	m+='               </div>                                                                                                ';
+	m+='            </div>                                                                                                    ';
+	m+='                                                                                               ';
+	m+='      </div>                                                                                                            ';
+	m+='   </div>                                                                                                                ';
+	m+='   <div class="modal-footer">                                                                                            ';
+	m+='      <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>                               ';
+	m+='      <input type="submit" class="btn btn-primary" value="정보 업데이트">                                              ';
+	m+='   </div>    </form>                                                                                                             ';
+	                                                                                                                                      
+	         
+	      
+	         
+	         $('.modal-content').append(m);
+	         $('#modalplus').modal('show');
+	      },error:function(data){
+	         console.log(data);
+	      }
+	   })
+	});                
+	                  
 						
 					
 
@@ -316,7 +325,7 @@ m+='	</div>    </form>                                                          
 													.val();
 											console
 													.log(pcode);
-											location.href = "${pageContext.request.contextPath}/deleteproduct/"
+											location.href = "${pageContext.request.contextPath}/seller/deleteproduct/"
 													+ pcode;
 
 										});
@@ -334,7 +343,7 @@ m+='	</div>    </form>                                                          
 
 						console.log(psize);
 
-						location.href = "${pageContext.request.contextPath}/productlist?psize="
+						location.href = "${pageContext.request.contextPath}/seller/productlist?psize="
 								+ psize;
 
 					})
@@ -378,7 +387,7 @@ m+='	</div>    </form>                                                          
 				console.log(ckbox[i].value);
 				checked += 1;
 
-				location.href = "${pageContext.request.contextPath}/updateinventory/"
+				location.href = "${pageContext.request.contextPath}/seller/updateinventory/"
 						+ pcode + "/" + 3;
 			}
 		}
@@ -405,12 +414,12 @@ m+='	</div>    </form>                                                          
 		console.log(pcodes);
 		console.log("+state++");
 
-		location.href = "${pageContext.request.contextPath}/changePublicState/"
+		location.href = "${pageContext.request.contextPath}/seller/changePublicState/"
 				+ changePublicState + "/" + pcodes;
 	}
 
 	function productallprint() {
-		location.href = "${pageContext.request.contextPath}/productExcel/";
+		location.href = "${pageContext.request.contextPath}/seller/productExcel/";
 
 	}
 </script>
@@ -485,7 +494,7 @@ body {
 								<option value="30">30</option>
 								<option value="50">50</option>
 								<option value="100">100</option>
-								<option value="all">전체</option>
+								<option value="10000">전체</option>
 							</select>
 
 

@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 
@@ -53,7 +53,7 @@
 																		.val();
 																console
 																		.log(pcode);
-																location.href = "${pageContext.request.contextPath}/deleteproduct/"
+																location.href = "${pageContext.request.contextPath}/seller/deleteproduct/"
 																		+ pcode;
 															});
 										});
@@ -124,13 +124,13 @@
 <script>
 	function allprint() {
 		let state = 'all';
-		location.href = "${pageContext.request.contextPath}/orderexcel/"
+		location.href = "${pageContext.request.contextPath}/seller/orderexcel/"
 				+ state;
 	}
 
 	function shippingprint() {
 		let state = 'shipping_list';
-		location.href = "${pageContext.request.contextPath}/orderexcel/"
+		location.href = "${pageContext.request.contextPath}/seller/orderexcel/"
 				+ state;
 	}
 
@@ -154,7 +154,7 @@
 		console.log(state);
 		console.log("+state++");
 
-		location.href = "${pageContext.request.contextPath}/orderexcel/"
+		location.href = "${pageContext.request.contextPath}/seller/orderexcel/"
 				+ state;
 	}
 
@@ -179,14 +179,14 @@
 		console.log(wantChangeOrderCode);
 		console.log("++step++");
 		console.log(stp);
-		location.href = "${pageContext.request.contextPath}/change_step/" + stp
+		location.href = "${pageContext.request.contextPath}/seller/change_step/" + stp
 				+ "/" + wantChangeOrderCode;
 	}
 
 	function viewStep(step){
 		let stp = step;
 		
-		location.href = "${pageContext.request.contextPath}/view_step/" + stp
+		location.href = "${pageContext.request.contextPath}/seller/view_step/" + stp
 	}
 	
 	function arrr() {
@@ -224,7 +224,7 @@
 		console.log("codes", codes);
 		console.log("trackings", trackings);
 
-		location.href = "${pageContext.request.contextPath}/updateTracking/"
+		location.href = "${pageContext.request.contextPath}/seller/updateTracking/"
 				+ codes + "/" + trackings;
 
 	}
@@ -254,7 +254,7 @@ body {
 			<div class="card-body">
 				<div class="table-responsive">
 					<form method="post" id="trac"
-						action="${pageContext.request.contextPath}/updateTracking">
+						action="${pageContext.request.contextPath}/seller/updateTracking">
 						<input type="hidden" name="${_csrf.parameterName}"
 							value="${_csrf.token}" />
 						<!-- 	<button type="button" id="btnaddinventory" class="btn btn-primary">선택 재고 추가</button> -->
@@ -276,7 +276,7 @@ body {
 						<button type="button" class="btn btn-primary dropdown-toggle"
 							data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">단계별 리스트</button>
 						<div class="dropdown-menu">
-						<a href="${pageContext.request.contextPath}/orders" class="dropdown-item" >전체보기</a>
+						<a href="${pageContext.request.contextPath}/seller/orders" class="dropdown-item" >전체보기</a>
 						
 							<div class="dropdown-divider"></div>
 						

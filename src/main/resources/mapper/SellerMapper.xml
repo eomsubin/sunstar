@@ -154,7 +154,7 @@
 	<update id="changeReviewState" parameterType="com.sunstar.dto.ProductDTO">
 		update product_list
 		set review_state = #{review_state}
-		where seller_code = #{seller_code}
+		where product_code = #{product_code}
 		
 	</update>
 	
@@ -281,7 +281,8 @@
 		
 		<select id="viewProduct"  parameterType="int"  resultType="com.sunstar.dto.ProductDTO">
 		
-		select p.product_code, product_name, price, cost, shipping_cost, o.option1, o.option2, o.inventory, o.add_price, thumb_img, detail_img1, detail_img2, detail_img3, explains,
+		select p.product_code, product_name, price, cost, shipping_cost, o.option1, o.option2, o.inventory, o.add_price, 
+			   thumb_img, detail_img1, detail_img2, detail_img3, explains,
 		public_state, review_state, c.lv1, c.lv2, c.lv3, p.product_code, s.basic_shipping_cost
 		from product_list p  join category c
 		on p.category_code = c.category_code
@@ -325,4 +326,73 @@
 			where seller_code = #{seller_code}
 		
 		</select>
+		
+		<select id="getSellerCode" parameterType="string" resultType="string">
+		select seller_code
+		from seller
+		where id = #{id}
+		
+		</select>
+		
+		<select id="getReadyCount" parameterType="string" resultType="int">
+			select count(o.delivery_state)
+			from ordered o left join order_list l
+            on o.order_code = l.order_code
+            left join product_list p 
+            on l.product_code = p.product_code
+            left join seller s
+            on p.seller_code = s.seller_code 
+			where delivery_state = '배송준비' and s.seller_code = #{seller_code}
+		
+		</select>
+		
+		<select id="getExchangeCount" parameterType="string" resultType="int">
+ 			select count(o.delivery_state)
+			from ordered o left join order_list l
+            on o.order_code = l.order_code
+            left join product_list p 
+            on l.product_code = p.product_code
+            left join seller s
+            on p.seller_code = s.seller_code 
+			where delivery_state = '교환요청' and s.seller_code = #{seller_code}
+		
+		</select>
+		
+		<select id="getBringBack" parameterType="string" resultType="int">
+		 	select count(o.delivery_state)
+			from ordered o left join order_list l
+            on o.order_code = l.order_code
+            left join product_list p 
+            on l.product_code = p.product_code
+            left join seller s
+            on p.seller_code = s.seller_code 
+			where delivery_state = '반품대기' and s.seller_code = #{seller_code}
+		
+		
+		</select>
+		
+		<select id="getWaitAnswer" parameterType="string" resultType="int">
+		select count(qna_state)
+		from qna q join product_list p 
+		on q.product_code = p.product_code
+		left join seller s
+        on p.seller_code = s.seller_code
+		where qna_state = '답변대기' and s.seller_code = #{seller_code}
+		</select>
+		
+		
+		<select id="getQnaList" parameterType="string" resultType="com.sunstar.dto.QnaDTO">
+			select * 
+			from qna q join product_list p
+			on q.product_code = p.product_code
+			where p.seller_code = #{seller_code}
+			order by qna_no desc
+		</select>
+		
+		<update id="qna_reply" parameterType="com.sunstar.dto.QnaDTO">
+			update qna
+			set qna_reply = #{qna_reply}, reply_date = now(), qna_state = #{qna_state}
+			where qna_no =#{qna_no}
+		
+		</update>
 </mapper>
