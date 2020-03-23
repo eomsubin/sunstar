@@ -12,6 +12,7 @@ import com.sunstar.dto.MakePage;
 import com.sunstar.dto.OptionDTO;
 import com.sunstar.dto.OrderDTO;
 import com.sunstar.dto.ProductDTO;
+import com.sunstar.dto.QnaDTO;
 import com.sunstar.dto.SellerDTO;
 import com.sunstar.mapper.SellerMapper;
 
@@ -151,7 +152,7 @@ public class SellerServiceImpl implements SellerService {
 	public List<ProductDTO> productlist(MakePage page) {
 		HashMap<String, Object> hm = new HashMap<>();
 		hm.put("txt", page.getTxt());
-		hm.put("startRow", page.getStartRow()-1);
+		hm.put("startRow", page.getStartRow());
 		hm.put("endRow", page.getEndRow());
 		
 		System.out.println("emp service impl test");
@@ -177,7 +178,7 @@ public class SellerServiceImpl implements SellerService {
 	}
 
 	@Override
-	public ProductDTO viewProduct(int pcd) {
+	public List<ProductDTO> viewProduct(int pcd) {
 		// TODO Auto-generated method stub
 		return mapper.viewProduct(pcd);
 	}
@@ -198,7 +199,53 @@ public class SellerServiceImpl implements SellerService {
 		// TODO Auto-generated method stub
 		return mapper.getShipping_Cost(seller_code);
 	}
+	
 
+	@Override
+	public String getSellerCode(String id) {
+		
+		return mapper.getSellerCode(id);
+	}
+
+	
+
+	@Override
+	public int getReadyCount(String seller_code) {
+		return mapper.getReadyCount(seller_code);
+	}
+
+	@Override
+	public int getExchangeCount(String seller_code) {
+		// TODO Auto-generated method stub
+		return mapper.getExchangeCount(seller_code);
+	}
+
+	@Override
+	public int getBringBack(String seller_code) {
+		// TODO Auto-generated method stub
+		return mapper.getBringBack(seller_code);
+	}
+
+	@Override
+	public int getWaitAnswer(String seller_code) {
+		// TODO Auto-generated method stub
+		return mapper.getWaitAnswer(seller_code);
+	}
+
+	@Override
+	public List<QnaDTO> getQnaList(String seller_code) {
+		// TODO Auto-generated method stub
+		return mapper.getQnaList(seller_code);
+	}
+
+	@Override
+	public void qna_reply(QnaDTO dto) {
+		// TODO Auto-generated method stub
+		mapper.qna_reply(dto);
+	}
+
+	
+	
 	
 	
 	

@@ -120,7 +120,7 @@ select option {
 
 				<!-- 내용 -->
 
-				<form action="${pageContext.request.contextPath}/settingUpdate"
+				<form action="${pageContext.request.contextPath}/seller/settingUpdate"
 					method="post" enctype="multipart/form-data">
 
 					<input type="hidden" name="${_csrf.parameterName}"
@@ -131,7 +131,7 @@ select option {
 						<div class="row row-cols-1 row-cols-md-3">
 							<div class="col mb-3">
 								<div class="card">
-									<img src="${dto.comm_img1}" class="card-img-top" alt="...">
+									<img src="${pageContext.request.contextPath}/${dto.comm_img1}" class="card-img-top" alt="...">
 									<div class="card-body">
 										<h5 class="card-title">현재 공지 이미지 1</h5>
 										<label for="athumb_img" class="col-sm-6 col-form-label">공지
@@ -139,7 +139,7 @@ select option {
 										<div class="col-sm-14">
 											<div class="custom-file">
 												<input type="file" class="custom-file-input upload-hidden"
-													id="acomm_img1" name="acomm_img1"> <label
+													id="acomm_img1" name="acomm_img1" > <label
 													class="custom-file-label upload-file" for="acomm_img1">이미지
 													파일 선택 (가로 550px * 세로 750px 권장)</label>
 
@@ -151,7 +151,7 @@ select option {
 							</div>
 							<div class="col mb-3">
 								<div class="card">
-									<img src="${dto.comm_img2}" class="card-img-top" alt="...">
+									<img src="${pageContext.request.contextPath}/${dto.comm_img2}" class="card-img-top" alt="...">
 									<div class="card-body">
 										<h5 class="card-title">현재 공지 이미지 2</h5>
 										<label for="acomm_img2" class="col-sm-6 col-form-label">공지
@@ -159,7 +159,7 @@ select option {
 										<div class="col-sm-14">
 											<div class="custom-file">
 												<input type="file" class="custom-file-input upload-hidden"
-													id="acomm_img2" name="acomm_img2"> <label
+													id="acomm_img2" name="acomm_img2" > <label
 													class="custom-file-label upload-file" for="acomm_img2">이미지
 													파일 선택 </label>
 
@@ -170,7 +170,7 @@ select option {
 							</div>
 							<div class="col mb-3">
 								<div class="card">
-									<img src="${dto.comm_img3}" class="card-img-top" alt="...">
+									<img src="${pageContext.request.contextPath}/${dto.comm_img3}" class="card-img-top" alt="...">
 									<div class="card-body">
 										<h5 class="card-title">현재 공지 이미지 3</h5>
 										<label for="athumb_img" class="col-sm-6 col-form-label">공지
@@ -178,7 +178,7 @@ select option {
 										<div class="col-sm-14">
 											<div class="custom-file">
 												<input type="file" class="custom-file-input upload-hidden"
-													id="acomm_img3" name="acomm_img3"> <label
+													id="acomm_img3" name="acomm_img3" > <label
 													class="custom-file-label upload-file" for="acomm_img3">이미지
 													파일 선택</label>
 
@@ -207,7 +207,7 @@ select option {
 							</select>
 						</div>
 
-						<button type="submit" class="btn btn-primary" ">정보 업데이트</button>
+						<input  type="submit" class="btn btn-primary" value="정보업뎃">정보 업데이트</button>
 						<div class="col-sm-10" style="text-align: right; margin-left: 100px; bottom:30px;">
 							<a href="#"> 구매 회원으로 전환 </a>
 

@@ -308,7 +308,6 @@ input, select{
 		<div class="mx-auto row align-items-top" style="width: 600px; height: 670px;">
 		<div class="col">
 		<form method="post" action="${pageContext.request.contextPath}/registercustomer/insertcustomer">
-				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 				<div class="reg_formbox py-0">
 				<ul class="list-group">
 				  	<li class="list-group-item"><input style="width: 450px;" type="text" name="id" id="id" placeholder="ID를 만들어주세요. 띄어쓰기 없이 영/숫자 6-10자" maxlength="10"></li>
@@ -356,6 +355,7 @@ input, select{
 				 	</li>
 				</ul>
 				</div>
+				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 				<button class="btn btn-secondary regbtn">확인</button>
 		</form>
 		</div>

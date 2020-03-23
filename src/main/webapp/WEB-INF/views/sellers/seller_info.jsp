@@ -50,7 +50,7 @@ $(document).ready(function(){
 
 		console.log(colname);
 		console.log(newvalues);
-		location.href = "${pageContext.request.contextPath}/changeInfo/"+colname+ "/"+newvalues;
+		location.href = "${pageContext.request.contextPath}/seller/changeInfo/"+colname+ "/"+newvalues;
 	})
 	
 })
@@ -62,7 +62,7 @@ $(document).ready(function(){
 
 function changeInfo(){
 	
-	location.href = "${pageContext.request.contextPath}/changeInfo/"+colname+ "/"+newvalues;
+	location.href = "${pageContext.request.contextPath}/seller/changeInfo/"+colname+ "/"+newvalues;
 }
 
 </script>
@@ -180,7 +180,46 @@ function changeInfo(){
 						<div class="form-group col-md-6">
 							<label for="inputPassword4">판매기한
 							
-				<input type="button" class="btn btn-info" value="연장" style="font-size:0.66em; padding:2px 4px 1px 3px; margin: 0 !important;">
+				<input type="button" class="btn btn-info" value="연장" style="font-size:0.66em; padding:2px 4px 1px 3px; margin: 0 !important;"  data-toggle="modal" data-target="#staticBackdrop">
+
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">파일 보내기</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        
+        <form action="${pageContext.request.contextPath}/seller/deadline" method="post" >
+  <div class="form-group">
+    <label for="deadline_file">파일첨부</label>
+    <input type="file" class="form-control" name="deadline_file" id="deadline_file" aria-describedby="emailHelp">
+  </div>
+  <div class="form-group">
+    <label for="deadline">날짜 확인</label>
+    <input type="date" class="form-control" name="deadline" id="deadline">
+  </div>
+  <div class="form-group form-check">
+    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+    <label class="form-check-label" for="exampleCheck1">이용 약관에 동의합니다.</label>
+  </div>
+  <button type="submit" class="btn btn-primary">보내기</button>
+</form>
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">보내기</button>
+      </div>
+    </div>
+  </div>
+</div>
+						
 						
 							</label> 
 							

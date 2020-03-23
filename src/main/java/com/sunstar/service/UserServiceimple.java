@@ -1,5 +1,7 @@
 package com.sunstar.service;
 
+import java.util.HashMap;
+
 import javax.annotation.Resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,5 +39,11 @@ public class UserServiceimple implements UserService{
 	@Override
 	public int customeremailcheck(String email) {
 		return dao.customeremailcheck(email);
-	}	
+	}
+
+	@Override
+	public int customerpwcheck(HashMap<String, String> map) {
+		map.put("pw", encoder.encode(map.get("pw")));
+		return dao.customerpwcheck(map);
+	}
 }

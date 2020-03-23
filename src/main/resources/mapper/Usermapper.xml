@@ -36,6 +36,13 @@
 	where id=#{id}
 	</select>
 	
+	<select id="customerpwcheck" resultType="int" parameterType="string">
+	select count(*)
+	from customer
+	where id=#{id} and password=#{pw}
+	</select>
+	
+	
 	<select id="customeremailcheck" resultType="int" parameterType="string">
 	select count(*)
 	from customer
@@ -53,6 +60,6 @@
   	separator=", " close=" " >
   	(#{item.id},#{item.auth})
   	</foreach>
-  	
   	</insert>
+  	
 </mapper>

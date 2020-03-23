@@ -30,7 +30,7 @@ public class UserLoginSucessHandler implements AuthenticationSuccessHandler {
 		}
 		
 		if(authNames.contains("ROLE_MANAGER")) {
-			response.sendRedirect("/controller/manager");
+			response.sendRedirect("/controller/seller/seller");
 			return;
 		}
 		
