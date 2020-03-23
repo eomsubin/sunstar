@@ -11,6 +11,6 @@ public interface UserService {
 
 	public int customeremailcheck(String email);
 
-	public int customerpwcheck(HashMap<String, String> map);
+	public CustomerDTO customerfindid(HashMap<String, String> map);
 	
 }
