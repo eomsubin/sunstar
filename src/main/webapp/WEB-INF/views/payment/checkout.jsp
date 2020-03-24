@@ -539,6 +539,7 @@ function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2, zipNo
 						msg += '결제 금액 : ' + rsp.paid_amount;
 						msg += '카드 승인번호 : ' + rsp.apply_num; 
 						location.href="${pageContext.request.contextPath}/mypage/order";
+						
 					} else {
 
 						// 결제 실패 시 로직,

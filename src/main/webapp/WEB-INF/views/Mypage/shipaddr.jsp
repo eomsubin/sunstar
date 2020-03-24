@@ -143,17 +143,40 @@ $(document).ready(function(){
 	
 	$('#updateship').on('click',function(){
 		
-		let a=$('input[name=radiobox]:checked').val();
-		console.log(a);
+		let shipping_name=$('input[name=radiobox]:checked').val();
+		console.log(shipping_name);
 		
-		location.href= "${pageContext.request.contextPath}/updateShip/"+a;
+		if(shipping_name==""|| shipping_name==null){
+			alert("배송지를 선택해주세요");	
+		}else{
+		
+		location.href= "${pageContext.request.contextPath}/updateShip/"+shipping_name;
+		}
 		/* 
 		let aa=$(this).parent().parent().parent().parent().parent().find('div').eq(7).find('h5').eq(0).text();
 		console.log(aa); */
 	});
 	
+	
+	
 });
 
+function deleteShip(){
+	
+	
+	let shipping_name=$('input[name=radiobox]:checked').val();
+	console.log(shipping_name);
+	
+	if(shipping_name==""|| shipping_name==null){
+		alert("배송지를 선택해주세요");	
+	}else{
+	
+
+		location.href="${pageContext.request.contextPath}/deleteship/"+shipping_name;
+	}
+	
+	
+}
 
 
 
@@ -168,14 +191,15 @@ $(document).ready(function(){
 	</form>
 	<section class="product-area shop-sidebar shop section">
 
-		<div class="user-title">
+		<div class="user-title" >
 			<h3> 배송지 관리</h3>
-		</div>
-
-		<div>
-	<button type="button" id="btnup"  class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal">배송지 설정</button>
 			
+			<button type="button" id="btnup"  class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal" style="margin-right:23px; margin-top:  20px;">배송지 설정</button>
+			
+		
 		</div>
+			
+		
 		<div class="container">
 			<div class="row">
 
@@ -211,20 +235,27 @@ $(document).ready(function(){
 				<div class="addbtn">
 					<button type="button" class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target="#exampleModalLong">배송지 추가</button>
 				</div>
+				
 				<c:forEach var="slist" items="${slist }">
+				
 				<div class="shipinfo" style="margin-top:20px; left:403px;">
 				 
 				<br>
+					
 				    <input type="radio" name="radiobox" value="${slist.shipping_name }" >
 					<h5 class="getshipname">${slist.shipping_name }</h5><h5>(${slist.to_name})</h5>
 					<br>
-					
+				
+				
+					<button type="button" class="btn btn-secondary" onclick="deleteShip()">배송지 삭제</button> 
 					<br><br>
+			
 					<h5>${slist.shipping_addr1  } ${slist.shipping_addr2 } ${slist.shipping_addr3  } </h5>
 					<br><br>
 					<h5>${info.tel}</h5>
 					<br>
 				</div>
+					
 					</c:forEach>
 				
 				<!-- Modal -->
@@ -287,7 +318,7 @@ $(document).ready(function(){
     <div class="modal-content">
       
       <div class="modal-body" style="max-height: 250px;">
-       	 <p style="font-size: 30px; position: relative; top:50px; ">기본 배송지로 변경 하시겠습니까?</p>
+       	 <p style="font-size: 24px; position: relative; padding:10px;top:50px; ">기본 배송지로 변경 하시겠습니까?</p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
@@ -296,6 +327,8 @@ $(document).ready(function(){
     </div>
   </div>
 </div>
+
+
 
 
 				</div>

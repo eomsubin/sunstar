@@ -42,4 +42,21 @@
 		set address1=#{address1},address2=#{address2},address3=#{address3},zip=#{zip}
 		where id=#{id}  
 	</update>
+	
+	<delete id="deleteShip" parameterType="com.sunstar.dto.ShipDTO">
+		delete
+		from ship
+		where id=#{id}
+		and shipping_name=#{shipping_name}
+	</delete>
+	
+	<select id="orderDetail" parameterType="string" resultType="com.sunstar.dto.OrderDTO">
+		select o.order_code,o.order_way,o.delivery_state,price,l.add_price,quantity,o.shipping_addr1,o.shipping_addr2,o.shipping_addr3,
+		product_name,p.shipping_cost,l.option1,l.option2
+		from ordered o left join order_list l
+		on o.order_code=l.order_code
+		left join product_list p
+		on l.product_code = p.product_code
+		where o.order_code= #{order_code}
+	</select>
 </mapper>

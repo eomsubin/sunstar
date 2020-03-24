@@ -202,21 +202,21 @@ function pwUpdate(){
 						<div class="form-group">
 							
 							 <input type="text" class="form-control" name="zip"
-								id="zip" value="${info.zip }" readonly="readonly">
+								id="zip" value="${info.zip }" readonly="readonly" onclick="goPopup();">
 							<button type="button"  onclick="goPopup();" style="position: relative; left:330px; bottom:44px;"class="btn btn-secondary btn-lg" >주소 찾기</button>
 						</div>
 						<div class="form-group">
 								 <input type="text" class="form-control" name="address1"
-								id="address1" value="${info.address1 }" readonly="readonly">
+								id="address1" value="${info.address1 }" readonly="readonly" onclick="goPopup();">
 						
 						</div>
 						<div class="form-group">
 						 <input type="text" class="form-control" name="address2"
-								id="address2" value="${info.address2}" readonly="readonly">
+								id="address2" value="${info.address2}" readonly="readonly" onclick="goPopup();">
 						 
 						</div>
 						  <input type="text" class="form-control" name="address3"
-								id="address3" value="${info.address3}" readonly="readonly">
+								id="address3" value="${info.address3}" readonly="readonly" onclick="goPopup();">
 						
 					</div>	
 					<div class="info-form" style="margin-top: 60px; text-align: center;">

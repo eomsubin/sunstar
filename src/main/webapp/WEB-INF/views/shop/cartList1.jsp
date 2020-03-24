@@ -204,6 +204,7 @@ $(document).ready(function(){
 					</div>
 					<div class="productInfo m-2">
 						<p>
+							
 							<span>상 품 명 </span><a href="${pageContext.request.contextPath}/detailview2?product_code=${cartList.product_code}">${cartList.product_name}</a><br /> 
 							<span>옵    션 </span>${cartList.option1}&#45;${cartList.option2}	>
 							&#40;&#43;${cartList.add_price}원 &#41;<br /> 	 		

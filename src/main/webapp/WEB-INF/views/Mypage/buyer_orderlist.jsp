@@ -40,11 +40,40 @@
 	href="${pageContext.request.contextPath}/resources/css/mypage.css">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/responsive.css">
+<script>
+$(document).ready(function(){
+	
+	genRowspan("td.ocode");
+
+	 function genRowspan(){
+		$("td.ocode").each(function(){
+			var rows= $("td.ocode:contains('"+$(this).text()+"')");
+			if(rows.length>1){
+				
+				rows.eq(0).attr("rowspan",rows.length);
+				rows.not(":eq(0)").remove();
+			}
+			
+			
+		});
+		
+		
+	}
+
+
+});
+
+function orderDetail(order_code){
+	location.href="${pageContext.request.contextPath}/mypage/orderdetail/"+order_code;
+	
+}
+
+</script>
 </head>
 <body>
 	<section class="product-area shop-sidebar shop section">
 
-		<div class="user-title">
+		<div class="user-title" style="left:100px !important; ">
 			<h3>주문/배송내역</h3>
 		</div>
 
@@ -63,7 +92,7 @@
 								<li><a href="#">회원탈퇴</a></li>
 								<li><a href="#">판매 회원전환</a></li>
 								<li><a href="#">주문/배송내역</a></li>
-								<li><a href="#">배송지관리</a></li>
+								<li><a href="${pageContext.request.contextPath }/mypage/shipaddr">배송지관리</a></li>
 
 							</ul>
 						</div>
@@ -73,24 +102,27 @@
 				<table class="table" style="position: relative;  width:850px; top:30px;">
 					<thead>
 						<tr>
-							<th scope="col" style="width:120px;">주문번호</th>
-							<th scope="col" style="width:150px; text-align: center;">상품정보</th>
-							<th scope="col" style="text-align: center; width:200px;">상품명</th>
-							<th scope="col">상품금액(수량)</th>
+							<th scope="col" style="width:120px; text-align: center;">주문번호</th>
+							<th scope="col" style="width:80px; text-align: center;">상품정보</th>
+							<th scope="col" style="text-align: center; width:250px;">상품명</th>
+							<th scope="col" style="text-align: center;">상품금액(수량)</th>
 							<th scope="col">배송비</th>
 							<th scope="col">주문상태</th>
 						</tr>
 					</thead>
 					<tbody>
 						
-						<c:forEach var="pay" items="${buylist }">
-						<tr>
-							<th scope="row" style="width:180px; vertical-align: middle;">${pay.order_code }</th>
+						<c:forEach var="pay" items="${buylist }" >
+						<tr class="ordertable">
+							<td class="ocode" style="width:180px; vertical-align: middle; text-align: center;">${pay.order_code }
+								
+								<button type="button" style="padding: 3px 10px;"  onclick="orderDetail(${pay.order_code })">상세정보</button>
+								
+							</td>
 							
-							
-							<td><img src="${pageContext.request.contextPath }/${pay.thumb_img }"></td>
-							<td style="vertical-align: middle; text-align: center;">${pay.product_name }</td>
-							<td style="vertical-align: middle;">${(pay.price+pay.add_price)*pay.quantity}원  (${pay.quantity })</td>
+							<td ><img src="${pageContext.request.contextPath }/${pay.thumb_img }"></td>
+							<td style="vertical-align: middle; text-align: center;"><a href="${pageContext.request.contextPath}/detailview2?product_code=${pay.product_code}">${pay.product_name }</a></td>
+							<td style="vertical-align: middle; text-align: center;">${(pay.price+pay.add_price)*pay.quantity}원  (${pay.quantity })</td>
 							<td style="vertical-align: middle;">${pay.shipping_cost}원</td>
 							<td style="vertical-align: middle;">${pay.delivery_state}</td>
 						</tr>
