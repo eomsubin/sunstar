@@ -19,7 +19,7 @@
 		c.product_code, c.cart_quantity, c.option1, c.option2, c.add_price
 		, p.product_name, p.price, p.cost, p.shipping_cost, p.thumb_img,
 		p.category_code, p.seller_code
-		, s.basic_shipping_cost, s.free_shipping_cost, s.seller_name
+		, s.basic_shipping_cost, s.free_shipping_cost, s.seller_name, s.seller_code
 		, o.inventory
 		from cart c left join product_list p
 		on c.product_code = p.product_code
@@ -28,7 +28,7 @@
 		join options o
 		on p.product_code = o.product_code
 		where c.id=#{id}
-		order by c.cart_no;
+		order by p.seller_code;
 	</select>
 
 

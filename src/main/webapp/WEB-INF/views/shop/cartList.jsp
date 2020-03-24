@@ -49,10 +49,10 @@
 			<input type="hidden" name="id" class="id"
 				value='<sec:authentication property="principal.UserInfo.id"/>'>
 		</sec:authorize>
-
 	</form>
 
-	<form method="post" action="${pageContext.request.contextPath }/checkout">
+	<form method="post"
+		action="${pageContext.request.contextPath }/checkout">
 		<input type="hidden" name="${_csrf.parameterName}"
 			value="${_csrf.token}" />
 		<div id="content" class="mx-auto">
@@ -68,86 +68,109 @@
 
 					<div class="row">
 						<div class="col-12">
-							<div class="select row ml-3 mr-1 pb-2 justify-content-between">
-								<div class="allCheck">
-									<input type="checkbox" name="allCheck" id="allCheck" /> <label
-										class="ml-2" for="allCheck">전체 선택</label>
+							<div class="select row mr-1 pb-2 justify-content-between">
+
+								<div class="custom-control custom-checkbox">
+									<input type="checkbox" class="custom-control-input"
+										id="allCheck"> <label
+										class="custom-control-label ml-4" for="allCheck">전체 선택</label>
 								</div>
+
 								<div class="delBtn">
 									<button type="button" class="selectDelete_btn btn">선택
 										삭제</button>
 								</div>
 							</div>
 
-							
+
 							<!-- 주문 리스트 -->
 							<table class="table shopping-summery">
 								<tbody>
-								
-								    <c:set var="sum" value="0" />
-           			        		<c:forEach var="cartList" items="${cartList}">
-									<div class="item1">
-										<tr class="seller">
-											<td colspan="7" class="sellerinfo px-3 pt-3 bg-">
-											<input type="checkbox" name="chBox" class="chBox" data-cart_no="${cartList.cart_no}" value="${cartList.cart_no}" /> 
-											<span class="sellername">${cartList.seller_name}</span>
-											<hr class='my-1'>
-											</td>
-										</tr>
-										
-										<tr class="item2 mb-1">
-											<td class="image px-3" data-title="No">
-												<!-- 체크박스 -->
-												<span class="inumBox pr-2"><input type="checkbox"></span>
-												<!-- 썸네일 -->
-												<a href="${pageContext.request.contextPath}/detailview2?product_code=${cartList.product_code}"><img src="${cartList.thumb_img}" class="thumimg" /></a>
-											</td>
-											<td class="product-des" data-title="Description">
-												<!-- 상품명 -->
-												<p class="product_code"><a href="${pageContext.request.contextPath}/detailview2?product_code=${cartList.product_code}">${cartList.product_name}</a></p>
-												<!-- 옵션 -->
-												<p class="product_option">${cartList.option1}&#45;${cartList.option2}&#40;&#43;${cartList.add_price}원&#41;</p>
-											</td>
-											<!-- 금액 -->
-											<td class="price" data-title="Price"><fmt:formatNumber pattern="###,###,###" value="${(cartList.price + cartList.add_price)}" />원</span></td>
-											<!-- 수량 -->	
-											<td class="qty" data-title="Qty">
-												<!-- Input Order -->
-												<div class="input-group">
-													<div class="button minus">
-														<button type="button" class="btn btn-primary btn-number" disabled="disabled" data-type="minus" data-field="quant[2]">
-															<i class="ti-minus"></i>
-														</button>
+
+									<c:set var="sum" value="0" />
+									<c:forEach var="cartList" items="${cartList}">
+										<div class="item1">
+											<tr class="seller">
+												<td colspan="7" class="sellerinfo px-2 pt-3 bg-">
+													<div class="custom-control custom-checkbox">
+														<input type="checkbox" class="chBox custom-control-input"
+															id="sellerCheck"> <label
+															class="custom-control-label" for="sellerCheck">
+															${cartList.seller_name}</label>
 													</div>
-													<input type="text" name="quant[2]" class="input-number" data-min="1" data-max="${cartList.inventory}" value="1">
-													<div class="button plus">
-														<button type="button" class="btn btn-primary btn-number"
-															data-type="plus" data-field="quant[2]">
-															<i class="ti-plus"></i>
-														</button>
+													<hr class='my-1'>
+												</td>
+											</tr>
+
+											<tr class="item2 mb-1">
+												<td class="image px-3" data-title="No">
+													<div class="custom-control custom-checkbox">
+														<input type="checkbox" class="chBox custom-control-input"
+															id="productchBox"> <label
+															class="custom-control-label" for="productchBox">
+															<a
+															href="${pageContext.request.contextPath}/detailview2?product_code=${cartList.product_code}">
+																<img src="${cartList.thumb_img}" class="thumimg" />
+														</a>
+														</label>
 													</div>
-												</div> 
-												<!--/ End Input Order -->
-											</td>
-											<!-- 총합계(배송비 제외) -->
-											<td class="total-amount" data-title="Total"><fmt:formatNumber pattern="###,###,###" value="${(cartList.price + cartList.add_price) * cartList.cart_quantity}" />원</span></td>
-											<!-- 배송비 -->
-											<td> <fmt:formatNumber pattern="###,###,###" value="${cartList.basic_shipping_cost}" />원</td>
-											<!-- 삭제 아이콘 -->
-											<td class="action" id="sdel_btn" data-title="Remove">
-											<img src='${pageContext.request.contextPath}/resources/icons/close4.png'/>
-											</td>
-										</tr>
-									</div>
+
+												</td>
+												<td class="product-des" data-title="Description">
+													<!-- 상품명 -->
+													<p class="product_code">
+														<a
+															href="${pageContext.request.contextPath}/detailview2?product_code=${cartList.product_code}">${cartList.product_name}</a>
+													</p> <!-- 옵션 -->
+													<p class="product_option">${cartList.option1}&#45;${cartList.option2}&#40;&#43;${cartList.add_price}원&#41;</p>
+												</td>
+												<!-- 금액 -->
+												<td class="price" data-title="Price"><fmt:formatNumber
+														pattern="###,###,###"
+														value="${(cartList.price + cartList.add_price)}" />원</span></td>
+												<!-- 수량 -->
+												<td class="qty" data-title="Qty">
+													<!-- Input Order -->
+													<div class="input-group">
+														<div class="button minus">
+															<button type="button" class="btn btn-primary btn-number"
+																disabled="disabled" data-type="minus"
+																data-field="quant[2]">
+																<i class="ti-minus"></i>
+															</button>
+														</div>
+														<input type="text" name="quant[2]" class="input-number"
+															data-min="1" data-max="${cartList.inventory}" value="1">
+														<div class="button plus">
+															<button type="button" class="btn btn-primary btn-number"
+																data-type="plus" data-field="quant[2]">
+																<i class="ti-plus"></i>
+															</button>
+														</div>
+													</div> <!--/ End Input Order -->
+												</td>
+												<!-- 총합계(배송비 제외) -->
+												<td class="total-amount" data-title="Total"><fmt:formatNumber
+														pattern="###,###,###"
+														value="${(cartList.price + cartList.add_price) * cartList.cart_quantity}" />원</span></td>
+												<!-- 배송비 -->
+												<td><fmt:formatNumber pattern="###,###,###"
+														value="${cartList.basic_shipping_cost}" />원</td>
+												<!-- 삭제 아이콘 -->
+												<td class="action" id="sdel_btn" data-title="Remove"><img
+													src='${pageContext.request.contextPath}/resources/icons/close4.png' />
+												</td>
+											</tr>
+										</div>
 									</c:forEach>
 								</tbody>
 							</table>
 							<!--/ End Shopping Summery -->
 						</div>
 					</div>
-					
-					
-					<!-- 구매 요약 -->
+
+
+					<!-- 전체 합계 -->
 					<div class="row">
 						<div class="col-12">
 							<!-- Total Amount -->
