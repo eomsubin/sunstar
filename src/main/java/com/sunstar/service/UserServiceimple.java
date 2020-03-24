@@ -37,12 +37,18 @@ public class UserServiceimple implements UserService{
 	}
 
 	@Override
-	public int customeremailcheck(String email) {
-		return dao.customeremailcheck(email);
+	public int customeremailcheck(HashMap<String, String> map) {
+		return dao.customeremailcheck(map);
 	}
 
 	@Override
 	public CustomerDTO customerfindid(HashMap<String, String> map) {
 		return dao.customerfindid(map);
+	}
+
+	@Override
+	public int SetNewPassowrd(HashMap<String, String> map) {
+		map.put("newpw", encoder.encode((map.get("newpw"))));
+		return dao.SetNewPassowrd(map);
 	}
 }

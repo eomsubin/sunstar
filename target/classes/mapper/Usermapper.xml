@@ -39,7 +39,14 @@
 	<select id="customeremailcheck" resultType="int" parameterType="string">
 	select count(*)
 	from customer
-	where email=#{email}
+	<where>
+    <if test="id != null">
+         id = #{id}
+    </if>
+    <if test="email != null">
+        and email = #{email}
+    </if>
+	</where>
 	</select>
 	
 	<select id="customerfindid" resultType="com.sunstar.dto.CustomerDTO" parameterType="string">
@@ -62,4 +69,9 @@
   	</foreach>
   	</insert>
   	
+  	<update id="SetNewPassowrd" parameterType="string">
+  	update customer 
+  	set password = #{newpw}
+  	where id = #{id}
+  	</update>
 </mapper>
