@@ -60,7 +60,6 @@ public class ProductDTO {
 	private String seller_name;
 	private String shipping_company;
 	private int basic_shipping_cost;
-	private int free_shipping_cost;
 	
 	
 }
