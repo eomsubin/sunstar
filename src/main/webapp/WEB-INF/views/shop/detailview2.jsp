@@ -342,7 +342,7 @@ $(document).ready(function(){
 						<div class="prod_info">
 							<div class="d-flex bd-highlight my-3"
 								style="border-bottom: 1px solid #dadada">
-								<div class="p-2 bd-highlight">${view.seller_code}</div>
+								<div class="p-2 bd-highlight"><a href="${pageContext.request.contextPath}/seller_list">${view.seller_code}</a></div>
 								<div class="ml-auto p-2 bd-highlight">${view.product_code}</div>
 							</div>
 						</div>

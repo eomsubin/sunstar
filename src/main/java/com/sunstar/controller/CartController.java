@@ -48,7 +48,6 @@ public class CartController {
 	@RequestMapping(value = "/detailview/addCart", method = RequestMethod.GET)
 	public int addCart(Model model, CartDTO data) throws Exception {
 		int result = 0;
-		System.out.println("은별천사");
 		result = cartservice.addCart(data);
 		return result;
 	}

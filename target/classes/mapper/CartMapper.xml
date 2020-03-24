@@ -5,24 +5,30 @@
 <mapper namespace="com.sunstar.mapper.CartMapper">
 
 	<insert id="addCart" parameterType="com.sunstar.dto.CartDTO">
-	<selectKey resultType="int" keyProperty="cart_no" order="BEFORE"  >
-	select Max(cart_no)+1 from cart
-	</selectKey>
-	insert into cart(cart_no, id, product_code, cart_quantity, option1, option2, add_price) values(#{cart_no}, #{id}, #{product_code}, #{cart_quantity}, #{option1}, #{option2}, #{add_price});
+		<selectKey resultType="int" keyProperty="cart_no"
+			order="BEFORE">
+			select Max(cart_no)+1 from cart
+		</selectKey>
+		insert into cart(cart_no, id, product_code, cart_quantity, option1,
+		option2, add_price) values(#{cart_no}, #{id}, #{product_code},
+		#{cart_quantity}, #{option1}, #{option2}, #{add_price});
 	</insert>
-	
-	<select id="cartList" resultType="com.sunstar.dto.CartDTO" >
-	select
-	c.cart_no, c.id, c.product_code, c.cart_quantity
-    ,p.product_name, p.price, p.cost, p.shipping_cost, p.thumb_img, p.category_code, p.seller_code
-    ,o.option1, o.option2, o.add_price
-    from cart c left join product_list p
-    on c.product_code = p.product_code
-    left join options o 
-	on o.product_code = p.product_code
-    where c.id=#{id}
-    order by c.cart_no;
+
+	<select id="cartList" resultType="com.sunstar.dto.CartDTO">
+		select c.cart_no, c.id,
+		c.product_code, c.cart_quantity, c.option1, c.option2, c.add_price
+		, p.product_name, p.price, p.cost, p.shipping_cost, p.thumb_img,
+		p.category_code, p.seller_code
+		, s.basic_shipping_cost, s.free_shipping_cost, s.seller_name, s.seller_code
+		, o.inventory
+		from cart c left join product_list p
+		on c.product_code = p.product_code
+		join seller s
+		on s.seller_code = p.seller_code
+		join options o
+		on p.product_code = o.product_code
+		where c.id=#{id}
+		order by p.seller_code;
 	</select>
-	
-	
+
 </mapper>

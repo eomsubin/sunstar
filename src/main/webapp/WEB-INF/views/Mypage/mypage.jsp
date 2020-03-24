@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="sec"
@@ -40,6 +41,19 @@
 	href="${pageContext.request.contextPath}/resources/css/mypage.css">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/responsive.css">
+	
+<style>
+
+#alert-success{
+	display: none;
+}
+
+#alert-danger{
+	display: none;
+}
+	
+
+</style>
 <script>
 //팝업 API
 // opener관련 오류가 발생하는 경우 아래 주석을 해지하고, 사용자의 도메인정보를 입력합니다. ("팝업API 호출 소스"도 동일하게 적용시켜야 합니다.)
@@ -67,14 +81,30 @@ function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2, zipNo
 	console.log($('#zip').val(zipNo));
 };
 
+
+	
+	
+
+
+	
+	
+	
+	
+
+	
+	
+
+
+
 function pwUpdate(){
 	
-	location.href="${pageContext.request.contextPath}/info/pwupdate"
+	
 	
 }
 
 
 </script>
+
 </head>
 <body>
 	<form role="form" method="post">
@@ -104,7 +134,7 @@ function pwUpdate(){
 								<li><a href="#">회원탈퇴</a></li>
 								<li><a href="#">판매 회원전환</a></li>
 								<li><a href="${pageContext.request.contextPath }/mypage/order">주문/배송내역</a></li>
-								<li><a href="#">배송지관리</a></li>
+								<li><a href="${pageContext.request.contextPath }/mypage/shipaddr">배송지관리</a></li>
 
 							</ul>
 						</div>
@@ -126,11 +156,27 @@ function pwUpdate(){
 							<label for="exampleInputPassword1">아이디</label> <input type="text"
 								class="form-control" id="id" name="id"value="${info.id }" readonly="readonly">
 						</div>
+						
 						<div class="form-group">
 							<label>비밀번호</label>
-							<button type="button" 
-								class="btn btn-outline-secondary form-control" onclick="pwUpdate()" name="password">비밀번호 변경</button>
+							
+						 <input type="password"
+								class="form-control" id="rpw" name="password" placeholder="현재 비밀번호를 입력하세요">
 						</div>
+						<div class="form-group">
+						<input type="password"
+								class="form-control" id="upw" name="password" placeholder="변경 할 비밀번호를 입력하세요">
+								
+						<input type="password"
+								class="form-control" id="upwcheck" name="password" placeholder="변경 할 비밀번호를 확인하세요">
+								
+							<div class="alert alert-success" id="alert-success">비밀번호가 일치합니다.</div> 
+							<div class="alert alert-danger" id="alert-danger">비밀번호가 일치하지 않습니다.</div>
+
+
+						</div>
+						<button type="button" 
+								class="btn btn-outline-secondary form-control" onclick="pwUpdate()" id="pwup">비밀번호 변경</button>
 					</div>
 					<h3 class="info-tel">연락처</h3>
 					<div class="info-form2">
@@ -157,21 +203,21 @@ function pwUpdate(){
 						<div class="form-group">
 							
 							 <input type="text" class="form-control" name="zip"
-								id="zip" value="${info.zip }" readonly="readonly">
+								id="zip" value="${info.zip }" readonly="readonly" onclick="goPopup();">
 							<button type="button"  onclick="goPopup();" style="position: relative; left:330px; bottom:44px;"class="btn btn-secondary btn-lg" >주소 찾기</button>
 						</div>
 						<div class="form-group">
 								 <input type="text" class="form-control" name="address1"
-								id="address1" value="${info.address1 }" readonly="readonly">
+								id="address1" value="${info.address1 }" readonly="readonly" onclick="goPopup();">
 						
 						</div>
 						<div class="form-group">
 						 <input type="text" class="form-control" name="address2"
-								id="address2" value="${info.address2}" readonly="readonly">
+								id="address2" value="${info.address2}" readonly="readonly" onclick="goPopup();">
 						 
 						</div>
 						  <input type="text" class="form-control" name="address3"
-								id="address3" value="${info.address3}" readonly="readonly">
+								id="address3" value="${info.address3}" readonly="readonly" onclick="goPopup();">
 						
 					</div>	
 					<div class="info-form" style="margin-top: 60px; text-align: center;">
@@ -215,4 +261,5 @@ function pwUpdate(){
 
 
 </body>
+
 </html>
