@@ -12,7 +12,10 @@ public interface UserService {
 	public int customeremailcheck(HashMap<String, String> map);
 
 	public CustomerDTO customerfindid(HashMap<String, String> map);
+<<<<<<< HEAD
 
 	public int SetNewPassowrd(HashMap<String, String> map);
+=======
+>>>>>>> branch 'master' of https://github.com/eomsubin/sunstar.git
 	
 }

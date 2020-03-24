@@ -17,4 +17,29 @@
 	
 	</select>
 	
+	<insert id="addshipaddr" parameterType="string">
+		insert into ship(id,shipping_name,shipping_addr1,shipping_addr2,shipping_addr3,shipping_zip,to_name)
+		values(#{id},#{shipping_name},#{shipping_addr1},#{shipping_addr2},#{shipping_addr3},#{shipping_zip},#{to_name})
+		
+	</insert>
+	
+	<select id="getShipAddr" parameterType="string" resultType="com.sunstar.dto.ShipDTO">
+		select id,shipping_name,shipping_addr1,shipping_addr2,shipping_addr3,shipping_zip,to_name
+		from ship
+		where id=#{id}
+	</select>
+	
+
+	
+	<select id="getAship" parameterType="com.sunstar.dto.ShipDTO" resultType="com.sunstar.dto.ShipDTO">
+		select *
+		from ship
+		where id=#{id} and shipping_name=#{shipping_name}
+	</select>
+	
+	<update id="updateShip"  parameterType="com.sunstar.dto.CustomerDTO" >
+		update customer
+		set address1=#{address1},address2=#{address2},address3=#{address3},zip=#{zip}
+		where id=#{id}  
+	</update>
 </mapper>
