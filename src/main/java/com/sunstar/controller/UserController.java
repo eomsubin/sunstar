@@ -81,9 +81,8 @@ public class UserController {
 	
 	@RequestMapping("/registercustomer/customeremailcheck")
 	@ResponseBody
-	public int customerEmailCheck(@RequestParam String email) {
-		System.out.println(email);
-		int result = service.customeremailcheck(email);
+	public int customerEmailCheck(@RequestParam HashMap<String, String> map) {
+		int result = service.customeremailcheck(map);
 		System.out.println(result);
 			return result;
 	}
@@ -94,8 +93,14 @@ public class UserController {
 		return "Registration/register";
 	}
 	
+	@RequestMapping("/userlogin/FindPW")
+	public String FindPW(Model model) {
+		model.addAttribute("contentpage", "../User/FindPW.jsp");
+		return "Registration/register";
+	}
+	
 	@RequestMapping("/userlogin/FindID/FindIdComplete")
-	public String FindIdComplete(Model model, @ModelAttribute CustomerDTO dto, String email1) {
+	public String FindIdCompIDlete(Model model, @ModelAttribute CustomerDTO dto, String email1) {
 		dto.setEmail(dto.getEmail()+"@"+email1);
 		HashMap<String, String> map = new HashMap<>();
 		map.put("name", dto.getName());
@@ -106,16 +111,44 @@ public class UserController {
 		model.addAttribute("contentpage", "../User/FindIdComplete.jsp");
 		return "Registration/register";
 	}
+	/*glglglglglgllg나ㅣ는야 나는야 코딩왕!!!*/ //은별꽃
+	@RequestMapping("/userlogin/FindPW/FindPwComplete")
+	public String FindIdCompPWlete(Model model, @ModelAttribute CustomerDTO dto, String email1) {
+		dto.setEmail(dto.getEmail()+"@"+email1);
+		String newpw = ""+(int)(Math.random()*1000000);;
+
+		HashMap<String, String> map = new HashMap<>();
+		map.put("id", dto.getId());
+		map.put("email", dto.getEmail());
+		map.put("newpw", newpw);
+		
+			//새로운 비밀번호 email전송
+			final MimeMessagePreparator pp = new MimeMessagePreparator() { 
+		         @Override
+		         public void prepare(MimeMessage mimeMessage) throws Exception {
+		            final MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true, "utf-8");
+		            helper.setFrom("sbbj_sunstar@naver.com");
+		            helper.setTo(map.get("email"));
+		            helper.setSubject("[쓰삐제] 새로운 비밀번호 입니다.");
+		            helper.setText("<b> 새비밀번호 :"+newpw+"</b>"
+		                  + "<br>"
+		                  + "<img src="+"https://ssl.pstatic.net/tveta/libs/1260/1260649/19aabf7c9a09e0d9ed84_20200211140438611.jpg"+">", true);
+		         }
+		      };
+		  mailSender.send(pp);
+		
+		service.SetNewPassowrd(map);
+		model.addAttribute("NewPwuser", map);
+		
+		model.addAttribute("contentpage", "../User/FindPwComplete.jsp");
+		return "Registration/register";
+	}
 	
-	
-	
-	@RequestMapping("/userlogin/getCertificationNum")
+	@RequestMapping("/userlogin/getCertificationIDNum")
 	@ResponseBody
-	public String getCertificationNum(Model model, @RequestParam HashMap<String, String> map) {
+	public String getCertificationIDNum(Model model, @RequestParam HashMap<String, String> map) {
 		String CertificationNum = ""+(int)(Math.random()*1000000);;
-		map.put("CertificationNum", CertificationNum );
-		/*int result = service.getCertificationNum;*/ 		
-		//ID 찾기 email 전송
+		  //아이디 찾기 email 전송
 		  final MimeMessagePreparator pp = new MimeMessagePreparator() { 
 		         @Override
 		         public void prepare(MimeMessage mimeMessage) throws Exception {
@@ -130,6 +163,28 @@ public class UserController {
 		      };
 		  mailSender.send(pp);
 		  
+		return CertificationNum;
+	}
+	
+	@RequestMapping("/userlogin/getCertificationPWNum")
+	@ResponseBody
+	public String getCertificationPWNum(Model model, @RequestParam HashMap<String, String> map) {
+		String CertificationNum = ""+(int)(Math.random()*1000000);;
+		map.put("CertificationNum", CertificationNum );
+		  //비밀번호 찾기 email 전송
+		  final MimeMessagePreparator pp = new MimeMessagePreparator() { 
+		         @Override
+		         public void prepare(MimeMessage mimeMessage) throws Exception {
+		            final MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true, "utf-8");
+		            helper.setFrom("sbbj_sunstar@naver.com");
+		            helper.setTo(map.get("email"));
+		            helper.setSubject("[쓰삐제] 비밀번호 찾기 용 인증번호입니다.");
+		            helper.setText("<b> 인증번호 :"+map.get("CertificationNum")+"</b>"
+		                  + "<br>"
+		                  + "<img src="+"https://ssl.pstatic.net/tveta/libs/1260/1260649/19aabf7c9a09e0d9ed84_20200211140438611.jpg"+">", true);
+		         }
+		      };
+		  mailSender.send(pp);
 		return CertificationNum;
 	}
 }

@@ -206,7 +206,7 @@ $(document).ready(function(){
 		}else{
 		let result = 0;
 		$.ajax({
-			url : "registercustomer/customeridcheck/"+id
+			url : "/controller/registercustomer/customeridcheck/"+id
 			,dataType : "json"
 			,async: false
 			,success:function(data){

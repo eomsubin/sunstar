@@ -96,25 +96,49 @@ input, select{
 		})
 		$('.FindIDbtn').click(function(){
 			event.preventDefault();
-			if(namecheck() && emailcheck() && Cnumckeck()){
+			if(idcheck() && emailcheck() && Cnumckeck()){
 				$('form').submit();
 			}
 		})		
-		// 이름 확인
-		$('#name').focusout(namecheck);
-		var namereg = /^[가-힣a-zA-Z]+$/;
-		function namecheck(){
-			if($('#name').val()===""){
-				$('.namealert').remove();
-				$('#name').parent().append("<p class='alert namealert p-0 m-0'>필수 정보입니다.</p>");
+		// 아이디 조건, 아이디 체크
+		var idReg = /^[0-9a-z]+$/; //숫자, 영문만 입력 가능
+		$('#id').focusout(idcheck);
+		function idcheck(){
+			if($('#id').val()===""){
+				$('.idalert').remove();
+				$('#id').parent().append("<p class='alert idalert p-0 m-0'>필수 정보입니다.</p>");
 				return false;
-			}else if(!namereg.test($('#name').val())){
-				$('.namealert').remove();
-				$('#name').parent().append("<p class='alert namealert p-0 m-0'>이름은 최대 10자이내로 한글/영문만 가능합니다.</p>");
+			}
+			else if($('#id').val().length<6){
+				$('.idalert').remove();
+				$('#id').parent().append("<p class='alert idalert p-0 m-0'>회원 아이디(ID)는 띄어쓰기 없이 6~10자리의 영문자와 숫자 조합만 가능합니다.</p>");
+				return false;
+			}else if(!idReg.test($('#id').val())){
+				$('.idalert').remove();
+				$('#id').parent().append("<p class='alert idalert p-0 m-0'>회원 아이디(ID)는 띄어쓰기 없이 6~10자리의 영문자와 숫자 조합만 가능합니다.</p>");
 				return false;
 			}else{
-				$('.namealert').remove();
-				return true;
+				let result = 0;
+				$('.idalert').remove();
+				let id = $('#id').val();
+				$.ajax({
+					url : "/controller/registercustomer/customeridcheck/"+id
+					,dataType : "json"
+					,async: false
+					,success:function(data){
+						console.log(data);
+						result = data;
+					}
+					,error:function(e){
+						console.log(e);
+					}
+				});
+				if(result>0){
+					return true;
+				}else{
+					$('#id').parent().append("<p class='alert idalert p-0 m-0'>아이디를 다시 확인해주세요.</p>");
+					return false;
+				}
 			}
 		}
 
@@ -127,15 +151,37 @@ input, select{
 			var email = $('#email').val();
 			email += "@";
 			email += $('#email1').val();
+			let id = $('#id').val();
 			if(!Emreg.test(email)){
 				$('.emailalert').remove();
 				$('#email2').addClass("telck");
 				$('#email').parent().append("<p class='alert emailalert p-0 my-2 ml-3'>이메일 주소를 다시 확인해주세요.</p>");
 				return false;
 			}else{
-					$('.emailalert').remove();
+				var emresult = 0;
+				$('.emailalert').remove();
+				$.ajax({
+					url : "/controller/registercustomer/customeremailcheck"
+					,data : {"email" : email, "id" : id}
+					,dataType : "json"
+					,async: false
+					,success:function(data){
+						console.log(data);
+						emresult = data;
+					}
+					,error:function(e){
+						console.log(e);
+						return false;
+					}
+				});
+				if(emresult>0){					
 					$('#email2').removeClass("telck");
+					$('.emailalert').remove();
 					return true;
+				}else{
+					$('#email').parent().append("<p class='alert emailalert p-0 my-2 ml-3'>아이디에 유효하지 않는 이메일 주소 입니다.</p>");
+					return false;
+				}
 			}
 		}
 		
@@ -159,18 +205,18 @@ input, select{
 		}
 		// 인증번호 발급
 		$('.getCertificationNum').click(function(){
-			if(namecheck() && emailcheck()){
+			if(idcheck() && emailcheck()){
 			var email = $('#email').val();
 			email += "@";
 			email += $('#email1').val();
-			var name = $('#name').val();
+			var id = $('#id').val();
 			$.ajax({
-				url : "getCertificationIDNum"
-				,data : {"email" : email, "name" : name}
+				url : "getCertificationPWNum"
+				,data : {"email" : email, "id" : id}
 				,dataType : "json"
 				,async: false
 				,success:function(data){
-					console.log(data);
+				console.log(data);
 					result = data;
 					alert("인증번호 발송 요청이 완료되었습니다. 인증번호가 오지 않는 경우, 입력한 이름/이메일주소 확인 후 다시 요청해주세요.");
 					setTimer();
@@ -217,16 +263,16 @@ input, select{
 <body>
 <div class="mx-auto mt-5 row align-items-bottom" style="width: 600px; height: 138px;">
 <div class="col">
-		<h1 class="regh1">아이디 찾기</h1><span class="regspan now">이메일로 찾기</span>
+		<h1 class="regh1">비밀번호 찾기</h1><span class="regspan now">이메일로 찾기</span>
 		<p class="txt_info">회원정보를 입력해주세요. 모두 입력하셔야 찾기가 가능합니다.</p>
 		</div>
 		</div>
 		<div class="mx-auto row align-items-top" style="width: 600px; height: 670px;">
 		<div class="col">
-		<form method="post" action="${pageContext.request.contextPath}/userlogin/FindID/FindIdComplete">
+		<form method="post" action="${pageContext.request.contextPath}/userlogin/FindPW/FindPwComplete">
 				<div class="reg_formbox py-0">
 				<ul class="list-group">
-				  	<li class="list-group-item"><input style="width: 450px;" type="text" name="name" id="name" placeholder="이름" maxlength="10"></li>			
+				  	<li class="list-group-item"><input style="width: 450px;" type="text" name="id" id="id" placeholder="아이디" maxlength="10"></li>			
 				  	<li class="list-group-item p-0">
 				 	<div class="input-group">
 				 	<input type="text" style="width: 180px;" class="email mx-3" name="email" id="email" maxlength="15" placeholder="이메일">
