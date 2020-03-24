@@ -93,7 +93,6 @@ public class UserController {
 		return "Registration/register";
 	}
 	
-<<<<<<< HEAD
 	@RequestMapping("/userlogin/FindPW")
 	public String FindPW(Model model) {
 		model.addAttribute("contentpage", "../User/FindPW.jsp");
@@ -145,8 +144,7 @@ public class UserController {
 		return "Registration/register";
 	}
 	
-	@RequestMapping("/userlogin/getCertificationIDNum")
-=======
+
 	@RequestMapping("/userlogin/FindID/FindIdComplete")
 	public String FindIdComplete(Model model, @ModelAttribute CustomerDTO dto, String email1) {
 		dto.setEmail(dto.getEmail()+"@"+email1);
@@ -159,17 +157,10 @@ public class UserController {
 		model.addAttribute("contentpage", "../User/FindIdComplete.jsp");
 		return "Registration/register";
 	}
-	
-	
-	
+		
 	@RequestMapping("/userlogin/getCertificationNum")
->>>>>>> branch 'master' of https://github.com/eomsubin/sunstar.git
 	@ResponseBody
-<<<<<<< HEAD
 	public String getCertificationIDNum(Model model, @RequestParam HashMap<String, String> map) {
-=======
-	public String getCertificationNum(Model model, @RequestParam HashMap<String, String> map) {
->>>>>>> branch 'master' of https://github.com/eomsubin/sunstar.git
 		String CertificationNum = ""+(int)(Math.random()*1000000);;
 		  //아이디 찾기 email 전송
 		  final MimeMessagePreparator pp = new MimeMessagePreparator() { 

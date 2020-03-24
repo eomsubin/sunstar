@@ -44,14 +44,11 @@ public class UserServiceimple implements UserService{
 	@Override
 	public CustomerDTO customerfindid(HashMap<String, String> map) {
 		return dao.customerfindid(map);
-<<<<<<< HEAD
 	}
 
 	@Override
 	public int SetNewPassowrd(HashMap<String, String> map) {
 		map.put("newpw", encoder.encode((map.get("newpw"))));
 		return dao.SetNewPassowrd(map);
-=======
->>>>>>> branch 'master' of https://github.com/eomsubin/sunstar.git
 	}
 }
