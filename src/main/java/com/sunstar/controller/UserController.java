@@ -144,21 +144,7 @@ public class UserController {
 		return "Registration/register";
 	}
 	
-
-	@RequestMapping("/userlogin/FindID/FindIdComplete")
-	public String FindIdComplete(Model model, @ModelAttribute CustomerDTO dto, String email1) {
-		dto.setEmail(dto.getEmail()+"@"+email1);
-		HashMap<String, String> map = new HashMap<>();
-		map.put("name", dto.getName());
-		map.put("email", dto.getEmail());
-		CustomerDTO finddto = service.customerfindid(map);
-		model.addAttribute("finduser", finddto);
-		
-		model.addAttribute("contentpage", "../User/FindIdComplete.jsp");
-		return "Registration/register";
-	}
-		
-	@RequestMapping("/userlogin/getCertificationNum")
+	@RequestMapping("/userlogin/getCertificationIDNum")
 	@ResponseBody
 	public String getCertificationIDNum(Model model, @RequestParam HashMap<String, String> map) {
 		String CertificationNum = ""+(int)(Math.random()*1000000);;
