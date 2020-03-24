@@ -94,7 +94,7 @@
 												<input type="hidden" name="${_csrf.parameterName}"
 													value="${_csrf.token}" /> <input type="hidden"
 													name="qna_no" " value="${i.qna_no}">
-												<textarea rows="5" cols="60" placeholder="이곳에 답변을 입력해주세요."
+												<textarea rows="3" cols="60" placeholder="이곳에 답변을 입력해주세요." class="form-control"
 													name="qna_reply"></textarea>
 												<br> <input type="submit" class="btn btn-primary"
 													value="답변완료"> <input type="reset"
@@ -112,7 +112,7 @@
 												<input type="hidden" name="${_csrf.parameterName}"
 													value="${_csrf.token}" /> <input type="hidden"
 													name="qna_no" " value="${i.qna_no}">
-											<textarea rows="5"
+											<textarea rows="3" class="form-control"
 												cols="60" readonly="readonly"> ${i.qna_reply}</textarea>
 												<br>
 <input type="submit" class="btn btn-danger" value="삭제">

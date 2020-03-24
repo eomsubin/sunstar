@@ -226,7 +226,7 @@ $(document).ready(function(){
 					,async: false
 					,success:function(data){
 						console.log(data);
-						result = data;
+						result = 1;
 					}
 					,error:function(e){
 						console.log(e);
