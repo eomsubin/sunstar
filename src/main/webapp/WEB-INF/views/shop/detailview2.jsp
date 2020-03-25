@@ -118,17 +118,10 @@ margin-left: 10px;
 
 }
 
-/* .vip-tabnavi {
-    position: absolute;
+.vip-tabnavi {
     width: 100%;
-    height: 55px;
     clear: both;
     background: #a9b3bc;
-    border-bottom: 1px solid #96a3ad;
-    transform: translateZ(0);
-    -webkit-transform: translateZ(0);
-    top: 0;
-    left: 0;
 }
 .vip-tabwrap {
     min-width: 1200px;
@@ -137,11 +130,15 @@ margin-left: 10px;
     position: relative;
     clear: both;
     z-index: 2;
-} */
-
+}
+.vip-tab_container {
+    position: relative;
+    z-index: 10;
+    overflow: hidden;
+    width: 1200px;
+    margin: 0 auto;
+}
 </style>
-
-
 <script>
 
 $(document).ready(function(){
@@ -483,27 +480,33 @@ $(document).ready(function(){
 									style="width: 49%; height:60px; font-weight: bolder; font-size:25px">구매하기</button>
 							</div>
 						</fieldset>
-
 					</div>
-
 				</div>
 			</div>
 		</section>
 	</div>
 	<div class="vip-tabwrap">
-	<div class="nav detail_info_tab bg-light vip-tabnavi">
-     <ul class="info_nav" style="margin-left: 16%" >
-		  <li class="nav-item">
-		    <a class="nav-link" href="#">상세정보</a>
-		  </li>
-		  <li class="nav-item">
-		    <a class="nav-link" href="#">상품평</a>
-		  </li>
-		  <li class="nav-item">
-		    <a class="nav-link" href="#">상품문의</a>
-		  </li>
-	</ul>	
-	</div>
+	<div class="nav detail_info_tab bg-light vip-tabnavi mb-5">
+	     <ul class="info_nav" style="margin-left: 16%" >
+			  <li class="nav-item">
+			    <a class="nav-link" href="#">상세정보</a>
+			  </li>
+			  <li class="nav-item">
+			    <a class="nav-link" href="#">상품평</a>
+			  </li>
+			  <li class="nav-item">
+			    <a class="nav-link" href="#">상품문의</a>
+			  </li>
+		</ul>	
+		</div>
+		<div class="vip-tab_container">
+		<img alt="" src="${view.comm_img1}">
+		<img alt="" src="${view.comm_img2}">
+		<img alt="" src="${view.comm_img3}">
+		<img alt="" src="${view.detail_img1}">
+		<img alt="" src="${view.detail_img2}">
+		<img alt="" src="${view.detail_img3}">
+		</div>
 	</div>
 </body>
 </html>
