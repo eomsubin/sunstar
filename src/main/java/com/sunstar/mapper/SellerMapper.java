@@ -12,6 +12,7 @@ import com.sunstar.dto.OptionDTO;
 import com.sunstar.dto.OrderDTO;
 import com.sunstar.dto.ProductDTO;
 import com.sunstar.dto.QnaDTO;
+import com.sunstar.dto.ReviewDTO;
 import com.sunstar.dto.SellerDTO;
 
 @Mapper
@@ -88,6 +89,8 @@ public interface SellerMapper {
 	int getPaid(String seller_code);
 
 	List<OrderDTO> searchOrderView(String search_order);
+
+	List<ReviewDTO> getReview(String seller_code);
 
 
 
