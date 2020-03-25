@@ -25,19 +25,19 @@ public class UserLoginSucessHandler implements AuthenticationSuccessHandler {
 		});
 		
 		if(authNames.contains("ROLE_ADMIN")) {
-			response.sendRedirect("/controller/admin");
+			response.sendRedirect("/admin");
 			return;
-		}
+		} 
 		
 		if(authNames.contains("ROLE_MANAGER")) {
-			response.sendRedirect("/controller/seller/seller");
+			response.sendRedirect("/seller/seller");
 			return;
 		}
 		
 		if(authNames.contains("ROLE_USER")) {
-			response.sendRedirect("/controller/");
+			response.sendRedirect("/");
 			return;
 		}
-		response.sendRedirect("/controller/");
+		response.sendRedirect("/");
 	}
 }
