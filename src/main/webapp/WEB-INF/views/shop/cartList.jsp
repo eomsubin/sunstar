@@ -38,13 +38,45 @@
 		
 		/*제품 수량 조절(-)*/
 		$(document).on("click","#minus_btn",function(){
-			var num = $(this).next().val();
-			
+			var num = $(this).parent().next().val();
+			var minusNum=num-1;
+			if( minusNum < 1){
+				$(this).parent().next().val(num);
+			}else{
+				$(this).parent().next().val(minusNum);
+			}
 		});
 		
 		
+		/*제품 삭제*/
+		$(document).on('click','#selectdel_btn',function(){
+			let id=$(".id").val();
+			var cart_no=$("input[name=cart_no]:checked").val();
+			var seller_code=$("input[name=cart_no]:checked").data("seller_code");
+			
+		 	var data={
+				"id" : id
+				,"cart_no" : cart_no
+				,"seller_code" : seller_code
+			}  
+	
+			$.each(data,function(index,value){
+				$.ajax({
+					url : "cartList/delete"
+					, data : data
+					, success : function(data){
+						alert("상품을 삭제했습니다.");
+					}
+					, error : function(e){
+						console.log(e)
+					}
+				})
+			});
 		
-	});
+		});
+	
+		
+		});
 </script>
 <!-- Eshop StyleSheet -->
 
@@ -82,14 +114,14 @@
 							<div class="select row mr-1 pb-2 justify-content-between">
 
 								<div class="custom-control custom-checkbox">
-									<input type="checkbox" class="custom-control-input"
-										id="allCheck"> <label
-										class="custom-control-label ml-4" for="allCheck">전체 선택</label>
+									<input type="checkbox" class="allchBox custom-control-input"
+										id="allCheck" value='<sec:authentication property="principal.UserInfo.id"/>'> 
+										<label class="custom-control-label ml-4" for="allCheck" >전체 선택</label>
 								</div>
 
 								<div class="delBtn">
-									<button type="button" class="selectDelete_btn btn">선택
-										삭제</button>
+									<button type="button" class="del_btn btn" id="selectdel_btn">
+									선택 삭제</button>
 								</div>
 							</div>
 
@@ -105,8 +137,8 @@
 												<td colspan="7" class="sellerinfo px-2 pt-3 bg-">
 													<div class="custom-control custom-checkbox">
 														<input type="checkbox" class="chBox custom-control-input"
-															id="sellerCheck"> <label
-															class="custom-control-label" for="sellerCheck">
+															id="sellerCheck" value="${cartList.seller_code}" name="seller_code"> 
+															<label class="custom-control-label" for="sellerCheck">
 															${cartList.seller_name}</label>
 													</div>
 													<hr class='my-1'>
@@ -117,8 +149,8 @@
 												<td class="image px-3" data-title="No">
 													<div class="custom-control custom-checkbox">
 														<input type="checkbox" class="chBox custom-control-input"
-															id="productchBox" value="${cartList.cart_no }">
-														<label class="custom-control-label" for="productchBox">
+															id="${cartList.cart_no}" value="${cartList.cart_no}" name="cart_no" data-seller_code="${cartList.seller_code}">
+														<label class="custom-control-label" for="${cartList.cart_no}">
 															<a
 															href="${pageContext.request.contextPath}/detailview2?product_code=${cartList.product_code}">
 																<img src="${cartList.thumb_img}" class="thumimg" />
@@ -166,8 +198,11 @@
 												<td><fmt:formatNumber pattern="###,###,###"
 														value="${cartList.basic_shipping_cost}" />원</td>
 												<!-- 삭제 아이콘 -->
-												<td class="action" id="sdel_btn" data-title="Remove"><img
-													src='${pageContext.request.contextPath}/resources/icons/close4.png' />
+												<td class="remove p-0">
+													<button type="button" class="del_btn btn" id="idel_btn">
+														<img
+															src='${pageContext.request.contextPath}/resources/icons/close4.png'/>
+													</button>
 												</td>
 											</tr>
 										</div>

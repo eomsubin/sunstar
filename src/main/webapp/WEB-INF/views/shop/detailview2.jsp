@@ -156,7 +156,7 @@ $(document).ready(function(){
 		
 		var add_price = $("#selectoption option:selected").data("seladd_price");
 		var inventory = $("#selectoption option:selected").data("optioninventory");
-		var price = ${view.price}
+		var price = ${view.price};
 		var selprice=${view.price}+$("#selectoption option:selected").data("seladd_price");
 		var totalprice=0;
 		if(option2 == "")
@@ -259,7 +259,6 @@ $(document).ready(function(){
 			alert("로그인 하십시오.");
 		}
 		var cart_quantity = $('.numBox').val(); 
-		
 		var ajax_last_num = 0;
 		var current_ajax_num = ajax_last_num;
 		$.each($(".toptest"),function(index,value){
@@ -272,9 +271,8 @@ $(document).ready(function(){
 					,"add_price" : $(this).data("add_price")
 					,"cart_quantity" : $(this).parent().find(".numBox").val()
 			};
-		console.log(data+'!!!!!!');
+	
 		$.each(data,function(index,value){
-			
 			console.log(index, value);
 		});
 		 	$.ajax({

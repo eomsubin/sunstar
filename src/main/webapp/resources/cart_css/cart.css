@@ -29,7 +29,7 @@
 
 
 
-.selectDelete_btn {
+#selectdel_btn {
     border: 1px solid #c9c9c9;
     height: 32px;
     width: 110px;
@@ -51,11 +51,12 @@ img.thumimg {
     margin-bottom: 20px;
 }
 
-#sdel_btn img{
+.remove img{
     border-radius: 0;
     width: 12px;
     height: 12px;
     margin-bottom: 10px;
+    
 }
 
 
