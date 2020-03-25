@@ -105,7 +105,7 @@
 												<td class="image px-3" data-title="No">
 													<div class="custom-control custom-checkbox">
 														<input type="checkbox" class="chBox custom-control-input"
-															id="productchBox"> <label
+															id="productchBox" value="${cartList.cart_no }" > <label
 															class="custom-control-label" for="productchBox">
 															<a
 															href="${pageContext.request.contextPath}/detailview2?product_code=${cartList.product_code}">
@@ -198,6 +198,8 @@
 					</div>
 				</div>
 			</div>
+			</div>
+			</form>
 			<!--/ End Shopping Cart -->
 
 
