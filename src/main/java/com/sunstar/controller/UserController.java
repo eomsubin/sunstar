@@ -69,7 +69,7 @@ public class UserController {
 		         }
 		      };
 		  mailSender.send(pp);
-	      return "redirect:http://localhost:8080/controller/userlogin";
+	      return "redirect:http://localhost:8080/userlogin";
 	}
 	
 	@RequestMapping("/registercustomer/customeridcheck/{id}")

@@ -33,17 +33,17 @@ public class AuthServiceTest {
 	{
 		
 		CustomerDTO dto = new CustomerDTO(); 
-		dto.setId("jinwoo");
+		dto.setId("star");
 		dto.setPassword("123");
-		dto.setName("jinwoo");
+		dto.setName("star");
 		dto.setTel("01071332619");
 		dto.setEmail("wlsdn9489@naver.com");
 		dto.setEnable(true);
 		
 		ArrayList<AuthDTO> arr = new ArrayList<AuthDTO>();
-		arr.add(new AuthDTO("jinwoo","ROLE_ADMIN"));
-		arr.add(new AuthDTO("jinwoo","ROLE_USER"));
-		arr.add(new AuthDTO("jinwoo","ROLE_MANAGER"));
+		arr.add(new AuthDTO("star","ROLE_ADMIN"));
+		arr.add(new AuthDTO("star","ROLE_USER"));
+		arr.add(new AuthDTO("star","ROLE_MANAGER"));
 		dto.setAuthlist(arr);
 		
 		service.join_Customer(dto);
