@@ -1,3 +1,4 @@
+
 package com.sunstar.service;
 
 import java.util.List;
@@ -6,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.sunstar.dto.CustomerDTO;
+import com.sunstar.dto.OrderDTO;
 import com.sunstar.dto.ShipDTO;
 import com.sunstar.mapper.MyPageMapper;
 
@@ -58,8 +60,23 @@ public class MyPageServiceImple implements MyPageService {
 		mpmapper.updateShip(customer);
 		
 	}
+
+	@Override
+	public void deleteShip(ShipDTO sdto) {
+		
+		mpmapper.deleteShip(sdto);
+		
+	}
+
+	@Override
+	public List<OrderDTO> orderDetail(String order_code) {
+		// TODO Auto-generated method stub
+		return mpmapper.orderDetail(order_code);
+	}
 	
 	
 	
 	
 }
+
+

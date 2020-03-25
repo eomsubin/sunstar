@@ -368,8 +368,9 @@ console.log('end');
 			
 				<form action="${pageContext.request.contextPath}/seller/addproductresult" name="addfm" method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
 						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-
+						<input type="hidden" name="seller_code" value="${seller_code}">
 					<div class="form-group row">
+					
 						<label for="product_name" class="col-sm-2 col-form-label">상품명</label>
 						<div class="col-sm-10">
 							<input type="text" class=" form-control" name="product_name" id="product_name" required>
