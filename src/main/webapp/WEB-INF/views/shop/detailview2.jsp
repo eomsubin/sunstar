@@ -152,24 +152,43 @@ $(document).ready(function(){
 		var option = $("#selectoption option:selected").val();
 		var option1 = $("#selectoption option:selected").data("seloption1");
 		var option2 = $("#selectoption option:selected").data("seloption2");
+		
+		
 		var add_price = $("#selectoption option:selected").data("seladd_price");
 		var inventory = $("#selectoption option:selected").data("optioninventory");
 		var price = ${view.price}
 		var selprice=${view.price}+$("#selectoption option:selected").data("seladd_price");
 		var totalprice=0;
+		if(option2 == "")
+		{
+			$(".cresult").append("<div class='test'>"
+					+"<p class='toptest' data-option1="+option1+" data-add_price="+add_price+" data-price="+price+">"
+					+option1+"&#32;&#47;&#32;"+option2+"&#32;&#40;&#43;"+add_price+"원&#41;"+"<br></p>"
+					+"<p><button class='minus'>&#45;</button>"
+					+"<input type='text' class='numBox'  min='1' max="+inventory+" value='1'>"
+					+"<button class='plus'>&#43;</button>"
+					+"<span class='bottomtest'>"
+					+"<span class='selprice'>"+(price+add_price)+"원</span>"
+//					+"<div class='units'></div>"
+					+"<button id='optiondel'><img src='${pageContext.request.contextPath}/resources/icons/close4.png'/></button>"
+					+"</span></p></div>"
+					);
+		}else{
+			$(".cresult").append("<div class='test'>"
+					+"<p class='toptest' data-option1="+option1+" data-option2="+option2+" data-add_price="+add_price+" data-price="+price+">"
+					+option1+"&#32;&#47;&#32;"+option2+"&#32;&#40;&#43;"+add_price+"원&#41;"+"<br></p>"
+					+"<p><button class='minus'>&#45;</button>"
+					+"<input type='text' class='numBox'  min='1' max="+inventory+" value='1'>"
+					+"<button class='plus'>&#43;</button>"
+					+"<span class='bottomtest'>"
+					+"<span class='selprice'>"+(price+add_price)+"원</span>"
+//					+"<div class='units'></div>"
+					+"<button id='optiondel'><img src='${pageContext.request.contextPath}/resources/icons/close4.png'/></button>"
+					+"</span></p></div>"
+					);
+			
+		}
 		
-		$(".cresult").append("<div class='test'>"
-							+"<p class='toptest' data-option1="+option1+" data-option2="+option2+" data-add_price="+add_price+" data-price="+price+">"
-							+option1+"&#32;&#47;&#32;"+option2+"&#32;&#40;&#43;"+add_price+"원&#41;"+"<br></p>"
-							+"<p><button class='minus'>&#45;</button>"
-							+"<input type='text' class='numBox'  min='1' max="+inventory+" value='1'>"
-							+"<button class='plus'>&#43;</button>"
-							+"<span class='bottomtest'>"
-							+"<span class='selprice'>"+(price+add_price)+"원</span>"
-//							+"<div class='units'></div>"
-							+"<button id='optiondel'><img src='${pageContext.request.contextPath}/resources/icons/close4.png'/></button>"
-							+"</span></p></div>"
-							);
 		
 		getTotalprice();
 		//var total = Number($(".ctotal").find('p').text())+(price+add_price);
@@ -243,7 +262,7 @@ $(document).ready(function(){
 		
 		var ajax_last_num = 0;
 		var current_ajax_num = ajax_last_num;
-		$.each($(".test"),function(index,value){
+		$.each($(".toptest"),function(index,value){
 			var data = {
 					"id" : id
 					,"product_code" : product_code
@@ -251,9 +270,13 @@ $(document).ready(function(){
 					,"option1" : $(this).data("option1")
 					,"option2" :  $(this).data("option2")
 					,"add_price" : $(this).data("add_price")
-					,"cart_quantity" : $(this).find(".numBox").val()
+					,"cart_quantity" : $(this).parent().find(".numBox").val()
 			};
-
+		console.log(data+'!!!!!!');
+		$.each(data,function(index,value){
+			
+			console.log(index, value);
+		});
 		 	$.ajax({
 				url : "detailview/addCart"
 				, data : data
@@ -298,7 +321,8 @@ $(document).ready(function(){
    </div>
 	
 	<br><br>
-	
+	 
+	 
 
 
 	<div class="wrapper">

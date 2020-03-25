@@ -312,23 +312,13 @@ $(document).ready(function() {
 	$('#btndeletemodal').on('click', function() {
 		$('#deletemodal').modal();
 	})
-	$('#btndelete')
-			.on(
-					'click',
-					function() {
-						$("input[name=pcode]:checked")
-								.each(
-										function() {
+	$('#btndelete').on('click',	function() {
+		$("input[name=pcode]:checked").each(function() {
+			var pcode = $(this).val();
+			console.log(pcode);
+			location.href = "${pageContext.request.contextPath}/seller/deleteproduct/"+ pcode;
 
-											var pcode = $(
-													this)
-													.val();
-											console
-													.log(pcode);
-											location.href = "${pageContext.request.contextPath}/seller/deleteproduct/"
-													+ pcode;
-
-										});
+		});
 					})
 
 	$('#changeSizePerPage')
@@ -475,18 +465,51 @@ body {
 						<button type="button" id="all_print" class="btn btn-secondary"
 							onclick="productallprint()">전체출력</button>
 
+<!-- delete Button trigger modal -->
+						<button type="button" id="btndeletemodal" class="btn btn-danger">
+							<!-- data-toggle="modal" data-target="#exampleModal" -->
+							삭제 모달 테스트
+						</button>
 
-						<button type="button" id="btnupdate" class="btn btn-success">선택
+
+						<!-- delete Modal -->
+						<div class="modal fade" id="deletemodal" tabindex="-1"
+							role="dialog" aria-labelledby="exampleModalLabel"
+							aria-hidden="true">
+							<div class="modal-dialog" role="document">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5 class="modal-title" id="exampleModalLabel">경 고</h5>
+										<button type="button" class="close" data-dismiss="modal"
+											aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+									</div>
+									<div class="modal-body">
+										<div>
+											경고!! <br> 상품코드가 같은 상품은 모두 삭제됩니다.<br> <br> 옵션만
+											삭제할 경우 ㅇㅇㅇ에서 삭제를 실행해주세요<br> 선택한 상품을 정말로 삭제하시겠습니까?
+										</div>
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-secondary"
+											data-dismiss="modal">취소</button>
+										<button type="button" class="btn btn-primary" id="btndelete">삭제</button>
+									</div>
+								</div>
+							</div>
+						</div>
+			<!-- 			<button type="button" id="btnupdate" class="btn btn-success">선택
 							수정</button>
 						<button type="button" class="btn btn-danger">선택 삭제</button>
-						<!-- id="btndelete" -->
-
+						id="btndelete"
+ -->
 
 						<!-- update inventory Button trigger modal -->
-						<button type="button" id="btnupdateinventorymodal"
+					<!-- 	<button type="button" id="btnupdateinventorymodal"
 							class="btn btn-primary">재고 추가 모달 테스트</button>
 
-
+ -->
 						<div class="col-md-10" style="margin: 20px 0px;">
 							<select class="custom-select col-md-4" id="changeSizePerPage">
 								<option selected disabled value="10">표시 건수</option>
@@ -552,43 +575,9 @@ body {
 
 						</form>
 
-						<!-- delete Button trigger modal -->
-						<button type="button" id="btndeletemodal" class="btn btn-danger">
-							<!-- data-toggle="modal" data-target="#exampleModal" -->
-							삭제 모달 테스트
-						</button>
+						
 
-
-						<!-- delete Modal -->
-						<div class="modal fade" id="deletemodal" tabindex="-1"
-							role="dialog" aria-labelledby="exampleModalLabel"
-							aria-hidden="true">
-							<div class="modal-dialog" role="document">
-								<div class="modal-content">
-									<div class="modal-header">
-										<h5 class="modal-title" id="exampleModalLabel">경 고</h5>
-										<button type="button" class="close" data-dismiss="modal"
-											aria-label="Close">
-											<span aria-hidden="true">&times;</span>
-										</button>
-									</div>
-									<div class="modal-body">
-										<div>
-											경고!! <br> 상품코드가 같은 상품은 모두 삭제됩니다.<br> <br> 옵션만
-											삭제할 경우 ㅇㅇㅇ에서 삭제를 실행해주세요<br> 선택한 상품을 정말로 삭제하시겠습니까?
-										</div>
-									</div>
-									<div class="modal-footer">
-										<button type="button" class="btn btn-secondary"
-											data-dismiss="modal">취소</button>
-										<button type="button" class="btn btn-primary" id="btndelete">삭제</button>
-									</div>
-								</div>
-							</div>
-						</div>
-
-						<table class="table table-bordered" id="dataTable" width="100%"
-							cellspacing="0">
+						<table class="table table-bordered" id="dataTable" style=" width:100%; " cellspacing="0">
 							<thead>
 								<tr>
 									<th style="width: 50px"><input type="checkbox" id="all"></th>
@@ -601,9 +590,11 @@ body {
 									<th>사이즈</th>
 									<th>재고</th>
 									<th style="border-right: 2px solid silver;">추가 가격</th>
+									<th>누적판매량</th>
 									<th>카테고리</th>
 									<th>공개여부</th>
 									<th>리뷰공개여부</th>
+									<th>단일 수정 / 삭제</th>
 								</tr>
 							</thead>
 
@@ -623,7 +614,7 @@ body {
 										<td>${i.inventory }</td>
 										<td style="border-right: 2px solid silver;">
 											${i.add_price }</td>
-
+										<td>${i.accumulation}</td>
 										<td>${i.lv1}-${i.lv2}-${i.lv3}</td>
 
 										<c:if test="${ i.public_state } == true">

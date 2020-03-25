@@ -35,9 +35,9 @@ public interface SellerMapper {
 	List<String> getOptionColor(int pcode);
 	void updateInventory(OptionDTO dto);
 
-	List<OrderDTO> orderlist();
+	List<OrderDTO> orderlist(String seller_code);
 
-	List<OrderDTO> shippinglist();
+	List<OrderDTO> shippinglist(String seller_code);
 
 	OrderDTO theOrderlist(String order_code);
 
@@ -45,7 +45,7 @@ public interface SellerMapper {
 
 	void updateTracking(OrderDTO dto);
 
-	SellerDTO sellerInfo();
+	SellerDTO sellerInfo(String seller_code);
 
 	void changePublicState(ProductDTO dto);
 
@@ -84,6 +84,10 @@ public interface SellerMapper {
 	List<QnaDTO> getQnaList(String seller_code);
 
 	void qna_reply(QnaDTO dto);
+
+	int getPaid(String seller_code);
+
+	List<OrderDTO> searchOrderView(String search_order);
 
 
 

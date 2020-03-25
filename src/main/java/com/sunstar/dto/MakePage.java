@@ -10,6 +10,9 @@ import lombok.ToString;
 @NoArgsConstructor @AllArgsConstructor
 @ToString
 public class MakePage {
+	//id
+	private String seller_code;
+	
 	private int currPage;
 	private int totalCount;
 	private int sizePerPage;

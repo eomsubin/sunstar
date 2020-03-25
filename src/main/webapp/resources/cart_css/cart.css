@@ -20,6 +20,15 @@
     font-size: 23px;
 }
 
+.custom-control-input:checked~.custom-control-label::before {
+    color: #fff;
+    border-color: #fbab60;
+    background-color: #fbab60;
+}
+
+
+
+
 .selectDelete_btn {
     border: 1px solid #c9c9c9;
     height: 32px;

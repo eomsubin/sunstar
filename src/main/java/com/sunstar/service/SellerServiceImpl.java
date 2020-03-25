@@ -38,8 +38,9 @@ public class SellerServiceImpl implements SellerService {
 		//상품코드 생성
 		mapper.addProduct(dto);
 		
+		System.out.println("--------------------\n\n"+dto+"-------------------------");
 		if(dto.getOptions().size()==0) {
-			
+
 		}else {
 			//옵션 수만큼 반복
 			for(int i =0; i<dto.getOptions().size(); i++) {
@@ -49,13 +50,19 @@ public class SellerServiceImpl implements SellerService {
 			//	ProductDTO dto2 = mapper.aProduct();
 				//그 상품코드에 맞는 옵션 추가
 				System.out.println("****");
-				
 				OptionDTO dto2 = new OptionDTO();
 				dto2.setProduct_code(mapper.aProduct());
-				dto2.setOption1(dto.getOptions().get(i).getOption1());
-				dto2.setOption2(dto.getOptions().get(i).getOption2());
+				if(dto.getOptions().get(i).getOption1().equals("") && dto.getOptions().get(i).getOption2().equals("")) {
+					dto2.setOption1("기본");
+					dto2.setOption2("기본");
+				}else {
+					dto2.setOption1(dto.getOptions().get(i).getOption1());
+					dto2.setOption2(dto.getOptions().get(i).getOption2());
+				}
 				dto2.setInventory(dto.getOptions().get(i).getInventory());
 				dto2.setAdd_price(dto.getOptions().get(i).getAdd_price());
+				
+				System.out.println("dto2 *********************\n" + dto2+"\n**********");
 				mapper.addOptions(dto2);
 			}
 		}
@@ -90,13 +97,13 @@ public class SellerServiceImpl implements SellerService {
 	}
 
 	@Override
-	public List<OrderDTO> orderlist() {
-		return mapper.orderlist();
+	public List<OrderDTO> orderlist(String seller_code) {
+		return mapper.orderlist(seller_code);
 	}
 	
 	@Override
-	public List<OrderDTO> shippinglist() {
-		return mapper.shippinglist();
+	public List<OrderDTO> shippinglist(String seller_code) {
+		return mapper.shippinglist(seller_code);
 	}
 
 	@Override
@@ -115,8 +122,8 @@ public class SellerServiceImpl implements SellerService {
 	}
 
 	@Override
-	public SellerDTO sellerInfo() {
-		return mapper.sellerInfo();
+	public SellerDTO sellerInfo(String seller_code) {
+		return mapper.sellerInfo(seller_code);
 	}
 
 	@Override
@@ -131,11 +138,7 @@ public class SellerServiceImpl implements SellerService {
 
 	@Override
 	public void changeInfo(SellerDTO dto) {
-		System.out.println(dto.getState());
-		System.out.println(dto.getVal());
-		
-		
-		dto.setSeller_code("11111");
+
 		mapper.changeInfo(dto);
 	}
 
@@ -210,6 +213,12 @@ public class SellerServiceImpl implements SellerService {
 	
 
 	@Override
+	public int getPaid(String seller_code) {
+		// TODO Auto-generated method stub
+		return mapper.getPaid(seller_code);
+	}
+
+	@Override
 	public int getReadyCount(String seller_code) {
 		return mapper.getReadyCount(seller_code);
 	}
@@ -242,6 +251,11 @@ public class SellerServiceImpl implements SellerService {
 	public void qna_reply(QnaDTO dto) {
 		// TODO Auto-generated method stub
 		mapper.qna_reply(dto);
+	}
+
+	@Override
+	public List<OrderDTO> searchOrderView(String search_order) {
+		return mapper.searchOrderView(search_order);
 	}
 
 	

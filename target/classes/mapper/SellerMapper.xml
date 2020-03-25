@@ -78,9 +78,9 @@
 	</update>
 	
 	<!-- 주문목록 -->
-	<select id="orderlist" resultType="com.sunstar.dto.OrderDTO">
+	<select id="orderlist" parameterType="string" resultType="com.sunstar.dto.OrderDTO">
 	
-	   select o.order_code, l.product_code, l.option1, l.option2, l.quantity, l.add_price,  p.price, o.message, 
+	   select o.order_code, l.product_code, p.product_name, l.option1, l.option2, l.quantity, l.add_price,  p.price, o.message, 
 			  o.order_way,  o.to_name, c.tel, o.shipping_addr1, o.shipping_addr2, o.shipping_addr3, o.shipping_zip, o.delivery_state, o.tracking_no
        from ordered o left join order_list l
        on o.order_code = l.order_code
@@ -88,12 +88,12 @@
        on o.id = c.id
        left join product_list p
        on l.product_code = p.product_code
+  	   where p.seller_code = #{seller_code}
 		order by order_code desc
-		<!-- where seller_code = 'solyi' -->
 	</select>
 	
 		<!-- 배송대기 주문목록 -->
-	<select id="shippinglist" resultType="com.sunstar.dto.OrderDTO">
+	<select id="shippinglist" parameterType="string" resultType="com.sunstar.dto.OrderDTO">
 	
 	   select o.delivery_state, l.product_code, p.price, o.order_code, l.order_no, l.option1, l.option2, l.inventory, l.add_price, o.order_way, o.message, c.name, c.tel, s.shipping_addr1, s.shipping_addr2, s.shipping_addr3, s.shipping_zip
        from ordered o left join order_list l
@@ -104,7 +104,7 @@
        on c.id = s.id
        left join product_list p
        on l.product_code = p.product_code
-       where o.delivery_state = '배송준비중'
+       where o.delivery_state = '배송준비중' and seller_code = #{seller_code}
 		<!-- where seller = 'solyi' -->
 	</select>
 	
@@ -137,11 +137,10 @@
 		where order_code = #{order_code}
 	</update>
 	
-	<select id="sellerInfo" resultType="com.sunstar.dto.SellerDTO">
+	<select id="sellerInfo" parameterType="string" resultType="com.sunstar.dto.SellerDTO">
 		select *
 		from seller
-		where seller_code = 11111
-		<!-- 나중에 parameter type에  id도 추가 -->
+		where seller_code = #{seller_code}
 	
 	</select>
 	
@@ -162,21 +161,23 @@
 	
 	<update id="changeInfo" parameterType="com.sunstar.dto.SellerDTO">
 		update seller
- 	 <set>
-      <if test="seller_tel   != null   and 	seller_tel  != ''  	">seller_tel=#{seller_tel},</if>
-      <if test="seller_email != null   and 	seller_email != '' 	">seller_email=#{seller_email},</if>
-      <if test="seller_zip   != null   and seller_zip != '' 	">seller_zip=#{seller_zip},</if>
-      <if test="bank         != null   and bank != '' 			">bank=#{bank},</if>
-      <if test="bank_no      != null   and bank_no != ''	 	">bank_no=#{bank_no},</if>
-      <if test="seller_deadline 	!= null   and seller_deadline     != '' ">seller_deadline=#{seller_deadline}</if>
-      <if test="shipping_company    != null   and shipping_company    != '' ">shipping_company=#{shipping_company},</if>
-      <if test="basic_shipping_cost	!= null   and basic_shipping_cost != '' ">basic_shipping_cost=#{basic_shipping_cost}</if>
+ 	 <set>	
+      <if test="seller_tel  	 	!= null   		and 	seller_tel 		 	!= ''  	">		seller_tel=#{seller_tel},</if>
+      <if test="seller_email 		!= null   		and 	seller_email 		!= '' 	">		seller_email=#{seller_email},</if>
+      <if test="seller_address1   	!= null  		and	 	seller_address1 	!= '' 	">		seller_address1=#{seller_address1},</if>
+      <if test="seller_address2   	!= null   		and	 	seller_address2 	!= '' 	">		seller_address2=#{seller_address2},</if>
+      <if test="seller_address3   	!= null   		and	 	seller_address3 	!= '' 	">		seller_address3=#{seller_address3},</if>
+      <if test="seller_zip   		!= null   		and 	seller_zip 			!= '' 	">		seller_zip=#{seller_zip},</if>
+      <if test="bank         		!= null   		and 	bank 				!= '' 	">		bank=#{bank},</if>
+      <if test="bank_no     		!= null   		and 	bank_no 			!= ''	">		bank_no=#{bank_no},</if>
+      <if test="seller_deadline 	!= null   		and 	seller_deadline     != '' 	">		seller_deadline=#{seller_deadline},</if>
+      <if test="shipping_company    != null   		and 	shipping_company    != '' 	">		shipping_company=#{shipping_company},</if>
+      <if test="basic_shipping_cost	!= null   		and 	basic_shipping_cost != '' 	">		basic_shipping_cost=#{basic_shipping_cost},</if>
+      <if test="free_shipping_cost	!= null  		and		free_shipping_cost 	!= ''	">		free_shipping_cost=#{free_shipping_cost}</if>
       
      </set>
 		
-		where seller_code = 11111
-	<!-- 	where seller_code = 11111
-	 -->	
+		where seller_code = #{seller_code}
 	
 	</update>
 	
@@ -214,7 +215,7 @@
 		
 		
 		
-		select p.product_code, product_name, price, cost, shipping_cost, o.option1, o.option2, o.inventory, o.add_price, thumb_img, detail_img1, detail_img2, detail_img3, explains,
+		select p.product_code, product_name, price, cost, shipping_cost, o.option1, o.option2, o.inventory, o.add_price, o.accumulation, thumb_img, detail_img1, detail_img2, detail_img3, explains,
 		 public_state, review_state, c.lv1, c.lv2, c.lv3, p.product_code, s.basic_shipping_cost
 		from product_list p  join category c
 		on p.category_code = c.category_code
@@ -222,6 +223,7 @@
 		on p.product_code = o.product_code
 		left join seller s
 		on p.seller_code = s.seller_code
+		where p.seller_code = #{seller_code} 
       <!--   where p.product_code = #{seller_code} -->
     
       <!-- <where>
@@ -251,7 +253,7 @@
 	 	  <if test="seller_color  != null   and 	seller_color != '' ">seller_color=#{seller_color}</if>
 	 	
 	    </set>	
-			where seller_code  = 11111
+			where seller_code  = #{seller_code}
 		</update>
 		
 		
@@ -265,13 +267,11 @@
 		
 		<select id="viewStepOrder" parameterType="string" resultType="com.sunstar.dto.OrderDTO">
 			select o.order_code, l.product_code, l.option1, l.option2, l.inventory, l.add_price,  p.price, o.message, 
-			o.order_way,  s.to_name, c.tel, s.shipping_addr1, s.shipping_addr2, s.shipping_addr3, s.shipping_zip, o.delivery_state, o.tracking_no
+			o.order_way,  o.to_name, c.tel, o.shipping_addr1, o.shipping_addr2, o.shipping_addr3, o.shipping_zip, o.delivery_state, o.tracking_no
 			from ordered o left join order_list l
 			on o.order_code = l.order_code
 			inner join customer c 
 			on o.id = c.id
-			left join ship s
-			on c.id = s.id
 			left join product_list p
 			on l.product_code = p.product_code
 			where delivery_state = #{view_step}
@@ -331,6 +331,18 @@
 		select seller_code
 		from seller
 		where id = #{id}
+		
+		</select>
+		
+		<select id="getPaid" parameterType="string" resultType="int">
+			select count(o.delivery_state)
+			from ordered o left join order_list l
+            on o.order_code = l.order_code
+            left join product_list p 
+            on l.product_code = p.product_code
+            left join seller s
+            on p.seller_code = s.seller_code 
+			where delivery_state = '결제완료' and s.seller_code = #{seller_code}
 		
 		</select>
 		
@@ -395,4 +407,17 @@
 			where qna_no =#{qna_no}
 		
 		</update>
+		
+		
+		<select id="searchOrderView" parameterType="string" resultType="com.sunstar.dto.OrderDTO" >
+	      select o.order_code, p.product_code, l.option1, l.option2, l.add_price, quantity, price, p.shipping_cost, o.message, 
+	      o.order_way,o.delivery_state, o.to_name, o.shipping_addr1,o.shipping_addr2,o.shipping_addr3,o.shipping_zip,
+	      product_name,p.shipping_cost,l.option1,l.option2
+	      
+	      from ordered o left join order_list l
+	      on o.order_code=l.order_code
+	      left join product_list p
+	      on l.product_code = p.product_code
+	      where o.order_code= #{order_code}
+		</select>
 </mapper>

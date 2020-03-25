@@ -1,3 +1,51 @@
+<<<<<<< HEAD
+<%@ page language="java" contentType="text/html; charset=utf-8"
+	pageEncoding="utf-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ page session="false"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+<title>장바구니</title>
+<script>
+	$(document).ready(function() {
+		/*전체선택*/
+		$("#allCheck").click(function() {
+			var chk = $("#allCheck").prop("checked");
+			if (chk) {
+				$(".chBox").prop("checked", true);
+			} else {
+				$(".chBox").prop("checked", false);
+			}
+		});
+		/*전체선택 해제*/
+		$(".chBox").click(function() {
+			$("#allCheck").prop("checked", false)
+			
+			
+				
+		});
+		// 체크값이 없을 시 못넘어가게
+		$(".buyit_btn").click(function(){
+			if($(".chBox:checked").size()<=0){
+				alert('상품을 선택해주세요')
+				return false;
+			}
+		});
+		
+		
+	});
+</script>
+<style>
+div.allCheck {
+	height: 100%
+}
+=======
+>>>>>>> branch 'master' of https://github.com/eomsubin/sunstar.git
+
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -204,6 +252,7 @@ $(document).ready(function(){
 					</div>
 					<div class="productInfo m-2">
 						<p>
+							
 							<span>상 품 명 </span><a href="${pageContext.request.contextPath}/detailview2?product_code=${cartList.product_code}">${cartList.product_name}</a><br /> 
 							<span>옵    션 </span>${cartList.option1}&#45;${cartList.option2}	>
 							&#40;&#43;${cartList.add_price}원 &#41;<br /> 	 		
@@ -272,4 +321,5 @@ $(document).ready(function(){
 	</div>
 	</form>
 </body>
+
 </html>
