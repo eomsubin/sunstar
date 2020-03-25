@@ -22,8 +22,33 @@
 			/* 		console.log(this);
 			 console.log($(this).next().children()); */
 		})
+		genRowspan("td .ocode");
+		function genRowspan(className) {
+			$('.ocode').each(
+					function() {
+						var rows = $(".ocode:contains('"+ $(this).text() + "')");
 
+						if (rows.length > 1) {
+							rows.eq(0).attr("rowspan", rows.length);//중복되는 첫번째 td에 rowspan값 세팅 
+							rows.not(":eq(0)").remove();//중복되는 td를 삭제 
+						}
+					});
+
+		}
+		
+		$('.review_del').on('click',function(){
+			let review_no = $(this).parent().parent().children().eq(0).children().val();
+			console.log(review_no);
+			
+			
+			location.href="${pageContext.request.contextPath}/seller/review_del?review_no=" + review_no;
+		})
+		
+		
+		
 	})
+	
+
 </script>
 </head>
 <body>
@@ -53,9 +78,8 @@
 		<tr>
 			<th style="width: 50px"><input type="checkbox" id="all"></th>
 			<th>주문번호</th>
-			<th>상품번호</th>
+			<th>상품번호 (리뷰번호)</th>
 			<th>옵션1 / 옵션2</th>
-			<th>내용</th>
 			<th>이미지</th>
 			<th>별점</th>
 			<th>작성날짜</th>
@@ -67,18 +91,29 @@
 		<c:forEach var="i" items="${list}">
 			<tr class="tgl">
 				<td><input type="checkbox" id="review_no" name="review_no" value="${i.review_no}"></td>
-				<td>${i.order_code }</td>
-				<td>${i.product_code }</td>
+				<td class="ocode">${i.order_code }</td>
+				<td><a href="${pageContext.request.contextPath}/detailview2?product_code=${i.product_code}">${i.product_code }</a> ( ${i.review_no} )</td>
 				<td>${i.option1} / ${i.option2 }</td>
 			
-				<td>${i.review_content}</td>
-				<td>${i.review_img} </td>
+				
+				<td>
+					<c:forEach var="img" items="${i.imgdto }" >
+						<c:if test="">
+						
+						</c:if>
+						<p style="font-size: 0.2em;">${img.review_img}</p>
+					</c:forEach>
+
+				</td>
 				<td>${i.review_star}</td>
 				<td>${i.review_writedate}</td>
 				<td>${i.id}</td>
 				</tr>
-		<tr class="tgl">
-		 <td>dd</td>
+		<tr>
+		 <td class="content_toggle"><input type="hidden" value="${i.review_no}"></td>
+		 <td class="content_toggle ocode">${i.order_code }</td>
+		 <td class="content_toggle" colspan="5">${i.review_content }</td>
+		 <td class="content_toggle" > <button class="btn btn-danger review_del">삭제</button></td>
 		</tr>
 		</c:forEach>
 	</tbody>

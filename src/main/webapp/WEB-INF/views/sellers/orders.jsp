@@ -19,20 +19,14 @@
 }
 </style>
 <script>
-	$(document)
-			.ready(
-					function() {
-						$('#all').on(
-								'click',
-								function() {
-									if ($('#all').prop('checked')) {
-										$('input[type=checkbox]').prop(
-												'checked', true);
-									} else {
-										$('input[type=checkbox]').prop(
-												'checked', false);
-									}
-								});
+	$(document).ready(function() {
+		$('#all').on('click', function() {
+			if ($('#all').prop('checked')) {
+				$('input[type=checkbox]').prop('checked', true);
+			} else {
+				$('input[type=checkbox]').prop('checked', false);
+			}
+		});
 
 						$('#btnupdateinventorymodal').on('click', function() {
 							$('#updateinventorymodal').modal();
@@ -41,67 +35,44 @@
 						$('#btndeletemodal').on('click', function() {
 							$('#deletemodal').modal();
 						})
-						$('#btndelete')
-								.on(
-										'click',
-										function() {
-											$("input[name=pcode]:checked")
-													.each(
-															function() {
-																var pcode = $(
-																		this)
-																		.val();
-																console
-																		.log(pcode);
-																location.href = "${pageContext.request.contextPath}/seller/deleteproduct/"
-																		+ pcode;
-															});
-										});
+		$('#btndelete').on('click', function() {
+			$("input[name=pcode]:checked").each(function() {
+				var pcode = $(this).val();
+				console.log(pcode);
+				location.href = "${pageContext.request.contextPath}/seller/deleteproduct/"+ pcode;
+		});
+});
 
 						//운송장입력 버튼을 누르면, 체크한 상품들의 운송장 번호를 
-						$('.trackingbtn')
-								.on(
-										'click',
-										function() {
-											let items = new Array();
-											$('.trackingbtn').hide();
-											$('.newtrackingbtn').show();
+$('.trackingbtn').on('click', function() {
+	let items = new Array();
+	$('.trackingbtn').hide();
+	$('.newtrackingbtn').show();
 
-											$(
-													'input:checkbox[name="ordercode"]:checked')
-													.each(
-															function(item) {
-																let checked_items = $(
-																		this)
-																		.val();
+	$('input:checkbox[name="ordercode"]:checked').each( function(item) {
+		let checked_items = $(this).val();
+	
+		let trc = $(this).parent().parent().find('td').eq(13);
+	
+		console
+				.log($(
+						this)
+						.parent()
+						.parent()
+						.find(
+								'td')
+						.eq(
+								13)
+						.text());
 
-																let trc = $(
-																		this)
-																		.parent()
-																		.parent()
-																		.find(
-																				'td')
-																		.eq(13);
+										trc.empty();
+										trc
+												.append('<input type="text" name="tracking_no">');
+										items
+												.push(checked_items);
+									});
 
-																console
-																		.log($(
-																				this)
-																				.parent()
-																				.parent()
-																				.find(
-																						'td')
-																				.eq(
-																						13)
-																				.text());
-
-																trc.empty();
-																trc
-																		.append('<input type="text" name="tracking_no">');
-																items
-																		.push(checked_items);
-															});
-
-										})
+				})
 
 						/*  */
 						genRowspan("td .ocode");

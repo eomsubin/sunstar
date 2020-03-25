@@ -422,7 +422,7 @@
 		</select>
 		
 		<select id="getReview" parameterType="string" resultType="com.sunstar.dto.ReviewDTO">
-			select *
+           	select distinct(r.review_no),l.order_no, o.order_code, p.product_code, t.option1, t.option2, r.review_content, r.review_star, r.review_writedate, o.id
 			from review r left join review_img i
 			on r.review_no = i.review_no
 	        left join order_list l
@@ -434,7 +434,29 @@
 	        left join options t
 	        on t.product_code = p.product_code
 			where p.seller_code = #{seller_code}
+			order by o.order_code desc
 
 		
 		</select>
+		
+		<select id="getReviewImgCount" parameterType="int" resultType="com.sunstar.dto.ReviewImgDTO">
+            select review_no, img_no, review_img
+            from review_img
+            where review_no = #{review_no}
+		
+		</select>
+
+		<delete id="reviewimg_del" parameterType="int">
+			delete from review_img
+			where review_no = #{review_no}
+		</delete>
+
+
+
+		<delete id="review_del" parameterType="int">
+			delete from review
+			where review_no = #{review_no}
+		</delete>
+
+		
 </mapper>

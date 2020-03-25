@@ -56,6 +56,7 @@ import com.sunstar.dto.OrderDTO;
 import com.sunstar.dto.ProductDTO;
 import com.sunstar.dto.QnaDTO;
 import com.sunstar.dto.ReviewDTO;
+import com.sunstar.dto.ReviewImgDTO;
 import com.sunstar.dto.SellerDTO;
 import com.sunstar.dto.DataDTO;
 import com.sunstar.dto.MakePage;
@@ -809,7 +810,7 @@ public class SellerController {
 		if("step2".equals(stp)) {				//결제완료
 			view_step = "결제완료";
 		}else if("step3".equals(stp)) {				//배송준비
-			view_step = "배송준비";
+			view_step = "배송준비";  
 		}else if("step4".equals(stp)) {		//배송중
 			view_step = "배송중";
 		}else if("step5".equals(stp)) {		//배송완료
@@ -1394,13 +1395,38 @@ public class SellerController {
 		System.out.println(id);
 		String seller_code = sellerservice.getSellerCode(id);
 
+		//판매자 코드가 일치하는 리뷰 테이블에서 값을 받아옴
 		List<ReviewDTO> list = sellerservice.getReview(seller_code);
 		
+		List<ReviewImgDTO> imglist = new ArrayList<>();
+		for(int i=0;i<list.size();i++) {
+			int review_no = list.get(i).getReview_no();
+			
+			imglist =sellerservice.getReviewImgCount(review_no) ;
+			
+			for(int j = 0; j < imglist.size(); j++) {
+				int img_no 			= imglist.get(j).getImg_no();
+				int img_re_no 		= imglist.get(j).getReview_no();
+				String review_img 	= imglist.get(j).getReview_img();
+				System.out.println(img_no+"\t"+ img_re_no +"\t"+ review_img);
+				list.get(i).setImgdto(imglist);
+			}
+		}
 		m.addAttribute("list", list);
 		m.addAttribute("sellerpage", "product_review.jsp");
 		return "sellers/temp";
 	}
+	
+	@RequestMapping("/review_del")
+	public String review_del( @RequestParam int review_no) {
+		
+		sellerservice.review_del(review_no);
+		
+		
+		return "redirect:/seller/product_review";		
+	}
 }
+
 
 
 
