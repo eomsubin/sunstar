@@ -420,4 +420,21 @@
 	      on l.product_code = p.product_code
 	      where o.order_code= #{order_code}
 		</select>
+		
+		<select id="getReview" parameterType="string" resultType="com.sunstar.dto.ReviewDTO">
+			select *
+			from review r left join review_img i
+			on r.review_no = i.review_no
+	        left join order_list l
+	        on l.order_no = r.order_no
+	        left join ordered o
+	        on o.order_code = l.order_code
+			left join product_list p
+			on p.product_code = l.product_code
+	        left join options t
+	        on t.product_code = p.product_code
+			where p.seller_code = #{seller_code}
+
+		
+		</select>
 </mapper>

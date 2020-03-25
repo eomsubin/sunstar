@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>   
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -32,8 +31,8 @@
 
 <!-- Eshop StyleSheet -->
 
-<%-- <link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/reset.css"> --%>
+ <%-- <link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/css/reset.css">  --%>
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/mypage.css">
 <link rel="stylesheet"
@@ -41,14 +40,8 @@
 	
 </head>
 <body>
-	<!-- Product Style -->
 	<section class="product-area shop-sidebar shop section">
-
-		<div class="user-title">
-			<h3> 주문/배송 상세정보</h3>(주문번호:${one.order_code})
-		</div>
-		
-		<div class="container">
+	<div class="container">
 			<div class="row">
 
 				<!-- sidebar -->
@@ -67,64 +60,10 @@
 							</ul>
 						</div>
 						<!--/ End Single Widget -->
-						
 					</div>
 				</div>
-				<!-- side bar -->
-					<table class="table" >
-  <thead class="thead-dark">
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">First</th>
-      <th scope="col">Last</th>
-      <th scope="col">Handle</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td>Larry</td>
-      <td>the Bird</td>
-      <td>@twitter</td>
-    </tr>
-  </tbody>
-</table>
 				</div>
 				</div>
 				</section>
-	
-	<%-- ${one.order_code}
-	${one.order_way}
-	${one.shipping_addr1 }
-	${one.shipping_addr2 }
-	${one.shipping_addr3 }
-	
-	 <c:forEach var="detail" items="${orderdetail }">
-		${detail.quantity}
-		${detail.product_name }
-		${detail.delivery_state }
-		${detail.price }
-		${detail.add_price }
-		${detail.quantity }
-		${detail.shipping_cost }
-		${detail.option1 }
-		${detail.option2 }
-     </c:forEach> --%>
-     
-     
-     
-	
 </body>
 </html>

@@ -92,7 +92,7 @@
                         <a class="collapse-item" href="${pageContext.request.contextPath}/seller/search_order">단일주문건 확인</a>
                         <a class="collapse-item" href="#">교환관리</a>
                         <a class="collapse-item" href="#">반품관리</a>
-                        <a class="collapse-item" href="#">리뷰관리</a>
+                        <a class="collapse-item" href="${pageContext.request.contextPath}/seller/product_review">리뷰관리</a>
                     </div>
                 </div>
             </li>

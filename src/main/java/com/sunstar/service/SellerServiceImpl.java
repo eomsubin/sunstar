@@ -13,6 +13,7 @@ import com.sunstar.dto.OptionDTO;
 import com.sunstar.dto.OrderDTO;
 import com.sunstar.dto.ProductDTO;
 import com.sunstar.dto.QnaDTO;
+import com.sunstar.dto.ReviewDTO;
 import com.sunstar.dto.SellerDTO;
 import com.sunstar.mapper.SellerMapper;
 
@@ -256,6 +257,12 @@ public class SellerServiceImpl implements SellerService {
 	@Override
 	public List<OrderDTO> searchOrderView(String search_order) {
 		return mapper.searchOrderView(search_order);
+	}
+
+	@Override
+	public List<ReviewDTO> getReview(String seller_code) {
+		// TODO Auto-generated method stub
+		return mapper.getReview(seller_code);
 	}
 
 	
