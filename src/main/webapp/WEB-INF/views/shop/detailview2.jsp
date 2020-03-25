@@ -118,6 +118,27 @@ margin-left: 10px;
 
 }
 
+/* .vip-tabnavi {
+    position: absolute;
+    width: 100%;
+    height: 55px;
+    clear: both;
+    background: #a9b3bc;
+    border-bottom: 1px solid #96a3ad;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    top: 0;
+    left: 0;
+}
+.vip-tabwrap {
+    min-width: 1200px;
+    margin: 0 auto;
+    padding-top: 56px;
+    position: relative;
+    clear: both;
+    z-index: 2;
+} */
+
 </style>
 
 
@@ -445,19 +466,21 @@ $(document).ready(function(){
 			</div>
 		</section>
 	</div>
-	<div class="nav detail_info_tab bg-light">
+	<div class="vip-tabwrap">
+	<div class="nav detail_info_tab bg-light vip-tabnavi">
      <ul class="info_nav" style="margin-left: 16%" >
-  <li class="nav-item">
-    <a class="nav-link" href="#">상세정보</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="#">상품평</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="#">상품문의</a>
-  </li>
-</ul>
-</div>
+		  <li class="nav-item">
+		    <a class="nav-link" href="#">상세정보</a>
+		  </li>
+		  <li class="nav-item">
+		    <a class="nav-link" href="#">상품평</a>
+		  </li>
+		  <li class="nav-item">
+		    <a class="nav-link" href="#">상품문의</a>
+		  </li>
+	</ul>	
+	</div>
+	</div>
 </body>
 </html>
 

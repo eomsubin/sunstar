@@ -169,7 +169,7 @@ public class ProductController {
 	public String detailview(@RequestParam(defaultValue = "") String product_code, Model model) {
 		if (product_code.equals("")) {
 			System.out.println("값이 없습니다.");
-			return "redirect:http://localhost:8080/controller/userlogin";
+			return "redirect:http://localhost:8080/userlogin";
 		} else {
 			int product_code1 = Integer.parseInt(product_code);
 			ProductDTO view = productservice.productview(product_code1);
