@@ -106,8 +106,39 @@ public class PaymentController {
 		
 		
 	    r = paymentservice.addOrder(allData);
-	   
+	    
 		
 		return r;
   }
+	
+   @RequestMapping("/checkout2/{product_code}")
+   public String checkout2(Model model,@PathVariable String product_code,Principal principal) {
+	   
+	   
+	  mainservice.header(model);
+	  
+	  if(principal!=null) {
+			CustomerUserDetail userdetail = (CustomerUserDetail)((Authentication)principal).getPrincipal();
+			String id = userdetail.getUsername();
+			
+	
+			CustomerDTO info = mpservice.getUserInfo(id);
+			info.setTel(info.getTel().replaceAll("-", ""));
+			Integer.parseInt(product_code);
+			
+			CartDTO cdto = paymentservice.productDetail(product_code,id);
+			
+			
+			
+	  }else {
+		  return "redirect:/";
+	  }
+	   
+	   
+	   
+	   model.addAttribute("contentpage","payment/checkout.jsp");
+	   
+	   return "home";
+   }
+	
 }

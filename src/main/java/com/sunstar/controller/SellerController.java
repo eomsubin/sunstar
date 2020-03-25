@@ -1,6 +1,7 @@
 package com.sunstar.controller;
 
 
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.security.Principal;
@@ -13,6 +14,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.annotation.Resource;
+import javax.imageio.ImageIO;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -27,6 +29,7 @@ import org.apache.poi.ss.usermodel.HorizontalAlignment;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.util.ImageUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -52,6 +55,7 @@ import com.sunstar.dto.OptionDTO;
 import com.sunstar.dto.OrderDTO;
 import com.sunstar.dto.ProductDTO;
 import com.sunstar.dto.QnaDTO;
+import com.sunstar.dto.ReviewDTO;
 import com.sunstar.dto.SellerDTO;
 import com.sunstar.dto.DataDTO;
 import com.sunstar.dto.MakePage;
@@ -476,7 +480,6 @@ public class SellerController {
 				file.renameTo(file2);
 				dto.setThumb_img("resources\\product_img\\" + thumb);
 			}
-
 			if(!multi1.isEmpty()) {
 				//파일 = 새파일(경로, 파일이름);
 				File file1 = new File(uploadpath, multi1.getOriginalFilename());
@@ -1383,6 +1386,18 @@ public class SellerController {
 		model.addAttribute("dto", dto);
 		model.addAttribute("list", list);
 		model.addAttribute("sellerpage", "search_order.jsp");
+		return "sellers/temp";
+	}
+	@RequestMapping("/product_review")
+	public String product_review(Model m, Principal p ) {
+		String id= getId(m, p);
+		System.out.println(id);
+		String seller_code = sellerservice.getSellerCode(id);
+
+		List<ReviewDTO> list = sellerservice.getReview(seller_code);
+		
+		m.addAttribute("list", list);
+		m.addAttribute("sellerpage", "product_review.jsp");
 		return "sellers/temp";
 	}
 }

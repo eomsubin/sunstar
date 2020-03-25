@@ -52,5 +52,19 @@
 		order by l.order_no desc
 	</select>
 	
+	<!-- <select id="productDetail" parameterType="string" resultType="com.sunstar.CartDTO">
+	select p.price,c.cart_no, c.id, c.product_code,p.product_name,p.thumb_img,c.cart_quantity,p.shipping_cost,p.seller_code,o.option1,o.option2,o.add_price,t.name,t.tel,t.email,t.address1,t.address2,t.address3,t.zip
+    	from cart c left join product_list p
+    	on c.product_code = p.product_code
+    	left join options o
+    	on o.product_code = p.product_code
+    	left join customer t
+    	on t.id = c.id
+    	where c.id=#{id}
+    	and p.product_code = #{product_code}
+   		order by product_code
+	
+	</select>
+	 -->
 
 </mapper>
