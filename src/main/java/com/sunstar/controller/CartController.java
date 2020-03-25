@@ -68,7 +68,7 @@ public class CartController {
 			model.addAttribute("cartList", cartList);
 			model.addAttribute("contentpage", "shop/cartList.jsp"); 
 	      }else {
-	    	  return "redirect:http://localhost:8080/controller/userlogin";
+	    	  return "redirect:http://${pageContext.request.contextPath}/userlogin";
 	      }
 		mainservice.header(model);
 		return "home";

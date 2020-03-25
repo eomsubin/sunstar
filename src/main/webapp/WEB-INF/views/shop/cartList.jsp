@@ -2,7 +2,8 @@
 	pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
 <%@ page session="false"%>
 <!DOCTYPE html>
 <html>
@@ -32,13 +33,24 @@
 				return false;
 			}
 		});
+		
+		
+		
+		/*제품 수량 조절(-)*/
+		$(document).on("click","#minus_btn",function(){
+			var num = $(this).next().val();
+			
+		});
+		
+		
+		
 	});
 </script>
 <!-- Eshop StyleSheet -->
-<link rel="stylesheet" href="css/reset.css">
+
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/cart_css/cart.css">
-<link rel="stylesheet" href="css/responsive.css">
+
 
 </head>
 
@@ -105,8 +117,8 @@
 												<td class="image px-3" data-title="No">
 													<div class="custom-control custom-checkbox">
 														<input type="checkbox" class="chBox custom-control-input"
-															id="productchBox" value="${cartList.cart_no }" > <label
-															class="custom-control-label" for="productchBox">
+															id="productchBox" value="${cartList.cart_no }">
+														<label class="custom-control-label" for="productchBox">
 															<a
 															href="${pageContext.request.contextPath}/detailview2?product_code=${cartList.product_code}">
 																<img src="${cartList.thumb_img}" class="thumimg" />
@@ -118,31 +130,29 @@
 												<td class="product-des" data-title="Description">
 													<!-- 상품명 -->
 													<p class="product_code">
-														<a
-															href="${pageContext.request.contextPath}/detailview2?product_code=${cartList.product_code}">${cartList.product_name}</a>
+														<a href="${pageContext.request.contextPath}/detailview2?product_code=${cartList.product_code}">${cartList.product_name}</a>
 													</p> <!-- 옵션 -->
 													<p class="product_option">${cartList.option1}&#45;${cartList.option2}&#40;&#43;${cartList.add_price}원&#41;</p>
 												</td>
 												<!-- 금액 -->
-												<td class="price" data-title="Price"><fmt:formatNumber
-														pattern="###,###,###"
-														value="${(cartList.price + cartList.add_price)}" />원</span></td>
+												<td class="price" data-title="Price">
+												<fmt:formatNumber pattern="###,###,###" value="${(cartList.price + cartList.add_price)}" />원</span></td>
 												<!-- 수량 -->
 												<td class="qty" data-title="Qty">
 													<!-- Input Order -->
 													<div class="input-group">
 														<div class="button minus">
 															<button type="button" class="btn btn-primary btn-number"
-																disabled="disabled" data-type="minus"
-																data-field="quant[2]">
+																id="minus_btn">
 																<i class="ti-minus"></i>
 															</button>
 														</div>
-														<input type="text" name="quant[2]" class="input-number"
-															data-min="1" data-max="${cartList.inventory}" value="1">
+														<input type="text" class="input-number" data-min="1"
+															data-max="${cartList.inventory}"
+															value="${cartList.cart_quantity}">
 														<div class="button plus">
 															<button type="button" class="btn btn-primary btn-number"
-																data-type="plus" data-field="quant[2]">
+																id="plus_btn">
 																<i class="ti-plus"></i>
 															</button>
 														</div>
@@ -198,27 +208,12 @@
 					</div>
 				</div>
 			</div>
-			</div>
-			</form>
-			<!--/ End Shopping Cart -->
+		</div>
+	</form>
+	<!--/ End Shopping Cart -->
 
 
-			<!-- Magnific Popup JS -->
-			<script src="js/magnific-popup.js"></script>
-			<!-- Fancybox JS -->
-			<script src="js/facnybox.min.js"></script>
-			<!-- Waypoints JS -->
-			<script src="js/waypoints.min.js"></script>
-			<!-- Countdown JS -->
-			<script src="js/finalcountdown.min.js"></script>
-			<!-- 중요한 + - 친구 Nice Select JS -->
-			<script src="js/nicesellect.js"></script>
-			<!-- Ytplayer JS -->
-			<script src="js/ytplayer.min.js"></script>
-
-			<!-- ScrollUp JS -->
 
 
-			<script src="js/active.js"></script>
 </body>
 </html>
