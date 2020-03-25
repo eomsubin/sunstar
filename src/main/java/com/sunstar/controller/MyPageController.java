@@ -177,7 +177,17 @@ public class MyPageController {
 		return "home";
 	}
 	
-	
+	@RequestMapping("/mypage/seller_register")
+	public String seller_register(Model model) {
+		
+		mainservice.header(model);
+		
+		
+		model.addAttribute("contentpage","Mypage/seller_register.jsp");
+		
+		
+		return "home";
+	}
 	
 	
 }

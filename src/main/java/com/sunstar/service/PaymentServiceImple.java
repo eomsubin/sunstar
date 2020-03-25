@@ -70,6 +70,13 @@ public class PaymentServiceImple implements PaymentService {
 		
 		return pm.getUserInfo(id);
 	}
+
+	@Override
+	public CartDTO productDetail(String product_code,String id) {
+		// TODO Auto-generated method stub
+		
+		return pm.productDetail(product_code,id);
+	}
 	
 	
 

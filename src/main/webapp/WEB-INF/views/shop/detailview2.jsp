@@ -210,6 +210,9 @@ $(document).ready(function(){
 	});
 	//end
 	
+	
+	
+	
 	//장바구니 담기
 	$(document).on("click",".cart_btn",function(){
 		let id = $('.id').val();
@@ -232,7 +235,10 @@ $(document).ready(function(){
 					,"add_price" : $(this).data("add_price")
 					,"cart_quantity" : $(this).find(".numBox").val()
 			};
+			console.log(data);
 
+		
+			
 		 	$.ajax({
 				url : "detailview/addCart"
 				, data : data
@@ -253,7 +259,19 @@ $(document).ready(function(){
 		}); //end each
 		});
 		//end cart_btn
+		
+
+		
+		
+		
+	});
+		
+			
+			
+		
 });
+
+
 </script>
 <title>SBBJ</title>
 </head>
@@ -435,7 +453,7 @@ $(document).ready(function(){
 								<button class="cart_btn btn btn-outline-dark btn-lg"
 									type="button" style="width: 49%; height:60px; font-weight: bolder; font-size:25px; ">장바구니</button>
 								<button class="buy_btn btn btn-danger btn-lg" type="button"
-									style="width: 49%; height:60px; font-weight: bolder; font-size:25px">구매하기</button>
+									style="width: 49%; height:60px; font-weight: bolder; font-size:25px" >구매하기</button>
 							</div>
 						</fieldset>
 
