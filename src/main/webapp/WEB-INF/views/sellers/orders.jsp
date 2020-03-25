@@ -442,7 +442,7 @@ body {
 
 
 										<td id="ocode" class="ocode">${i.order_code}</td>
-										<td>${i.product_code}</td>
+										<td title="${i.product_name}">${i.product_code}</td>
 										<td
 											style="border-left: 2px solid silver; border-right: 2px solid silver;">${i.option1 }/
 											${i.option2 } / ${i.add_price }</td>

@@ -50,7 +50,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="${pageContext.request.contextPath}/controller">
+                <a class="nav-link" href="${pageContext.request.contextPath}">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>스삐제로 돌아가기</span></a>
             </li>
@@ -88,11 +88,11 @@
                 <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">주문관리</h6>
-                        <a class="collapse-item" href="${pageContext.request.contextPath}/seller/orders">주문 관리</a>
-                        <a class="collapse-item" href="utilities-color.html">줌</a>
-                        <a class="collapse-item" href="utilities-border.html">Borders</a>
-                        <a class="collapse-item" href="utilities-animation.html">Animations</a>
-                        <a class="collapse-item" href="utilities-other.html">Other</a>
+                        <a class="collapse-item" href="${pageContext.request.contextPath}/seller/orders">주문 확인</a>
+                        <a class="collapse-item" href="${pageContext.request.contextPath}/seller/search_order">단일주문건 확인</a>
+                        <a class="collapse-item" href="#">교환관리</a>
+                        <a class="collapse-item" href="#">반품관리</a>
+                        <a class="collapse-item" href="#">리뷰관리</a>
                     </div>
                 </div>
             </li>
@@ -114,10 +114,10 @@
                 <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">통계</h6>
-                        <a class="collapse-item" href="${pageContext.request.contextPath}/seller/charts">통계</a>
-                        <a class="collapse-item" href="register.html">Register</a>
-                        <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
-                        <div class="collapse-divider"></div>
+                        <a class="collapse-item" href="${pageContext.request.contextPath}/seller/charts">그래프</a>
+                        <a class="collapse-item" href="register.html">리스트</a>
+<!--                         <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
+ -->                        <div class="collapse-divider"></div>
                         <h6 class="collapse-header">정산</h6>
                         <a class="collapse-item" href="${pageContext.request.contextPath}/seller/requestaccounting">정산 신청</a>
                         <a class="collapse-item" href="${pageContext.request.contextPath}/seller/accounting">정산 내역 확인</a>
