@@ -18,7 +18,7 @@
 	});
 </script>
 <body>	
-		<form method="post" action="/controller/userlogout">
+		<form method="post" action="/userlogout">
 			<ul>
 				<li><button></button></li>
 				<li><input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/></li>

@@ -122,7 +122,7 @@ input, select{
 				$('.idalert').remove();
 				let id = $('#id').val();
 				$.ajax({
-					url : "/controller/registercustomer/customeridcheck/"+id
+					url : "${pageContext.request.contextPath}/registercustomer/customeridcheck/"+id
 					,dataType : "json"
 					,async: false
 					,success:function(data){
@@ -161,7 +161,7 @@ input, select{
 				var emresult = 0;
 				$('.emailalert').remove();
 				$.ajax({
-					url : "/controller/registercustomer/customeremailcheck"
+					url : "${pageContext.request.contextPath}/registercustomer/customeremailcheck"
 					,data : {"email" : email, "id" : id}
 					,dataType : "json"
 					,async: false

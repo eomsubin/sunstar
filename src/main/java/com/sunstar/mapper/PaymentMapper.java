@@ -30,6 +30,9 @@ public interface PaymentMapper {
 
 
 	CartDTO getUserInfo(String id);
+
+
+	CartDTO productDetail(String product_code,String id);
 	
 	
 }

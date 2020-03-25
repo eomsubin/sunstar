@@ -11,9 +11,9 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">  
 	<link href="https://fonts.googleapis.com/css?family=Poppins:200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&amp;display=swap" rel="stylesheet">
 	<!-- Font Awesome -->
-    <link rel="stylesheet" href="/controller/resources/css/font-awesome.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/font-awesome.css">
 	<!-- Themify Icons -->
-    <link rel="stylesheet" href="/controller/resources/css/themify-icons.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/themify-icons.css">
 
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <title>SBBJ</title>
@@ -206,7 +206,7 @@ $(document).ready(function(){
 		}else{
 		let result = 0;
 		$.ajax({
-			url : "/controller/registercustomer/customeridcheck/"+id
+			url : "${pageContext.request.contextPath}/registercustomer/customeridcheck/"+id
 			,dataType : "json"
 			,async: false
 			,success:function(data){
@@ -239,10 +239,10 @@ $(document).ready(function(){
 		<form method="post" action="${pageContext.request.contextPath}/login">
 		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 		
-		<a href="${pageContext.request.contextPath}"><img alt="home" src="${pageContext.request.contextPath}/resources/img/logo.png"></a>
+		<a href="${pageContext.request.contextPath}/"><img alt="home" src="${pageContext.request.contextPath}/resources/img/logo.png"></a>
 		
 		<div class="statusbox"></div>
-		<div class="location"><a href="${pageContext.request.contextPath}">홈</a> > <strong>로그인</strong></div>
+		<div class="location"><a href="${pageContext.request.contextPath}/">홈</a> > <strong>로그인</strong></div>
 		
 	
 		<h3>

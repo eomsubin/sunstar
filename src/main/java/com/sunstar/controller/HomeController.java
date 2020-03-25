@@ -78,7 +78,7 @@ public class HomeController {
 	
 	@RequestMapping("/")
 	public String body(Locale locale, Model model, HttpSession session)
-	{		        
+	{		         
 		
 		mainservice.header(model);
 		model.addAttribute("contentpage", "body.jsp");
@@ -97,7 +97,7 @@ public class HomeController {
 	public void userlogin(HttpSession session, HttpServletRequest request, Model model) throws UnsupportedEncodingException
 	{	
 		String clientId = "XMKUF7HdU8r3IIu3tMzr";
-		String redirectURI = URLEncoder.encode("http://localhost:8080/controller/callback", "UTF-8");
+		String redirectURI = URLEncoder.encode("http://localhost:8080/callback", "UTF-8");
 		SecureRandom random = new SecureRandom();
 		String state = new BigInteger(130, random).toString();
 		String apiURL = "https://nid.naver.com/oauth2.0/authorize?response_type=code";
@@ -117,7 +117,7 @@ public class HomeController {
 	    String clientSecret = "huGfQG5ZGT";//애플리케이션 클라이언트 시크릿값";
 	    String code = request.getParameter("code");// 인증코드
 	    String state = request.getParameter("state");
-	    String redirectURI = URLEncoder.encode("http://localhost:8080/controller/", "UTF-8");
+	    String redirectURI = URLEncoder.encode("http://localhost:8080/", "UTF-8");
 	    String apiURL;
 	    apiURL = "https://nid.naver.com/oauth2.0/token?grant_type=authorization_code&";
 	    apiURL += "client_id=" + clientId;
@@ -221,7 +221,7 @@ public class HomeController {
 	    } catch (Exception e) {
 	      System.out.println(e);
 	    }
-		return "redirect:http://localhost:8080/controller/userlogin";
+		return "redirect:http://localhost:8080/userlogin";
 	}
 	
 	
@@ -268,7 +268,7 @@ public class HomeController {
 		/*session.removeAttribute("userinfo");*/
 		}
 		/*session.invalidate();*/
-	}
+	} 
 	
 	@RequestMapping("/admin")
 	public String admin()

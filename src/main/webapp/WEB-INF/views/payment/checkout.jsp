@@ -552,6 +552,7 @@ function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2, zipNo
 			}
 			return true;
 		}
+		
 	</script>
 	<!--/ End Checkout -->
 	<script
