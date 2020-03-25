@@ -277,7 +277,8 @@ $(document).ready(function(){
    </div>
 	
 	<br><br>
-	
+	 
+	 
 
 
 	<div class="wrapper">
@@ -291,7 +292,7 @@ $(document).ready(function(){
 				value='<sec:authentication property="principal.UserInfo.id"/>' >
 				</sec:authorize>
 			</form>
-			
+			${view}
 			
 
 			<div class="container p-0">
