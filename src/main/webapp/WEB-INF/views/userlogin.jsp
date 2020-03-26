@@ -271,8 +271,8 @@ $(document).ready(function(){
 						</label>
 					</div>
 				    <div class="option">
-				        <label for="saveid">
-                            <input type="checkbox" class="checkbox" id="saveid" name="saveid">아이디 저장
+				        <label for="remember-me">
+                            <input type="checkbox" class="checkbox" id="remember-me" name="remember-me">아이디 저장
 						</label>
 					</div>
 					<div class="btn-login">

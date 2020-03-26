@@ -24,8 +24,8 @@
 	<context:component-scan base-package="com.sunstar.controller" />
 	
 	<beans:bean name="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-		<beans:property name="maxUploadSize" value="10000000"/> <!-- 업로드파일사이즈 -->
-		<beans:property name="maxInMemorySize" value="10000000"/> 
+		<beans:property name="maxUploadSize" value="100000000"/> <!-- 업로드파일사이즈 -->
+		<beans:property name="maxInMemorySize" value="100000000"/> 
 		<beans:property name="uploadTempDir" value="temp"/>
 	</beans:bean>
 	
@@ -35,14 +35,9 @@
 	
 	
 	
- <!-- 
- 
- <beans:bean name="download" class=" 다운로드 컨트롤러 경로 써주세요~~ (솔이가~)">  
- 
- </beans:bean>
- 
- -->
+	<beans:bean name="download" class="com.sunstar.controller.DownloadView">
 		
+	</beans:bean>
 	
 	
 </beans:beans>

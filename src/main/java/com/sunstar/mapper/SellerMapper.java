@@ -13,6 +13,7 @@ import com.sunstar.dto.OrderDTO;
 import com.sunstar.dto.ProductDTO;
 import com.sunstar.dto.QnaDTO;
 import com.sunstar.dto.ReviewDTO;
+import com.sunstar.dto.ReviewImgDTO;
 import com.sunstar.dto.SellerDTO;
 
 @Mapper
@@ -91,6 +92,12 @@ public interface SellerMapper {
 	List<OrderDTO> searchOrderView(String search_order);
 
 	List<ReviewDTO> getReview(String seller_code);
+
+	List<ReviewImgDTO> getReviewImgCount(int review_no);
+
+	void reviewimg_del(int review_no);
+
+	void review_del(int review_no);
 
 
 

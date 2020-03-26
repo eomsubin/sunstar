@@ -2,15 +2,18 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:security="http://www.springframework.org/schema/security"
+	xmlns:context="http://www.springframework.org/schema/context"
 	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-4.2.xsd
-		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
       <bean id="userLoginSuccess" class="com.sunstar.handler.UserLoginSucessHandler"></bean>
 
-     
+    
 	<security:http pattern="/resources/comm_img/**" security="none"/>
 	<security:http pattern="/resources/css/**" security="none"/>
 	<security:http pattern="/resources/js/**" security="none"/>
 	
+	<security:http pattern="/downlaod/**" security="none"/>
 	
 	
 	<security:http use-expressions="true">
@@ -21,6 +24,7 @@
 		<security:form-login login-page="/userlogin" authentication-success-handler-ref="userLoginSuccess"/> <!-- default login사용 -->            
 		<security:logout logout-url="/userlogout" invalidate-session="true" logout-success-url="/"/>
 		<!-- <security:access-denied-handler error-page="/error"/> -->
+		<!-- <security:remember-me data-source-ref="ds" token-validity-seconds="604800" /> -->
 		<security:csrf request-matcher-ref="csrfMatcher"/>    	
     	<security:headers>
     		<security:frame-options policy="SAMEORIGIN"/>

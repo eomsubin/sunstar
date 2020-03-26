@@ -301,16 +301,19 @@ $(document).ready(function(){
 <div class="nav loc bg-light" style="border: 1px solid #dadada; border-top: 2px solid black; ">
      <ul class="top_link_nav" style="margin-left: 16%" >
       <li class="nav-item">
-        <a class="nav-link active" href="#">홈</a>
+        <a class="nav-link active" href="${pageContext.request.contextPath}/">홈</a>
       </li>
+      <i class="ti-arrow-right"></i>
       <li class="nav-item">
-        <a class="nav-link active" href="#">${view.lv1}</a>
+        <a class="nav-link active" href="${pageContext.request.contextPath}/list?category=${view.lv1}">${view.lv1}</a>
       </li>
+      <i class="ti-arrow-right"></i>
       <li class="nav-item">
-        <a class="nav-link" href="#">${view.lv2}</a>
+        <a class="nav-link" href="${pageContext.request.contextPath}/list?category=${view.lv2code}">${view.lv2}</a>
       </li>
+      <i class="ti-arrow-right"></i>
       <li class="nav-item">
-        <a class="nav-link" href="#">${view.lv3}</a>
+        <a class="nav-link" href="${pageContext.request.contextPath}/list?category=${view.category_code}">${view.lv3}</a>
         </li>
         </ul>
    </div>
@@ -506,5 +509,6 @@ $(document).ready(function(){
 		<img alt="" src="${view.detail_img3}">
 		</div>
 	</div>
+	${view}
 </body>
 </html>

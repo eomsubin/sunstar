@@ -319,7 +319,7 @@ $(document).ready(function() {
 			location.href = "${pageContext.request.contextPath}/seller/deleteproduct/"+ pcode;
 
 		});
-					})
+	})
 
 	$('#changeSizePerPage')
 			.on(
