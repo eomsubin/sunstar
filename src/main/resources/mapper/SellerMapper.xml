@@ -253,7 +253,7 @@
 	 	  <if test="seller_color  != null   and 	seller_color != '' ">seller_color=#{seller_color}</if>
 	 	
 	    </set>	
-			where seller_code  = #{seller_code}
+			where id = #{id}
 		</update>
 		
 		
