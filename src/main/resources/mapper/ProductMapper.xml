@@ -5,7 +5,7 @@
 <mapper namespace="com.sunstar.mapper.ProductMapper">
 	<!-- bori -->
     <select id="productview" resultType="com.sunstar.dto.ProductDTO" parameterType="int">
-      select p.product_code, product_name, p.thumb_img, price, cost, shipping_cost, public_state, review_state, c.lv1, c.lv2, c.lv3
+      select p.product_code, product_name, p.thumb_img, price, cost, shipping_cost, public_state, review_state, c.category_code, c.lv1, c.lv2, c.lv2code, c.lv3
       , s.seller_code, seller_name, seller_logo, seller_tel, seller_email, business_license, seller_logo, comm_img1, comm_img2, comm_img3, shipping_company, basic_shipping_cost, free_shipping_cost
       from product_list p  join category c 
       on p.category_code = c.category_code
