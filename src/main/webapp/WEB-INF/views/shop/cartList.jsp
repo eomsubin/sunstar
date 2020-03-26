@@ -14,18 +14,63 @@
 	$(document).ready(function() {
 		/*전체선택*/
 		$("#allCheck").click(function() {
-			var chk = $("#allCheck").prop("checked");
+			var chk = $("#allCheck").prop("checked"); // 체크 여부 확인
 			if (chk) {
-				$(".chBox").prop("checked", true);
+				$(".chBox").prop("checked", true); // 체크 설정
 			} else {
-				$(".chBox").prop("checked", false);
+				$(".chBox").prop("checked", false); // 체크 해제
 			}
 		});
+		
 		/*전체선택 해제*/
 		$(".chBox").click(function() {
 			$("#allCheck").prop("checked", false)
 
 		});
+		
+		/* 셀러 선택 */
+		$(".sellerchBox").click(function(){ // 모든 sellerBox
+			var sellchk = $(this).val();
+			var chk = $(this).prop("checked");
+			
+			if(chk == false){
+				$.each($(".chBox"), function(index,value){
+					if(sellchk == $(this).data('seller_code')){
+						$(this).prop("checked",false)
+					}
+				});
+			}else{
+			$.each($(".itemchBox"), function(index,value){
+				if(sellchk == $(this).data('seller_code')){
+					$(this).prop("checked",true)
+					
+					}
+				})
+			};
+			
+			})
+	
+		/* 셀러 선택 해제 */
+		$(".itemchBox").click(function(){
+			var sellercode=$(this).data('seller_code');
+			
+			$.each($('.sellerchBox'), function(index,value){
+				if(sellercode == $(this).val())
+				{
+					$(this).prop("checked",false);	
+			}  
+				
+				
+			});
+		
+			
+		
+		
+		
+		});		
+	
+			
+
 		// 체크값이 없을 시 못넘어가게
 		$(".buyit_btn").click(function() {
 			if ($(".chBox:checked").size() <= 0) {
@@ -33,7 +78,6 @@
 				return false;
 			}
 		});
-		
 		
 		
 		/*제품 수량 조절(-)*/
@@ -46,11 +90,30 @@
 				$(this).parent().next().val(minusNum);
 			}
 		});
+		 
+		$(document).on('click',"#plus_btn",function(){
+			var num =  Number($(this).parent().prev().val());
+			var plusNum =num+1;
+			if( plusNum <=  $(this).parent().prev().data('max')){
+				$(this).parent().prev().val(plusNum);
+			}else{
+				$(this).parent().prev().val(num);
+			}
+			
+			
+		});
 		
 		
-		/*제품 삭제*/
-		$(document).on('click','#selectdel_btn',function(){
-			let id=$(".id").val();
+		
+		/*x버튼 제품 삭제*/
+		$(document).on('click','.xdel_btn',function(){
+			
+		});
+			
+			
+
+			
+/* 			let id=$(".id").val();
 			var cart_no=$("input[name=cart_no]:checked").val();
 			var seller_code=$("input[name=cart_no]:checked").data("seller_code");
 			
@@ -59,8 +122,8 @@
 				,"cart_no" : cart_no
 				,"seller_code" : seller_code
 			}  
-	
-			$.each(data,function(index,value){
+	 	
+ 			$.each(data,function(index,value){
 				$.ajax({
 					url : "cartList/delete"
 					, data : data
@@ -71,11 +134,9 @@
 						console.log(e)
 					}
 				})
-			});
-		
-		});
-	
-		
+			}); 
+		}); */
+			
 		});
 </script>
 <!-- Eshop StyleSheet -->
@@ -129,26 +190,29 @@
 							<!-- 주문 리스트 -->
 							<table class="table shopping-summery">
 								<tbody>
-
 									<c:set var="sum" value="0" />
-									<c:forEach var="cartList" items="${cartList}">
+									<!-- 셀러, 체크박스 -->
+									<c:forEach var="sellerList" items="${sellerList}" >
 										<div class="item1">
 											<tr class="seller">
 												<td colspan="7" class="sellerinfo px-2 pt-3 bg-">
 													<div class="custom-control custom-checkbox">
-														<input type="checkbox" class="chBox custom-control-input"
-															id="sellerCheck" value="${cartList.seller_code}" name="seller_code"> 
-															<label class="custom-control-label" for="sellerCheck">
-															${cartList.seller_name}</label>
+														<input type="checkbox" class="sellerchBox chBox custom-control-input"
+															id="${sellerList.key}" value="${sellerList.key}" name="seller_code"> 
+															<label class="custom-control-label" for="${sellerList.key}">
+															${sellerList.value}</label>
 													</div>
 													<hr class='my-1'>
 												</td>
 											</tr>
-
+									<c:forEach var="cartList" items="${cartList}">
+									<!-- 같은 셀러 묶기 -->
+									<c:if test="${sellerList.key eq cartList.seller_code}">
+											<!-- 제품 리스트 -->
 											<tr class="item2 mb-1">
 												<td class="image px-3" data-title="No">
 													<div class="custom-control custom-checkbox">
-														<input type="checkbox" class="chBox custom-control-input"
+														<input type="checkbox" class="chBox itemchBox custom-control-input"
 															id="${cartList.cart_no}" value="${cartList.cart_no}" name="cart_no" data-seller_code="${cartList.seller_code}">
 														<label class="custom-control-label" for="${cartList.cart_no}">
 															<a
@@ -195,16 +259,25 @@
 														pattern="###,###,###"
 														value="${(cartList.price + cartList.add_price) * cartList.cart_quantity}" />원</span></td>
 												<!-- 배송비 -->
-												<td><fmt:formatNumber pattern="###,###,###"
-														value="${cartList.basic_shipping_cost}" />원</td>
+												<td>
+													<c:if test="${cartList.basic_shipping_cost eq 0}">
+													무료배송										
+													</c:if>
+													<c:if test="${cartList.basic_shipping_cost ne 0}">
+													<fmt:formatNumber pattern="###,###,###"
+															value="${cartList.basic_shipping_cost}" />원
+													</c:if>
+												</td>
 												<!-- 삭제 아이콘 -->
 												<td class="remove p-0">
-													<button type="button" class="del_btn btn" id="idel_btn">
+													<button type="button" class="xdel_btn del_btn btn" id="idel_btn">
 														<img
 															src='${pageContext.request.contextPath}/resources/icons/close4.png'/>
 													</button>
 												</td>
 											</tr>
+											</c:if>
+									</c:forEach>
 										</div>
 									</c:forEach>
 								</tbody>

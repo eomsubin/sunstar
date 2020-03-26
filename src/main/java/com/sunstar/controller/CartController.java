@@ -1,6 +1,7 @@
 package com.sunstar.controller;
 
 import java.security.Principal;
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,13 +10,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sunstar.dto.CartDTO;
-import com.sunstar.dto.CategoryDTO;
 import com.sunstar.dto.CustomerUserDetail;
-import com.sunstar.dto.ProductDTO;
 import com.sunstar.service.CartService;
 import com.sunstar.service.MainService;
 import com.sunstar.service.ProductService;
@@ -65,7 +63,15 @@ public class CartController {
 	      System.out.println(detail.getId());
 	      String id=detail.getUsername();
 	      List<CartDTO> cartList = cartservice.cartList(id);
+	      HashMap<String, String> sellerList = new HashMap<>();
+	      for(CartDTO dto : cartList)
+	      {
+	    	  sellerList.put(dto.getSeller_code(), dto.getSeller_name());
+	    	  System.out.println(dto.getSeller_code());
+	      }
+	      
 			model.addAttribute("cartList", cartList);
+			model.addAttribute("sellerList", sellerList);
 			model.addAttribute("contentpage", "shop/cartList.jsp"); 
 	      }else {
 	    	  return "redirect:http://${pageContext.request.contextPath}/userlogin";
@@ -73,5 +79,9 @@ public class CartController {
 		mainservice.header(model);
 		return "home";
 	}
+	
+	
+
+	
 
 }
