@@ -446,7 +446,7 @@ public class SellerController {
 	//상품 추가 결과
 	@RequestMapping(value = "/addproductresult", method = {RequestMethod.GET, RequestMethod.POST},
 			headers = ("content-type=multipart/*"))
-	public String addproductresult(ProductDTO dto, HttpServletRequest req, Model model) {
+	public String addproductresult(HttpServletRequest request, ProductDTO dto, HttpServletRequest req, Model model) {
 
 		//multipart 파일을 multi에 담아줌
 		MultipartFile multi = dto.getAthumb_img();
@@ -454,10 +454,7 @@ public class SellerController {
 		MultipartFile multi2 = dto.getAdetail_img2();
 		MultipartFile multi3 = dto.getAdetail_img3();
 
-		System.out.println(multi);
-		System.out.println(multi1);
-		System.out.println(multi2);
-		System.out.println(multi3);
+		
 		SimpleDateFormat frm = new SimpleDateFormat("yyyyMMddHHmmss");
 		Date date = new Date();
 		String time1 = frm.format(date);
@@ -466,9 +463,12 @@ public class SellerController {
 		String detail2 = "detail2_" + time1+".jpg";
 		String detail3 = "detail3_" + time1+".jpg";
 
+		String path = "resources\\product_img";
+	
+		
 		try {
 			//저장 경로 구하기
-			String uploadpath = "C:\\finalgit\\sunstar\\src\\main\\webapp\\resources\\product_img";
+			String uploadpath = request.getSession().getServletContext().getRealPath(path);
 			System.out.println(uploadpath);
 
 			//파일이 비어있지 않다면!
@@ -1051,8 +1051,12 @@ public class SellerController {
 	//판매자 설정 리절트
 	@RequestMapping(value="/settingUpdate", method = {RequestMethod.GET, RequestMethod.POST},
 			headers = ("content-type=multipart/*"))
-	public String settingUpdate(Model model, SellerDTO dto) {
-
+	public String settingUpdate(Principal p, HttpServletRequest request,  Model model, SellerDTO dto) {
+		//id 가져오는 방법
+		String id= getId(model,p);
+		System.out.println(id);
+	
+		dto.setId(id);
 		//
 		//multipart 파일을 multi에 담아줌
 	//	MultipartFile multi = dto.getAseller_bgcolor();
@@ -1060,10 +1064,6 @@ public class SellerController {
 		MultipartFile multi2 = dto.getAcomm_img2();
 		MultipartFile multi3 = dto.getAcomm_img3();
 
-		//System.out.println(multi);
-		System.out.println(multi1);
-		System.out.println(multi2);
-		System.out.println(multi3);
 		SimpleDateFormat frm = new SimpleDateFormat("yyyyMMddHHmmss");
 		Date date = new Date();
 		String time1 = frm.format(date);
@@ -1072,23 +1072,15 @@ public class SellerController {
 		String comm2 = "comm_img2_" + time1+".jpg";
 		String comm3 = "comm_img3_" + time1+".jpg";
 
+		String path = "resources\\comm_img";
 		try {
+			
 			//저장 경로 구하기
-			String uploadpath = "C:\\finalgit\\sunstar\\src\\main\\webapp\\resources\\comm_img";
-			System.out.println(uploadpath);
-
-			//파일이 비어있지 않다면!
-			/*if(!multi.isEmpty()) {
-				//파일 = 새파일(경로, 파일이름);
-				File file = new File(uploadpath, multi.getOriginalFilename());
-				multi.transferTo(file);
-				String new_file_url_name = uploadpath+"/"+bgcolor;
-				File file2 = new File(new_file_url_name);
-				file.renameTo(file2);
-				dto.setSeller_bgcolor("resources\\comm_img\\" + bgcolor);
-
-			}*/
-
+			String uploadpath = request.getSession().getServletContext().getRealPath(path);
+			
+		//	String uploadpath = "C:\\finalgit\\sunstar\\src\\main\\webapp\\resources\\comm_img";
+			System.out.println("*******\t uploadpath"+uploadpath);
+			
 			if(!multi1.isEmpty()) {
 				//파일 = 새파일(경로, 파일이름);
 				File file1 = new File(uploadpath, multi1.getOriginalFilename());
@@ -1096,7 +1088,7 @@ public class SellerController {
 				String new_file_url_name = uploadpath+"/"+comm1;
 				File nfile1 = new File(new_file_url_name);
 				file1.renameTo(nfile1);
-				dto.setComm_img1("resources\\comm_img\\" + comm1);
+				dto.setComm_img1(path+"\\"+ comm1);
 			}
 
 			if(!multi2.isEmpty()) {
@@ -1106,7 +1098,7 @@ public class SellerController {
 				String new_file_url_name = uploadpath+"/"+comm2;
 				File nfile2 = new File(new_file_url_name);
 				file2.renameTo(nfile2);
-				dto.setComm_img2("resources\\comm_img\\" + comm2);
+				dto.setComm_img2(path+"\\"+ comm2);
 			}
 
 			if(!multi3.isEmpty()) {
@@ -1116,7 +1108,7 @@ public class SellerController {
 				String new_file_url_name = uploadpath+"/"+comm3;
 				File nfile3 = new File(new_file_url_name);
 				file3.renameTo(nfile3);
-				dto.setComm_img3("resources\\comm_img\\" + comm3);
+				dto.setComm_img3(path+"\\"+ comm3);
 			}
 
 
@@ -1125,12 +1117,12 @@ public class SellerController {
 
 		}
 
-		System.out.println(dto);
+		System.out.println("-----------------\n\n"+dto+"\n\n----------------");
 
 		sellerservice.update_seller_info(dto);
-		System.out.println(dto.getComm_img1());
-		System.out.println(dto.getComm_img2());
-		System.out.println(dto.getComm_img3());
+		System.out.println("comm_img 1 :   " +dto.getComm_img1());
+		System.out.println("comm_img 2 :   " +dto.getComm_img2());
+		System.out.println("comm_img 3 :   " +dto.getComm_img3());
 
 
 		return "redirect:/seller/sellersetting";
@@ -1140,7 +1132,7 @@ public class SellerController {
 
 
 	//판매자별 상품리스트
-	@RequestMapping("/seller_list")
+	@RequestMapping("/seller_list") 
 	public String seller_list(Model model, Principal principal ) {
 		//id 가져오는 방법
 		String id= getId(model, principal);
@@ -1180,13 +1172,17 @@ public class SellerController {
 
 	@RequestMapping(value="/productUpdate", method = {RequestMethod.GET, RequestMethod.POST},
 			headers = ("content-type=multipart/*"))
-	public String productUpdate(ProductDTO dto) {
+	public String productUpdate(HttpServletRequest request , ProductDTO dto) {
 
 		//multipart 파일을 multi에 담아줌
 		MultipartFile multi = dto.getAthumb_img();
 		MultipartFile multi1 = dto.getAdetail_img1();		
 		MultipartFile multi2 = dto.getAdetail_img2();
 		MultipartFile multi3 = dto.getAdetail_img3();
+
+		MultipartFile multi4 = dto.getAdetail_img4();		
+		MultipartFile multi5 = dto.getAdetail_img5();
+		MultipartFile multi6 = dto.getAdetail_img6();
 
 		System.out.println(multi);
 		System.out.println(multi1);
@@ -1200,9 +1196,15 @@ public class SellerController {
 		String detail2 = "detail2_" + time1+".jpg";
 		String detail3 = "detail3_" + time1+".jpg";
 
+		String detail4 = "detail4_" + time1+".jpg";
+		String detail5 = "detail5_" + time1+".jpg";
+		String detail6 = "detail6_" + time1+".jpg";
+		String path="resources\\product_img";
 		try {
 			//저장 경로 구하기
-			String uploadpath = "C:\\finalgit\\sunstar\\src\\main\\webapp\\resources\\product_img";
+			String uploadpath = request.getSession().getServletContext().getRealPath(path);
+
+		//	String uploadpath = "C:\\finalgit\\sunstar\\src\\main\\webapp\\resources\\product_img";
 			System.out.println(uploadpath);
 
 			//파일이 비어있지 않다면!
@@ -1213,7 +1215,7 @@ public class SellerController {
 				String new_file_url_name = uploadpath+"/"+thumb;
 				File file2 = new File(new_file_url_name);
 				file.renameTo(file2);
-				dto.setThumb_img("resources\\product_img\\" + thumb);
+				dto.setThumb_img(path+"\\"+ thumb);
 			}
 
 			if(!multi1.isEmpty()) {
@@ -1223,7 +1225,7 @@ public class SellerController {
 				String new_file_url_name = uploadpath+"/"+detail1;
 				File nfile1 = new File(new_file_url_name);
 				file1.renameTo(nfile1);
-				dto.setDetail_img1("resources\\product_img\\" + detail1);
+				dto.setDetail_img1(path+"\\"+ detail1);
 			}
 
 			if(!multi2.isEmpty()) {
@@ -1233,7 +1235,7 @@ public class SellerController {
 				String new_file_url_name = uploadpath+"/"+detail2;
 				File nfile2 = new File(new_file_url_name);
 				file2.renameTo(nfile2);
-				dto.setDetail_img2("resources\\product_img\\" + detail2);
+				dto.setDetail_img2(path+"\\"+ detail2);
 			}
 
 			if(!multi3.isEmpty()) {
@@ -1243,7 +1245,40 @@ public class SellerController {
 				String new_file_url_name = uploadpath+"/"+detail3;
 				File nfile3 = new File(new_file_url_name);
 				file3.renameTo(nfile3);
-				dto.setDetail_img3("resources\\product_img\\" + detail3);
+				dto.setDetail_img3(path+"\\"+ detail3);
+			}
+
+
+			if(!multi4.isEmpty()) {
+				//파일 = 새파일(경로, 파일이름);
+				File file4= new File(uploadpath, multi4.getOriginalFilename());
+				multi4.transferTo(file4);
+				String new_file_url_name = uploadpath+"/"+detail4;
+				File nfile4 = new File(new_file_url_name);
+				file4.renameTo(nfile4);
+				dto.setDetail_img4(path+"\\"+ detail4);
+			}
+
+
+			if(!multi5.isEmpty()) {
+				//파일 = 새파일(경로, 파일이름);
+				File file5 = new File(uploadpath, multi5.getOriginalFilename());
+				multi5.transferTo(file5);
+				String new_file_url_name = uploadpath+"/"+detail5;
+				File nfile5 = new File(new_file_url_name);
+				file5.renameTo(nfile5);
+				dto.setDetail_img5(path+"\\"+ detail5);
+			}
+
+
+			if(!multi6.isEmpty()) {
+				//파일 = 새파일(경로, 파일이름);
+				File file6 = new File(uploadpath, multi6.getOriginalFilename());
+				multi6.transferTo(file6);
+				String new_file_url_name = uploadpath+"/"+detail6;
+				File nfile6 = new File(new_file_url_name);
+				file6.renameTo(nfile6);
+				dto.setDetail_img6(path+"\\"+ detail6);
 			}
 
 			if(dto.isPublic_state()== true) {

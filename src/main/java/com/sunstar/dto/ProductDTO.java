@@ -26,6 +26,10 @@ public class ProductDTO {
 	private MultipartFile adetail_img1; 
 	private MultipartFile adetail_img2;
 	private MultipartFile adetail_img3;
+
+	private MultipartFile adetail_img4; 
+	private MultipartFile adetail_img5;
+	private MultipartFile adetail_img6;
 	
 	private String thumb_img;
 	private String comm_img1;
@@ -34,6 +38,9 @@ public class ProductDTO {
 	private String detail_img1;
 	private String detail_img2;
 	private String detail_img3;
+	private String detail_img4;
+	private String detail_img5;
+	private String detail_img6;
 	
 	
 	private String explains;

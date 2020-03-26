@@ -13,6 +13,7 @@
 	<security:http pattern="/resources/css/**" security="none"/>
 	<security:http pattern="/resources/js/**" security="none"/>
 	
+	<security:http pattern="/downlaod/**" security="none"/>
 	
 	
 	<security:http use-expressions="true">

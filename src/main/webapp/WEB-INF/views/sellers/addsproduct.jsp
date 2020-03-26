@@ -507,6 +507,39 @@ console.log('end');
 
 							</div>
 						</div>
+						<label for="inputEmail3" class="col-sm-2 col-form-label">상세
+							이미지 4</label>
+						<div class="col-sm-10">
+							<div class="custom-file">
+								<input type="file" class="custom-file-input upload-hidden"
+									id="adetail_img4" name="adetail_img4" > <label
+									class="custom-file-label upload-file" for="adetail_img4">이미지
+									파일 선택</label>
+
+							</div>
+						</div>
+						<label for="inputEmail3" class="col-sm-2 col-form-label">상세
+							이미지 5</label>
+						<div class="col-sm-10">
+							<div class="custom-file">
+								<input type="file" class="custom-file-input upload-hidden"
+									id="adetail_img5" name="adetail_img5" > <label
+									class="custom-file-label upload-file" for="adetail_img5">이미지
+									파일 선택</label>
+
+							</div>
+						</div>
+						<label for="inputEmail3" class="col-sm-2 col-form-label">상세
+							이미지 6</label>
+						<div class="col-sm-10">
+							<div class="custom-file">
+								<input type="file" class="custom-file-input upload-hidden"
+									id="adetail_img6" name="adetail_img6" > <label
+									class="custom-file-label upload-file" for="adetail_img6">이미지
+									파일 선택</label>
+
+							</div>
+						</div>
 						
 					</div>
 					
