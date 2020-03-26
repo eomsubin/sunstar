@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    
-    
+	pageEncoding="UTF-8"%>
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,12 +11,96 @@
 
 </head>
 <body>
-<canvas id="myChart" width="400" height="100"></canvas>
-<script>
 
-var ctx = document.getElementById('myChart').getContext('2d');
+	<div class="container-fluid">
+		<!-- Page Heading -->
+		<h1 class="h3 mb-2 text-gray-800">상품 목록</h1>
+		<p class="mb-4">
+			상품을 일괄 변경 및 삭제 할 수 있습니다. <a target="_blank"
+				href="https://datatables.net">자세한 안내는 이 곳을 클릭</a>.
+		</p>
+
+		<!-- DataTales Example -->
+		<div class="card shadow mb-4">
+			<div class="card-header py-3">
+				<h6 class="m-0 font-weight-bold text-primary">월별 수익(배송비 제외)</h6>
+			</div>
+			<div class="card-body">
+				<div class="table-responsive">
+
+					<canvas id="myChart" width="400" height="100"></canvas>
 
 
+				</div>
+			</div>
+		</div>
+
+		<div class="card shadow mb-4">
+			<div class="card-header py-3">
+				<h6 class="m-0 font-weight-bold text-primary">월별 수익(배송비 포함)</h6>
+			</div>
+			<div class="card-body">
+				<div class="table-responsive">
+
+					<canvas id="myChart2" width="400" height="100"></canvas>
+
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<script>
+	var ctx = document.getElementById('myChart').getContext('2d');
+	var myChart = new Chart(ctx, {
+
+		
+		type: 'line',
+	    data: {
+	    	
+	    	labels: [${month}],
+	        datasets: [{
+	            label: '월별 총 판매금액',
+	            data:[${mdata}],
+	           // data: [12, 19, 3, 5, 2, 3],
+	            backgroundColor: [
+	                'rgba(255, 99, 132, 0)'
+	             ], 
+	            borderColor: [
+	                'rgba(255, 99, 132, 1)'
+	            ],
+	            borderWidth: 2,
+	        },{
+	            label: '월별 배송비 포함 판매금액',
+	            data:[${mdataa}],
+	           // data: [12, 19, 3, 5, 2, 3],
+	            backgroundColor: [
+	                'rgba(255, 222, 222, 5)'
+	             ], 
+	            borderColor: [
+	                'rgba(111, 111, 111, 7)'
+	            ],
+	            borderWidth: 2,
+	        	
+	        }]
+	    },
+	    options: {
+	        scales: {
+	            yAxes: [{
+	                ticks: {
+	                    beginAtZero: true
+	                }
+	            }]
+	        }
+	    }
+	});
+
+	
+	
+	
+	
+var ctx = document.getElementById('myChart2').getContext('2d');
 var myChart = new Chart(ctx, {
 
 	
@@ -24,11 +108,10 @@ var myChart = new Chart(ctx, {
     data: {
     	
     	labels: [${month}],
-   // 	labels: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
         datasets: [{
             label: '# of Votes',
             
-            data:[${mdata}],
+            data:[${mdataa}],
            // data: [12, 19, 3, 5, 2, 3],
             backgroundColor: [
                 'rgba(255, 99, 132, 0)',
@@ -59,6 +142,7 @@ var myChart = new Chart(ctx, {
         }
     }
 });
+
 </script>
 
 </body>

@@ -460,19 +460,22 @@
 
 		<select id="month_chart" parameterType="com.sunstar.dto.ChartDTO" resultType="integer">
 		
-		select sum(total_price), r.order_code
+		select ifnull(sum(total_price),0)
         from  price r 
         where seller_code = #{seller_code}
-        and left(r.order_code, 6) = '202003';
-		
-		<!-- select sum(total_price)
-        from  price r 
-        where seller_code = #{seller_code}
-        and STR_TO_DATE(left(r.order_code, 6), '%Y%m') = #{month_name} -->
-        
-		
-		<!--  seller_code, left(r.order_code, 6)  -->
+        and left(r.order_code, 6) = #{month};
 		
 		</select>
+		<select id="month_chart_plus" parameterType="com.sunstar.dto.ChartDTO" resultType="integer">
 		
+		select ifnull(sum(shipping_cost),0)
+		from product_list p  join order_list l
+		on p.product_code = l.product_code
+		join ordered o 
+		on o.order_code = l.order_code
+		where seller_code = #{seller_code} 
+        and left(o.order_code, 6) = #{month}
+		order by shipping_cost  
+
+		</select>
 </mapper>

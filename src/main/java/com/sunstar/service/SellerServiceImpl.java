@@ -285,7 +285,10 @@ public class SellerServiceImpl implements SellerService {
 	public Integer month_chart(ChartDTO dto) {
 		return mapper.month_chart(dto);
 	}
-	
+	@Override
+	public Integer month_chart_plus(ChartDTO dto) {
+		return mapper.month_chart_plus(dto);
+	}
 	
 	
 

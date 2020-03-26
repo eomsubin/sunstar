@@ -91,6 +91,9 @@ public interface SellerService {
 	void review_del(int review_no);
 
 	Integer month_chart(ChartDTO dto);
+	Integer month_chart_plus(ChartDTO dto);
+
+
 
 
 
