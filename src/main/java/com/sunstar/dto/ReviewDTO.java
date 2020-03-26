@@ -1,9 +1,12 @@
 package com.sunstar.dto;
 
+import java.util.List;
+
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
-@Getter @Setter
+@Getter @Setter @ToString
 public class ReviewDTO {
 	private String order_code;
 	private int order_no;
@@ -17,7 +20,8 @@ public class ReviewDTO {
 	private boolean review_goodck;
 	
 	private String review_img;
-	
+	private List<ReviewImgDTO> imgdto;
+
 	private String product_code;
 	private String option1;
 	private String option2;

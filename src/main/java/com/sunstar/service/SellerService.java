@@ -10,6 +10,7 @@ import com.sunstar.dto.OrderDTO;
 import com.sunstar.dto.ProductDTO;
 import com.sunstar.dto.QnaDTO;
 import com.sunstar.dto.ReviewDTO;
+import com.sunstar.dto.ReviewImgDTO;
 import com.sunstar.dto.SellerDTO;
 
 public interface SellerService {
@@ -84,6 +85,9 @@ public interface SellerService {
 
 	List<ReviewDTO> getReview(String seller_code);
 
+	List<ReviewImgDTO> getReviewImgCount(int review_no);
+
+	void review_del(int review_no);
 
 
 
