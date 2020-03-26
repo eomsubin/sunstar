@@ -458,5 +458,21 @@
 			where review_no = #{review_no}
 		</delete>
 
+		<select id="month_chart" parameterType="com.sunstar.dto.ChartDTO" resultType="integer">
+		
+		select sum(total_price), r.order_code
+        from  price r 
+        where seller_code = #{seller_code}
+        and left(r.order_code, 6) = '202003';
+		
+		<!-- select sum(total_price)
+        from  price r 
+        where seller_code = #{seller_code}
+        and STR_TO_DATE(left(r.order_code, 6), '%Y%m') = #{month_name} -->
+        
+		
+		<!--  seller_code, left(r.order_code, 6)  -->
+		
+		</select>
 		
 </mapper>

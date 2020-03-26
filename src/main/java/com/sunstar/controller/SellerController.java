@@ -18,6 +18,7 @@ import javax.imageio.ImageIO;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.sound.midi.Soundbank;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.hssf.util.HSSFColor.HSSFColorPredefined;
@@ -51,6 +52,7 @@ import com.google.api.client.util.Data;
 import com.mysql.cj.xdevapi.JsonArray;
 import com.sunstar.dto.CartDTO;
 import com.sunstar.dto.CategoryDTO;
+import com.sunstar.dto.ChartDTO;
 import com.sunstar.dto.OptionDTO;
 import com.sunstar.dto.OrderDTO;
 import com.sunstar.dto.ProductDTO;
@@ -1459,6 +1461,55 @@ public class SellerController {
 		
 		
 		return "redirect:/seller/product_review";		
+	}
+	
+	@RequestMapping("/charts/month")
+	public String month_chart(Model m, Principal p ) {
+		String id= getId(m, p);
+		System.out.println(id);
+		String seller_code = sellerservice.getSellerCode(id);
+		//String[] month_name = ["1","2"];
+		
+String[] month_name = {"2020-01", "2020-02", "2020-03", "2020-04", "2020-05", "2020-06", "2020-07", "2020-08", "2020-09", "2020-10", "2020-11", "2020-12"};		
+
+		ChartDTO dto = new ChartDTO();
+		dto.setSeller_code(seller_code);
+		int[] month_data = new int[12];
+		for(int i = 2 ; i <= 2 ; i++){
+		//	dto.setMonth_name(month_name[i]);
+
+			System.out.println(month_name[i]);
+			System.out.println(month_data[i]);
+			month_data[i] =  sellerservice.month_chart(dto);
+			
+					
+		//	month_data.add?put?( sellerservice.getMonthData(dto));   //seller_code 와 month_data
+		}
+System.out.println("data--"+month_data);
+
+//test용//
+
+//String[] month = {"2020-01", "2020-02", "2020-03"};
+//String[] mdata = {"30", "24", "22};
+
+String aa = "aa";
+
+aa+= "," + "bb";
+System.out.println(aa);
+
+String month="'1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'";
+String mdata= "330, 342,444";
+m.addAttribute("month", month);
+m.addAttribute("mdata", mdata);
+
+System.out.println(month.toString());
+System.out.println(mdata.toString());
+//
+		m.addAttribute("month_name",month_name);
+		m.addAttribute("month_data",month_data);
+		
+		m.addAttribute("sellerpage", "charts/month_chart.jsp");
+		return "sellers/temp";
 	}
 }
 
