@@ -263,7 +263,7 @@ input, select{
 <body>
 <div class="mx-auto mt-5 row align-items-bottom" style="width: 600px; height: 138px;">
 <div class="col">
-		<h1 class="regh1">비밀번호 찾기</h1><span class="regspan now">이메일로 찾기</span>
+		<h1 class="regh1">비밀번호 찾기</h1><span class="regspan now">이메일로 찾기</span><a href="${pageContext.request.contextPath}/userlogin/FindID"><span class="regspan" style="font-weight: 600">아이디 찾기</span></a>
 		<p class="txt_info">회원정보를 입력해주세요. 모두 입력하셔야 찾기가 가능합니다.</p>
 		</div>
 		</div>
