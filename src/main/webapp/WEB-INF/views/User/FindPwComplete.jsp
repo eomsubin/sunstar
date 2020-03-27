@@ -29,9 +29,6 @@
 .text-emphasis {
     font-weight: bolder;
     display: inline-block;
-    max-width: 220px;
-    text-overflow: ellipsis;
-    overflow: hidden;
     white-space: nowrap;
     vertical-align: bottom;
 }
@@ -75,8 +72,6 @@ a{
 			console.log($(this).text());
 			if($(this).text()==="로그인하러가기"){
 				location.href="${pageContext.request.contextPath}/userlogin"	
-			}else if($(this).text()==="비밀번호 재설정"){
-				location.href="${pageContext.request.contextPath}/userlogin/FindPW"
 			}
 		});
 	});
@@ -86,17 +81,9 @@ a{
 		<div class="mx-auto row align-items-top" style="width: 600px; height: 670px;">
 		<div class="col mt-5 py-5">
 				<div class="reg_formbox mt-5 py-3">
-			<p class="text-search-result-list"><span class="text-emphasis">${finduser.name}</span>님의 정보와 일치하는 아이디 목록입니다.</p>
-				<ul class="list-searched-result" id="idList">
-					<li class="list-searched-result__item">
-						<p class="text__search-result">
-								<strong class="text__match-id"><span class="text__ellipsis">${finduser.name}</span> - ${finduser.id}</strong>
-								<span class="text-sub-description">${finduser.join_date} 가입</span>
-						</p>
-					</li>
-				</ul>
+			<p class="text-search-result-list my-3"><span class="text-emphasis">${NewPwuser.email}</span>으로<br></p><p class="text-search-result-list">임시 비밀번호를 발송했습니다.</p>
 				</div>
-				<button class="btn sbbtn btn-secondary">로그인하러가기</button><button class="btn btn-secondary">비밀번호 재설정</button>				
+				<button class="btn sbbtn btn-secondary">로그인하러가기</button>				
 		</div>
 	</div>
 </body>
