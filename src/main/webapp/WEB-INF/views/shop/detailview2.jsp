@@ -501,12 +501,17 @@ $(document).ready(function(){
 		</ul>	
 		</div>
 		<div class="vip-tab_container">
-		<img alt="" src="${view.comm_img1}">
-		<img alt="" src="${view.comm_img2}">
-		<img alt="" src="${view.comm_img3}">
-		<img alt="" src="${view.detail_img1}">
-		<img alt="" src="${view.detail_img2}">
-		<img alt="" src="${view.detail_img3}">
+		<img alt="thumb_img" src="${view.thumb_img}">		
+		<img alt="comm_img1" src="${view.comm_img1}">
+		<img alt="comm_img2" src="${view.comm_img2}">
+		<img alt="comm_img3" src="${view.comm_img3}">
+		<img alt="detail_img1" src="${view.detail_img1}">
+		<img alt="detail_img2" src="${view.detail_img2}">
+		<img alt="detail_img3" src="${view.detail_img3}">
+		<img alt="detail_img4" src="${view.detail_img4}">
+		<img alt="detail_img5" src="${view.detail_img5}">
+		<img alt="detail_img6" src="${view.detail_img6}">
+		
 		</div>
 	</div>
 	${view}
