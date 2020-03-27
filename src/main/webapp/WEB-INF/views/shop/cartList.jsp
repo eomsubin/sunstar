@@ -108,17 +108,16 @@
 			var sellercode=$(this).data('seller_code');
 			var isseller=0;
 			
-			
 			$(this).parent().parent().remove();
 			
 			$.each($('.xdel_btn'),function(){
-				
 				if(sellercode == $(this).data('seller_code'))
 					{
 						isseller=1;
 					}
 			})
 			console.log(isseller);
+			/* 담긴 제품이 없을 때 셀러샵 삭제 */
 				if(isseller==0)
 					{
 						$.each($(".sellerchBox"),function(){
@@ -130,38 +129,34 @@
 					})							
 					}
 			
-				
-				$('.table tr:last-child').addClass("lasttr");
-				$('.table tr:first-child').addClass("firsttr");
-		});
-			
-			
-
-			
 /* 			let id=$(".id").val();
 			var cart_no=$("input[name=cart_no]:checked").val();
 			var seller_code=$("input[name=cart_no]:checked").data("seller_code");
-			
+				
+				
 		 	var data={
-				"id" : id
-				,"cart_no" : cart_no
-				,"seller_code" : seller_code
-			}  
-	 	
- 			$.each(data,function(index,value){
-				$.ajax({
-					url : "cartList/delete"
-					, data : data
-					, success : function(data){
-						alert("상품을 삭제했습니다.");
-					}
-					, error : function(e){
-						console.log(e)
-					}
-				})
-			}); 
-		}); */
+					"id" : id
+					,"cart_no" : cart_no
+					,"seller_code" : seller_code
+				}  
+		 	
+	 			$.each(data,function(index,value){
+					$.ajax({
+						url : "cartList/deleteItem"
+						, data : data
+						, success : function(data){
+							alert("상품을 삭제했습니다.");
+						}
+						, error : function(e){
+							console.log(e)
+						}
+					})
+				});  */
 			
+				/* 삭제시 테이블 스타일 유지 */
+				$('.table tr:last-child').addClass("lasttr");
+				$('.table tr:first-child').addClass("firsttr");
+		});
 		});
 </script>
 <!-- Eshop StyleSheet -->
@@ -221,7 +216,7 @@
 													<div class="custom-control custom-checkbox">
 														<input type="checkbox" class="sellerchBox chBox custom-control-input"
 															id="${sellerList.key}" value="${sellerList.key}" name="seller_code"> 
-															<label class="custom-control-label" for="${sellerList.key}">
+															<label class="custom-control-label" for="${sellerList.key}" style="font-size: 16px; font-weight:bold;">
 															${sellerList.value}</label>
 													</div>
 													<hr class='my-1'>
@@ -293,7 +288,7 @@
 												</td>
 												<!-- 삭제 아이콘 -->
 												<td class="remove p-0">
-													<button type="button" class="xdel_btn del_btn btn" id="idel_btn" data-seller_code="${cartList.seller_code}" >
+													<button type="button" class="xdel_btn del_btn btn" id="idel_btn" data-cart_no="${cartList.cart_no}"  data-seller_code="${cartList.seller_code}" >
 														<img
 															src='${pageContext.request.contextPath}/resources/icons/close4.png'/>
 													</button>

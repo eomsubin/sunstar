@@ -10,5 +10,7 @@ public interface CartService {
 
 	public List<CartDTO> cartList(String id) throws Exception;
 
+	public String deleteItem(String cart_no);
+
 
 }

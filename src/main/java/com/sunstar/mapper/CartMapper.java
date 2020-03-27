@@ -12,4 +12,6 @@ public interface CartMapper {
 	public int addCart(CartDTO cart) throws Exception;
 
 	public List<CartDTO> cartList(String id) throws Exception;
+
+	public String deleteItem(String cart_no);
 }

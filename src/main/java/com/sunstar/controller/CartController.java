@@ -77,8 +77,12 @@ public class CartController {
 		return "home";
 	}
 	
-	@RequestMapping(value = "/deleteAll")
-	public void deleteAll() throws Exception{
+	@RequestMapping(value = "/cartList/deleteItem")
+	public String deleteAll(Model model, String cart_no ) throws Exception{
+		
+		mainservice.header(model);
+		cartservice.deleteItem(cart_no);
+		return null;
 		
 	}
 

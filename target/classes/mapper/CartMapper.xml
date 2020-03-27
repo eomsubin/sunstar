@@ -31,5 +31,7 @@
 		order by p.seller_code;
 	</select>
 
-	
+	<delete id="deleteItem" parameterType="int">
+	delete  from cart where cart_no=#{cart_no};
+	</delete>
 </mapper>

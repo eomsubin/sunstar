@@ -31,6 +31,12 @@ public class CartServiceImpl implements CartService {
 		return cartmapper.cartList(id);
 	}
 
+	@Override
+	public String deleteItem(String cart_no) {
+		// TODO Auto-generated method stub
+		return cartmapper.deleteItem(cart_no);
+	}
+
 	}
 	
 	
