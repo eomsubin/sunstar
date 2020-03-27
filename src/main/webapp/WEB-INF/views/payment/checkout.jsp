@@ -43,10 +43,10 @@
 
 
 <style>
-	.content ul li{	
-		font-size: 0.9em !important;
-		margin-bottom: 5px !important;
-	}
+.content ul li {
+	font-size: 0.9em !important;
+	margin-bottom: 5px !important;
+}
 </style>
 <script>
 //팝업 API
@@ -112,58 +112,59 @@ function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2, zipNo
 	<!-- End Breadcrumbs -->
 
 	<!-- Start Checkout -->
-	
+
 	<section class="shop checkout section">
 
 		<!-- Form -->
 		<form method="post" name="payform" id="payform"
 			onsubmit="return requestPay()" class="form">
-			
+
 			<input type="hidden" name="${_csrf.parameterName}"
 				value="${_csrf.token}" />
 			<div class="container">
 				<div class="row">
-				
-					
-				
+
+
+
 					<div class="col-lg-8 col-12">
 						<div class="checkout-form">
-							
+
 							<h2>주문자 정보</h2>
 							<p>주문하시는 분의 정보를 확인해주세요</p>
 							<div class="row">
-								
-									<div class="col-lg-6 col-md-6 col-12">
-										<div class="form-group">
-											<label for="name1">주문자<span>*</span></label> <input
-												class="form-control" type="text" name="name1" id="name1"
-												placeholder=""  value="${userinfo.name }"
-												required="required" readonly="readonly">
-											<div class="hiddenname1 is-invalid invalid-feedback">*이름을
-												입력해주세요</div>
 
-										</div>
+								<div class="col-lg-6 col-md-6 col-12">
+									<div class="form-group">
+										<label for="name1">주문자<span>*</span></label> <input
+											class="form-control" type="text" name="name1" id="name1"
+											placeholder="" value="${userinfo.name }" required="required"
+											readonly="readonly">
+										<div class="hiddenname1 is-invalid invalid-feedback">*이름을
+											입력해주세요</div>
+
 									</div>
+								</div>
 
-									<div class="col-lg-6 col-md-6 col-12">
-										<div class="form-group">
-											<label>휴대전화<span>*</span></label> <input type="text"
-												class="form-control" name="tel" id="tel" placeholder=""
-												required value="${userinfo.tel }" readonly="readonly">
-											<div class="hiddentel is-invalid invalid-feedback">*휴대전화를
-												입력해주세요('-' 제외,숫자만 입력)</div>
+								<div class="col-lg-6 col-md-6 col-12">
+									<div class="form-group">
+										<label>휴대전화<span>*</span></label> <input type="text"
+											class="form-control" name="tel" id="tel" placeholder=""
+											required value="${userinfo.tel }" readonly="readonly">
+										<div class="hiddentel is-invalid invalid-feedback">*휴대전화를
+											입력해주세요('-' 제외,숫자만 입력)</div>
 
 
-										</div>
 									</div>
-									<div class="col-lg-6 col-md-6 col-12">
-										<div class="form-group">
-											<label>이메일<span>*</span></label> <input type="email"
-												name="email" id="email" placeholder="" required="required" readonly="readonly" value="${userinfo.email }">
-											<div class="hiddenemail is-invalid invalid-feedback">*이메일
-												형식에 맞게 입력해주세요</div>
-										</div>
+								</div>
+								<div class="col-lg-6 col-md-6 col-12">
+									<div class="form-group">
+										<label>이메일<span>*</span></label> <input type="email"
+											name="email" id="email" placeholder="" required="required"
+											readonly="readonly" value="${userinfo.email }">
+										<div class="hiddenemail is-invalid invalid-feedback">*이메일
+											형식에 맞게 입력해주세요</div>
 									</div>
+								</div>
 							</div>
 
 
@@ -187,7 +188,8 @@ function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2, zipNo
 									<div class="col-lg-6 col-md-6 col-12">
 										<div class="form-group">
 											<label>받으시는 분<span>*</span></label> <input type="text"
-												name="to_name" id="to_name" placeholder="" required="required">
+												name="to_name" id="to_name" placeholder=""
+												required="required">
 											<div class="hiddenname2 is-invalid invalid-feedback">*받는
 												분의 이름을 적어주세요</div>
 										</div>
@@ -199,9 +201,11 @@ function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2, zipNo
 									<div class="col-lg-4 col-md-4 col-2">
 										<div class="form-group">
 											<label>주소<span>*</span></label> <input type="text"
-												name="shipping_zip" id="shipping_zip" placeholder="" required="required"
-												 value="${userinfo.zip }" >
-												<button type="button"  onclick="goPopup();" style="position: relative; left:330px; bottom:44px;"class="btn btn-secondary btn-lg" >주소 찾기</button>
+												name="shipping_zip" id="shipping_zip" placeholder=""
+												required="required" value="${userinfo.zip }">
+											<button type="button" onclick="goPopup();"
+												style="position: relative; left: 330px; bottom: 44px;"
+												class="btn btn-secondary btn-lg">주소 찾기</button>
 										</div>
 									</div>
 								</div>
@@ -210,20 +214,22 @@ function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2, zipNo
 							<div class="row">
 								<div class="col-lg-6 col-md-6 col-12">
 									<div class="form-group">
-										<input type="text" name="shipping_addr1" id="shipping_addr1" placeholder=""
-											required="required"  value="${userinfo.address1}">
-							
-											
+										<input type="text" name="shipping_addr1" id="shipping_addr1"
+											placeholder="" required="required"
+											value="${userinfo.address1}">
+
+
 									</div>
 								</div>
 							</div>
-							
+
 							<div class="row">
 								<div class="col-lg-6 col-md-6 col-12">
 									<div class="form-group">
-										<input type="text" name="shipping_addr2" id="shipping_addr2" placeholder=""
-											required="required"  value="${userinfo.address2}">
-										
+										<input type="text" name="shipping_addr2" id="shipping_addr2"
+											placeholder="" required="required"
+											value="${userinfo.address2}">
+
 
 									</div>
 								</div>
@@ -231,9 +237,10 @@ function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2, zipNo
 							<div class="row">
 								<div class="col-lg-6 col-md-6 col-12">
 									<div class="form-group">
-										<input type="text" name="shipping_addr3" id="shipping_addr3" placeholder=""
-											required="required"  value="${userinfo.address3}">
-										
+										<input type="text" name="shipping_addr3" id="shipping_addr3"
+											placeholder="" required="required"
+											value="${userinfo.address3}">
+
 
 									</div>
 								</div>
@@ -253,7 +260,7 @@ function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2, zipNo
 
 
 
-						
+
 							<!--/ End Form -->
 						</div>
 					</div>
@@ -261,60 +268,16 @@ function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2, zipNo
 						<div class="order-details">
 							<!-- Order Widget -->
 							<div class="single-widget">
-								<h2>카트</h2>
+								<h2>구매목록</h2>
 								<div class="content">
-								<c:set var="sum" value="0"/>
-																
-																
-									<%-- <c:forEach var="list" items="${clist }">
-										
-										<ul>	
-											<li>${list.seller_name }</li>
-											
-												<c:forEach var="p" items="${list.pdto }">
-												
-													<c:if test="${list.seller_code == p.seller_code }">
-													
-														<li>${p.product_code}</li>
-														<li>${p.product_name }</li>	
-														<li>${p.price }</li>	
-														<li>${p.add_price}</li>	
-														<li>${p.cart_quantity }</li>	
-														<li>${p.thumb_img }</li>
-													</c:if>
-												</c:forEach>
-											
-											
-											
-											
-											
-											
-											
-											
-											
-											
-											<li>${list.shipping_cost }</li>
-										</ul>
-										
-									</c:forEach>								 --%>
-																
-																
-																
-																
-																
-																
-																
-																
-																
-																
-																
-																
-																
-																
-																
-																
-								 <c:forEach var="odto" items="${odto }" varStatus="status">
+									<c:set var="sum" value="0" />
+									<c:set var="sum2" value="0"/>
 								
+								<c:forEach var="pdto" items="${pdto }" begin="0" end="${getCount-1 }">									
+								 	 <ul><li>업체명<span>${pdto.seller_name }</span></li></ul>
+								 	
+								 	<c:forEach var="odto" items="${odto }" >
+										<c:if test="${pdto.seller_code == odto.seller_code }">
 								
 									<ul class="bb">
 										
@@ -327,23 +290,32 @@ function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2, zipNo
 										<li>옵션1<span>${odto.option1 }</span></li>
 										<li>옵션2<span>${odto.option2 }</span></li>
 										<li>수량<span>${odto.cart_quantity } 개</span>
-										<li>배송비/판매자<span>${odto.shipping_cost } 원 / ${odto.seller_name }</span></li>	
-										<li class="last" style="color:#f7941d; font-weight: 700;">총 금액<span>${(odto.price+odto.add_price)*odto.cart_quantity} 원</span></li>
-										<c:forEach var="pdto" items="${pdto }">
-											<c:if test="${pdto.seller_code==odto.seller_code}">
-											<li>(+) 총 배송비<span>${pdto.basic_shipping_cost } 원</span></li>
-											</c:if>
-										</c:forEach>	
-										 
-									</ul>
-									<c:set var="sum" value="${sum+(odto.price+odto.add_price)*odto.cart_quantity}" />
+										<li>배송비<span>${odto.shipping_cost } 원</span></li>
 									
-								</c:forEach> 
+										<li class="last" style="color:#f7941d; font-weight: 700;">총 금액<span>${(odto.price+odto.add_price)*odto.cart_quantity} 원</span></li>
+										
+								
+											
+										
+										 
+										</ul>
+										
+										<c:set var="sum" value="${sum+(odto.price+odto.add_price)*odto.cart_quantity}" />
+										
+										</c:if>
+									</c:forEach>
+									<c:set var="sum2" value="${sum2+(pdto.shipping_cost)}"/>
+								</c:forEach>			
 									<ul>
 										
-										<li style="font-size: 1.2em !important; ">결제 금액<span>${sum}원</span></li>
+										<li>(+) 총 배송비<span>${sum2} 원</span></li>
+										
 										
 									</ul>
+									
+								<ul>
+									<li style="font-size: 1.2em !important; ">결제 금액<span>${sum+sum2}원</span></li>
+								</ul> 
 								</div>
 							</div>
 							<!--/ End Order Widget -->
@@ -385,7 +357,7 @@ function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2, zipNo
 						</div>
 
 					</div>
-					
+
 				</div>
 
 			</div>
@@ -486,10 +458,19 @@ function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2, zipNo
 				var options1 = new Array();
 				var options2 = new Array();
 				var add_prices = new Array(); 
-				 
+				var seller_code = new Array();
+				var total_price = new Array();
+				var shipping_cost_per_seller = new Array();
 				
 				
-
+				 <c:forEach var="item2" items="${pdto}">
+				 seller_code.push(${item2.seller_code});		
+					shipping_cost_per_seller.push(${item2.shipping_cost}); 
+					/* console.log(${item2.seller_code});
+					console.log(${item2.shipping_cost}); */
+				</c:forEach>
+						/* console.log(${pdto}) */
+				
 				<c:forEach var="item" items="${odto}">
 					product_codes.push(${item.product_code});
 					quantities.push(${item.cart_quantity});
@@ -497,10 +478,10 @@ function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2, zipNo
 					options2.push("${item.option2}");
 					add_prices.push(${item.add_price});
 					
-				
-				
 					
 				</c:forEach>
+				
+				
 				
 				
 				IMP.request_pay({ // param
@@ -508,7 +489,7 @@ function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2, zipNo
 					pay_method : "card",
 					merchant_uid : ""+year+month+date+hours+minutes+generateRandom(100,999),
 					name : "${odto[0].product_name}",
-					amount : "${sum}",
+					amount : "${sum+sum2}",
 					buyer_email : email.value,
 					buyer_name : name1.value,
 					buyer_tel : tel.value,
@@ -537,7 +518,11 @@ function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2, zipNo
 									"shipping_addr1": shipping_addr1.value,
 									"shipping_addr2": shipping_addr2.value,
 									"shipping_addr3": shipping_addr3.value,
-									"shipping_name": "나의 배송지"
+									"shipping_name": "나의 배송지",
+									"seller_codes": seller_code,
+									
+									
+									"shipping_cost_per_sellers": shipping_cost_per_seller
 									};
 						console.log(allData);
 						

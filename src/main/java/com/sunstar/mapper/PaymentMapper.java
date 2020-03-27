@@ -7,6 +7,8 @@ import org.apache.ibatis.annotations.Mapper;
 import com.sunstar.dto.CartDTO;
 import com.sunstar.dto.OrderDTO;
 import com.sunstar.dto.OrderListDTO;
+import com.sunstar.dto.SellerDTO;
+
 
 @Mapper
 public interface PaymentMapper {
@@ -37,10 +39,13 @@ public interface PaymentMapper {
 	CartDTO productDetail(String product_code,String id);
 
 
-	CartDTO getProducts(CartDTO cpdto);
+	CartDTO getProducts(SellerDTO seller_customer);
 
 
-	List<String> getProductCount(String id);
+	int getProductCount(CartDTO userinfo);
+
+
+	void addPrice(OrderDTO odto);
 	
 	
 }

@@ -31,6 +31,7 @@ import com.sunstar.dto.CustomerUserDetail;
 import com.sunstar.dto.OrderDTO;
 import com.sunstar.dto.OrderListDTO;
 import com.sunstar.dto.ProductDTO;
+import com.sunstar.dto.SellerDTO;
 import com.sunstar.service.MainService;
 import com.sunstar.service.MyPageService;
 import com.sunstar.service.PaymentService;
@@ -127,43 +128,71 @@ mainservice.header(model);
 			System.out.println("cart의 아이디:"+id);
 			
 			int cart_no1=0;
-			
+			// 상품 업체갯수 알수있는거
 			List<CartDTO> list = new ArrayList<>();
+			// 업체별 상품갯수 알수 있는거
 			List<CartDTO> plist = new ArrayList<>();
-			for(String i: cart_no) {
-				cart_no1=Integer.parseInt(i);
+			//int getSellerCount= paymentservice.getSellerCount();
+			List<Integer> getSellerCodes= new ArrayList<>();
+			int sellercode=0;
+			for(String i:cart_no) {
+				cart_no1= Integer.parseInt(i);
 				
 				System.out.println(cart_no1);
 				userinfo.setCart_no(cart_no1);
 				System.out.println("cart_no:"+ userinfo);
 				
+				// 체크한 카트값만큼  상품갯수 출력하는 것 
+				CartDTO getproducts = paymentservice.viewOrdered(userinfo);
 				
-				CartDTO orderdto = paymentservice.viewOrdered(userinfo);
+				// 판매자코드와 ,구매자아이디를 구하는 것
+				SellerDTO seller_customer = new SellerDTO();
+				seller_customer.setSeller_code(getproducts.getSeller_code());
+				seller_customer.setId(getproducts.getId());
 				
+				// 업체명과 배송비 구하기(중복값)
+				CartDTO getName= paymentservice.getProducts(seller_customer);
+				
+				
+				//cart no 와 id로 식별해서 업체 코드를 가져와 넣는다.
+				//getCount가 int[] zzz혹은 List<Integer> zzz  여야하고. 
+				//체크한 카트 no값에 해당하는 seller_code 들을 가져올거임
+				
+				
+					sellercode= paymentservice.getProductCount(userinfo);
+					getSellerCodes.add(sellercode);				
+				
+				System.out.println(getSellerCodes);
+				list.add(getproducts);
+				plist.add(getName);
 			
-				CartDTO cpdto = new CartDTO();
-				cpdto.setSeller_code(orderdto.getSeller_code());
-				cpdto.setId(orderdto.getId());
-				
-				CartDTO pdto= paymentservice.getProducts(cpdto);
-				
-				list.add(orderdto);
-				plist.add(pdto);
 			}
 			
+			List<Integer> getSellerCodes2= new ArrayList<>();
+			System.out.println(getSellerCodes);
 			
+			//for문 돌려서 getSellerCodes의 중복값을 제거
+			for(int i=0;i<getSellerCodes.size();i++) {
+				if(!getSellerCodes2.contains(getSellerCodes.get(i))) {
+					getSellerCodes2.add(getSellerCodes.get(i));
+				}
+					
+			}
+			System.out.println(getSellerCodes2);
 			
-			System.out.println("plist:  "+ plist);
+			int sellerResult = getSellerCodes2.size();
+			
+			System.out.println(list);
 			System.out.println("list:  "+list);
 			
-			
+			System.out.println(sellerResult);
 			
 			model.addAttribute("odto",list);
-			//model.addAttribute("pdto",plist);
-			//model.addAttribute("odto2",orderdto);
-		
-			model.addAttribute("userinfo",info);
+			model.addAttribute("pdto",plist);
+			model.addAttribute("getCount",getSellerCodes2.size());
 			
+			model.addAttribute("userinfo",info);
+			//model.addAttribute("getCount", getCount);
 			model.addAttribute("contentpage", "payment/checkout.jsp");       
 		}else {
 			return "redirect:/userlogin";
@@ -179,7 +208,7 @@ mainservice.header(model);
 	public int complete(Model model, @RequestBody OrderDTO allData) {
 		int r=0;
 
-
+		
 		r = paymentservice.addOrder(allData);
 		
 

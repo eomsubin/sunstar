@@ -21,7 +21,7 @@ public class OrderDTO {
 	private String tracking_no;
 	private String shipping_company;
 	private String non_tel;
-	
+	private int shipping_cost;
 	private int order_no;
 	private int product_code;
 	private int quantity;
@@ -43,8 +43,13 @@ public class OrderDTO {
 	private List<String> options1;
 	private List<String> options2;
 	private List<Integer> add_prices;
-	
-	private int shipping_cost;
+	private String seller_code;
+	private int total_price;
+	private int shipping_cost_per_seller;
+	private List<Integer> shipping_costs;
 	private String thumb_img;
+	private List<String> seller_codes;
+	private List<Integer> total_prices;
+	private List<Integer> shipping_cost_per_sellers;
 	
 }
