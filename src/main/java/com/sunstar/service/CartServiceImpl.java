@@ -20,6 +20,8 @@ public class CartServiceImpl implements CartService {
 	public int addCart(CartDTO cart) throws Exception {
 		// TODO Auto-generated method stub
 		System.out.println(cart);
+		
+		
 		return cartmapper.addCart(cart);	
 	}
 

@@ -94,16 +94,12 @@
 				<td class="ocode">${i.order_code }</td>
 				<td><a href="${pageContext.request.contextPath}/detailview2?product_code=${i.product_code}">${i.product_code }</a> ( ${i.review_no} )</td>
 				<td>${i.option1} / ${i.option2 }</td>
-			
-				
 				<td>
 					<c:forEach var="img" items="${i.imgdto }" >
 						<c:if test="">
-						
 						</c:if>
 						<p style="font-size: 0.2em;">${img.review_img}</p>
 					</c:forEach>
-
 				</td>
 				<td>${i.review_star}</td>
 				<td>${i.review_writedate}</td>

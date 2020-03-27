@@ -265,25 +265,84 @@ function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2, zipNo
 								<div class="content">
 								<c:set var="sum" value="0"/>
 																
-								<c:forEach var="odto" items="${odto }">
+																
+									<%-- <c:forEach var="list" items="${clist }">
+										
+										<ul>	
+											<li>${list.seller_name }</li>
+											
+												<c:forEach var="p" items="${list.pdto }">
+												
+													<c:if test="${list.seller_code == p.seller_code }">
+													
+														<li>${p.product_code}</li>
+														<li>${p.product_name }</li>	
+														<li>${p.price }</li>	
+														<li>${p.add_price}</li>	
+														<li>${p.cart_quantity }</li>	
+														<li>${p.thumb_img }</li>
+													</c:if>
+												</c:forEach>
+											
+											
+											
+											
+											
+											
+											
+											
+											
+											
+											<li>${list.shipping_cost }</li>
+										</ul>
+										
+									</c:forEach>								 --%>
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+								 <c:forEach var="odto" items="${odto }" varStatus="status">
+								
+								
 									<ul class="bb">
+										
 										<li style="display: none">상품코드<span  class="prod">${odto.product_code }</span></li>
-										
+										<li style="display: none">업체코드<span  class="prod">${odto.seller_code }</span></li>
 										<li style="width:200px;  position: relative; left:85px; bottom:15px; "><img src="${pageContext.request.contextPath }/${odto.thumb_img }"></li>
-										
+								
 										<li>상품명<span>${odto.product_name }</span><li>
 										<li>상품 금액<span>${odto.price+odto.add_price} 원</span></li>
-										<li>(+) 배송비<span>${odto.shipping_cost } 원</span></li>
 										<li>옵션1<span>${odto.option1 }</span></li>
 										<li>옵션2<span>${odto.option2 }</span></li>
 										<li>수량<span>${odto.cart_quantity } 개</span>
-										<li class="last" style="color:#f7941d; font-weight: 700;">총 금액<span>${(odto.price+odto.add_price+odto.shipping_cost)*odto.cart_quantity} 원</span></li>
-									
+										<li>배송비/판매자<span>${odto.shipping_cost } 원 / ${odto.seller_name }</span></li>	
+										<li class="last" style="color:#f7941d; font-weight: 700;">총 금액<span>${(odto.price+odto.add_price)*odto.cart_quantity} 원</span></li>
+										<c:forEach var="pdto" items="${pdto }">
+											<c:if test="${pdto.seller_code==odto.seller_code}">
+											<li>(+) 총 배송비<span>${pdto.basic_shipping_cost } 원</span></li>
+											</c:if>
+										</c:forEach>	
+										 
 									</ul>
-									<c:set var="sum" value="${sum+(odto.price+odto.add_price+odto.shipping_cost)*odto.cart_quantity}" />
-								</c:forEach>
+									<c:set var="sum" value="${sum+(odto.price+odto.add_price)*odto.cart_quantity}" />
+									
+								</c:forEach> 
 									<ul>
-										<li style="font-size: 1.2em !important; ">결제 금액<span>${sum }원</span></li>
+										
+										<li style="font-size: 1.2em !important; ">결제 금액<span>${sum}원</span></li>
+										
 									</ul>
 								</div>
 							</div>

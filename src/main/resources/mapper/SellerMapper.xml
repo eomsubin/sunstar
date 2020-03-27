@@ -458,5 +458,24 @@
 			where review_no = #{review_no}
 		</delete>
 
+		<select id="month_chart" parameterType="com.sunstar.dto.ChartDTO" resultType="integer">
 		
+		select ifnull(sum(total_price),0)
+        from  price r 
+        where seller_code = #{seller_code}
+        and left(r.order_code, 6) = #{month};
+		
+		</select>
+		<select id="month_chart_plus" parameterType="com.sunstar.dto.ChartDTO" resultType="integer">
+		
+		select ifnull(sum(shipping_cost),0)
+		from product_list p  join order_list l
+		on p.product_code = l.product_code
+		join ordered o 
+		on o.order_code = l.order_code
+		where seller_code = #{seller_code} 
+        and left(o.order_code, 6) = #{month}
+		order by shipping_cost  
+
+		</select>
 </mapper>
