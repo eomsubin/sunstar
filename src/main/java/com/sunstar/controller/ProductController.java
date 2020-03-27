@@ -132,6 +132,7 @@ public class ProductController {
 		pagesize.add("25");
 		pagesize.add("35");
 		pagesize.add("50");
+		pagesize.add("100");
 		map.put("pagesize",pagesize);
 		// end paging
 		

@@ -11,15 +11,15 @@
     <meta name="description" content="">
     <meta name="author" content="">
 <title>SSBJ 셀러</title>
-    <script src="http://localhost:8080/controller/resources/vendor/jquery/jquery.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/vendor/jquery/jquery.min.js"></script>
    	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 
     <!-- Custom fonts for this template-->
-    <link href="http://localhost:8080/controller/resources/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="${pageContext.request.contextPath}/resources/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
     <!-- Custom styles for this template-->
-    <link href="http://localhost:8080/controller/resources/css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/resources/css/sb-admin-2.min.css" rel="stylesheet">
     
     
     
@@ -92,7 +92,7 @@
                         <a class="collapse-item" href="${pageContext.request.contextPath}/seller/search_order">단일주문건 확인</a>
                         <a class="collapse-item" href="#">교환관리</a>
                         <a class="collapse-item" href="#">반품관리</a>
-                        <a class="collapse-item" href="#">리뷰관리</a>
+                        <a class="collapse-item" href="${pageContext.request.contextPath}/seller/product_review">리뷰관리</a>
                     </div>
                 </div>
             </li>
@@ -114,7 +114,7 @@
                 <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">통계</h6>
-                        <a class="collapse-item" href="${pageContext.request.contextPath}/seller/charts">그래프</a>
+                        <a class="collapse-item" href="${pageContext.request.contextPath}/seller/charts/month">그래프</a>
                         <a class="collapse-item" href="register.html">리스트</a>
 <!--                         <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
  -->                        <div class="collapse-divider"></div>
@@ -443,21 +443,21 @@
     </div>
 
     <!-- Bootstrap core JavaScript-->
-    <script src="http://localhost:8080/controller/resources/vendor/bootstrap/js/bootstrap.js"></script>
-    <script src="http://localhost:8080/controller/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/vendor/bootstrap/js/bootstrap.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <!-- Core plugin JavaScript-->
-    <script src="http://localhost:8080/controller/resources/vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/vendor/jquery-easing/jquery.easing.min.js"></script>
 
     <!-- Custom scripts for all pages-->
-    <script src="http://localhost:8080/controller/resources/js/sb-admin-2.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/sb-admin-2.min.js"></script>
 
     <!-- Page level plugins -->
-    <script src="http://localhost:8080/controller/resources/vendor/chart.js/Chart.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/vendor/chart.js/Chart.min.js"></script>
 
     <!-- Page level custom scripts -->
-    <script src="http://localhost:8080/controller/resources/js/demo/chart-area-demo.js"></script>
-    <script src="http://localhost:8080/controller/resources/js/demo/chart-pie-demo.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/demo/chart-area-demo.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/demo/chart-pie-demo.js"></script>
 
 </body>
 </html>

@@ -8,11 +8,14 @@ import org.springframework.stereotype.Service;
 
 import com.sunstar.dto.CartDTO;
 import com.sunstar.dto.CategoryDTO;
+import com.sunstar.dto.ChartDTO;
 import com.sunstar.dto.MakePage;
 import com.sunstar.dto.OptionDTO;
 import com.sunstar.dto.OrderDTO;
 import com.sunstar.dto.ProductDTO;
 import com.sunstar.dto.QnaDTO;
+import com.sunstar.dto.ReviewDTO;
+import com.sunstar.dto.ReviewImgDTO;
 import com.sunstar.dto.SellerDTO;
 import com.sunstar.mapper.SellerMapper;
 
@@ -257,6 +260,37 @@ public class SellerServiceImpl implements SellerService {
 	public List<OrderDTO> searchOrderView(String search_order) {
 		return mapper.searchOrderView(search_order);
 	}
+
+	@Override
+	public List<ReviewDTO> getReview(String seller_code) {
+		// TODO Auto-generated method stub
+		return mapper.getReview(seller_code);
+	}
+
+	@Override
+	public List<ReviewImgDTO> getReviewImgCount(int review_no) {
+		// TODO Auto-generated method stub
+		return mapper.getReviewImgCount(review_no);
+	}
+
+	@Override
+	public void review_del(int review_no) {
+		
+		//review_img 테이블에서 먼저 삭제한 후 review 테이블에서 삭제@
+		mapper.reviewimg_del(review_no);
+		mapper.review_del(review_no);
+	}
+
+	@Override
+	public Integer month_chart(ChartDTO dto) {
+		return mapper.month_chart(dto);
+	}
+	@Override
+	public Integer month_chart_plus(ChartDTO dto) {
+		return mapper.month_chart_plus(dto);
+	}
+	
+	
 
 	
 	

@@ -319,7 +319,7 @@ $(document).ready(function() {
 			location.href = "${pageContext.request.contextPath}/seller/deleteproduct/"+ pcode;
 
 		});
-					})
+	})
 
 	$('#changeSizePerPage')
 			.on(
@@ -633,14 +633,14 @@ body {
 										</c:if></td>
 										<td class="center"><a class="btn btn-success detailmdl" 
 											data-toggle="modal" data-target=".bd-example-modal-lg"> <img
-												src="http://localhost:8080/controller/resources/icons/search.svg"
+												src="${pageContext.request.contextPath}/resources/icons/search.svg"
 												alt="" width="20" height="20" title="Bootstrap"> <img
-												src="http://localhost:8080/controller/resources/icons/pencil.svg"
+												src="${pageContext.request.contextPath}/resources/icons/pencil.svg"
 												alt="" width="20" height="20" title="Bootstrap">
 												
 												
 										</a> <a class="btn btn-danger" href="#"> <img
-												src="http://localhost:8080/controller/resources/icons/trash-fill.svg"
+												src="${pageContext.request.contextPath}/resources/icons/trash-fill.svg"
 												alt="" width="20" height="20" title="Bootstrap">
 										</a></td>
 
