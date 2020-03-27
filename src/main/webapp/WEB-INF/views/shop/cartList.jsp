@@ -12,6 +12,11 @@
 <title>장바구니</title>
 <script>
 	$(document).ready(function() {
+		
+			$('.table tr:last-child').addClass("lasttr");
+			$('.table tr:first-child').addClass("firsttr");	
+	
+			
 		/*전체선택*/
 		$("#allCheck").click(function() {
 			var chk = $("#allCheck").prop("checked"); // 체크 여부 확인
@@ -59,14 +64,7 @@
 				{
 					$(this).prop("checked",false);	
 			}  
-				
-				
 			});
-		
-			
-		
-		
-		
 		});		
 	
 			
@@ -107,7 +105,34 @@
 		
 		/*x버튼 제품 삭제*/
 		$(document).on('click','.xdel_btn',function(){
+			var sellercode=$(this).data('seller_code');
+			var isseller=0;
 			
+			
+			$(this).parent().parent().remove();
+			
+			$.each($('.xdel_btn'),function(){
+				
+				if(sellercode == $(this).data('seller_code'))
+					{
+						isseller=1;
+					}
+			})
+			console.log(isseller);
+				if(isseller==0)
+					{
+						$.each($(".sellerchBox"),function(){
+						if($(this).val() == sellercode)
+							{
+							$(this).parent().parent().parent().remove();
+							
+							}
+					})							
+					}
+			
+				
+				$('.table tr:last-child').addClass("lasttr");
+				$('.table tr:first-child').addClass("firsttr");
 		});
 			
 			
@@ -173,19 +198,17 @@
 					<div class="row">
 						<div class="col-12">
 							<div class="select row mr-1 pb-2 justify-content-between">
-
 								<div class="custom-control custom-checkbox">
 									<input type="checkbox" class="allchBox custom-control-input"
 										id="allCheck" value='<sec:authentication property="principal.UserInfo.id"/>'> 
 										<label class="custom-control-label ml-4" for="allCheck" >전체 선택</label>
 								</div>
-
+<hr class='my-3'>
 								<div class="delBtn">
 									<button type="button" class="del_btn btn" id="selectdel_btn">
 									선택 삭제</button>
 								</div>
 							</div>
-
 
 							<!-- 주문 리스트 -->
 							<table class="table shopping-summery">
@@ -193,8 +216,7 @@
 									<c:set var="sum" value="0" />
 									<!-- 셀러, 체크박스 -->
 									<c:forEach var="sellerList" items="${sellerList}" >
-										<div class="item1">
-											<tr class="seller">
+										<tr class="seller">
 												<td colspan="7" class="sellerinfo px-2 pt-3 bg-">
 													<div class="custom-control custom-checkbox">
 														<input type="checkbox" class="sellerchBox chBox custom-control-input"
@@ -204,6 +226,7 @@
 													</div>
 													<hr class='my-1'>
 												</td>
+												
 											</tr>
 									<c:forEach var="cartList" items="${cartList}">
 									<!-- 같은 셀러 묶기 -->
@@ -232,7 +255,7 @@
 												</td>
 												<!-- 금액 -->
 												<td class="price" data-title="Price">
-												<fmt:formatNumber pattern="###,###,###" value="${(cartList.price + cartList.add_price)}" />원</span></td>
+												<fmt:formatNumber pattern="###,###,###" value="${(cartList.price + cartList.add_price)}" />원</td>
 												<!-- 수량 -->
 												<td class="qty" data-title="Qty">
 													<!-- Input Order -->
@@ -257,7 +280,7 @@
 												<!-- 총합계(배송비 제외) -->
 												<td class="total-amount" data-title="Total"><fmt:formatNumber
 														pattern="###,###,###"
-														value="${(cartList.price + cartList.add_price) * cartList.cart_quantity}" />원</span></td>
+														value="${(cartList.price + cartList.add_price) * cartList.cart_quantity}" />원</td>
 												<!-- 배송비 -->
 												<td>
 													<c:if test="${cartList.basic_shipping_cost eq 0}">
@@ -270,7 +293,7 @@
 												</td>
 												<!-- 삭제 아이콘 -->
 												<td class="remove p-0">
-													<button type="button" class="xdel_btn del_btn btn" id="idel_btn">
+													<button type="button" class="xdel_btn del_btn btn" id="idel_btn" data-seller_code="${cartList.seller_code}" >
 														<img
 															src='${pageContext.request.contextPath}/resources/icons/close4.png'/>
 													</button>
@@ -278,7 +301,7 @@
 											</tr>
 											</c:if>
 									</c:forEach>
-										</div>
+										
 									</c:forEach>
 								</tbody>
 							</table>
@@ -286,7 +309,8 @@
 						</div>
 					</div>
 
-
+					<!-- <hr style="margin-top: 0; margin-bottom: 10px; border:2px solid #fbab60" noshade="noshade"> -->
+					
 					<!-- 전체 합계 -->
 					<div class="row">
 						<div class="col-12">

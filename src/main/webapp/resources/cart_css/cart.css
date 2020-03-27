@@ -2,6 +2,7 @@
 
 .table.shopping-summery {
     background: #fff;
+    height: 0%;
 }
 
 .shopping-cart {
@@ -84,7 +85,14 @@ img.thumimg {
     border: 1px solid #e6e6e6;
     padding: 0px;
 }
+.lasttr{
+	 border-bottom: 3px solid #fbab60 !important;
+    margin-bottom: 10px;
+}
 
+.firsttr{
+	border-top: 3px solid #fbab60 !important;
+}
 .shopping-summery tbody .product:hover img {
     border-color: #fbab60;
     -webkit-transform: rotate(360deg);
@@ -104,14 +112,12 @@ img.thumimg {
 }
 
 
-.table tr:last-child {
+div.item1 {
+	border-top: 3px solid #fbab60 !important;
     border-bottom: 3px solid #fbab60 !important;
     margin-bottom: 10px;
 }
 
-.table tr:first-child {
-    border-top: 3px solid #fbab60 !important;
-}
 
 
 
