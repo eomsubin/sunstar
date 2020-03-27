@@ -297,6 +297,51 @@ $(document).ready(function(){
       }); //end each
       });
       //end cart_btn
+      
+      $('.buy_btn').on('click',function(){
+    	  var csrfHeaderName= "${_csrf.headerName}";
+  		var csrfTokenValue= "${_csrf.token}"
+    	  let id = $('.id').val();
+          var product_code = ${view.product_code};
+    	  
+          var quantity = $('.numBox').val(); 
+          if(id==null){
+              alert("로그인 하십시오.");
+           }else{
+        	   var boxes = new Array();
+        	   var ddata;
+        	   var s="-";
+        	   $.each($(".toptest"),function(index,value){
+        	         ddata = {
+        	               "id" : id
+        	               ,"product_code" : product_code
+        	               ,"qantity" : quantity
+        	               ,"option1" : $(this).data("option1")
+        	               ,"option2" :  $(this).data("option2")
+        	               ,"add_price" : $(this).data("add_price")
+        	               ,"quantity" : $(this).parent().find(".numBox").val()
+        	               
+        	         }; 
+        	         boxes.push(ddata+s);
+        	     
+        	   	 	
+        	   });
+/*         	   $.ajax({
+					url:"${pageContext.request.contextPath}/checkout2"
+					,type: 'POST'	
+					,dataType: 'JSON'
+					,contentType: "application/json; charset=utf-8"
+					,data: JSON.stringify(boxes)
+					,beforeSend: function(xhr){
+						xhr.setRequestHeader(csrfHeaderName,csrfTokenValue);
+					}
+   	  		 });  */
+        	 
+           }     
+          
+		   location.href="${pageContext.request.contextPath}/checkout/justbuy/"+boxes;
+
+      }); 
 });
 </script>
 <title>SBBJ</title>

@@ -31,6 +31,7 @@ public class PaymentServiceImple implements PaymentService {
 		
 		
 		return pm.viewOrdered(userinfo);
+		
 	}
 	@Transactional(rollbackFor= {Exception.class},propagation=Propagation.REQUIRED,isolation=Isolation.DEFAULT)
 	@Override
@@ -76,6 +77,18 @@ public class PaymentServiceImple implements PaymentService {
 		// TODO Auto-generated method stub
 		
 		return pm.productDetail(product_code,id);
+	}
+
+	@Override
+	public CartDTO getProducts(CartDTO cpdto) {
+		// TODO Auto-generated method stub
+		return pm.getProducts(cpdto);
+	}
+
+	@Override
+	public List<String> getProductCount(String id) {
+		// TODO Auto-generated method stub
+		return pm.getProductCount(id);
 	}
 	
 	

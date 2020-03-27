@@ -24,6 +24,12 @@ public interface PaymentService {
 
 	CartDTO productDetail(String product_code, String id);
 
+
+	CartDTO getProducts(CartDTO cpdto);
+
+
+	List<String> getProductCount(String id);
+
 	
 	
 }

@@ -10,21 +10,40 @@
 	
 	</select> -->
 	
+	
+	  
 	<select id="viewOrdered" resultType="com.sunstar.dto.CartDTO" parameterType="com.sunstar.dto.CartDTO">
-		select p.price,c.cart_no, c.id, c.product_code,p.product_name,p.thumb_img,c.cart_quantity,p.shipping_cost,p.seller_code,o.option1,o.option2,o.add_price,t.name,t.tel,t.email,t.address1,t.address2,t.address3,t.zip
-    	from cart c left join product_list p
-    	on c.product_code = p.product_code
-    	left join options o
-    	on o.product_code = p.product_code
-    	left join customer t
-    	on t.id = c.id
-    	where c.id=#{id}
-    	and c.cart_no=#{cart_no}
-   		order by c.cart_no
+		select 
+    c.cart_no,
+     c.cart_quantity,
+    c.id, 
+    c.product_code ,t.name,t.tel,t.email,t.address1,t.address2,t.address3,t.zip
+   , c.option1,
+    c.option2,
+    c.add_price,
+     o.accumulation, 
+      o.inventory,p.product_name,p.thumb_img,p.price, p.shipping_cost, s.seller_code,s.seller_name,s.basic_shipping_cost,s.free_shipping_cost
+	from cart c 
+	join customer t
+     on c.id = t.id
+      join options o
+     on o.product_code = c.product_code
+     join product_list p
+     on c.product_code = p.product_code 
+     join seller s
+     on p.seller_code= s.seller_code
+       where c.id=#{id}
+        and cart_no=#{cart_no}
+        and c.option1=o.option1
+        order by s.seller_code desc;
+        
+
     
     	
 		
 	</select>
+		
+	
 	
 	
 	<insert id="addOrder" parameterType="com.sunstar.dto.OrderDTO">
@@ -66,5 +85,36 @@
 	
 	</select>
 	 -->
+	 
+	 <select id="getProducts" parameterType="com.sunstar.dto.CartDTO" resultType="com.sunstar.dto.CartDTO">
+    	select distinct  p.shipping_cost,s.seller_name,s.seller_code
+	from cart c 
+    join customer t
+     on c.id = t.id
+      join options o
+     on o.product_code = c.product_code
+     join product_list p
+    on p.product_code= o.product_code
+    join seller s
+	on s.seller_code = p.seller_code
 
+     where c.id= #{id}
+     and s.seller_code= #{seller_code}
+     
+        and c.option1=o.option1
+        
+       order by s.seller_name
+        
+	 
+	 </select>
+
+
+<select id="getProductCount" parameterType="string" resultType="string">
+		select count(cart_no), seller_code
+        from cart c join product_list p
+        on c.product_code = p.product_code
+        
+        where id=#{id}
+        group by p.seller_code;
+</select>
 </mapper>
