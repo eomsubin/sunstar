@@ -60,7 +60,7 @@ public class UserController {
 		         @Override
 		         public void prepare(MimeMessage mimeMessage) throws Exception {
 		            final MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true, "utf-8");
-		            helper.setFrom("sbbj_sunstar@naver.com");
+		            helper.setFrom("wlsdn9489@naver.com");
 		            helper.setTo(dto.getEmail());
 		            helper.setSubject("[쓰삐제] 회원가입을 환영합니다.");
 		            helper.setText("<b>"+dto.getName()+"님 회원가입을 환영합니다.</b>"
@@ -127,7 +127,7 @@ public class UserController {
 		         @Override
 		         public void prepare(MimeMessage mimeMessage) throws Exception {
 		            final MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true, "utf-8");
-		            helper.setFrom("sbbj_sunstar@naver.com");
+		            helper.setFrom("wlsdn9489@naver.com");
 		            helper.setTo(map.get("email"));
 		            helper.setSubject("[쓰삐제] 새로운 비밀번호 입니다.");
 		            helper.setText("<b> 새비밀번호 :"+newpw+"</b>"
@@ -153,7 +153,7 @@ public class UserController {
 		         @Override
 		         public void prepare(MimeMessage mimeMessage) throws Exception {
 		            final MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true, "utf-8");
-		            helper.setFrom("sbbj_sunstar@naver.com");
+		            helper.setFrom("wlsdn9489@naver.com");
 		            helper.setTo(map.get("email"));
 		            helper.setSubject("[쓰삐제] 아이디 찾기 용 인증번호입니다.");
 		            helper.setText("<b> 인증번호 :"+map.get("CertificationNum")+"</b>"
@@ -176,7 +176,7 @@ public class UserController {
 		         @Override
 		         public void prepare(MimeMessage mimeMessage) throws Exception {
 		            final MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true, "utf-8");
-		            helper.setFrom("sbbj_sunstar@naver.com");
+		            helper.setFrom("wlsdn9489@naver.com");
 		            helper.setTo(map.get("email"));
 		            helper.setSubject("[쓰삐제] 비밀번호 찾기 용 인증번호입니다.");
 		            helper.setText("<b> 인증번호 :"+map.get("CertificationNum")+"</b>"

@@ -4,6 +4,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.awt.Image;
+import java.util.List;
 
 import lombok.Getter;
 
@@ -46,5 +47,6 @@ public class CartDTO {
 	private String address2;
 	private String address3;
 	private String zip;
-	
+	private int accumulation;
+	private List<CartDTO> pdto;
 }

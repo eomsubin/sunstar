@@ -122,7 +122,7 @@
                <div class="col-lg-2 col-md-2 col-12">
                   <!-- Logo -->
                   <div class="logo">
-                     <a href="/controller/"><img
+                     <a href="${pageContext.request.contextPath }/"><img
                         src="${pageContext.request.contextPath}/resources/img/logo.png"
                         alt="logo"></a>
                   </div>

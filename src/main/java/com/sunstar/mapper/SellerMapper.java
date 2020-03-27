@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.sunstar.dto.CartDTO;
 import com.sunstar.dto.CategoryDTO;
+import com.sunstar.dto.ChartDTO;
 import com.sunstar.dto.MakePage;
 import com.sunstar.dto.OptionDTO;
 import com.sunstar.dto.OrderDTO;
@@ -98,6 +99,9 @@ public interface SellerMapper {
 	void reviewimg_del(int review_no);
 
 	void review_del(int review_no);
+
+	Integer month_chart(ChartDTO dto);
+	Integer month_chart_plus(ChartDTO dto);
 
 
 

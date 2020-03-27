@@ -124,19 +124,108 @@ margin-left: 10px;
     background: #a9b3bc;
 }
 .vip-tabwrap {
-    min-width: 1200px;
+    min-width: 100%;
     margin: 0 auto;
-    padding-top: 56px;
+    padding-top:40px;
     position: relative;
     clear: both;
     z-index: 2;
 }
 .vip-tab_container {
     position: relative;
-    z-index: 10;
+    z-index: 10;  
     overflow: hidden;
-    width: 1200px;
+    width: 100%;
     margin: 0 auto;
+	padding: 1% 10%;    
+}
+.vip-tab img{
+	width: 100%;
+	height: auto;
+	display: block;
+}
+.box__detail-more {
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 208px;
+    background-color: #fff;
+}
+.box__detail-more .button__detail-more { 
+    display: block;
+    width: 320px;
+    height: 64px;
+    margin: 48px auto 0;
+    background-color: #fbab60;
+    box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.2);
+    border: solid 1px #fbab60;
+    border-radius: 50px;
+    color: #fff;
+    font-size: 23px;
+    font-weight: bold;
+    text-align: center;
+}
+.vip-detailarea_productinfo .tit_productinfo {
+    font-size: 23px;
+    line-height: 20px;
+    letter-spacing: -1px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #a4a9b0;
+}
+.vip-detailarea_productinfo .tit_productinfo span {
+    margin-left: 5px;
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: initial;
+    line-height: 22px;
+    color: #777;
+}
+.box__product-notice .box__product-notice-list {
+    position: relative;
+}
+table{
+	font-family: Tahoma,'Noto Sans Korean', 'Malgun Gothic', '맑은 고딕', AppleSDGothicNeo, Helvetica, dotum, 돋움, sans-serif;
+	border-bottom: 1px solid #b1b5b9;
+}
+.vip-detailarea_productinfo {
+    width: 100%;
+}
+
+.vip-detailarea_productinfo .table_productinfo th {
+    padding: 5px 0 5px 21px;
+    color: #222;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: -0.5px;
+    text-align: left;
+}
+.vip-detailarea_productinfo .table_productinfo td{
+    padding: 5px 0 3px 0;
+    line-height: 23px;
+    color: #777;
+    letter-spacing: -0.5px;
+    vertical-align: top;
+}
+.vip-tabcontent_lt .precautions, .vip-tabcontent_lt .reportbox {
+    float: left;
+    width: 45%;
+    margin-right: 28px;
+    margin-bottom: 50px;
+    line-height: 22px;
+    letter-spacing: -1px;
+}
+.vip-tabcontent_lt .precautions strong, .vip-tabcontent_lt .reportbox strong {
+    display: inline-block;
+    margin-bottom: 12px;
+    font-size: 23px; 
+    line-height: 20px; 
+    letter-spacing: -1px;
+    color: #1e2732;
+    font-weight: 600;
+}
+.infopadding{
+	padding: 1% 10%;
+}
 }
 </style>
 <script>
@@ -292,6 +381,38 @@ $(document).ready(function(){
 		}); //end each
 		});
 		//end cart_btn
+		
+	//상세정보, 상품평, 상품문의 선택 
+	$('.pnav-link').click(function(){
+		console.log($('.pnav-link'));
+		if($(this).text() == "상세정보"){
+			$('#pdetail').css("display", "block");		
+			$('#pcomment').css("display", "none");
+			$('#pgna').css("display", "none");
+		}else if($(this).text() == "상품평"){
+			$('#pdetail').css("display", "none");		
+			$('#pcomment').css("display", "block");
+			$('#pgna').css("display", "none");
+		}else if($(this).text() == "상품문의"){
+			$('#pdetail').css("display", "none");		
+			$('#pcomment').css("display", "none");
+			$('#pgna').css("display", "block");
+		}
+	});
+	//end 상세정보, 상품평, 상품문의 선택
+	$('.button__detail-more').click(function(){
+		$(this).toggleClass("on");
+		if($(this).hasClass("on")){
+			$('.button__detail-more > span').text("접기");
+			$('.moreimg').css("display", "block");
+		}else{
+			$('.button__detail-more > span').text("더보기");
+			$('.moreimg').css("display", "none");
+		}
+	});
+	/// 최초 이미지 로드
+	$('.loadimg').css("display", "block");
+	
 });
 </script>
 <title>SBBJ</title>
@@ -490,25 +611,98 @@ $(document).ready(function(){
 	<div class="nav detail_info_tab bg-light vip-tabnavi mb-5">
 	     <ul class="info_nav" style="margin-left: 16%" >
 			  <li class="nav-item">
-			    <a class="nav-link" href="#">상세정보</a>
+			    <a class="pnav-link nav-link" href="#vip-tabwrap">상세정보</a>
 			  </li>
 			  <li class="nav-item">
-			    <a class="nav-link" href="#">상품평</a>
+			    <a class="pnav-link nav-link" href="#vip-tabwrap">상품평</a>
 			  </li>
 			  <li class="nav-item">
-			    <a class="nav-link" href="#">상품문의</a>
+			    <a class="pnav-link nav-link" href="#vip-tabwrap">상품문의</a>
 			  </li>
 		</ul>	
 		</div>
-		<div class="vip-tab_container">
-		<img alt="" src="${view.comm_img1}">
-		<img alt="" src="${view.comm_img2}">
-		<img alt="" src="${view.comm_img3}">
-		<img alt="" src="${view.detail_img1}">
-		<img alt="" src="${view.detail_img2}">
-		<img alt="" src="${view.detail_img3}">
 		</div>
-	</div>
-	${view}
+		<!-- ------------- -->
+		<div class="vip-tab_container">
+		<!-- 상품 공지사항 및 디테일 이미지 출력 -->
+	 	<div id="pdetail" style="display: block;">	 		
+				<img class="loadimg" alt="thumb_img" src="${view.thumb_img}" style="display : none">		
+				<img class="loadimg" alt="comm_img1" src="${view.comm_img1}" style="display : none">
+				<img class="loadimg" alt="comm_img2" src="${view.comm_img2}" style="display : none">
+				<img class="loadimg" alt="comm_img3" src="${view.comm_img3}" style="display : none">
+				<img class="loadimg" alt="detail_img1" src="${view.detail_img1}" style="display : none">
+				<img class="loadimg" alt="detail_img2" src="${view.detail_img2}" style="display : none">
+				<img class="moreimg" alt="detail_img3" src="${view.detail_img3}" style="display : none">
+				<img class="moreimg" alt="detail_img4" src="${view.detail_img4}" style="display : none">
+				<img class="moreimg" alt="detail_img5" src="${view.detail_img5}" style="display : none">
+				<img class="moreimg" alt="detail_img6" src="${view.detail_img6}" style="display : none">
+			
+				<div class="box__detail-more">
+		            <button type="button" class="button__detail-more js-toggle-button">상세정보 <span>더보기</span></button>
+		        </div>
+		        
+	       		<!-- 상품 정보 제공 고시 -->
+		        <div class="vip-detailarea_productinfo box__product-notice js-toggle-content infopadding">
+		        	<h3 class="tit_productinfo">상품 정보 제공 고시<span>[전자상거래에 관한 상품정보 제공에 관한 고시] 항목에 의거 [쓰삐제]에 의해 등록된 정보입니다.</span></h3>
+		        	<div class="box__product-notice-list">
+	        			<table class="table_productinfo">
+							<colgroup>
+								<col style="width:155px;">
+								<col>
+							</colgroup>
+							<tbody>
+								<tr>
+									<th scope="row">상품번호</th>
+									<td>${view.product_code}</td>
+								</tr>
+													<tr>
+									<th scope="row">상품상태</th>
+									<td>새상품</td>
+								</tr>
+								<tr>
+									<th scope="row">부가세 면세여부</th>
+									<td>과세상품</td>
+								</tr>
+								<tr>
+									<th scope="row">영수증발행</th>
+									<td>발행가능 - 신용카드 전표, 온라인 현금영수증</td>
+								</tr>
+								<tr>
+									<th scope="row">사업자구분</th>
+									<td>사업자 판매자</td>
+								</tr>
+								<tr>
+									<th scope="row">모델명</th>
+									<td>${view.product_name}</td>
+								</tr>
+								<tr>
+									<th scope="row">원산지</th>
+									<td>대한민국</td>
+								</tr>
+							</tbody>
+						</table>
+		        	</div>
+	     	    </div>
+		</div>
+	
+		<!-- 상품평  -->
+		<div id="pcomment" style="display: none;">
+			   상품평
+	    </div>
+	    <!-- 상품문의 -->
+	    <div id="pgna" style="display: none;">
+			   상품문의
+	    </div>
+	    <div class="vip-all_sub vip-tabcontent_lt infopadding">
+		<div class="precautions">
+		<strong class="tit">주의사항</strong>
+		<p>전자상거래 등에서의 소비자보호법에 관한 법률에 의거하여 미성년자가 체결한 계약은 법정대리인이 동의하지 않은 경우 본인 또는 법정대리인이 취소할 수 있습니다. 쓰삐제에 등록된 판매상품과 상품의 내용은 판매자가 등록한 것으로 ㈜이베이코리아에서는 그 등록내역에 대하여 일체의 책임을 지지 않습니다.</p>
+		</div>
+		<div class="reportbox">
+		<strong class="tit">쓰삐제 신고센터</strong>
+		<p>쓰삐제는 소비자의 보호와 사이트 안전거래를 위해 신고센터를 운영하고 있습니다.<br>불법상품 및 부적격 상품의 판매 또는 부적절한 광고내용이나 안전거래를 저해하는 경우 신고하여 주시기 바랍니다.</p>
+		</div>
+		</div>
+		</div>
 </body>
 </html>
