@@ -2,8 +2,8 @@
 	pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ taglib prefix="sec"
-	uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page session="false"%>
 <!DOCTYPE html>
 <html>
@@ -165,14 +165,14 @@ margin-left: 10px;
     font-weight: bold;
     text-align: center;
 }
-.vip-detailarea_productinfo .tit_productinfo {
+.tit_productinfo {
     font-size: 23px;
     line-height: 20px;
     letter-spacing: -1px;
     padding-bottom: 12px;
     border-bottom: 1px solid #a4a9b0;
 }
-.vip-detailarea_productinfo .tit_productinfo span {
+.tit_productinfo span {
     margin-left: 5px;
     font-size: 12px;
     font-weight: 400;
@@ -191,7 +191,7 @@ table{
     width: 100%;
 }
 
-.vip-detailarea_productinfo .table_productinfo th {
+.table_productinfo th {
     padding: 5px 0 5px 21px;
     color: #222;
     font-size: 14px;
@@ -199,7 +199,7 @@ table{
     letter-spacing: -0.5px;
     text-align: left;
 }
-.vip-detailarea_productinfo .table_productinfo td{
+.table_productinfo td{
     padding: 5px 0 3px 0;
     line-height: 23px;
     color: #777;
@@ -225,6 +225,40 @@ table{
 }
 .infopadding{
 	padding: 1% 10%;
+}
+.txt_info {
+    position: absolute;
+    right: 0;
+    top: 56px;
+    
+}
+.up{
+	color: white !important;
+	font-weight: 600;
+	background-color: #fbab60;
+	width: 100%;
+	display: inline-block;
+	box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.2);
+    border: solid 1px #fbab60;
+    padding: 10px 0px;
+    text-align: center;
+}
+.up:hover {
+	background-color: #fbab00;
+}
+.text-reviewcount{
+    margin-left: 3px !important;
+    font-weight: 400 !important;
+    color: #fbab60 !important;
+    vertical-align: baseline !important;
+    font-size: 20px !important;
+}
+.reviews li.yellow i {
+    color: #F7941D;
+}
+.rvcontent{
+	font-weight: 600;
+	color: black !important;
 }
 }
 </style>
@@ -611,13 +645,13 @@ $(document).ready(function(){
 	<div class="nav detail_info_tab bg-light vip-tabnavi mb-5">
 	     <ul class="info_nav" style="margin-left: 16%" >
 			  <li class="nav-item">
-			    <a class="pnav-link nav-link" href="#vip-tabwrap">상세정보</a>
+			    <a class="pnav-link nav-link" href="#pdetail">상세정보</a>
 			  </li>
 			  <li class="nav-item">
-			    <a class="pnav-link nav-link" href="#vip-tabwrap">상품평</a>
+			    <a class="pnav-link nav-link" href="#pcomment">상품평</a>
 			  </li>
 			  <li class="nav-item">
-			    <a class="pnav-link nav-link" href="#vip-tabwrap">상품문의</a>
+			    <a class="pnav-link nav-link" href="#pgna">상품문의</a>
 			  </li>
 		</ul>	
 		</div>
@@ -649,7 +683,7 @@ $(document).ready(function(){
 							<colgroup>
 								<col style="width:155px;">
 								<col>
-							</colgroup>
+							</colgroup> 
 							<tbody>
 								<tr>
 									<th scope="row">상품번호</th>
@@ -687,8 +721,43 @@ $(document).ready(function(){
 	
 		<!-- 상품평  -->
 		<div id="pcomment" style="display: none;">
-			   상품평
+			   <div class="infopadding">
+			   ${review[0]}
+			   <h3 class="tit_productinfo">일반 상품평<span class="text-reviewcount ml-3"><fmt:formatNumber pattern="###,###,###" value="${fn:length(review)}"/></span><span class="text_info">상품평은 구매완료후 작성하실 수 있습니다.</span></h3>
+			   <table class="table_productinfo">
+							<colgroup>
+								<col style="width:15%">
+								<col>
+								<col style="width:20%">
+							</colgroup> 
+							<tbody>
+								<c:forEach items="${review}" var="ritem">
+								<tr>
+									<td scope="row">
+										<ul class="reviews">
+											<c:forEach begin="${1}" end="${ritem.review_star}" step="${1}">
+											<li class="yellow"><i class="ti-star"></i></li>
+											</c:forEach>
+											<c:forEach begin="${ritem.review_star}" end="${4}" step="${1}">
+											<li><i class="ti-star"></i></li>
+											</c:forEach>
+										</ul>
+									</td>
+									<td>${ritem.option1} ${ritem.option2} / [${ritem.quantity}개]</td>
+									<td>작성자 : ${ritem.id}</td>
+								</tr>
+								<tr>
+									<td></td>
+									<td class="rvcontent">${ritem.review_content}</td>
+									<td>등록일 : ${ritem.review_writedate}</td>									
+									
+								</tr>
+								</c:forEach>
+							</tbody>
+						</table>
+				</div>
 	    </div>
+	    
 	    <!-- 상품문의 -->
 	    <div id="pgna" style="display: none;">
 			   상품문의
@@ -704,5 +773,6 @@ $(document).ready(function(){
 		</div>
 		</div>
 		</div>
+		<a href="#" class="up">위로 돌아가기</a>
 </body>
 </html>
