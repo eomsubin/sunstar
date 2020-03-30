@@ -97,6 +97,11 @@ public interface SellerService {
 
 	Integer day_chart_plus(ChartDTO daydto);
 
+	void delete_products(String seller_code);
+
+	void delete_auth(String id);
+
+
 
 
 

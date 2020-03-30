@@ -94,24 +94,33 @@ function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2, zipNo
 <script>
 
 $(document).ready(function(){
-	$('#seller_tel').focusout(telcheck);
-	var telreg = /^[0-9]+$/
+	
+	$('.updateinfo').click(function(){
+		event.preventDefault();
+		if(telcheck() && bank_no_check()){
+			$('form').submit();
+		}
+	})	
+	
+	var vnum = /^[0-9]+$/
 	function telcheck(){
-		if($('#seller_tel').val().length!=11){
-		/* 	$('.telalert').remove();
-			$('#tel').parent().append("<p class='alert telalert p-0 my-2 ml-3'>전화번호를 정확히 입력해 주세요.</p>");
-			$('#tel').addClass("telck"); */
-			return false;
-		}else if(!telreg.test($('#seller_tel').val()) || !telreg.test($('#seller_tel').val())){
-			/* $('.telalert').remove();
-			$('#tel').parent().append("<p class='alert telalert p-0 my-2 ml-3'>전화번호를 정확히 입력해 주세요.</p>");
-			$('#tel').addClass("telck"); */
+		if($('#seller_tel').val().length != 11 || !vnum.test($('#seller_tel').val())){
+			alert(' - 없이  숫자만 입력해주세요.');
 			return false;
 		}else{
-			$('.telalert').remove();
-			$('#tel').removeClass("telck");
 			return true;
 		}	
+	}
+	
+	function bank_no_check(){
+		
+		if($(!vnum.test($('#bank_no').val())){
+			alert(' - 없이  숫자만 입력해주세요.');
+			return false;
+		}else{
+			return true;
+		}	
+		
 	}
 })
 
@@ -140,7 +149,7 @@ $(document).ready(function(){
 			<div class="card-body " style="padding-left: 30px;">
 
 				<!-- 내용 -->
-				<form action="${pageContext.request.contextPath}/seller/changeInfo" method="post">
+				<form action="${pageContext.request.contextPath}/seller/changeInfo" method="post" name="form">
 					<input type="hidden" name="${_csrf.parameterName}"
 						value="${_csrf.token}" />
 					<div class="form-row col-md-12">
@@ -304,7 +313,7 @@ $(document).ready(function(){
 						<div></div>
 						<label></label>
 						<br>
-						<input type="submit" class="btn btn-primary" style="margin-top: 10px; margin-left: 5px;" value="정보 업데이트">
+						<input type="button" class="btn btn-primary updateinfo" style="margin-top: 10px; margin-left: 5px;" value="정보 업데이트">
 						<div class="col" style="text-align:right;top:20px; ">
 							<a href="${pageContext.request.contextPath}/mypage/info"> 업체 관련 정보 변경이 아닌 [회원 정보]를 변경 하시려면 여기를 클릭하세요 </a>
 

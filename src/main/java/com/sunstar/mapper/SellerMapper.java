@@ -107,6 +107,10 @@ public interface SellerMapper {
 
 	Integer day_chart_plus(ChartDTO dto);
 
+	void delete_products(String seller_code);
+
+	void delete_auth(String id);
+
 
 
 
