@@ -55,4 +55,7 @@ public class OrderDTO {
 	private List<Integer> shipping_cost_per_sellers;
 	private List<String> cart_nos;
 	
+	// review
+	private String review_no;
+	
 }
