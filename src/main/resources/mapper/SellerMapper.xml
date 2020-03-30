@@ -38,7 +38,7 @@
 	</insert>
 	
 	<!-- 상픔 리스트 (판매자) -->
-	<select id="list" resultType="com.sunstar.dto.ProductDTO">
+	<select id="list" parameterType="string" resultType="com.sunstar.dto.ProductDTO">
 		select p.product_code, product_name, price, cost, shipping_cost, o.option1, o.option2, o.inventory, o.add_price, thumb_img, detail_img1, detail_img2, detail_img3,explains, public_state, review_state, c.lv1, c.lv2, c.lv3, p.product_code, s.basic_shipping_cost
 		from product_list p  join category c
 		on p.category_code = c.category_code
@@ -46,7 +46,7 @@
 		on p.product_code = o.product_code
 		left join seller s
 		on p.seller_code = s.seller_code
-      <!--   where p.product_code = #{seller_code} -->
+        where p.product_code = #{seller_code}
 		order by product_code desc
 		
 		<!-- where seller_code = '' 추가해야돼 -->
@@ -80,8 +80,8 @@
 	<!-- 주문목록 -->
 	<select id="orderlist" parameterType="string" resultType="com.sunstar.dto.OrderDTO">
 	
-	   select o.order_code, l.product_code, p.product_name, l.option1, l.option2, l.quantity, l.add_price,  p.price, o.message, 
-			  o.order_way,  o.to_name, c.tel, o.shipping_addr1, o.shipping_addr2, o.shipping_addr3, o.shipping_zip, o.delivery_state, o.tracking_no
+	   select o.order_code, l.order_no, l.product_code, p.product_name, l.option1, l.option2, l.quantity, l.add_price,  p.price, o.message, 
+			  o.order_way,  o.to_name, c.tel, o.shipping_addr1, o.shipping_addr2, o.shipping_addr3, o.shipping_zip, l.delivery_state, l.tracking_no
        from ordered o left join order_list l
        on o.order_code = l.order_code
        inner join customer c 
@@ -111,7 +111,9 @@
 	
 	<select id="theOrderlist" resultType="com.sunstar.dto.OrderDTO" parameterType="string">
 	
-	   select o.delivery_state, l.product_code, p.price, o.order_code, l.order_no, l.option1, l.option2, l.inventory, l.add_price, o.order_way, o.message, c.name, c.tel, s.shipping_addr1, s.shipping_addr2, s.shipping_addr3, s.shipping_zip
+	   select l.delivery_state, l.tracking_no, l.product_code, p.price, o.order_code, l.order_no, l.option1, l.option2, l.inventory, l.add_price, o.order_way, o.message, c.name, c.tel, s.shipping_addr1, s.shipping_addr2, s.shipping_addr3, s.shipping_zip
+       			
+       
        from ordered o left join order_list l
        on o.order_code = l.order_code
        inner join customer c 
@@ -120,21 +122,21 @@
        on c.id = s.id
        left join product_list p
        on l.product_code = p.product_code
-       where o.order_code = #{order_code}
-		<!-- where seller = 'solyi' -->
+       where l.order_no = #{order_no}
 	</select>
 	
 	<!-- 주문목록 - 단계변경  -->
 	<update id="changeStep" parameterType="com.sunstar.dto.OrderDTO">
-		update ordered
+		update order_list
 		set delivery_state = #{delivery_state}
-		where order_code = #{order_code}
+		where order_no = #{order_no}
 	</update>
 	
 	<update id="updateTracking" parameterType="com.sunstar.dto.OrderDTO">
-		update ordered
-		set tracking_no = #{tracking_no}
-		where order_code = #{order_code}
+		update order_list
+		set tracking_no = #{tracking_no},
+			delivery_state = '배송중'			
+		where order_no = #{order_no}
 	</update>
 	
 	<select id="sellerInfo" parameterType="string" resultType="com.sunstar.dto.SellerDTO">
@@ -267,14 +269,14 @@
 		
 		<select id="viewStepOrder" parameterType="string" resultType="com.sunstar.dto.OrderDTO">
 			select o.order_code, l.product_code, l.option1, l.option2, l.inventory, l.add_price,  p.price, o.message, 
-			o.order_way,  o.to_name, c.tel, o.shipping_addr1, o.shipping_addr2, o.shipping_addr3, o.shipping_zip, o.delivery_state, o.tracking_no
+			o.order_way,  o.to_name, c.tel, o.shipping_addr1, o.shipping_addr2, o.shipping_addr3, o.shipping_zip, l.delivery_state, o.tracking_no
 			from ordered o left join order_list l
 			on o.order_code = l.order_code
 			inner join customer c 
 			on o.id = c.id
 			left join product_list p
 			on l.product_code = p.product_code
-			where delivery_state = #{view_step}
+			where l.delivery_state = #{view_step}
 			order by order_code desc
 		</select>
 		
@@ -335,50 +337,50 @@
 		</select>
 		
 		<select id="getPaid" parameterType="string" resultType="int">
-			select count(o.delivery_state)
+			select count(l.delivery_state)
 			from ordered o left join order_list l
             on o.order_code = l.order_code
             left join product_list p 
             on l.product_code = p.product_code
             left join seller s
             on p.seller_code = s.seller_code 
-			where delivery_state = '결제완료' and s.seller_code = #{seller_code}
+			where l.delivery_state = '결제완료' and s.seller_code = #{seller_code}
 		
 		</select>
 		
 		<select id="getReadyCount" parameterType="string" resultType="int">
-			select count(o.delivery_state)
+			select count(l.delivery_state)
 			from ordered o left join order_list l
             on o.order_code = l.order_code
             left join product_list p 
             on l.product_code = p.product_code
             left join seller s
             on p.seller_code = s.seller_code 
-			where delivery_state = '배송준비' and s.seller_code = #{seller_code}
+			where l.delivery_state = '배송준비' and s.seller_code = #{seller_code}
 		
 		</select>
 		
 		<select id="getExchangeCount" parameterType="string" resultType="int">
- 			select count(o.delivery_state)
+ 			select count(l.delivery_state)
 			from ordered o left join order_list l
             on o.order_code = l.order_code
             left join product_list p 
             on l.product_code = p.product_code
             left join seller s
             on p.seller_code = s.seller_code 
-			where delivery_state = '교환요청' and s.seller_code = #{seller_code}
+			where l.delivery_state = '교환요청' and s.seller_code = #{seller_code}
 		
 		</select>
 		
 		<select id="getBringBack" parameterType="string" resultType="int">
-		 	select count(o.delivery_state)
+		 	select count(l.delivery_state)
 			from ordered o left join order_list l
             on o.order_code = l.order_code
             left join product_list p 
             on l.product_code = p.product_code
             left join seller s
             on p.seller_code = s.seller_code 
-			where delivery_state = '반품대기' and s.seller_code = #{seller_code}
+			where l.delivery_state = '반품대기' and s.seller_code = #{seller_code}
 		
 		
 		</select>
@@ -410,14 +412,16 @@
 		
 		
 		<select id="searchOrderView" parameterType="string" resultType="com.sunstar.dto.OrderDTO" >
-	      select o.order_code, p.product_code, l.option1, l.option2, l.add_price, quantity, price, p.shipping_cost, o.message, 
-	      o.order_way,o.delivery_state, o.to_name, o.shipping_addr1,o.shipping_addr2,o.shipping_addr3,o.shipping_zip,
-	      product_name,p.shipping_cost,l.option1,l.option2
-	      
+	       select o.order_code, p.product_code, l.option1, l.option2, l.add_price, quantity, price, p.shipping_cost, o.message, 
+	      o.order_way,l.delivery_state, l.tracking_no, o.to_name, o.shipping_addr1,o.shipping_addr2,o.shipping_addr3,o.shipping_zip,
+	      product_name,p.shipping_cost,l.option1,l.option2,
+          s.shipping_company
 	      from ordered o left join order_list l
 	      on o.order_code=l.order_code
 	      left join product_list p
 	      on l.product_code = p.product_code
+          left join seller s
+          on p.seller_code = s.seller_code 
 	      where o.order_code= #{order_code}
 		</select>
 		
@@ -434,7 +438,7 @@
 	        left join options t
 	        on t.product_code = p.product_code
 			where p.seller_code = #{seller_code}
-			order by o.order_code desc
+			order by r.review_writedate desc
 
 		
 		</select>
@@ -477,5 +481,28 @@
         and left(o.order_code, 6) = #{month}
 		order by shipping_cost  
 
+		</select>
+		
+		
+		<select id="day_chart" parameterType="com.sunstar.dto.ChartDTO" resultType="integer">
+		
+		select ifnull(sum(total_price), 0)
+		from ordered o join price r
+		on o.order_code = r.order_code
+		where seller_code = #{seller_code}
+		and left(o.order_code, 8) = #{yyyymmdd}
+
+		
+		</select>
+		
+		<select id="day_chart_plus" parameterType="com.sunstar.dto.ChartDTO" resultType="integer">
+		
+		select ifnull(sum(r.shipping_cost_per_seller), 0)
+		from ordered o join price r
+		on o.order_code = r.order_code
+		where seller_code = #{seller_code}
+		and left(o.order_code, 8) = #{yyyymmdd}
+
+		
 		</select>
 </mapper>

@@ -1973,6 +1973,9 @@
 }
 .shop.checkout .checkout-form {
 	margin-top: 30px;
+	position: -webkit-sticky;
+	position: sticky;
+	top: 5px;
 }
 .shop.checkout .checkout-form h2 {
 	font-size: 25px;
