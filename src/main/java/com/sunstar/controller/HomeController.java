@@ -180,7 +180,11 @@ public class HomeController {
 	  	      		dto.setName(userinfo.getResponse().get("name"));
 	  	      		dto.setEmail(userinfo.getResponse().get("email"));
 	  	      		dto.setEnable(true);
-	  	      		
+		  	  		dto.setAddress1(" ");
+		  			dto.setAddress2(" ");
+		  			dto.setAddress3(" ");
+		  			dto.setZip("0");
+		  			dto.setTel("0");
 	  	      		ArrayList<AuthDTO> auth = new ArrayList<AuthDTO>();
 	  	      		auth.add(new AuthDTO(dto.getId(),"ROLE_USER"));
 	  	      		dto.setAuthlist(auth);

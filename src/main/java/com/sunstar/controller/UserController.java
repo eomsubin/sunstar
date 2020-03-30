@@ -49,12 +49,7 @@ public class UserController {
 		dto.setEnable(true);
 		dto.setTel(dto.getTel()+"-"+tel1+"-"+tel2);
 		dto.setEmail(dto.getEmail()+"@"+email1);
-		dto.setAddress1(" ");
-		dto.setAddress2(" ");
-		dto.setAddress3(" ");
-		dto.setZip("0");
-		dto.setTel("0");
-		 
+	 
 		ArrayList<AuthDTO> arr = new ArrayList<AuthDTO>();
 		arr.add(new AuthDTO(dto.getId(),"ROLE_USER"));
 		dto.setAuthlist(arr);

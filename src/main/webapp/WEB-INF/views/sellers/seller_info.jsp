@@ -93,6 +93,28 @@ function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2, zipNo
 </Script>
 <script>
 
+$(document).ready(function(){
+	$('#seller_tel').focusout(telcheck);
+	var telreg = /^[0-9]+$/
+	function telcheck(){
+		if($('#seller_tel').val().length!=11){
+		/* 	$('.telalert').remove();
+			$('#tel').parent().append("<p class='alert telalert p-0 my-2 ml-3'>전화번호를 정확히 입력해 주세요.</p>");
+			$('#tel').addClass("telck"); */
+			return false;
+		}else if(!telreg.test($('#seller_tel').val()) || !telreg.test($('#seller_tel').val())){
+			/* $('.telalert').remove();
+			$('#tel').parent().append("<p class='alert telalert p-0 my-2 ml-3'>전화번호를 정확히 입력해 주세요.</p>");
+			$('#tel').addClass("telck"); */
+			return false;
+		}else{
+			$('.telalert').remove();
+			$('#tel').removeClass("telck");
+			return true;
+		}	
+	}
+})
+
 
 
 
@@ -142,6 +164,8 @@ function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2, zipNo
 								class="form-control" id="seller_tel" name="seller_tel"
 								value="${dto.seller_tel}" required>
 						</div>
+						
+						
 						<div class="col-md-4 mb-3">
 							<label for="validationDefault02">이메일</label> <input type="email"
 								class="form-control" id="seller_email" name="seller_email"
