@@ -83,6 +83,18 @@
 	            ],
 	            borderWidth: 2,
 	        	
+	        },{
+	            label: '월별 순수익',
+	            data:[${mdatab}],
+	           // data: [12, 19, 3, 5, 2, 3],
+	            backgroundColor: [
+	                'rgba(255, 222, 222, 5)'
+	             ], 
+	            borderColor: [
+	                'rgba(235, 213, 52, 8)'
+	            ],
+	            borderWidth: 2,
+	        	
 	        }]
 	    },
 	    options: {
