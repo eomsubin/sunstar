@@ -77,10 +77,14 @@ public class HomeController {
 	}
 	
 	@RequestMapping("/")
-	public String body(Locale locale, Model model, HttpSession session)
+	public String body(Model model, HttpSession session)
 	{		         
 		
 		mainservice.header(model);
+		
+		List<ProductDTO> plist = mainservice.getProductList();
+		
+		model.addAttribute("plist",plist);
 		model.addAttribute("contentpage", "body.jsp");
 		
 		return "home";

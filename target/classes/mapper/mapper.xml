@@ -13,6 +13,11 @@
 		
 	
 	</select>
-
+	
+	<select id="getProductList" resultType="com.sunstar.dto.ProductDTO">
+		select *
+		from product_list
+	
+	</select>
 
 </mapper>

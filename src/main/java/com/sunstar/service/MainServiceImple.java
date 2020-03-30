@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import com.sunstar.dto.CategoryDTO;
+import com.sunstar.dto.ProductDTO;
 import com.sunstar.mapper.Homemapper;
 
 @Service("mainservice")
@@ -37,6 +38,12 @@ public class MainServiceImple implements MainService {
 		
 		return "header2";
 		
+	}
+
+	@Override
+	public List<ProductDTO> getProductList() {
+		
+		return homemapper.getProductList();
 	}
 	
 	
