@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.sunstar.dto.CartDTO;
 import com.sunstar.dto.OrderDTO;
 import com.sunstar.dto.OrderListDTO;
+import com.sunstar.dto.SellerDTO;
 import com.sunstar.mapper.PaymentMapper;
 
 @Service("paymentserivce")
@@ -53,6 +54,16 @@ public class PaymentServiceImple implements PaymentService {
 				pm.addOrderList(order);
 			}
 			
+			for(int i=0; i<odto.getSeller_codes().size();i++) {
+				OrderDTO price = new OrderDTO();
+				price.setOrder_code(odto.getOrder_code());
+				price.setSeller_code(odto.getSeller_codes().get(i));
+				/*price.setTotal_price(odto.getTotal_prices().get(i));*/
+				price.setShipping_cost_per_seller(odto.getShipping_cost_per_sellers().get(i));
+				System.out.println(price);
+				pm.addPrice(price);
+			}
+				
 			
 		
 			return 0;
@@ -80,15 +91,15 @@ public class PaymentServiceImple implements PaymentService {
 	}
 
 	@Override
-	public CartDTO getProducts(CartDTO cpdto) {
+	public CartDTO getProducts(SellerDTO seller_customer ) {
 		// TODO Auto-generated method stub
-		return pm.getProducts(cpdto);
+		return pm.getProducts(seller_customer);
 	}
 
 	@Override
-	public List<String> getProductCount(String id) {
+	public int getProductCount(CartDTO userinfo) {
 		// TODO Auto-generated method stub
-		return pm.getProductCount(id);
+		return pm.getProductCount(userinfo);
 	}
 	
 	

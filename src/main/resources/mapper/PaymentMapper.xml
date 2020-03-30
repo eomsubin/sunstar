@@ -56,6 +56,14 @@
 			insert into order_list(order_code,product_code,quantity,option1,option2,add_price)
 			values(#{order_code},#{product_code},#{quantity},#{option1},#{option2},#{add_price})
 	</insert>
+	
+	<insert id="addPrice" parameterType="com.sunstar.dto.OrderDTO">
+		insert into price(seller_code,order_code,total_price,shipping_cost_per_seller) 
+		values(#{seller_code},#{order_code},#{total_price},#{shipping_cost_per_seller})
+		
+	</insert>
+	
+	
 	<!-- <insert id="addShip" parameterType="com.sunstar.dto.OrderDTO">
 			insert into ship(id,shipping_addr1,shipping_addr2,shipping_addr3,shipping_zip,order_code,to_name,shipping_name)
 			values(#{id},#{shipping_addr1},#{shipping_addr2},#{shipping_addr3},#{shipping_zip},#{order_code},#{to_name},#{shipping_name})
@@ -86,8 +94,8 @@
 	</select>
 	 -->
 	 
-	 <select id="getProducts" parameterType="com.sunstar.dto.CartDTO" resultType="com.sunstar.dto.CartDTO">
-    	select distinct  p.shipping_cost,s.seller_name,s.seller_code
+	 <select id="getProducts" parameterType="com.sunstar.dto.SellerDTO" resultType="com.sunstar.dto.CartDTO">
+    	select distinct  p.shipping_cost,s.seller_name,s.seller_code,s.basic_shipping_cost,s.free_shipping_cost
 	from cart c 
     join customer t
      on c.id = t.id
@@ -109,12 +117,26 @@
 	 </select>
 
 
-<select id="getProductCount" parameterType="string" resultType="string">
-		select count(cart_no), seller_code
-        from cart c join product_list p
-        on c.product_code = p.product_code
+<select id="getProductCount" parameterType="com.sunstar.dto.CartDTO" resultType="int">
+	select p.seller_code
+	from cart c 
+    join customer t
+     on c.id = t.id
+      join options o
+     on o.product_code = c.product_code
+     join product_list p
+    on p.product_code= o.product_code
+    join seller s
+	on s.seller_code = p.seller_code
+     where c.id= #{id}
+     and c.cart_no= #{cart_no}
+     
+     
+	and c.option1=o.option1
+   
+	
         
-        where id=#{id}
-        group by p.seller_code;
+       order by s.seller_name;
 </select>
+
 </mapper>

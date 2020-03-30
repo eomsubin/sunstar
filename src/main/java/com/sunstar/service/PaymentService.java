@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.sunstar.dto.CartDTO;
 import com.sunstar.dto.OrderDTO;
+import com.sunstar.dto.SellerDTO;
 
 public interface PaymentService {
 
@@ -25,10 +26,10 @@ public interface PaymentService {
 	CartDTO productDetail(String product_code, String id);
 
 
-	CartDTO getProducts(CartDTO cpdto);
+	CartDTO getProducts(SellerDTO seller_customer);
 
 
-	List<String> getProductCount(String id);
+	int getProductCount(CartDTO userinfo);
 
 	
 	
