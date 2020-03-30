@@ -53,19 +53,12 @@ $(document).ready(function(){
 				rows.eq(0).attr("rowspan",rows.length);
 				rows.not(":eq(0)").remove();
 			}
-			
-			
 		});
-		
-		
 	}
-
-
 });
 
 function orderDetail(order_code){
 	location.href="${pageContext.request.contextPath}/mypage/orderdetail/"+order_code;
-	
 }
 
 </script>
@@ -106,6 +99,7 @@ function orderDetail(order_code){
 							<th scope="col" style="text-align: center;">상품금액(수량)</th>
 							<th scope="col">배송비</th>
 							<th scope="col">주문상태</th>
+							<th scope="col">댓글작성</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -123,6 +117,7 @@ function orderDetail(order_code){
 							<td style="vertical-align: middle; text-align: center;">${(pay.price+pay.add_price)*pay.quantity}원  (${pay.quantity })</td>
 							<td style="vertical-align: middle;">${pay.shipping_cost}원</td>
 							<td style="vertical-align: middle;">${pay.delivery_state}</td>
+							<td style="vertical-align: middle;"><c:if test="${empty pay.review_no}">댓글 작성하기</c:if><c:if test="${not empty pay.review_no}">댓글 보기</c:if></td>
 						</tr>
 						</c:forEach>
 						
