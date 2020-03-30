@@ -1,14 +1,23 @@
-@charset "EUC-KR";
+@charset "utf-8";
 
 /*======================================
    Start Shop Sidebar CSS
 ========================================*/
+.shop-sidebar{
+	
+	position: -webkit-sticky;
+	position: sticky;
+	top:100px;
+	
+}
+
+
+
 .shop-sidebar .single-widget {
 	margin-top: 30px;
 	background: #EFFBF8;
 	padding: 30px;
-		position: -webkit-sticky;
-	position: sticky;
+	
 }
 .shop-sidebar .single-widget:first-child {
 	margin-top: 0;

@@ -101,8 +101,8 @@ function orderDetail(order_code){
 					<thead>
 						<tr>
 							<th scope="col" style="width:120px; text-align: center;">주문번호</th>
-							<th scope="col" style="width:80px; text-align: center;">상품정보</th>
-							<th scope="col" style="text-align: center; width:250px;">상품명</th>
+							<th scope="col" style="width:60px; text-align: center;">상품정보</th>
+							<th scope="col" style="text-align: center; width:220px;">상품명</th>
 							<th scope="col" style="text-align: center;">상품금액(수량)</th>
 							<th scope="col">배송비</th>
 							<th scope="col">주문상태</th>

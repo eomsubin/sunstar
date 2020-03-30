@@ -163,14 +163,19 @@ public class MyPageController {
 		List<OrderDTO> orderdetail = mpservice.orderDetail(order_code); 
 		
 		OrderDTO orderdto = new OrderDTO();
+		// 출력화면 하나만 필요한것
 		orderdto.setOrder_code(orderdetail.get(0).getOrder_code());
 		orderdto.setOrder_way(orderdetail.get(0).getOrder_way());
 		orderdto.setShipping_addr1(orderdetail.get(0).getShipping_addr1());
 		orderdto.setShipping_addr2(orderdetail.get(0).getShipping_addr2());
 		orderdto.setShipping_addr3(orderdetail.get(0).getShipping_addr3());
 		
+		
+		List<OrderDTO> price = mpservice.getPrice(order_code);  
+		
+		model.addAttribute("price",price);
 		model.addAttribute("one",orderdto);
-
+		// 반복 해야될 자료
 		model.addAttribute("orderdetail",orderdetail);
 		model.addAttribute("contentpage","Mypage/orderdetail.jsp");
 		

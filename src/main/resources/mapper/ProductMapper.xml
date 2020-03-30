@@ -122,7 +122,7 @@
 	<select id="reviewList" resultType="com.sunstar.dto.ReviewDTO">
 	select r.*, 
 	ol.order_code, ol.product_code, ol.quantity, ol.option1, ol.option2,
-	rpad(substr(oed.id,1,4),8,'*') as id, oed.delivery_state
+	rpad(substr(oed.id,1,4),8,'*') as id
 	from review r join order_list ol 
 	on r.order_no = ol.order_no
 	left join ordered oed

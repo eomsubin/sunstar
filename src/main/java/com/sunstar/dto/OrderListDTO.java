@@ -14,4 +14,7 @@ public class OrderListDTO {
 	private String option2;
 	private int inventory;
 	private int add_price;
+	private String delivery_state;
+	private String tracking_no;
+	
 }
