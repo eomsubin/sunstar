@@ -42,7 +42,7 @@ public interface SellerMapper {
 
 	List<OrderDTO> shippinglist(String seller_code);
 
-	OrderDTO theOrderlist(String order_code);
+	OrderDTO theOrderlist(String order_no);
 
 	void changeStep(OrderDTO dto);
 
@@ -62,7 +62,7 @@ public interface SellerMapper {
 
 	void update_seller_info(SellerDTO dto);
 
-	List<ProductDTO> product_list_user();
+	List<ProductDTO> product_list_user(String seller_code);
 
 	List<OrderDTO> viewStepOrder(String view_step);
 
@@ -102,6 +102,10 @@ public interface SellerMapper {
 
 	Integer month_chart(ChartDTO dto);
 	Integer month_chart_plus(ChartDTO dto);
+
+	Integer day_chart(ChartDTO dto);
+
+	Integer day_chart_plus(ChartDTO dto);
 
 
 
