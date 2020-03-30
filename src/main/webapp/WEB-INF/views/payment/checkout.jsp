@@ -202,10 +202,11 @@ function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2, zipNo
 										<div class="form-group">
 											<label>주소<span>*</span></label> <input type="text"
 												name="shipping_zip" id="shipping_zip" placeholder=""
-												required="required" value="${userinfo.zip }">
+												required="required" value="${userinfo.zip }" readonly="readonly">
 											<button type="button" onclick="goPopup();"
 												style="position: relative; left: 330px; bottom: 44px;"
 												class="btn btn-secondary btn-lg">주소 찾기</button>
+											
 										</div>
 									</div>
 								</div>
@@ -215,10 +216,12 @@ function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2, zipNo
 								<div class="col-lg-6 col-md-6 col-12">
 									<div class="form-group">
 										<input type="text" name="shipping_addr1" id="shipping_addr1"
-											placeholder="" required="required"
+											placeholder="" required="required" readonly="readonly"
 											value="${userinfo.address1}">
 
-
+										<div class="hiddenaddr1 is-invalid invalid-feedback">
+													*주소를 입력하세요
+										</div>
 									</div>
 								</div>
 							</div>
@@ -227,7 +230,7 @@ function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2, zipNo
 								<div class="col-lg-6 col-md-6 col-12">
 									<div class="form-group">
 										<input type="text" name="shipping_addr2" id="shipping_addr2"
-											placeholder="" required="required"
+											placeholder="" required="required" readonly="readonly"
 											value="${userinfo.address2}">
 
 
@@ -238,7 +241,7 @@ function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2, zipNo
 								<div class="col-lg-6 col-md-6 col-12">
 									<div class="form-group">
 										<input type="text" name="shipping_addr3" id="shipping_addr3"
-											placeholder="" required="required"
+											placeholder="" required="required" readonly="readonly"
 											value="${userinfo.address3}">
 
 
@@ -405,7 +408,13 @@ function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2, zipNo
 			} else if ($('input:checkbox[name=updates]').is(":checked") == false) {
 
 				return false;
-			}
+			 
+			} else if(shipping_addr1.value == null || shipping_addr1.value ==" "){
+				alert('네이버회원은 기본 배송지를 입력하셔야 합니다.');
+				
+				return false;
+			} 
+			 
 	
 			else {
 				// name1: 주문자
