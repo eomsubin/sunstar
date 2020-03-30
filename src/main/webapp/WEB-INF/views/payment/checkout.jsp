@@ -149,7 +149,7 @@ function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2, zipNo
 									<div class="form-group">
 										<label>휴대전화<span>*</span></label> <input type="text"
 											class="form-control" name="tel" id="tel" placeholder=""
-											required value="${userinfo.tel }" readonly="readonly">
+											required value="${userinfo.tel }" >
 										<div class="hiddentel is-invalid invalid-feedback">*휴대전화를
 											입력해주세요('-' 제외,숫자만 입력)</div>
 
