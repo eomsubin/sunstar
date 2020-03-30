@@ -413,7 +413,7 @@
 		
 		<select id="searchOrderView" parameterType="string" resultType="com.sunstar.dto.OrderDTO" >
 	       select o.order_code, p.product_code, l.option1, l.option2, l.add_price, quantity, price, p.shipping_cost, o.message, 
-	      o.order_way,l.delivery_state, l.tracking_no, o.to_name, o.shipping_addr1,o.shipping_addr2,o.shipping_addr3,o.shipping_zip,
+	      o.order_way,l.delivery_state, l.tracking_no, l.shipping_company, o.to_name, o.shipping_addr1,o.shipping_addr2,o.shipping_addr3,o.shipping_zip,
 	      product_name,p.shipping_cost,l.option1,l.option2,
           s.shipping_company
 	      from ordered o left join order_list l
