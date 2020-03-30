@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sunstar.dto.CustomerDTO;
 import com.sunstar.dto.CustomerUserDetail;
+import com.sunstar.dto.MakePage;
 import com.sunstar.dto.OrderDTO;
 import com.sunstar.dto.ShipDTO;
 import com.sunstar.service.MainService;
@@ -56,13 +57,43 @@ public class MyPageController {
 	}
 	
 	@RequestMapping("/mypage/order")
-	public String orderList(Model model, Principal principal) {
+	public String orderList(Model model, Principal principal, @RequestParam(required=false, defaultValue="0") int currPage,@RequestParam(required=false,defaultValue="10") int pageSize ) {
 		mainservice.header(model);
 		
 		if(principal!=null) {
 			CustomerUserDetail userdetail = (CustomerUserDetail)((Authentication)principal).getPrincipal();
 			
 			String id = userdetail.getUsername();
+			
+			CustomerDTO user = mpservice.getUserInfo(id);
+			
+			id = user.getId();
+			
+			
+			int totalCount = mpservice.getTotalCount(id);
+			System.out.println(totalCount);
+			
+			MakePage makepage = new MakePage();
+			makepage.setSizePerPage(10); 
+			
+			if(pageSize == 0 ) {
+				makepage.setSizePerPage(10); 
+			}else {
+				makepage.setSizePerPage(pageSize); 
+			}
+
+			int blockSize = 10;
+			
+			MakePage page = new MakePage(currPage, totalCount, makepage.getSizePerPage(), blockSize);
+			
+			int startrow = page.getStartRow();
+			
+			page.setStartRow(startrow);
+			System.out.println(page.getStartRow());
+			page.setStartRow(page.getStartRow());
+			System.out.println(page.getStartRow());
+			
+			
 			
 			List<OrderDTO> buylist = paymentservice.buylist(id);
 			

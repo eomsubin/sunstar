@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet"
+<%-- <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/magnific-popup.min.css">
 
 <!-- Fancybox -->
@@ -29,11 +29,11 @@
 <!-- Slicknav -->
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/slicknav.min.css">
-
+ --%>
 <!-- Eshop StyleSheet -->
 
-<%-- <link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/reset.css"> --%>
+ <link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/css/reset.css"> 
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/mypage.css">
 <link rel="stylesheet"
@@ -53,7 +53,7 @@
 	
 	position: relative;
 		width: 70%;
-		left:60px;
+		left:350px;
 		
 		border: 0;
 	}
@@ -64,7 +64,10 @@
 }
 
 
+
+
 </style>
+
 </head>
 <body>
 	<!-- Product Style -->
@@ -140,7 +143,7 @@
 						</tr>
 						<tr>
 							<th scope="row"></th>
-							<td>결제 금액(배송비 포함)</td>
+							<td>총 결제 금액(배송비 포함)</td>
 							<td>${allprice} 원</td>
 							<td></td>
 						</tr>
@@ -161,7 +164,7 @@
 						</tr>
 					</thead>
 					<tbody class="tbody1">
-					    <li style="display: none">${orderinfo.product_code }</li>
+					    <li style="display: none">${orderinfo.order_no }</li>
 						<tr>
 							<th scope="row"></th>
 							<td>상품명</td>
@@ -170,7 +173,7 @@
 						</tr>
 						<tr>
 							<th scope="row"></th>
-							<td>판매자이름</td>
+							<td>업체명</td>
 							<td>${orderinfo.seller_name}</td>
 							<td></td>
 						</tr>
@@ -196,7 +199,7 @@
 							<th scope="row"></th>
 							<td>배송상태</td>
 							<td>${orderinfo.delivery_state }</td>
-							<td><button type="button" class="btn btn-danger">결제 취소</button></td>
+							<td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" >결제취소</button></td>
 						</tr>
 						
 					</tbody>
@@ -206,6 +209,26 @@
 				
 			</div>
 		</div>
+		<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="z-index: 100;">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
 	</section>
 
 	<%-- ${one.order_code}
