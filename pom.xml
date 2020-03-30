@@ -257,10 +257,22 @@
        <artifactId>commons-codec</artifactId>
        <version>1.11</version>
    </dependency>
+   <!--  아임포트 REST API  -->
+   
+	<dependency>
+	    <groupId>com.github.iamport</groupId>
+	    <artifactId>iamport-rest-client-java</artifactId>
+	    <version>0.2.6</version>
+	</dependency>
 
+	
 
    </dependencies>
    <repositories>
+   	<repository>
+	    <id>jitpack.io</id>
+	    <url>https://jitpack.io</url>
+	</repository>
       <repository>
          <id>Datanucleus</id>
          <url>http://www.datanucleus.org/downloads/maven2/</url>
