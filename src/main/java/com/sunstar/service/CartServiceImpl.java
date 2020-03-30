@@ -20,6 +20,8 @@ public class CartServiceImpl implements CartService {
 	public int addCart(CartDTO cart) throws Exception {
 		// TODO Auto-generated method stub
 		System.out.println(cart);
+		
+		
 		return cartmapper.addCart(cart);	
 	}
 
@@ -27,6 +29,12 @@ public class CartServiceImpl implements CartService {
 	public List<CartDTO> cartList(String id) throws Exception {
 		// TODO Auto-generated method stub
 		return cartmapper.cartList(id);
+	}
+
+	@Override
+	public String deleteItem(String cart_no) {
+		// TODO Auto-generated method stub
+		return cartmapper.deleteItem(cart_no);
 	}
 
 	}

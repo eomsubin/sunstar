@@ -124,6 +124,7 @@ input, select{
 		$('#email1').focusout(emailcheck);
 		$('#email2').change(emailcheck);
 		function emailcheck(){
+			name = $('#name').val();
 			var email = $('#email').val();
 			email += "@";
 			email += $('#email1').val();
@@ -133,9 +134,30 @@ input, select{
 				$('#email').parent().append("<p class='alert emailalert p-0 my-2 ml-3'>이메일 주소를 다시 확인해주세요.</p>");
 				return false;
 			}else{
-					$('.emailalert').remove();
+				var emresult = 0;
+				$('.emailalert').remove();
+				$.ajax({
+					url : "${pageContext.request.contextPath}/registercustomer/customeremailcheck"
+					,data : {"email" : email, "name" : name}
+					,dataType : "json"
+					,async: false
+					,success:function(data){
+						console.log(data);
+						emresult = data;
+					}
+					,error:function(e){
+						console.log(e);
+						return false;
+					}
+				});
+				if(emresult>0){					
 					$('#email2').removeClass("telck");
+					$('.emailalert').remove();
 					return true;
+				}else{
+					$('#email').parent().append("<p class='alert emailalert p-0 my-2 ml-3'>이름에 유효하지 않는 이메일 주소 입니다.</p>");
+					return false;
+				}
 			}
 		}
 		
@@ -217,7 +239,7 @@ input, select{
 <body>
 <div class="mx-auto mt-5 row align-items-bottom" style="width: 600px; height: 138px;">
 <div class="col">
-		<h1 class="regh1">아이디 찾기</h1><span class="regspan now">이메일로 찾기</span>
+		<h1 class="regh1">아이디 찾기</h1><span class="regspan now">이메일로 찾기</span><a href="${pageContext.request.contextPath}/userlogin/FindPW"><span class="regspan" style="font-weight: 600">비밀번호 찾기</span></a>
 		<p class="txt_info">회원정보를 입력해주세요. 모두 입력하셔야 찾기가 가능합니다.</p>
 		</div>
 		</div>

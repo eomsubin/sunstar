@@ -16,7 +16,7 @@ import com.sunstar.dto.CartDTO;
 import com.sunstar.dto.CustomerUserDetail;
 import com.sunstar.service.CartService;
 import com.sunstar.service.MainService;
-import com.sunstar.service.ProductService;
+
 
 @Controller
 public class CartController {	
@@ -24,9 +24,6 @@ public class CartController {
 	@Autowired
 	private MainService mainservice;
 	
-	@Autowired
-	private ProductService productservice;
-
 	@Autowired
 	private CartService cartservice;
 
@@ -36,7 +33,7 @@ public class CartController {
 	public String detailview2(Model model) {
 		mainservice.header(model);
 		model.addAttribute("contentpage", "shop/detailview2.jsp");
-		return "home";
+		return "home";	
 	}*/
 	
 	
@@ -80,7 +77,14 @@ public class CartController {
 		return "home";
 	}
 	
-	
+	@RequestMapping(value = "/cartList/deleteItem")
+	public String deleteAll(Model model, String cart_no ) throws Exception{
+		
+		mainservice.header(model);
+		cartservice.deleteItem(cart_no);
+		return null;
+		
+	}
 
 	
 

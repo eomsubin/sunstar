@@ -12,6 +12,11 @@
 <title>장바구니</title>
 <script>
 	$(document).ready(function() {
+		
+			$('.table tr:last-child').addClass("lasttr");
+			$('.table tr:first-child').addClass("firsttr");	
+	
+			
 		/*전체선택*/
 		$("#allCheck").click(function() {
 			var chk = $("#allCheck").prop("checked"); // 체크 여부 확인
@@ -59,14 +64,7 @@
 				{
 					$(this).prop("checked",false);	
 			}  
-				
-				
 			});
-		
-			
-		
-		
-		
 		});		
 	
 			
@@ -107,36 +105,58 @@
 		
 		/*x버튼 제품 삭제*/
 		$(document).on('click','.xdel_btn',function(){
+			var sellercode=$(this).data('seller_code');
+			var isseller=0;
 			
-		});
+			$(this).parent().parent().remove();
 			
-			
-
+			$.each($('.xdel_btn'),function(){
+				if(sellercode == $(this).data('seller_code'))
+					{
+						isseller=1;
+					}
+			})
+			console.log(isseller);
+			/* 담긴 제품이 없을 때 셀러샵 삭제 */
+				if(isseller==0)
+					{
+						$.each($(".sellerchBox"),function(){
+						if($(this).val() == sellercode)
+							{
+							$(this).parent().parent().parent().remove();
+							
+							}
+					})							
+					}
 			
 /* 			let id=$(".id").val();
 			var cart_no=$("input[name=cart_no]:checked").val();
 			var seller_code=$("input[name=cart_no]:checked").data("seller_code");
-			
+				
+				
 		 	var data={
-				"id" : id
-				,"cart_no" : cart_no
-				,"seller_code" : seller_code
-			}  
-	 	
- 			$.each(data,function(index,value){
-				$.ajax({
-					url : "cartList/delete"
-					, data : data
-					, success : function(data){
-						alert("상품을 삭제했습니다.");
-					}
-					, error : function(e){
-						console.log(e)
-					}
-				})
-			}); 
-		}); */
+					"id" : id
+					,"cart_no" : cart_no
+					,"seller_code" : seller_code
+				}  
+		 	
+	 			$.each(data,function(index,value){
+					$.ajax({
+						url : "cartList/deleteItem"
+						, data : data
+						, success : function(data){
+							alert("상품을 삭제했습니다.");
+						}
+						, error : function(e){
+							console.log(e)
+						}
+					})
+				});  */
 			
+				/* 삭제시 테이블 스타일 유지 */
+				$('.table tr:last-child').addClass("lasttr");
+				$('.table tr:first-child').addClass("firsttr");
+		});
 		});
 </script>
 <!-- Eshop StyleSheet -->
@@ -173,19 +193,17 @@
 					<div class="row">
 						<div class="col-12">
 							<div class="select row mr-1 pb-2 justify-content-between">
-
 								<div class="custom-control custom-checkbox">
 									<input type="checkbox" class="allchBox custom-control-input"
 										id="allCheck" value='<sec:authentication property="principal.UserInfo.id"/>'> 
 										<label class="custom-control-label ml-4" for="allCheck" >전체 선택</label>
 								</div>
-
+<hr class='my-3'>
 								<div class="delBtn">
 									<button type="button" class="del_btn btn" id="selectdel_btn">
 									선택 삭제</button>
 								</div>
 							</div>
-
 
 							<!-- 주문 리스트 -->
 							<table class="table shopping-summery">
@@ -193,17 +211,17 @@
 									<c:set var="sum" value="0" />
 									<!-- 셀러, 체크박스 -->
 									<c:forEach var="sellerList" items="${sellerList}" >
-										<div class="item1">
-											<tr class="seller">
+										<tr class="seller">
 												<td colspan="7" class="sellerinfo px-2 pt-3 bg-">
 													<div class="custom-control custom-checkbox">
 														<input type="checkbox" class="sellerchBox chBox custom-control-input"
 															id="${sellerList.key}" value="${sellerList.key}" name="seller_code"> 
-															<label class="custom-control-label" for="${sellerList.key}">
+															<label class="custom-control-label" for="${sellerList.key}" style="font-size: 16px; font-weight:bold;">
 															${sellerList.value}</label>
 													</div>
 													<hr class='my-1'>
 												</td>
+												
 											</tr>
 									<c:forEach var="cartList" items="${cartList}">
 									<!-- 같은 셀러 묶기 -->
@@ -232,7 +250,7 @@
 												</td>
 												<!-- 금액 -->
 												<td class="price" data-title="Price">
-												<fmt:formatNumber pattern="###,###,###" value="${(cartList.price + cartList.add_price)}" />원</span></td>
+												<fmt:formatNumber pattern="###,###,###" value="${(cartList.price + cartList.add_price)}" />원</td>
 												<!-- 수량 -->
 												<td class="qty" data-title="Qty">
 													<!-- Input Order -->
@@ -257,7 +275,7 @@
 												<!-- 총합계(배송비 제외) -->
 												<td class="total-amount" data-title="Total"><fmt:formatNumber
 														pattern="###,###,###"
-														value="${(cartList.price + cartList.add_price) * cartList.cart_quantity}" />원</span></td>
+														value="${(cartList.price + cartList.add_price) * cartList.cart_quantity}" />원</td>
 												<!-- 배송비 -->
 												<td>
 													<c:if test="${cartList.basic_shipping_cost eq 0}">
@@ -270,7 +288,7 @@
 												</td>
 												<!-- 삭제 아이콘 -->
 												<td class="remove p-0">
-													<button type="button" class="xdel_btn del_btn btn" id="idel_btn">
+													<button type="button" class="xdel_btn del_btn btn" id="idel_btn" data-cart_no="${cartList.cart_no}"  data-seller_code="${cartList.seller_code}" >
 														<img
 															src='${pageContext.request.contextPath}/resources/icons/close4.png'/>
 													</button>
@@ -278,7 +296,7 @@
 											</tr>
 											</c:if>
 									</c:forEach>
-										</div>
+										
 									</c:forEach>
 								</tbody>
 							</table>
@@ -286,7 +304,8 @@
 						</div>
 					</div>
 
-
+					<!-- <hr style="margin-top: 0; margin-bottom: 10px; border:2px solid #fbab60" noshade="noshade"> -->
+					
 					<!-- 전체 합계 -->
 					<div class="row">
 						<div class="col-12">
