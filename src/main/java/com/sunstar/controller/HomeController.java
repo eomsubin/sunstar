@@ -183,8 +183,8 @@ public class HomeController {
 		  	  		dto.setAddress1(" ");
 		  			dto.setAddress2(" ");
 		  			dto.setAddress3(" ");
-		  			dto.setZip("0");
-		  			dto.setTel("0");
+		  			dto.setZip(" ");
+		  			dto.setTel(" ");
 	  	      		ArrayList<AuthDTO> auth = new ArrayList<AuthDTO>();
 	  	      		auth.add(new AuthDTO(dto.getId(),"ROLE_USER"));
 	  	      		dto.setAuthlist(auth);

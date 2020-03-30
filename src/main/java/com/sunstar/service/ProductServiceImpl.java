@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.sunstar.dao.ProductViewDAO;
 import com.sunstar.dto.CategoryDTO;
 import com.sunstar.dto.OptionDTO;
+import com.sunstar.dto.OrderDTO;
 import com.sunstar.dto.ProductDTO;
 import com.sunstar.dto.ReviewDTO;
 import com.sunstar.mapper.ProductMapper;
@@ -57,5 +58,15 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public List<ReviewDTO> reviewList(HashMap<String, String> map) {
 		return productmapper.reviewList(map);
+	}
+
+	@Override
+	public OrderDTO getOrderdetail(String order_no) {
+		return productmapper.getOrderdetail(order_no);
+	}
+
+	@Override
+	public int customerinsertreview(HashMap<String, String> map) {
+		return productmapper.customerinsertreview(map);
 	}
 }
