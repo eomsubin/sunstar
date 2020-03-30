@@ -6,6 +6,7 @@ import java.util.List;
 import com.sunstar.dao.ProductViewDAO;
 import com.sunstar.dto.CategoryDTO;
 import com.sunstar.dto.ProductDTO;
+import com.sunstar.dto.ReviewDTO;
 
 public interface ProductService {
 	public ProductDTO productview(int product_code);
@@ -18,6 +19,8 @@ public interface ProductService {
 	public String gettotalcount(HashMap<String, Object> map); //parkjinwoo
 	// 力前 魄概磊
 	public List<String> getproductsellername(HashMap<String, Object> map);
+	// 力前喊 府轰
+	public List<ReviewDTO> reviewList(HashMap<String, String> map);
 
 
 

@@ -110,8 +110,8 @@ public class SellerServiceImpl implements SellerService {
 	}
 
 	@Override
-	public OrderDTO theOrderlist(String order_code) {
-		return mapper.theOrderlist(order_code);
+	public OrderDTO theOrderlist(String order_no) {
+		return mapper.theOrderlist(order_no);
 	}
 
 	@Override
@@ -174,8 +174,8 @@ public class SellerServiceImpl implements SellerService {
 	}
 
 	@Override
-	public List<ProductDTO> product_list_user() {
-		return mapper.product_list_user();
+	public List<ProductDTO> product_list_user(String seller_code) {
+		return mapper.product_list_user(seller_code);
 	}
 
 	@Override
@@ -289,14 +289,21 @@ public class SellerServiceImpl implements SellerService {
 	public Integer month_chart_plus(ChartDTO dto) {
 		return mapper.month_chart_plus(dto);
 	}
+
+	@Override
+	public Integer day_chart(ChartDTO dto) {
+		// TODO Auto-generated method stub
+		return mapper.day_chart(dto);
+	}
+
+	@Override
+	public Integer day_chart_plus(ChartDTO dto) {
+		// TODO Auto-generated method stub
+		return  mapper.day_chart_plus(dto);
+	}
 	
 	
 
-	
-	
-	
-	
-	
 }                                                                                                                                                         
 		
 		

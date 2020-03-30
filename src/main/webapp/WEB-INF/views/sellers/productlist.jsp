@@ -422,6 +422,7 @@ body {
 
 </head>
 <body>
+
 	<div class="container-fluid">
 		<!-- Page Heading -->
 		<h1 class="h3 mb-2 text-gray-800">상품 목록</h1>
@@ -604,7 +605,7 @@ body {
 									<tr>
 										<td><input type="checkbox" id="pcode" name="pcode"
 											value="${i.product_code}"></td>
-										<td>${i.product_code }</td>
+										<td><a href="${pageContext.request.contextPath}/detailview2?product_code=${i.product_code}">${i.product_code}</td>
 										<td>${i.product_name}</td>
 										<td>${i.price}</td>
 										<td>${i.cost}</td>

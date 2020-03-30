@@ -118,66 +118,15 @@
 	 limit #{page.startRow}, #{page.sizePerPage};
 	</select>
 	
-	
-	<!-- <select id="productListCategorylv1" resultType="com.sunstar.dto.ProductDTO" parameterType="string">
-        select p.product_code, p.price, p.product_name, p.thumb_img, p.explains, p.category_code, p.add_date, c.lv3, c.lv2, c.lv1, c.lv2code, s.seller_name, s.basic_shipping_cost
-        from product_list p  
-        join category c
-		on p.category_code = c.category_code
-		left join options o
-        on p.product_code = o.product_code
-        join seller s
-        on s.seller_code = p.seller_code
-		where c.lv1 = #{lv1}
-		<if test="s != null">
-		and s.seller_name = #{s}
-		</if>
-		group by p.product_code
-		order by p.product_code desc;
+	<!-- 리뷰 -->
+	<select id="reviewList" resultType="com.sunstar.dto.ReviewDTO">
+	select r.*, 
+	ol.order_code, ol.product_code, ol.quantity, ol.option1, ol.option2,
+	rpad(substr(oed.id,1,4),8,'*') as id, oed.delivery_state
+	from review r join order_list ol 
+	on r.order_no = ol.order_no
+	left join ordered oed
+	on ol.order_code = oed.order_code
+	where product_code = #{product_code}
 	</select>
-	
-	<select id="productListCategorylv2" resultType="com.sunstar.dto.ProductDTO" parameterType="string">        
-        select p.product_code, p.price, p.product_name, p.thumb_img, p.explains, p.category_code, p.add_date, c.lv3, c.lv2, c.lv1, c.lv2code, s.seller_name, s.basic_shipping_cost
-        from product_list p  
-        join category c
-		on p.category_code = c.category_code
-		left join options o
-        on p.product_code = o.product_code
-        join seller s
-        on s.seller_code = p.seller_code
-        where c.lv2code = #{lv2}
-		group by p.product_code
-		order by p.product_code desc;
-	</select>
-	
-	<select id="productListCategorylv3" resultType="com.sunstar.dto.ProductDTO" parameterType="com.sunstar.dto.CategoryDTO">
-        select p.product_code, p.price, p.product_name, p.thumb_img, p.explains, p.category_code, p.add_date, c.lv3, c.lv2, c.lv1, c.lv2code, s.seller_name, s.basic_shipping_cost
-        from product_list p  
-        join category c
-		on p.category_code = c.category_code
-		left join options o
-        on p.product_code = o.product_code
-        join seller s
-        on s.seller_code = p.seller_code
-        where c.category_code = #{lv3} and c.lv2code = #{lv2}
-		group by p.product_code
-		order by p.product_code desc;
-	</select>
-
-	<select id="productlv3bylv2" resultType="com.sunstar.dto.CategoryDTO" parameterType="string">
-		select category_code, lv3, lv2, lv2code 
-		from category
-		where lv2code = #{lv2}
-	</select>
-	
-	<select id="productlv2bylv1" resultType="com.sunstar.dto.CategoryDTO" parameterType="string">
-		select distinct lv2, lv2code, lv1
-		from category
-		where lv1 = #{lv1}
-	</select>
-	
-	<select id="productlv1" resultType="com.sunstar.dto.CategoryDTO" parameterType="string">
-		select distinct lv1
-		from category
-	</select> -->
 </mapper>
