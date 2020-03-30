@@ -649,10 +649,10 @@ public class SellerController {
 
 			//선택한 값 출력
 		}else {
-			for(String order_code : data) {	     
-				System.out.print("order_code : ");
-				System.out.println(order_code);
-				orderlist.add(sellerservice.theOrderlist(order_code));
+			for(String order_no : data) {	     
+				System.out.print("order_no : ");
+				System.out.println(order_no);
+				orderlist.add(sellerservice.theOrderlist(order_no));
 			}
 		}
 
@@ -844,18 +844,18 @@ public class SellerController {
 	}
 
 	//주문목록 단계변경
-	@RequestMapping("/change_step/{stp}/{wantChangeOrderCode}")
-	public String changeState(@PathVariable String stp, @PathVariable String wantChangeOrderCode) {
+	@RequestMapping("/change_step/{stp}/{wantChangeOrderNo}")
+	public String changeState(@PathVariable String stp, @PathVariable String wantChangeOrderNo) {
 
 		System.out.println("stp" +stp);
 
 		String change_step = "";
-		String[] ordercodes = wantChangeOrderCode.split(",");
+		String[] ordernos = wantChangeOrderNo.split(",");
 
 
 		System.out.println("change_step" +  change_step);
-		System.out.println("ordercodes" + ordercodes);
-		System.out.println("wantChange..." + wantChangeOrderCode);
+		System.out.println("ordercodes" + ordernos);
+		System.out.println("wantChange..." + ordernos);
 
 		if("step3".equals(stp)) {				//배송준비
 			change_step = "배송준비";
@@ -881,12 +881,14 @@ public class SellerController {
 			change_step = "결체취소(판매자사유)";
 		}
 
-		for(String ordercode : ordercodes) {	     
+		for(String orderno : ordernos) {	     
 			OrderDTO dto = new OrderDTO();
-			dto.setOrder_code(ordercode);
+			
+			int order_no = Integer.parseInt(orderno);
+			dto.setOrder_no(order_no);
 			dto.setDelivery_state(change_step);
 
-			System.out.println(dto.getOrder_code());
+			System.out.println(dto.getOrder_no());
 			System.out.println(dto.getDelivery_state());
 			sellerservice.changeStep(dto);
 		}
@@ -904,7 +906,7 @@ public class SellerController {
 
 		for(int i = 0 ; i < code.length  ; i++) {
 			OrderDTO dto = new OrderDTO();
-			dto.setOrder_code(code[i]);
+			dto.setOrder_no(Integer.parseInt(code[i]));
 			dto.setTracking_no(tracking[i]);
 
 			sellerservice.updateTracking(dto);
@@ -1143,7 +1145,7 @@ public class SellerController {
 
 		List<ProductDTO> pdto = sellerservice.list();
 		SellerDTO sdto = sellerservice.sellerInfo(seller_code);
-		List<ProductDTO> productlist = sellerservice.product_list_user();
+		List<ProductDTO> productlist = sellerservice.product_list_user(seller_code);
 
 		System.out.println(sdto.getSeller_code());
 		System.out.println(sdto.getSeller_color());
@@ -1413,6 +1415,7 @@ public class SellerController {
 		dto.setTracking_no(list.get(0).getTracking_no());
 		dto.setShipping_company(list.get(0).getShipping_company());
 		dto.setShipping_cost(list.get(0).getShipping_cost());
+		dto.setShipping_company(list.get(0).getShipping_company());
 
 		int allprice = 0;
 		for(int i =0; i< list.size();i++) {
@@ -1469,7 +1472,13 @@ public class SellerController {
 		String id= getId(m, p);
 		System.out.println(id);
 		String seller_code = sellerservice.getSellerCode(id);
+
+		Date date = new Date();
 		
+		System.out.println("date" + date);
+		
+		
+		//월별 데이터//
 		String  month = "'2020-01', '2020-02', '2020-03', '2020-04', '2020-05', '2020-06', '2020-07', '2020-08', '2020-09', '2020-10', '2020-11', '2020-12'";
 
 		ChartDTO dto = new ChartDTO();
@@ -1506,9 +1515,49 @@ public class SellerController {
 		m.addAttribute("mdata",mdata);
 		m.addAttribute("mdataa",mdataa);
 		
+		//일별 데이터 //
+		String  days = "'1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20','21','22','23','24','25','26','27','28','29','30','31'";
+		ChartDTO daydto = new ChartDTO();
+		daydto.setSeller_code(seller_code);
+		daydto.setMonth(202003);
+		
+		
+		String daydata = "";
+		String daydataplus = "";
+		
+		for(int i = 0 ; i < 31 ; i++){
+			
+			daydto.setYyyymmdd(daydto.getMonth()+daydto.getDd()[i]);
+			System.out.println(dto.getYyyymmdd());
+			if(daydto.getDd()[i] == "01") {
+				daydata += sellerservice.day_chart(daydto);
+				daydataplus += (int)(sellerservice.day_chart(daydto)+sellerservice.day_chart_plus(daydto));
+				System.out.println(daydata);
+				System.out.println(daydataplus);
+			}else {
+				daydata += "," + sellerservice.day_chart(daydto);
+				daydataplus += ","+ (int)(sellerservice.day_chart(daydto)+sellerservice.day_chart_plus(daydto));
+				System.out.println(daydata);
+				System.out.println(daydataplus);
+			}
+		}
+		
+		System.out.println(daydata);
+
+		System.out.println(daydataplus);
+		m.addAttribute("days", days);
+		m.addAttribute("daydata", daydata);
+		m.addAttribute("daydataplus", daydataplus);
+		
+		
+		////
+		
 		m.addAttribute("sellerpage", "charts/month_chart.jsp");
 		return "sellers/temp";
 	}
+	
+
+	
 }
 
 

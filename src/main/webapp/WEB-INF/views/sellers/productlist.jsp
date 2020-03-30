@@ -605,7 +605,7 @@ body {
 									<tr>
 										<td><input type="checkbox" id="pcode" name="pcode"
 											value="${i.product_code}"></td>
-										<td>${i.product_code }</td>
+										<td><a href="${pageContext.request.contextPath}/detailview2?product_code=${i.product_code}">${i.product_code}</td>
 										<td>${i.product_name}</td>
 										<td>${i.price}</td>
 										<td>${i.cost}</td>

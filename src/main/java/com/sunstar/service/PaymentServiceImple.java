@@ -48,10 +48,12 @@ public class PaymentServiceImple implements PaymentService {
 				order.setOption2(odto.getOptions2().get(i));
 				order.setQuantity(odto.getQuantities().get(i));
 				order.setAdd_price(odto.getAdd_prices().get(i));
+				order.setDelivery_state(odto.getDelivery_state());
 				//System.out.println("2        "+order);
 				//list.add(order);
 				
 				pm.addOrderList(order);
+				pm.declineInventory(order);
 			}
 			
 			for(int i=0; i<odto.getSeller_codes().size();i++) {
@@ -64,7 +66,12 @@ public class PaymentServiceImple implements PaymentService {
 				pm.addPrice(price);
 			}
 				
-			
+			for(int i=0;i<odto.getCart_nos().size();i++) {
+				OrderDTO cart = new OrderDTO();
+				cart.setCart_no(odto.getCart_nos().get(i));
+				
+				pm.deleteCart(cart);
+			}
 		
 			return 0;
 		 

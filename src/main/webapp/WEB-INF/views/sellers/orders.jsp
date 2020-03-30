@@ -49,10 +49,10 @@ $('.trackingbtn').on('click', function() {
 	$('.trackingbtn').hide();
 	$('.newtrackingbtn').show();
 
-	$('input:checkbox[name="ordercode"]:checked').each( function(item) {
+	$('input:checkbox[name="order_no"]:checked').each( function(item) {
 		let checked_items = $(this).val();
 	
-		let trc = $(this).parent().parent().find('td').eq(13);
+		let trc = $(this).parent().parent().find('td').eq(14);
 	
 		console
 				.log($(
@@ -106,7 +106,7 @@ $('.trackingbtn').on('click', function() {
 	}
 
 	function checkprint() {
-		let ckbox = document.getElementsByName("ordercode");
+		let ckbox = document.getElementsByName("order_no");
 		let ckboxlengh = ckbox.length;
 		let checked = 0;
 
@@ -125,33 +125,31 @@ $('.trackingbtn').on('click', function() {
 		console.log(state);
 		console.log("+state++");
 
-		location.href = "${pageContext.request.contextPath}/seller/orderexcel/"
-				+ state;
+		location.href = "${pageContext.request.contextPath}/seller/orderexcel/" + state;
 	}
 
 	function changeStep(step) {
 		let stp = step;
-		let ckbox = document.getElementsByName("ordercode");
+		let ckbox = document.getElementsByName("order_no");
 		let ckboxlengh = ckbox.length;
 		let checked = 0;
 
-		let wantChangeOrderCode = new Array();
+		let wantChangeOrderNo = new Array();
 
 		for (i = 0; i < ckboxlengh; i++) {
 			if (ckbox[i].checked == true) {
 				let ocode = ckbox[i].value;
 
-				wantChangeOrderCode.push(ocode);
+				wantChangeOrderNo.push(ocode);
 				console.log(ckbox[i].value);
 				checked += 1;
 			}
 		}
 		console.log("--변경할주문번호--");
-		console.log(wantChangeOrderCode);
+		console.log(wantChangeOrderNo);
 		console.log("++step++");
 		console.log(stp);
-		location.href = "${pageContext.request.contextPath}/seller/change_step/" + stp
-				+ "/" + wantChangeOrderCode;
+		location.href = "${pageContext.request.contextPath}/seller/change_step/" + stp + "/" + wantChangeOrderNo;
 	}
 
 	function viewStep(step){
@@ -162,7 +160,7 @@ $('.trackingbtn').on('click', function() {
 	
 	function arrr() {
 
-		let ckbox = document.getElementsByName("ordercode");
+		let ckbox = document.getElementsByName("order_no");
 		let tracking = document.getElementsByName("tracking_no");
 		let ckboxlengh = ckbox.length;
 		let checked = 0;
@@ -175,29 +173,25 @@ $('.trackingbtn').on('click', function() {
 
 		let i = 0;
 		let j = 1;
-		let ocode = '';
+		let ono = '';
 		let tnum = '';
 		let count = 0;
 
+		
 		while (i < ckboxlengh) {
-
 			if (ckbox[i].checked == true) {
-				ocode = ckbox[i].value;
-				codes.push(ocode);
+				ono = ckbox[i].value;
+				codes.push(ono);
 				count++; //체크박스가 true 인 갯수
-
 				tnum = tracking[count - 1].value;
 				trackings.push(tnum);
 			}
 			i++;
 		}
-
-		console.log("codes", codes);
+		console.log("ono", ono);
 		console.log("trackings", trackings);
 
-		location.href = "${pageContext.request.contextPath}/seller/updateTracking/"
-				+ codes + "/" + trackings;
-
+		location.href = "${pageContext.request.contextPath}/seller/updateTracking/" + codes + "/" + trackings;
 	}
 </script>
 
@@ -384,6 +378,7 @@ body {
 
 
 									<th>주문번호</th>
+									<th>일련번호</th>
 									<th>상품 코드</th>
 									<th
 										style="border-left: 2px solid silver; border-right: 2px solid silver;">옵션</th>
@@ -405,34 +400,33 @@ body {
 
 							<tbody>
 								<c:forEach var="i" items="${orderlist}">
-									<tr>
-										<td><label for="ordercode"></label> <input
-											type="checkbox" id="ordercode" name="ordercode"
-											value="${i.order_code}"></td>
+			<tr>
+				<td><label for="order_no"></label> <input
+					type="checkbox" id="order_no" name="order_no"
+					value="${i.order_no}"></td>
+					
+				<td id="ocode" class="ocode"><a href="${pageContext.request.contextPath}/seller/searchOrderView?search_order=${i.order_code}"> ${i.order_code}</a></td>
+				<td id="ono" class="ono">${i.order_no}<input type="hidden" name="ono" id="ono"  ></td>
+				<td title="${i.product_name}"><a href="${pageContext.request.contextPath}/detailview2?product_code=${i.product_code}">${i.product_code}</td>
+				<td
+					style="border-left: 2px solid silver; border-right: 2px solid silver;">${i.option1 }/
+					${i.option2 } / ${i.add_price }</td>
+				<td>${i.quantity}</td>
+				<td>${i.price }</td>
+				<td>${i.message }</td>
+				<td>${i.order_way}</td>
+				<td>${i.to_name}</td>
+				<td>${i.tel}</td>
+				<td>${i.shipping_addr1}${i.shipping_addr2}
+					${i.shipping_addr3}</td>
+				<td>${i.shipping_zip }</td>
+				<td
+					style="border-left: 2px solid silver; border-right: 2px solid silver;">${i.delivery_state }</td>
 
+				<%-- 	<td id="tracking${i.order_code}">${i.tracking_no}</td> --%>
 
-
-										<td id="ocode" class="ocode">${i.order_code}</td>
-										<td title="${i.product_name}">${i.product_code}</td>
-										<td
-											style="border-left: 2px solid silver; border-right: 2px solid silver;">${i.option1 }/
-											${i.option2 } / ${i.add_price }</td>
-										<td>${i.quantity}</td>
-										<td>${i.price }</td>
-										<td>${i.message }</td>
-										<td>${i.order_way}</td>
-										<td>${i.to_name}</td>
-										<td>${i.tel}</td>
-										<td>${i.shipping_addr1}${i.shipping_addr2}
-											${i.shipping_addr3}</td>
-										<td>${i.shipping_zip }</td>
-										<td
-											style="border-left: 2px solid silver; border-right: 2px solid silver;">${i.delivery_state }</td>
-
-										<%-- 	<td id="tracking${i.order_code}">${i.tracking_no}</td> --%>
-
-										<td id="ttt">${i.tracking_no}</td>
-									</tr>
+				<td id="ttt">${i.tracking_no}</td>
+			</tr>
 								</c:forEach>
 
 

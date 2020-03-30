@@ -46,6 +46,12 @@ public interface PaymentMapper {
 
 
 	void addPrice(OrderDTO odto);
+
+
+	void declineInventory(OrderListDTO order);
+
+
+	void deleteCart(OrderDTO cart);
 	
 	
 }

@@ -53,8 +53,8 @@
 	
 	<insert id="addOrderList" parameterType="com.sunstar.dto.OrderListDTO">
 		
-			insert into order_list(order_code,product_code,quantity,option1,option2,add_price)
-			values(#{order_code},#{product_code},#{quantity},#{option1},#{option2},#{add_price})
+			insert into order_list(order_code,product_code,quantity,option1,option2,add_price,delivery_state)
+			values(#{order_code},#{product_code},#{quantity},#{option1},#{option2},#{add_price},#{delivery_state})
 	</insert>
 	
 	<insert id="addPrice" parameterType="com.sunstar.dto.OrderDTO">
@@ -70,11 +70,13 @@
 	</insert> -->
 	
 	<select id="buylist" resultType="com.sunstar.dto.OrderDTO" parameterType="string">
-		select o.order_code,p.product_code,product_name,thumb_img,price,quantity,delivery_state,tracking_no,p.shipping_cost,l.add_price
+		select o.order_code,p.product_code,product_name,thumb_img,p.price,quantity,delivery_state,tracking_no,p.shipping_cost,l.add_price, review_no
 		from order_list l left join ordered o
 		on l.order_code = o.order_code
 		left join product_list p
 		on l.product_code = p.product_code
+		left join review rv
+        on rv.order_no = l.order_no
 		where id=#{id}
 		order by l.order_no desc
 	</select>
@@ -138,5 +140,21 @@
         
        order by s.seller_name;
 </select>
+
+<update id="declineInventory" parameterType="com.sunstar.dto.OrderListDTO">
+	update options
+	set inventory= inventory-#{quantity}, accumulation= accumulation+#{quantity}
+	where product_code = #{product_code}
+	and option1=#{option1}
+	and option2=#{option2}
+</update>
+
+<delete id="deleteCart" parameterType="com.sunstar.dto.OrderDTO">
+	delete 
+	from cart
+	where cart_no = #{cart_no}
+
+</delete>
+
 
 </mapper>

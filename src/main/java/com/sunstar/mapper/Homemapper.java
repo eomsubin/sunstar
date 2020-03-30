@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.sunstar.dto.CategoryDTO;
+import com.sunstar.dto.ProductDTO;
 
 @Mapper
 public interface Homemapper {
@@ -13,6 +14,8 @@ public interface Homemapper {
 	List<CategoryDTO> getCategory(); 
 	
 	List<CategoryDTO> getCategory2();
+
+	List<ProductDTO> getProductList();
 	
 	
 }

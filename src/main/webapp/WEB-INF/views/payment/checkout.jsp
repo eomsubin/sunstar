@@ -294,10 +294,6 @@ function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2, zipNo
 									
 										<li class="last" style="color:#f7941d; font-weight: 700;">총 금액<span>${(odto.price+odto.add_price)*odto.cart_quantity} 원</span></li>
 										
-								
-											
-										
-										 
 										</ul>
 										
 										<c:set var="sum" value="${sum+(odto.price+odto.add_price)*odto.cart_quantity}" />
@@ -461,7 +457,7 @@ function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2, zipNo
 				var seller_code = new Array();
 				var total_price = new Array();
 				var shipping_cost_per_seller = new Array();
-				
+				var cart_no = new Array();
 				
 				 <c:forEach var="item2" items="${pdto}">
 				 seller_code.push(${item2.seller_code});		
@@ -477,7 +473,7 @@ function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2, zipNo
 					options1.push("${item.option1}");
 					options2.push("${item.option2}");
 					add_prices.push(${item.add_price});
-					
+					cart_no.push(${item.cart_no});
 					
 				</c:forEach>
 				
@@ -522,7 +518,8 @@ function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2, zipNo
 									"seller_codes": seller_code,
 									
 									
-									"shipping_cost_per_sellers": shipping_cost_per_seller
+									"shipping_cost_per_sellers": shipping_cost_per_seller,
+									"cart_nos": cart_no
 									};
 						console.log(allData);
 						
@@ -582,8 +579,8 @@ function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2, zipNo
 						msg += '상점 거래ID : ' + rsp.merchant_uid;
 						msg += '결제 금액 : ' + rsp.paid_amount;
 						msg += '카드 승인번호 : ' + rsp.apply_num; 
-						location.href="${pageContext.request.contextPath}/mypage/order";
 						
+						location.href="${pageContext.request.contextPath}/";
 					} else {
 
 						// 결제 실패 시 로직,
@@ -595,6 +592,7 @@ function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2, zipNo
 				
 			}
 			return true;
+			
 		}
 		
 	</script>
