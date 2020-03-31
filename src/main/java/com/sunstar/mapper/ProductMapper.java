@@ -33,5 +33,7 @@ public interface ProductMapper {
 
 	int customerinsertreview(HashMap<String, String> map);
 
+	HashMap<String, String> customerdetailreview(String order_no);
+
 	
 }

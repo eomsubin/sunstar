@@ -69,4 +69,9 @@ public class ProductServiceImpl implements ProductService {
 	public int customerinsertreview(HashMap<String, String> map) {
 		return productmapper.customerinsertreview(map);
 	}
+
+	@Override
+	public HashMap<String, String> customerdetailreview(String order_no) {
+		return productmapper.customerdetailreview(order_no);
+	}
 }

@@ -27,6 +27,8 @@ public interface ProductService {
 
 	public int customerinsertreview(HashMap<String, String> map);
 
+	public HashMap<String, String> customerdetailreview(String order_no);
+
 
 
 	
