@@ -33,6 +33,7 @@ import com.sunstar.dto.CustomerDTO;
 import com.sunstar.dto.CustomerUserDetail;
 import com.sunstar.dto.MakePage;
 import com.sunstar.dto.ProductDTO;
+import com.sunstar.dto.ReviewDTO;
 import com.sunstar.service.AuthService;
 import com.sunstar.service.MainService;
 import com.sunstar.service.ProductService;
@@ -178,6 +179,13 @@ public class ProductController {
 			model.addAttribute("view", view); // detail, option detail --> 장바구니 또는 결제 가야하는게 목표  
 			model.addAttribute("contentpage", "shop/detailview2.jsp");
 			// System.out.println(view);
+			
+			//review
+			HashMap<String, String> map = new HashMap<>();
+			map.put("product_code", product_code);
+			List<ReviewDTO> review = productservice.reviewList(map);
+			
+			model.addAttribute("review", review);
 		}
 		mainservice.header(model);
 		return "home";

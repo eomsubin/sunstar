@@ -50,7 +50,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="${pageContext.request.contextPath}">
+                <a class="nav-link" href="${pageContext.request.contextPath}/../..">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>스삐제로 돌아가기</span></a>
             </li>
@@ -115,7 +115,7 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">통계</h6>
                         <a class="collapse-item" href="${pageContext.request.contextPath}/seller/charts/month">그래프</a>
-                        <a class="collapse-item" href="register.html">리스트</a>
+                        <a class="collapse-item" href="${pageContext.request.contextPath}/seller/charts/days">리스트</a>
 <!--                         <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
  -->                        <div class="collapse-divider"></div>
                         <h6 class="collapse-header">정산</h6>

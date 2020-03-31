@@ -77,10 +77,14 @@ public class HomeController {
 	}
 	
 	@RequestMapping("/")
-	public String body(Locale locale, Model model, HttpSession session)
+	public String body(Model model, HttpSession session)
 	{		         
 		
 		mainservice.header(model);
+		
+		List<ProductDTO> plist = mainservice.getProductList();
+		
+		model.addAttribute("plist",plist);
 		model.addAttribute("contentpage", "body.jsp");
 		
 		return "home";
@@ -176,7 +180,11 @@ public class HomeController {
 	  	      		dto.setName(userinfo.getResponse().get("name"));
 	  	      		dto.setEmail(userinfo.getResponse().get("email"));
 	  	      		dto.setEnable(true);
-	  	      		
+		  	  		dto.setAddress1(" ");
+		  			dto.setAddress2(" ");
+		  			dto.setAddress3(" ");
+		  			dto.setZip(" ");
+		  			dto.setTel(" ");
 	  	      		ArrayList<AuthDTO> auth = new ArrayList<AuthDTO>();
 	  	      		auth.add(new AuthDTO(dto.getId(),"ROLE_USER"));
 	  	      		dto.setAuthlist(auth);

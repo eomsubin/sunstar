@@ -93,6 +93,37 @@ function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2, zipNo
 </Script>
 <script>
 
+$(document).ready(function(){
+	
+	$('.updateinfo').click(function(){
+		event.preventDefault();
+		if(telcheck() && bank_no_check()){
+			$('form').submit();
+		}
+	})	
+	
+	var vnum = /^[0-9]+$/
+	function telcheck(){
+		if($('#seller_tel').val().length != 11 || !vnum.test($('#seller_tel').val())){
+			alert(' - 없이  숫자만 입력해주세요.');
+			return false;
+		}else{
+			return true;
+		}	
+	}
+	
+	function bank_no_check(){
+		
+		if($(!vnum.test($('#bank_no').val())){
+			alert(' - 없이  숫자만 입력해주세요.');
+			return false;
+		}else{
+			return true;
+		}	
+		
+	}
+})
+
 
 
 
@@ -118,7 +149,7 @@ function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2, zipNo
 			<div class="card-body " style="padding-left: 30px;">
 
 				<!-- 내용 -->
-				<form action="${pageContext.request.contextPath}/seller/changeInfo" method="post">
+				<form action="${pageContext.request.contextPath}/seller/changeInfo" method="post" name="form">
 					<input type="hidden" name="${_csrf.parameterName}"
 						value="${_csrf.token}" />
 					<div class="form-row col-md-12">
@@ -142,6 +173,8 @@ function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2, zipNo
 								class="form-control" id="seller_tel" name="seller_tel"
 								value="${dto.seller_tel}" required>
 						</div>
+						
+						
 						<div class="col-md-4 mb-3">
 							<label for="validationDefault02">이메일</label> <input type="email"
 								class="form-control" id="seller_email" name="seller_email"
@@ -280,7 +313,7 @@ function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2, zipNo
 						<div></div>
 						<label></label>
 						<br>
-						<input type="submit" class="btn btn-primary" style="margin-top: 10px; margin-left: 5px;" value="정보 업데이트">
+						<input type="button" class="btn btn-primary updateinfo" style="margin-top: 10px; margin-left: 5px;" value="정보 업데이트">
 						<div class="col" style="text-align:right;top:20px; ">
 							<a href="${pageContext.request.contextPath}/mypage/info"> 업체 관련 정보 변경이 아닌 [회원 정보]를 변경 하시려면 여기를 클릭하세요 </a>
 

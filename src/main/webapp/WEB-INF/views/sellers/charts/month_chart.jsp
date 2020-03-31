@@ -19,11 +19,23 @@
 			상품을 일괄 변경 및 삭제 할 수 있습니다. <a target="_blank"
 				href="https://datatables.net">자세한 안내는 이 곳을 클릭</a>.
 		</p>
+		<div class="card shadow mb-4">
+			<div class="card-header py-3">
+				<h6 class="m-0 font-weight-bold text-primary">일별 수익(3월)</h6>
+			</div>
+			<div class="card-body">
+				<div class="table-responsive">
 
+					<canvas id="myChart2" width="400" height="100"></canvas>
+
+
+				</div>
+			</div>
+		</div>
 		<!-- DataTales Example -->
 		<div class="card shadow mb-4">
 			<div class="card-header py-3">
-				<h6 class="m-0 font-weight-bold text-primary">월별 수익(배송비 제외)</h6>
+				<h6 class="m-0 font-weight-bold text-primary">월별 수익</h6>
 			</div>
 			<div class="card-body">
 				<div class="table-responsive">
@@ -35,19 +47,7 @@
 			</div>
 		</div>
 
-		<div class="card shadow mb-4">
-			<div class="card-header py-3">
-				<h6 class="m-0 font-weight-bold text-primary">월별 수익(배송비 포함)</h6>
-			</div>
-			<div class="card-body">
-				<div class="table-responsive">
 
-					<canvas id="myChart2" width="400" height="100"></canvas>
-
-
-				</div>
-			</div>
-		</div>
 	</div>
 
 
@@ -61,25 +61,25 @@
 	    	
 	    	labels: [${month}],
 	        datasets: [{
-	            label: '월별 총 판매금액',
+	            label: '월별 판매금액',
 	            data:[${mdata}],
 	           // data: [12, 19, 3, 5, 2, 3],
 	            backgroundColor: [
-	                'rgba(255, 99, 132, 0)'
+	                'rgba(255, 214, 226, 2)'
 	             ], 
 	            borderColor: [
-	                'rgba(255, 99, 132, 1)'
+	                'rgba(245, 122, 158, 7)'
 	            ],
 	            borderWidth: 2,
 	        },{
-	            label: '월별 배송비 포함 판매금액',
+	            label: '월별 판매금액(배송비 포함)',
 	            data:[${mdataa}],
 	           // data: [12, 19, 3, 5, 2, 3],
 	            backgroundColor: [
-	                'rgba(255, 222, 222, 5)'
+	                'rgba(250, 218, 177, 2)'
 	             ], 
 	            borderColor: [
-	                'rgba(111, 111, 111, 7)'
+	                'rgba(255, 186, 97, 6)'
 	            ],
 	            borderWidth: 2,
 	        	
@@ -107,30 +107,34 @@ var myChart = new Chart(ctx, {
 	type: 'line',
     data: {
     	
-    	labels: [${month}],
+    	labels: [${days}],
         datasets: [{
-            label: '# of Votes',
+            label: '일별 판매금액',
             
-            data:[${mdataa}],
-           // data: [12, 19, 3, 5, 2, 3],
+            data:[${daydata}],
             backgroundColor: [
-                'rgba(255, 99, 132, 0)',
-                'rgba(54, 162, 235, 0)',
-                'rgba(255, 206, 86, 0)' ,
-                'rgba(75, 192, 192, 0)',
-                'rgba(153, 102, 255, 0)',
-                'rgba(255, 159, 64, 0)' 
+                'rgba(196, 237, 255, 3)'
             ], 
             borderColor: [
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)' ,
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)' 
+                'rgba(186, 196, 245, 7)'
             ],
             borderWidth: 2,
-        }]
+        },{
+            label: '일별 판매금액(배송비 포함)',
+            data:[${daydataplus}],
+           // data: [12, 19, 3, 5, 2, 3],
+            backgroundColor: [
+                'rgba(174, 201, 245, 2)'
+             ], 
+            borderColor: [
+                'rgba(23, 95, 212, 6)'
+            ],
+            borderWidth: 2,
+        	
+        }
+        
+        
+        ]
     },
     options: {
         scales: {

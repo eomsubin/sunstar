@@ -12,6 +12,7 @@ import com.sunstar.dao.ProductViewDAO;
 import com.sunstar.dto.CategoryDTO;
 import com.sunstar.dto.OptionDTO;
 import com.sunstar.dto.ProductDTO;
+import com.sunstar.dto.ReviewDTO;
 import com.sunstar.mapper.ProductMapper;
 
 @Service("productservice")
@@ -51,5 +52,10 @@ public class ProductServiceImpl implements ProductService {
 	@Override // 제품 판매자 parkjinwoo
 	public List<String> getproductsellername(HashMap<String, Object> map) {
 		return productmapper.getproductsellername(map);
+	}
+
+	@Override
+	public List<ReviewDTO> reviewList(HashMap<String, String> map) {
+		return productmapper.reviewList(map);
 	}
 }

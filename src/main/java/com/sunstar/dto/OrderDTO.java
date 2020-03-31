@@ -35,9 +35,11 @@ public class OrderDTO {
 	
 	private String message;
 	
+	
+	private List<String> delivery_states;
 	private String shipping_name;
-	
-	
+	private String cart_no;
+	private String seller_name;
 	private List<Integer> product_codes;
 	private List<Integer> quantities;
 	private List<String> options1;
@@ -51,5 +53,9 @@ public class OrderDTO {
 	private List<String> seller_codes;
 	private List<Integer> total_prices;
 	private List<Integer> shipping_cost_per_sellers;
+	private List<String> cart_nos;
+	
+	// review
+	private String review_no;
 	
 }

@@ -27,5 +27,9 @@ public interface MyPageMapper {
 	void deleteShip(ShipDTO sdto);
 
 	List<OrderDTO> orderDetail(String order_code);
+
+	List<OrderDTO> getPrice(String order_code);
+
+	int getTotalCount(String id);
 }
 

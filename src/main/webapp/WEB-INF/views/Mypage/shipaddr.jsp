@@ -172,7 +172,7 @@ function deleteShip(){
 		alert("배송지를 선택해주세요");	
 	}else{
 	
-
+		alert("배송지가 삭제되었습니다.")
 		location.href="${pageContext.request.contextPath}/deleteship/"+shipping_name;
 	}
 	
