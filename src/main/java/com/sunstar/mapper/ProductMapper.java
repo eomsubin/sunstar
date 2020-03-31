@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Mapper;
 import com.sunstar.controller.ProductController;
 import com.sunstar.dto.CategoryDTO;
 import com.sunstar.dto.OptionDTO;
+import com.sunstar.dto.OrderDTO;
 import com.sunstar.dto.ProductDTO;
 import com.sunstar.dto.ReviewDTO;
 
@@ -27,6 +28,10 @@ public interface ProductMapper {
 	List<String> getproductsellername(HashMap<String, Object> map); // 상품 판매자 parkjinwoo
 
 	List<ReviewDTO> reviewList(HashMap<String, String> map); // 상품별 리뷰 parkjinwoo
+
+	OrderDTO getOrderdetail(String order_no);
+
+	int customerinsertreview(HashMap<String, String> map);
 
 	
 }

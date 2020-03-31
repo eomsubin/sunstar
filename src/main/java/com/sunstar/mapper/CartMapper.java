@@ -1,5 +1,6 @@
 package com.sunstar.mapper;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -13,5 +14,7 @@ public interface CartMapper {
 
 	public List<CartDTO> cartList(String id) throws Exception;
 
-	public String deleteItem(String cart_no);
+	public int deleteItem(String cart_no) throws Exception;
+
+	public int changeQuantity(HashMap<String, String> data);
 }

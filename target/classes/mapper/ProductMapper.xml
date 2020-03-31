@@ -129,4 +129,20 @@
 	on ol.order_code = oed.order_code
 	where product_code = #{product_code}
 	</select>
+	
+	<!-- 리뷰 폼 -->
+	<select id="getOrderdetail" resultType="com.sunstar.dto.OrderDTO" parameterType="string">
+	select ol.*, p.*, s.seller_name
+    from order_list ol 
+    join product_list p 
+    on ol.product_code = p.product_code 
+    join seller s
+    on p.seller_code = s.seller_code
+    where order_no = #{order_no}
+	</select>
+	
+	<!-- 리뷰 넣기 -->
+	<insert id="customerinsertreview">
+	insert into review(order_no, review_star, review_writedate, review_content) values(#{order_no},#{review_star},now(),#{review_content});
+	</insert>
 </mapper>

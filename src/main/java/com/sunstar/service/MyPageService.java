@@ -24,5 +24,7 @@ public interface MyPageService {
 	List<OrderDTO> orderDetail(String order_code);
 
 	List<OrderDTO> getPrice(String order_code);
+
+	int getTotalCount(String id);
 }	
 

@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.sunstar.dto.CartDTO;
+import com.sunstar.dto.MakePage;
 import com.sunstar.dto.OrderDTO;
 import com.sunstar.dto.OrderListDTO;
 import com.sunstar.dto.SellerDTO;
@@ -28,7 +29,7 @@ public interface PaymentMapper {
 	int addShip(OrderDTO odto);
 
 
-	List<OrderDTO> buylist(String id);
+	List<OrderDTO> buylist(MakePage page);
 
 
 	CartDTO getUserInfo(String id);

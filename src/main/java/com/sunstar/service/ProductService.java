@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.sunstar.dao.ProductViewDAO;
 import com.sunstar.dto.CategoryDTO;
+import com.sunstar.dto.OrderDTO;
 import com.sunstar.dto.ProductDTO;
 import com.sunstar.dto.ReviewDTO;
 
@@ -21,6 +22,10 @@ public interface ProductService {
 	public List<String> getproductsellername(HashMap<String, Object> map);
 	// Á¦Ç°º° ¸®ºä
 	public List<ReviewDTO> reviewList(HashMap<String, String> map);
+
+	public OrderDTO getOrderdetail(String order_no);
+
+	public int customerinsertreview(HashMap<String, String> map);
 
 
 

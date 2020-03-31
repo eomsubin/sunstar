@@ -60,7 +60,20 @@ $(document).ready(function(){
 function orderDetail(order_code){
 	location.href="${pageContext.request.contextPath}/mypage/orderdetail/"+order_code;
 }
-
+function goinsertreview(order_no){
+	console.log(order_no)
+	// 호출된 페이지(jusopopup.jsp)에서 실제 주소검색URL(http://www.juso.go.kr/addrlink/addrLinkUrl.do)를 호출하게 됩니다.
+    var pop = window.open("${pageContext.request.contextPath}/insertreviewform?order_no="+order_no, "pop","width=560,height=530, scrollbars=yes, resizable=yes"); 
+    
+	// 모바일 웹인 경우, 호출된 페이지(jusopopup.jsp)에서 실제 주소검색URL(http://www.juso.go.kr/addrlink/addrMobileLinkUrl.do)를 호출하게 됩니다.
+    //var pop = window.open("/popup/jusoPopup.jsp","pop","scrollbars=yes, resizable=yes"); 
+};
+function jusoCallBack(review_content, order_no, review_star){
+	console.log(review_content);
+	console.log(order_no);
+	console.log(review_star);
+	location.href="${pageContext.request.contextPath}/insertreview?review_content="+review_content+"&order_no="+order_no+"&review_star="+review_star;
+}
 </script>
 </head>
 <body>
@@ -99,16 +112,15 @@ function orderDetail(order_code){
 							<th scope="col" style="text-align: center;">상품금액(수량)</th>
 							<th scope="col">배송비</th>
 							<th scope="col">주문상태</th>
-							<th scope="col">댓글작성</th>
+							<th scope="col">상품평</th>
 						</tr>
 					</thead>
 					<tbody>
-						
 						<c:forEach var="pay" items="${buylist }" >
 						<tr class="ordertable">
 							<td class="ocode" style="width:180px; vertical-align: middle; text-align: center;">${pay.order_code }
 								
-								<button type="button" style="padding: 3px 10px;"  onclick="orderDetail(${pay.order_code })">상세정보</button>
+								<button type="button" style="padding: 3px 10px;"  onclick="orderDetail(${pay.order_code})">상세정보</button>
 								
 							</td>
 							
@@ -117,14 +129,45 @@ function orderDetail(order_code){
 							<td style="vertical-align: middle; text-align: center;">${(pay.price+pay.add_price)*pay.quantity}원  (${pay.quantity })</td>
 							<td style="vertical-align: middle;">${pay.shipping_cost}원</td>
 							<td style="vertical-align: middle;">${pay.delivery_state}</td>
-							<td style="vertical-align: middle;"><c:if test="${empty pay.review_no}">댓글 작성하기</c:if><c:if test="${not empty pay.review_no}">댓글 보기</c:if></td>
+							<td style="vertical-align: middle;"><c:if test="${empty pay.review_no}"><button onclick="goinsertreview(${pay.order_no});">상품평 작성</button></c:if><c:if test="${not empty pay.review_no}">상품평 보기</c:if></td>
 						</tr>
 						</c:forEach>
 						
 					</tbody>
 				</table>
+				
 			</div>
+			
+				<nav aria-label="Page navigation example" style="position: relative; left:650px; top:50px;">
+  <ul class="pagination">
+  	<c:if test="${page.prev}">
+    <li class="page-item"><a class="page-link" href="order?currPage=${page.startBlock-1}&psize=${page.sizePerPage}">이전</a></li>
+    </c:if>
+    
+    	<c:forEach var="i" begin="${page.startBlock}"
+						end="${page.endBlock}">
+    		
+    		<c:if test="${i == page.currPage}">
+									
+    		<li class="page-item"><a class="page-link" href="#">${i}</a></li>
+    		</c:if>
+    		<c:if test="${i != page.currPage }">
+    		<li class="page-item"><a class="page-link" href="order?currPage=${i}&psize=${page.sizePerPage}">${i}</a></li>
+    			</c:if>
+    
+    	</c:forEach>
+   	 <c:if test="${page.next}">
+   		 <li class="page-item"><a class="page-link" href="order?currPage=${page.endBlock+1}&psize=${page.sizePerPage}">다음</a></li>
+   	  </c:if>
+  </ul>
+  
+</nav>
+
 		</div>
+		
+
+
+
 	</section>
 
 
