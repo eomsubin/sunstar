@@ -22,7 +22,6 @@ public class OrderDTO {
 	private String tracking_no;
 	private String shipping_company;
 	private String non_tel;
-	private int shipping_cost;
 	private int order_no;
 	private int product_code;
 	private int quantity;
@@ -55,7 +54,8 @@ public class OrderDTO {
 	private List<Integer> total_prices;
 	private List<Integer> shipping_cost_per_sellers;
 	private List<String> cart_nos;
-	
+	private int basic_shipping_cost;
+	private int free_shipping_cost;
 	// review
 	private String review_no;
 	

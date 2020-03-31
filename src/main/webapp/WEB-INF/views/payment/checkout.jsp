@@ -278,7 +278,7 @@ function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2, zipNo
 								
 								<c:forEach var="pdto" items="${pdto }" begin="0" end="${getCount-1}">									
 								 	 <ul><li>업체명<span>${pdto.seller_name }</span></li>
-								 	 		<li>배송비<span>${pdto.shipping_cost}</span></li>
+								 	 		<li>배송비<span>${pdto.basic_shipping_cost}</span></li>
 								 	 		</ul>
 								 	<c:forEach var="odto" items="${odto }"  >
 										<c:if test="${pdto.seller_code == odto.seller_code}">
@@ -304,7 +304,7 @@ function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2, zipNo
 										
 										</c:if>
 									</c:forEach>
-									<c:set var="sum2" value="${sum2+(pdto.shipping_cost)}"/>
+									<c:set var="sum2" value="${sum2+(pdto.basic_shipping_cost)}"/>
 								</c:forEach>			
 									<ul>
 										
@@ -477,11 +477,11 @@ function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2, zipNo
 				
 				 <c:forEach var="item2" items="${pdto}">
 				    seller_code.push(${item2.seller_code});		
-					shipping_cost_per_seller.push(${item2.shipping_cost}); 
+					shipping_cost_per_seller.push(${item2.basic_shipping_cost}); 
 					
 				
 					/* console.log(${item2.seller_code});
-					console.log(${item2.shipping_cost}); */
+				   */
 				</c:forEach>
 					
 					console.log("total"+total_price);

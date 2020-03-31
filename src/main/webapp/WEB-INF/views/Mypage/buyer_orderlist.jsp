@@ -127,7 +127,7 @@ function jusoCallBack(review_content, order_no, review_star){
 							<td ><img src="${pageContext.request.contextPath }/${pay.thumb_img }"></td>
 							<td style="vertical-align: middle; text-align: center;"><a href="${pageContext.request.contextPath}/detailview2?product_code=${pay.product_code}">${pay.product_name }</a></td>
 							<td style="vertical-align: middle; text-align: center;">${(pay.price+pay.add_price)*pay.quantity}원  (${pay.quantity })</td>
-							<td style="vertical-align: middle;">${pay.shipping_cost}원</td>
+							<td style="vertical-align: middle;">${pay.basic_shipping_cost}원</td>
 							<td style="vertical-align: middle;">${pay.delivery_state}</td>
 							<td style="vertical-align: middle;"><c:if test="${empty pay.review_no}"><button onclick="goinsertreview(${pay.order_no});">상품평 작성</button></c:if><c:if test="${not empty pay.review_no}">상품평 보기</c:if></td>
 						</tr>
