@@ -16,7 +16,6 @@ public class ProductDTO {
 	private String product_name;
 	private int price;
 	private int cost;
-	private int shipping_cost;
 	private int free_shipping_cost;
 	
 	private MultipartFile athumb_img;

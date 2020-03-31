@@ -27,7 +27,7 @@ public class CartDTO {
 	private int cost;
 	private int basic_shipping_cost;
 	private int free_shipping_cost;
-	private int shipping_cost;
+	
 	private String thumb_img;
 	private String category_code;
 	private String seller_code;
