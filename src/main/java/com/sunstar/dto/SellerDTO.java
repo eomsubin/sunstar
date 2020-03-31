@@ -42,6 +42,7 @@ public class SellerDTO {
 	private String seller_bgcolor;
 	
 	private String optcol;
+	private String cart_no;
 	
 }
 
