@@ -89,7 +89,10 @@
 			var minusNum=num-1;
 			var cart_no=$(this).data('cart_no');
 			var item_amount=$(this).parent().parent().parent().next().data('item_amount'); //상품+옵션가
-			console.log(item_amount);
+			var item_free=$(this).data('item_free'); // 무료배송 조건 30000
+			var item_basic=$(this).data('item_basic');// 배송비 2000원
+			var item_shipping=$(this).parent().parent().parent().next().next().text(); //배송비 출력
+			var amount_price= item_amount*minusNum; //상품가 변경
 			
 			var data={
 					"cart_no" : cart_no
@@ -100,8 +103,18 @@
 			if( minusNum < 1){
 				$(this).parent().next().val(num);
 			}else{
-				$(this).parent().next().val(minusNum);
-				$(this).parent().parent().parent().next().text(item_amount*minusNum+"원");
+				$(this).parent().next().val(minusNum);//수량 변경
+				$(this).parent().parent().parent().next().text(amount_price+"원"); //주문금액 변경
+				$(this).parent().parent().parent().parent().find('.itemchBox').data("item_amount", amount_price); //전체 합계 상품금액 변경
+				
+				
+				//무료배송 조건 변경
+				if( item_amount*minusNum < item_free){
+					$(this).parent().parent().parent().next().next().text(item_basic+"원");
+				}else{
+					$(this).parent().parent().parent().next().next().text("무료배송");
+				}
+				
 				$.ajax({
 					url : "cartList/changeQuantity"
 						, data : data
@@ -113,6 +126,7 @@
 							console.log(e);
 						}
 				});
+				totalprice();
 			}
 		});
 		 
@@ -124,12 +138,11 @@
 			var plusNum =num+1; 
 			var cart_no=$(this).data('cart_no'); //카트 번호
 			var item_amount=$(this).parent().parent().parent().next().data('item_amount'); //상품+옵션가
-			var item_free=$(this).data('item_free'); // 무료배송 조건
-			
+			var item_free=$(this).data('item_free'); // 무료배송 조건 30000
+			var item_basic=$(this).data('item_basic');// 2000
 			var item_shipping=$(this).parent().parent().parent().next().next().text(); //배송비
+			var amount_price=item_amount*plusNum; //가격 변경
 			
-			console.log(item_shipping);
-		
 			var data={
 					"cart_no" : cart_no
 					,"cart_quantity" : plusNum
@@ -138,14 +151,14 @@
 			
 			if( plusNum <=  $(this).parent().prev().data('max')){
 				$(this).parent().prev().val(plusNum); // 수량 변경
-				$(this).parent().parent().parent().next().text(item_amount*plusNum+"원"); //합계 변경
-				
-				if(item_amount >= item_shipping){
+				$(this).parent().parent().parent().next().text(amount_price+"원"); //합계 변경
+				$(this).parent().parent().parent().parent().find('.itemchBox').data("item_amount", amount_price); //전체 합계 상품금액 변경
+				//무료배송 조건 변경
+				if( item_amount*plusNum >= item_free){
 					$(this).parent().parent().parent().next().next().text("무료배송");
 				}else{
-					
+					$(this).parent().parent().parent().next().next().text(item_basic+"원");
 				}
-				
 				
 				$.ajax({ // db 값 변경
 					url : "cartList/changeQuantity"
@@ -157,7 +170,8 @@
 						, error : function(e){
 							console.log(e);
 						}
-				});	
+				});
+				totalprice();
 			}else{ 
 				$(this).parent().prev().val(num);
 			}
@@ -170,6 +184,7 @@
 			var isseller=0;
 			
 			$(this).parent().parent().remove();
+			totalnum();
 			
 			$.each($('.xdel_btn'),function(){
 				if(sellercode == $(this).data('seller_code'))
@@ -186,7 +201,9 @@
 							{
 							$(this).parent().parent().parent().remove();
 							}
-					})							
+						totalnum();
+					})
+					
 					}
 			
 			let id=$(".id").val();
@@ -216,25 +233,30 @@
 		});
 		
 		
-		// 전체 합계
+		// 전체 갯수
 		function totalnum(){
 			var chnum=$("input:checkbox[name=cart_no]:checked").length; //선택된 체크박스 수
-			var chsum=0;
 			 console.log(chnum);
-			 
 			 $('#total_num').text(chnum); 
 		
 			 if(chnum==0){
 				 $('#total_price').text(0);
 			 }
 			 else{
+				 totalprice()
+			}
+		}
+		//전체 합계
+		function totalprice(){
+			var chsum=0;
+			console.log("call totalprice");
 			 $.each($("input:checkbox[name=cart_no]:checked"), function( key, value ) {
 				 var chprice=$(this).data("item_amount"); //선택된 상품 가격
 				 chsum += chprice; 
 				 $('#total_price').text(chsum);
 				});
 		}
-		}
+		
 	
 		// 총 구매 개수 변동시 사용
 		 $(document).on('click','input:checkbox',function(){
@@ -359,8 +381,8 @@
 													<!-- Input Order -->
 													<div class="input-group">
 														<div class="button minus">
-															<button type="button" class="btn btn-primary btn-number" data-cart_no="${cartList.cart_no}" data-item_free="${cartList.free_shipping_cost}"
-																id="minus_btn">
+															<button type="button" class="btn btn-primary btn-number" id="minus_btn"
+															data-cart_no="${cartList.cart_no}" data-item_free="${cartList.free_shipping_cost}" data-item_basic="${cartList.basic_shipping_cost}">
 																<i class="ti-minus"></i>
 															</button>
 														</div>
@@ -369,8 +391,7 @@
 															value="${cartList.cart_quantity}">
 														<div class="button plus">
 															<button type="button" class="btn btn-primary btn-number" id="plus_btn" 
-															data-cart_no="${cartList.cart_no}" data-item_free="${cartList.free_shipping_cost}"
-																>
+															data-cart_no="${cartList.cart_no}" data-item_free="${cartList.free_shipping_cost}" data-item_basic="${cartList.basic_shipping_cost}">
 																<i class="ti-plus"></i>
 															</button>
 														</div>
@@ -386,8 +407,7 @@
 													무료배송										
 													</c:if>
 													<c:if test="${(cartList.price + cartList.add_price) * cartList.cart_quantity < cartList.free_shipping_cost}">
-													<fmt:formatNumber pattern="###,###,###"
-															value="${cartList.basic_shipping_cost}" />원
+													${cartList.basic_shipping_cost}원
 													</c:if>
 												</td>
 												<!-- 삭제 아이콘 -->
