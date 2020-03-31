@@ -19,6 +19,7 @@ import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sound.midi.Soundbank;
+import javax.xml.ws.RequestWrapper;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.hssf.util.HSSFColor.HSSFColorPredefined;
@@ -1435,6 +1436,7 @@ public class SellerController {
 		dto.setShipping_company(list.get(0).getShipping_company());
 		dto.setShipping_cost(list.get(0).getShipping_cost());
 		dto.setShipping_company(list.get(0).getShipping_company());
+		dto.setMessage(list.get(0).getMessage());
 
 		int allprice = 0;
 		for(int i =0; i< list.size();i++) {
@@ -1447,46 +1449,19 @@ public class SellerController {
 		model.addAttribute("list", list);
 		model.addAttribute("sellerpage", "search_order.jsp");
 		return "sellers/temp";
+	}
+	
+	
+	@RequestMapping("/tq")
+	public String search_order_update( OrderDTO dto) {
 		
+		System.out.println(dto);
 		
-		//id 가져오는 방법
-	/*	String id= getId(model, principal);
-		System.out.println(id);
-		String seller_code = sellerservice.getSellerCode(id);
+			
+		sellerservice.search_order_update(dto);
 		
-		List<OrderDTO> odto = sellerservice.orderlist(seller_code);
+		return "redirect:/seller/product_review";	
 		
-		
-		for(int i = 0 ; i<odto.size();i++) {
-			if(odto.contains(search_order)) {
-				List<OrderDTO> list = sellerservice.searchOrderView(search_order);
-				OrderDTO dto  = new OrderDTO();
-				dto.setOrder_code(list.get(0).getOrder_code());
-				dto.setOrder_way(list.get(0).getOrder_way());
-				dto.setTo_name(list.get(0).getTo_name());
-				dto.setShipping_addr1(list.get(0).getShipping_addr1());
-				dto.setShipping_addr2(list.get(0).getShipping_addr2());
-				dto.setShipping_addr3(list.get(0).getShipping_addr3());
-				dto.setShipping_zip(list.get(0).getShipping_zip());
-				dto.setDelivery_state(list.get(0).getDelivery_state());
-				dto.setTracking_no(list.get(0).getTracking_no());
-				dto.setShipping_company(list.get(0).getShipping_company());
-				dto.setShipping_cost(list.get(0).getShipping_cost());
-				dto.setShipping_company(list.get(0).getShipping_company());
-		
-				int allprice = 0;
-				for(int j =0; j< list.size();j++) {
-					allprice+= list.get(i).getPrice();
-				}
-				dto.setPrice(allprice+list.get(0).getShipping_cost());
-				model.addAttribute("dto", dto);
-				model.addAttribute("list", list);
-				model.addAttribute("sellerpage", "search_order.jsp");
-				return "sellers/temp";
-			}
-		}		
-		return "redirect:/seller/search_order";*/
-
 	}
 	
 	@RequestMapping("/product_review")
@@ -1523,7 +1498,7 @@ public class SellerController {
 		sellerservice.review_del(review_no);
 
 
-		return "redirect:/seller/product_review";		
+		return "redirect:/seller/search_order";		
 	}
 
 	//판매자별 월별 총 수익

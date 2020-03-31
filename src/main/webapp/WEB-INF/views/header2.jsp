@@ -117,13 +117,13 @@
       </div>
       <!-- End Topbar -->
       <div class="middle-inner">
-         <div class="container">
+         <div class="container" style="height: 80px;">
             <div class="row">
                <div class="col-lg-2 col-md-2 col-12">
                   <!-- Logo -->
-                  <div class="logo">
-                     <a href="${pageContext.request.contextPath }/"><img
-                        src="${pageContext.request.contextPath}/resources/img/logo.png"
+                  <div class="logo" style="position: relative; bottom: 44px;">
+                     <a href="${pageContext.request.contextPath }/"><img 
+                        src="${pageContext.request.contextPath}/resources/img/logo.jpg"
                         alt="logo"></a>
                   </div>
                   <!--/ End Logo -->
