@@ -141,7 +141,7 @@ mainservice.header(model);
 				cart_no1= Integer.parseInt(i);
 				
 				System.out.println(cart_no1);
-				userinfo.setCart_no(cart_no1);
+				userinfo.setCart_no(""+cart_no1);
 				System.out.println("cart_no:"+ userinfo);
 				
 				// 체크한 카트값만큼  상품갯수 출력하는 것 

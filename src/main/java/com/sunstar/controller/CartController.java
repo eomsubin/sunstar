@@ -4,12 +4,14 @@ import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
 
+import org.apache.poi.util.SystemOutLogger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sunstar.dto.CartDTO;
@@ -77,13 +79,31 @@ public class CartController {
 		return "home";
 	}
 	
+	//카트 x버튼 삭제
+	@ResponseBody
 	@RequestMapping(value = "/cartList/deleteItem")
-	public String deleteAll(Model model, String cart_no ) throws Exception{
+	public int deleteAll( @RequestParam HashMap<String, String> data) throws Exception{
+		System.out.println(data.get("id"));
+		System.out.println(data.get("cart_no"));
+		System.out.println(data.get("seller_code"));
 		
-		mainservice.header(model);
-		cartservice.deleteItem(cart_no);
-		return null;
+		cartservice.deleteItem(data.get("cart_no"));
 		
+		return 0;
+		
+	}
+	
+	//카트 수량 변경
+	@ResponseBody
+	@RequestMapping(value= "/cartList/changeQuantity")
+	public int changeNum(Model model, @RequestParam HashMap<String, String> data) throws Exception{
+		int result=0;
+		System.out.println(data.get("id"));
+		System.out.println(data.get("cart_no"));
+		System.out.println(data.get("cart_Quantity"));
+		System.out.println(data);
+		result=cartservice.changeQuantity(data);
+		return result;
 	}
 
 	
