@@ -22,7 +22,7 @@
     c.option2,
     c.add_price,
      o.accumulation, 
-      o.inventory,p.product_name,p.thumb_img,p.price, p.shipping_cost, s.seller_code,s.seller_name,s.basic_shipping_cost,s.free_shipping_cost
+      o.inventory,p.product_name,p.thumb_img,p.price, s.seller_code,s.seller_name,s.basic_shipping_cost,s.free_shipping_cost
 	from cart c 
 	join customer t
      on c.id = t.id
@@ -35,7 +35,8 @@
        where c.id=#{id}
         and cart_no=#{cart_no}
         and c.option1=o.option1
-        order by s.seller_code desc;
+        and c.option2=o.option2
+        order by s.seller_code desc
         
 
     
@@ -69,16 +70,17 @@
 			values(#{id},#{shipping_addr1},#{shipping_addr2},#{shipping_addr3},#{shipping_zip},#{order_code},#{to_name},#{shipping_name})
 	</insert> -->
 	
-
 	<select id="buylist" resultType="com.sunstar.dto.OrderDTO" parameterType="com.sunstar.dto.MakePage">
-		select o.order_code,p.product_code,product_name,thumb_img,p.price,quantity,delivery_state,tracking_no,p.shipping_cost,l.add_price, l.order_no, rv.review_no
+		select o.order_code,p.product_code,product_name,thumb_img,p.price,quantity,l.delivery_state,l.tracking_no,l.add_price, review_no,s.basic_shipping_cost
 		from order_list l left join ordered o
 		on l.order_code = o.order_code
 		left join product_list p
 		on l.product_code = p.product_code
 		left join review rv
         on rv.order_no = l.order_no
-		where id=#{id}
+        left join seller s
+        on p.seller_code= s.seller_code
+		where o.id=#{id}
 		order by l.order_no desc
 		limit #{startRow},#{sizePerPage}
 	</select>
@@ -99,7 +101,30 @@
 	 -->
 	 
 	 <select id="getProducts" parameterType="com.sunstar.dto.SellerDTO" resultType="com.sunstar.dto.CartDTO">
-    	select distinct p.shipping_cost,s.seller_name,s.seller_code,s.basic_shipping_cost,s.free_shipping_cost,(sum(p.price)+sum(c.add_price))*c.cart_quantity as total_price
+    	select  s.seller_name,s.seller_code,s.basic_shipping_cost,s.free_shipping_cost
+    	from cart c
+    join customer t
+     on c.id = t.id
+      join options o
+     on o.product_code = c.product_code
+     join product_list p
+    on p.product_code= o.product_code
+    join seller s
+	on s.seller_code = p.seller_code
+	 
+     where c.id= #{id}
+     and c.cart_no = #{cart_no}
+     and s.seller_code= #{seller_code}
+        and c.option1=o.option1
+        and c.option2=o.option2
+       
+       order by s.seller_name
+        
+	 
+	 </select>
+	 
+	  <select id="getPrices" parameterType="com.sunstar.dto.SellerDTO" resultType="com.sunstar.dto.CartDTO">
+	 	  select sum(p.price+c.add_price)*c.cart_quantity as total_price,s.seller_name
     	from cart c
     join customer t
      on c.id = t.id
@@ -114,9 +139,8 @@
      and s.seller_code= #{seller_code}
      
         and c.option1=o.option1
-        
+        and c.option2=o.option2
        order by s.seller_name
-        
 	 
 	 </select>
 
@@ -137,7 +161,7 @@
      
      
 	and c.option1=o.option1
-   
+    and c.option2=o.option2
 	
         
        order by s.seller_name;

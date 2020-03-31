@@ -53,6 +53,9 @@ public interface PaymentMapper {
 
 
 	void deleteCart(OrderDTO cart);
+
+
+	CartDTO getPrices(SellerDTO seller_customer);
 	
 	
 }

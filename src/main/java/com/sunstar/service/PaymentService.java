@@ -32,6 +32,9 @@ public interface PaymentService {
 
 	int getProductCount(CartDTO userinfo);
 
+
+	CartDTO getPrices(SellerDTO seller_customer);
+
 	
 	
 }

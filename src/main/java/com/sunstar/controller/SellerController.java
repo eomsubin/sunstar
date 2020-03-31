@@ -1,24 +1,15 @@
 package com.sunstar.controller;
 
 
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.security.Principal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import javax.annotation.Resource;
-import javax.imageio.ImageIO;
-import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.sound.midi.Soundbank;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.hssf.util.HSSFColor.HSSFColorPredefined;
@@ -30,37 +21,23 @@ import org.apache.poi.ss.usermodel.HorizontalAlignment;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.ss.util.ImageUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.javamail.JavaMailSenderImpl;
-import org.springframework.mail.javamail.MimeMessageHelper;
-import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.fasterxml.jackson.annotation.JsonUnwrapped;
-import com.google.api.client.util.Data;
-import com.mysql.cj.xdevapi.JsonArray;
-import com.sunstar.dto.CartDTO;
 import com.sunstar.dto.CategoryDTO;
 import com.sunstar.dto.ChartDTO;
-import com.sunstar.dto.OptionDTO;
 import com.sunstar.dto.OrderDTO;
 import com.sunstar.dto.ProductDTO;
 import com.sunstar.dto.QnaDTO;
 import com.sunstar.dto.ReviewDTO;
 import com.sunstar.dto.ReviewImgDTO;
 import com.sunstar.dto.SellerDTO;
-import com.sunstar.dto.DataDTO;
 import com.sunstar.dto.MakePage;
 import com.sunstar.service.FileUploadService;
 import com.sunstar.service.SellerService;
@@ -254,11 +231,14 @@ public class SellerController {
 
 	//상품목록 출력
 	@RequestMapping(value="/productExcel/")
-	public void productExcel(HttpServletResponse response) throws Exception{
+	public void productExcel(Model model, Principal principal, HttpServletResponse response) throws Exception{
 		List<ProductDTO> productList = new ArrayList<>();
+		//id 가져오는 방법
+		String id= getId(model, principal);
+		System.out.println(id);
 
+		String seller_code = sellerservice.getSellerCode(id);
 
-		String seller_code = "11111";
 		//	productList = sellerservice.list(seller_code);   //변경해야돼!!!!!!@@@@
 		productList = sellerservice.list();
 
@@ -352,7 +332,7 @@ public class SellerController {
 			cell.setCellValue(dto.getCost());
 			cell = row.createCell(4);
 			cell.setCellStyle(bodyStyle);
-			cell.setCellValue(dto.getShipping_cost());
+			cell.setCellValue(dto.getBasic_shipping_cost());
 
 			cell = row.createCell(5);
 			cell.setCellStyle(bodyStyle);
@@ -927,45 +907,7 @@ public class SellerController {
 
 
 	}*/
-
-
-	//통계 연결
-	@RequestMapping("/charts1")
-	public String daylist(Model model) {
-
-		//일별
-		String order_code = "20200317";
-		int orderSum = 0;
-
-		List<OrderDTO> daylist = sellerservice.getDayProfit(order_code);
-
-		for(OrderDTO dto : daylist) {
-			System.out.println();
-			System.out.println(dto);
-			System.out.println();
-			orderSum += (dto.getPrice() + dto.getAdd_price() + dto.getShipping_cost() * dto.getQuantity());
-		}
-
-		//하루 수익 (가격 + 추가금액 + 
-		System.out.println(orderSum);
-
-		//		상품1개	price + add_price + shippingcost ) * cart_quantity
-		//		sum += price + add_price + shippingcost ) * cart_quantity
-		// 		sum  == 총결제금액
-
-		//		price 
-		//월별
-
-
-
-
-		//상품별
-
-		model.addAttribute("sellerpage", "charts.jsp");
-		return "sellers/temp";
-	}
-
-	// 월별
+/*	// 월별
 	@RequestMapping("/charts")
 	public String monthlist(Model model) {
 
@@ -989,7 +931,7 @@ public class SellerController {
 		return "sellers/temp";
 	}
 
-
+*/
 	//정산 신청
 	@RequestMapping("/requestaccounting")
 	public String requestaccounting(Model model) {
@@ -1433,60 +1375,33 @@ public class SellerController {
 		dto.setDelivery_state(list.get(0).getDelivery_state());
 		dto.setTracking_no(list.get(0).getTracking_no());
 		dto.setShipping_company(list.get(0).getShipping_company());
-		dto.setShipping_cost(list.get(0).getShipping_cost());
 		dto.setShipping_company(list.get(0).getShipping_company());
+		dto.setMessage(list.get(0).getMessage());
 
 		int allprice = 0;
 		for(int i =0; i< list.size();i++) {
 			allprice+= list.get(i).getPrice();
 		}
-		dto.setPrice(allprice+list.get(0).getShipping_cost());
+		dto.setPrice(allprice);
 
 
 		model.addAttribute("dto", dto);
 		model.addAttribute("list", list);
 		model.addAttribute("sellerpage", "search_order.jsp");
 		return "sellers/temp";
+	}
+	
+	
+	@RequestMapping("/tq")
+	public String search_order_update( OrderDTO dto) {
 		
+		System.out.println(dto);
 		
-		//id 가져오는 방법
-	/*	String id= getId(model, principal);
-		System.out.println(id);
-		String seller_code = sellerservice.getSellerCode(id);
+			
+		sellerservice.search_order_update(dto);
 		
-		List<OrderDTO> odto = sellerservice.orderlist(seller_code);
+		return "redirect:/seller/product_review";	
 		
-		
-		for(int i = 0 ; i<odto.size();i++) {
-			if(odto.contains(search_order)) {
-				List<OrderDTO> list = sellerservice.searchOrderView(search_order);
-				OrderDTO dto  = new OrderDTO();
-				dto.setOrder_code(list.get(0).getOrder_code());
-				dto.setOrder_way(list.get(0).getOrder_way());
-				dto.setTo_name(list.get(0).getTo_name());
-				dto.setShipping_addr1(list.get(0).getShipping_addr1());
-				dto.setShipping_addr2(list.get(0).getShipping_addr2());
-				dto.setShipping_addr3(list.get(0).getShipping_addr3());
-				dto.setShipping_zip(list.get(0).getShipping_zip());
-				dto.setDelivery_state(list.get(0).getDelivery_state());
-				dto.setTracking_no(list.get(0).getTracking_no());
-				dto.setShipping_company(list.get(0).getShipping_company());
-				dto.setShipping_cost(list.get(0).getShipping_cost());
-				dto.setShipping_company(list.get(0).getShipping_company());
-		
-				int allprice = 0;
-				for(int j =0; j< list.size();j++) {
-					allprice+= list.get(i).getPrice();
-				}
-				dto.setPrice(allprice+list.get(0).getShipping_cost());
-				model.addAttribute("dto", dto);
-				model.addAttribute("list", list);
-				model.addAttribute("sellerpage", "search_order.jsp");
-				return "sellers/temp";
-			}
-		}		
-		return "redirect:/seller/search_order";*/
-
 	}
 	
 	@RequestMapping("/product_review")
@@ -1524,6 +1439,20 @@ public class SellerController {
 
 
 		return "redirect:/seller/product_review";		
+	}
+	
+	
+	@RequestMapping("/reviews_del/{review_nos}")
+	public String reviews_del(@PathVariable String review_nos) {
+		
+		String[] review_no_cut = review_nos.split(",");
+		
+		for(int i = 0; i < review_no_cut.length; i++) {
+			int review_no = Integer.parseInt(review_no_cut[i]);
+			sellerservice.review_del(review_no);
+			System.out.println("삭제한  reveiw_no : " + review_no);
+		}
+		return "redirect:/seller/product_review";
 	}
 
 	//판매자별 월별 총 수익
@@ -1665,6 +1594,8 @@ public class SellerController {
 		sellerservice.delete_auth(id);
 		return "redirect:http://${pageContext.request.contextPath}/";
 	}
+	
+	
 	
 }
 

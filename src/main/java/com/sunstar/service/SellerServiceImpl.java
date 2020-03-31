@@ -48,15 +48,22 @@ public class SellerServiceImpl implements SellerService {
 			//옵션 수만큼 반복
 			for(int i =0; i<dto.getOptions().size(); i++) {
 				
-				
 				//상품코드 불러와서
 			//	ProductDTO dto2 = mapper.aProduct();
 				//그 상품코드에 맞는 옵션 추가
 				System.out.println("****");
 				OptionDTO dto2 = new OptionDTO();
 				dto2.setProduct_code(mapper.aProduct());
-				if(dto.getOptions().get(i).getOption1().equals("") && dto.getOptions().get(i).getOption2().equals("")) {
+				
+				if(dto.getOptions().get(i).getOption1().equals("")  && dto.getOptions().get(i).getOption2().equals("")  ) {
 					dto2.setOption1("기본");
+					dto2.setOption2("기본");
+
+					
+				}else if(dto.getOptions().get(i).getOption1().equals("") ||  !dto.getOptions().get(i).getOption2().equals("")) {
+					dto2.setOption1("기본");
+					
+				}else if(dto.getOptions().get(i).getOption2().equals("") || !dto.getOptions().get(i).getOption1().equals("")) {
 					dto2.setOption2("기본");
 				}else {
 					dto2.setOption1(dto.getOptions().get(i).getOption1());
