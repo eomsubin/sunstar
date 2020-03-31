@@ -76,29 +76,79 @@
 				return false;
 			}
 		});
-		
+			
 		
 		/*제품 수량 조절(-)*/
 		$(document).on("click","#minus_btn",function(){
+			let id=$(".id").val();
 			var num = $(this).parent().next().val();
 			var minusNum=num-1;
+			var cart_no=$(this).data('cart_no');
+			var itemamount=$(this).parent().parent().parent().next().data('itemamount'); //상품+옵션가
+			console.log(itemamount);
+			
+			var data={
+					"cart_no" : cart_no
+					,"cart_quantity" : minusNum
+					, "id" : id
+			}
+			
 			if( minusNum < 1){
 				$(this).parent().next().val(num);
 			}else{
 				$(this).parent().next().val(minusNum);
+				$(this).parent().parent().parent().next().text(itemamount*minusNum+"원");
+				$.ajax({
+					url : "cartList/changeQuantity"
+						, data : data
+						, async: false
+						, success : function(data){
+							console.log(data);
+							
+						}
+						, error : function(e){
+							console.log(e);
+						}
+				});
+				
 			}
 		});
 		 
+		
+		/*제품 수량 조절(+)*/
 		$(document).on('click',"#plus_btn",function(){
-			var num =  Number($(this).parent().prev().val());
-			var plusNum =num+1;
-			if( plusNum <=  $(this).parent().prev().data('max')){
-				$(this).parent().prev().val(plusNum);
-			}else{
-				$(this).parent().prev().val(num);
+			let id=$(".id").val();
+			var num =  Number($(this).parent().prev().val()); //현재 수량값
+			var plusNum =num+1; 
+			var cart_no=$(this).data('cart_no'); //카트 번호
+			var itemamount=$(this).parent().parent().parent().next().data('itemamount'); //상품+옵션가
+			
+			
+			var data={
+					"cart_no" : cart_no
+					,"cart_quantity" : plusNum
+					, "id" : id
 			}
 			
 			
+			if( plusNum <=  $(this).parent().prev().data('max')){
+				$(this).parent().prev().val(plusNum); // 화면에 보이는 수량 값 변경
+				$(this).parent().parent().parent().next().text(itemamount*plusNum+"원");
+				
+				$.ajax({ // db 값 변경
+					url : "cartList/changeQuantity"
+						, data : data
+						, async: false
+						, success : function(data){
+							console.log(data);
+						}
+						, error : function(e){
+							console.log(e);
+						}
+				});	
+			}else{ 
+				$(this).parent().prev().val(num);
+			}
 		});
 		
 		
@@ -129,10 +179,14 @@
 					})							
 					}
 			
-/* 			let id=$(".id").val();
-			var cart_no=$("input[name=cart_no]:checked").val();
-			var seller_code=$("input[name=cart_no]:checked").data("seller_code");
-				
+			let id=$(".id").val();
+			var cart_no=$(this).data("cart_no");
+			var seller_code=$(this).data("seller_code");
+			
+			console.log(id+"!");
+			console.log(cart_no+"!");
+			console.log(seller_code+"!");
+			
 				
 		 	var data={
 					"id" : id
@@ -140,19 +194,21 @@
 					,"seller_code" : seller_code
 				}  
 		 	
-	 			$.each(data,function(index,value){
+	 			
 					$.ajax({
 						url : "cartList/deleteItem"
 						, data : data
+						, async: false
 						, success : function(data){
 							alert("상품을 삭제했습니다.");
 						}
 						, error : function(e){
 							console.log(e)
 						}
-					})
-				});  */
+					});
+				
 			
+		 		
 				/* 삭제시 테이블 스타일 유지 */
 				$('.table tr:last-child').addClass("lasttr");
 				$('.table tr:first-child').addClass("firsttr");
@@ -256,7 +312,7 @@
 													<!-- Input Order -->
 													<div class="input-group">
 														<div class="button minus">
-															<button type="button" class="btn btn-primary btn-number"
+															<button type="button" class="btn btn-primary btn-number" data-cart_no="${cartList.cart_no}"
 																id="minus_btn">
 																<i class="ti-minus"></i>
 															</button>
@@ -265,7 +321,7 @@
 															data-max="${cartList.inventory}"
 															value="${cartList.cart_quantity}">
 														<div class="button plus">
-															<button type="button" class="btn btn-primary btn-number"
+															<button type="button" class="btn btn-primary btn-number" data-cart_no="${cartList.cart_no}"
 																id="plus_btn">
 																<i class="ti-plus"></i>
 															</button>
@@ -273,9 +329,9 @@
 													</div> <!--/ End Input Order -->
 												</td>
 												<!-- 총합계(배송비 제외) -->
-												<td class="total-amount" data-title="Total"><fmt:formatNumber
-														pattern="###,###,###"
-														value="${(cartList.price + cartList.add_price) * cartList.cart_quantity}" />원</td>
+												<td class="total-amount" data-title="Total" data-itemamount="${(cartList.price + cartList.add_price)}">
+												<span class="amount">
+												${(cartList.price + cartList.add_price) * cartList.cart_quantity}</span>원</td>
 												<!-- 배송비 -->
 												<td>
 													<c:if test="${cartList.basic_shipping_cost eq 0}">

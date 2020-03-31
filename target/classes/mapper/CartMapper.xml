@@ -5,33 +5,45 @@
 <mapper namespace="com.sunstar.mapper.CartMapper">
 
 	<insert id="addCart" parameterType="com.sunstar.dto.CartDTO">
-		<selectKey resultType="int" keyProperty="cart_no"
+		<selectKey resultType="String" keyProperty="cart_no"
 			order="BEFORE">
 			select Max(cart_no)+1 from cart
 		</selectKey>
 		insert into cart(cart_no, id, product_code, cart_quantity, option1,
 		option2, add_price) values(#{cart_no}, #{id}, #{product_code},
-		#{cart_quantity}, #{option1}, #{option2}, #{add_price});
+		#{cart_quantity}, #{option1},
+		<if test="option2 == null">
+			'기본'
+		</if>
+		<if test="option2 != null">
+			#{option2}
+		</if>
+		, #{add_price});
 	</insert>
 
 	<select id="cartList" resultType="com.sunstar.dto.CartDTO">
-		select DISTINCT c.cart_no, c.id,
-		c.product_code, c.cart_quantity, c.option1, c.option2, c.add_price
-		, p.product_name, p.price, p.cost, p.shipping_cost, p.thumb_img,
-		p.category_code, p.seller_code
-		, s.basic_shipping_cost, s.free_shipping_cost, s.seller_name, s.seller_code
+		select DISTINCT c.*
+		, p.product_name, p.price, p.cost, p.shipping_cost, p.thumb_img
+		, p.category_code, p.seller_code
+		, s.basic_shipping_cost, s.free_shipping_cost, s.seller_name
 		, o.inventory
-		from cart c left join product_list p
+		from cart c
+		join product_list p
 		on c.product_code = p.product_code
 		join seller s
 		on s.seller_code = p.seller_code
 		join options o
 		on p.product_code = o.product_code
-		where c.id=#{id}
+		where c.id=#{id} and c.option1 = o.option1
+		and c.option2 = o.option2
 		order by p.seller_code;
 	</select>
 
-	<delete id="deleteItem" parameterType="int">
-	delete  from cart where cart_no=#{cart_no};
+	<delete id="deleteItem" parameterType="String">
+		delete from cart where cart_no=#{cart_no};
 	</delete>
+	
+	<update id="changeQuantity" parameterType="string" >
+	update cart set cart_quantity = #{cart_quantity} where cart_no=#{cart_no};
+	</update>
 </mapper>
