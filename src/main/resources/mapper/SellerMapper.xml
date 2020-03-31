@@ -18,8 +18,8 @@
 	
 	<!-- 상품 추가  -->
 	<insert id="addProduct" parameterType="com.sunstar.dto.ProductDTO">
-		insert into product_list(product_name, price, cost, shipping_cost, thumb_img, detail_img1, detail_img2, detail_img3, explains, public_state, review_state, category_code, seller_code, add_date)
-		values(#{product_name},#{price},#{cost},#{shipping_cost},#{thumb_img}, #{detail_img1},  #{detail_img2},  #{detail_img3}, #{explains},#{public_state},#{review_state}, #{category_code}, #{seller_code}, now() )
+		insert into product_list(product_name, price, cost, thumb_img, detail_img1, detail_img2, detail_img3, explains, public_state, review_state, category_code, seller_code, add_date)
+		values(#{product_name},#{price},#{cost},#{thumb_img}, #{detail_img1},  #{detail_img2},  #{detail_img3}, #{explains},#{public_state},#{review_state}, #{category_code}, #{seller_code}, now() )
 	</insert>
 	
 	<!--  -->
@@ -39,7 +39,9 @@
 	
 	<!-- 상픔 리스트 (판매자) -->
 	<select id="list" parameterType="string" resultType="com.sunstar.dto.ProductDTO">
-		select p.product_code, product_name, price, cost, shipping_cost, o.option1, o.option2, o.inventory, o.add_price, thumb_img, detail_img1, detail_img2, detail_img3,explains, public_state, review_state, c.lv1, c.lv2, c.lv3, p.product_code, s.basic_shipping_cost
+		select p.product_code, product_name, price, cost, o.option1, o.option2, o.inventory, o.add_price, 
+		thumb_img, detail_img1, detail_img2, detail_img3,explains, public_state, review_state, 
+		c.lv1, c.lv2, c.lv3, p.product_code, s.basic_shipping_cost
 		from product_list p  join category c
 		on p.category_code = c.category_code
 		left join options o
@@ -217,7 +219,7 @@
 		
 		
 		
-		select p.product_code, product_name, price, cost, shipping_cost, o.option1, o.option2, o.inventory, o.add_price, o.accumulation, thumb_img, detail_img1, detail_img2, detail_img3, explains,
+		select p.product_code, product_name, price, cost, o.option1, o.option2, o.inventory, o.add_price, o.accumulation, thumb_img, detail_img1, detail_img2, detail_img3, explains,
 		 public_state, review_state, c.lv1, c.lv2, c.lv3, p.product_code, s.basic_shipping_cost
 		from product_list p  join category c
 		on p.category_code = c.category_code
@@ -283,7 +285,7 @@
 		
 		<select id="viewProduct"  parameterType="int"  resultType="com.sunstar.dto.ProductDTO">
 		
-		select p.product_code, product_name, price, cost, shipping_cost, o.option1, o.option2, o.inventory, o.add_price, 
+		select p.product_code, product_name, price, cost, o.option1, o.option2, o.inventory, o.add_price, 
 			   thumb_img, detail_img1, detail_img2, detail_img3, explains,
 		public_state, review_state, c.lv1, c.lv2, c.lv3, p.product_code, s.basic_shipping_cost
 		from product_list p  join category c
@@ -304,7 +306,6 @@
 	      <if test="product_name   != null   and 	product_name  != ''  	">	product_name=#{product_name},</if>
 	      <if test="price 	!= null   and 	price 	!= '' 	">	price=#{price},</if>
 	      <if test="cost != null   and 	cost != '' 	">	cost=#{cost},</if>
-	      <if test="shipping_cost != null   and 	shipping_cost != '' 	">	shipping_cost=#{shipping_cost},</if>
 	      <if test="true	">	public_state=#{public_state},</if>
 	      <if test="true">	review_state=#{review_state}</if>
 	    </set>	
@@ -412,9 +413,9 @@
 		
 		
 		<select id="searchOrderView" parameterType="string" resultType="com.sunstar.dto.OrderDTO" >
-	       select o.order_code, p.product_code, l.option1, l.option2, l.add_price, quantity, price, p.shipping_cost, o.message, 
+	       select o.order_code, p.product_code, l.option1, l.option2, l.add_price, quantity, price,  o.message, 
 	      o.order_way,l.delivery_state, l.tracking_no, l.shipping_company, o.to_name, o.shipping_addr1,o.shipping_addr2,o.shipping_addr3,o.shipping_zip,
-	      product_name,p.shipping_cost,l.option1,l.option2,
+	      product_name,l.option1,l.option2,
           s.shipping_company
 	      from ordered o left join order_list l
 	      on o.order_code=l.order_code
@@ -471,7 +472,7 @@
 		
 		</select>
 		<select id="month_chart_plus" parameterType="com.sunstar.dto.ChartDTO" resultType="integer">
-		select ifnull(sum(shipping_cost),0)
+	<!-- 	select ifnull(sum(shipping_cost),0)
 		from product_list p  join order_list l
 		on p.product_code = l.product_code
 		join ordered o 
@@ -479,7 +480,7 @@
 		where seller_code = #{seller_code} 
         and left(o.order_code, 6) = #{month}
 		order by shipping_cost  
-
+ -->
 		</select>
 		
 		
