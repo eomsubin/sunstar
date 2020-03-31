@@ -36,7 +36,7 @@
         and cart_no=#{cart_no}
         and c.option1=o.option1
         and c.option2=o.option2
-        order by s.seller_code desc;
+        order by s.seller_code desc
         
 
     

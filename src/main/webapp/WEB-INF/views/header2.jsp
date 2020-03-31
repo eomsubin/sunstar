@@ -152,18 +152,15 @@
                   <div class="col-lg-7 col-md-7 col-12">
                            <div class="search-bar-top">
                   <form name="searchform" method="post"
-                           action="${pageContext.request.contextPath}/search">
+                           action="${pageContext.request.contextPath}/list">
                            <input type="hidden" name="${_csrf.parameterName}"
                               value="${_csrf.token}" /> 
                            
                      <div class="search-bar">
 
-                        <select name="search">
-                        
-
-                            <option selected="selected" >전체</option>
+                        <select name="category">
                                 <c:forEach var="i" items="${catelist }">
-                                 <option value="${i.lv1 }">${ i.lv1}</option> 
+                                 <option id="${i.lv1 }" value="${i.lv1 }">${ i.lv1}</option> 
                                 <!--  <option value="디지털/가전">디지털/가전</option>
                                  <option value="가구/인테리어">가구/인테리어</option>
                                  <option value="식품">식품</option>

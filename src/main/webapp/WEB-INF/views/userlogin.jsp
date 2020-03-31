@@ -239,7 +239,7 @@ $(document).ready(function(){
 		<form method="post" action="${pageContext.request.contextPath}/login">
 		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 		
-		<a href="${pageContext.request.contextPath}/"><img alt="home" src="${pageContext.request.contextPath}/resources/img/logo.png"></a>
+		<a href="${pageContext.request.contextPath}/"><img alt="home" src="${pageContext.request.contextPath}/resources/img/logo.jpg"></a>
 		
 		<div class="statusbox"></div>
 		<div class="location"><a href="${pageContext.request.contextPath}/">홈</a> > <strong>로그인</strong></div>

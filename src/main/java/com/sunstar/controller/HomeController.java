@@ -10,6 +10,7 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.security.SecureRandom;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
@@ -90,13 +91,6 @@ public class HomeController {
 		return "home";
 	}
 	
-	@RequestMapping("/search")
-	public String search(@RequestParam String search, @RequestParam String word) {
-		System.out.println(search + word);
-		
-		return "redirect:/";
-	}
-
 	@GetMapping("/userlogin")
 	public void userlogin(HttpSession session, HttpServletRequest request, Model model) throws UnsupportedEncodingException
 	{	

@@ -58,5 +58,4 @@ public class OrderDTO {
 	private int free_shipping_cost;
 	// review
 	private String review_no;
-	
 }
