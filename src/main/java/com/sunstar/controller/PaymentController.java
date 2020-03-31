@@ -134,7 +134,7 @@ mainservice.header(model);
 			List<CartDTO> plist = new ArrayList<>();
 			//int getSellerCount= paymentservice.getSellerCount();
 			List<Integer> getSellerCodes= new ArrayList<>();
-		
+			List<CartDTO> prices = new ArrayList<>();
 			int sellercode=0;
 			
 			for(String i:cart_no) {
@@ -151,10 +151,13 @@ mainservice.header(model);
 				SellerDTO seller_customer = new SellerDTO();
 				seller_customer.setSeller_code(getproducts.getSeller_code());
 				seller_customer.setId(getproducts.getId());
+				seller_customer.setCart_no(""+cart_no1);
 				
 				// 업체명과 배송비 구하기(중복값)
 				CartDTO getName= paymentservice.getProducts(seller_customer);
 				
+				
+				CartDTO getPrice = paymentservice.getPrices(seller_customer);
 				
 				//cart no 와 id로 식별해서 업체 코드를 가져와 넣는다.
 				//getCount가 int[] zzz혹은 List<Integer> zzz  여야하고. 
@@ -170,7 +173,7 @@ mainservice.header(model);
 				System.out.println(getSellerCodes);
 				list.add(getproducts);
 				plist.add(getName);
-			
+				prices.add(getPrice);
 			}
 			
 			List<Integer> getSellerCodes2= new ArrayList<>();
@@ -203,7 +206,7 @@ mainservice.header(model);
 			model.addAttribute("odto",list);
 			model.addAttribute("pdto",plist);
 			model.addAttribute("getCount",getSellerCodes2.size());
-			
+			model.addAttribute("prices",prices);
 			model.addAttribute("userinfo",info);
 			//model.addAttribute("getCount", getCount);
 			model.addAttribute("contentpage", "payment/checkout.jsp");       

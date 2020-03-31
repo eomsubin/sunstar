@@ -276,12 +276,13 @@ function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2, zipNo
 									<c:set var="sum" value="0" />
 									<c:set var="sum2" value="0"/>
 								
-								<c:forEach var="pdto" items="${pdto }" begin="0" end="${getCount-1 }">									
-								 	 <ul><li>업체명<span>${pdto.seller_name }</span></li></ul>
-								 	
-								 	<c:forEach var="odto" items="${odto }" >
-										<c:if test="${pdto.seller_code == odto.seller_code }">
-								
+								<c:forEach var="pdto" items="${pdto }" begin="0" end="${getCount-1}">									
+								 	 <ul><li>업체명<span>${pdto.seller_name }</span></li>
+								 	 		<li>배송비<span>${pdto.shipping_cost}</span></li>
+								 	 		</ul>
+								 	<c:forEach var="odto" items="${odto }"  >
+										<c:if test="${pdto.seller_code == odto.seller_code}">
+									
 									<ul class="bb">
 										
 										<li style="display: none">상품코드<span  class="prod">${odto.product_code }</span></li>
@@ -293,7 +294,7 @@ function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2, zipNo
 										<li>옵션1<span>${odto.option1 }</span></li>
 										<li>옵션2<span>${odto.option2 }</span></li>
 										<li>수량<span>${odto.cart_quantity } 개</span>
-										<li>배송비<span>${odto.shipping_cost } 원</span></li>
+									
 									
 										<li class="last" style="color:#f7941d; font-weight: 700;">총 금액<span>${(odto.price+odto.add_price)*odto.cart_quantity} 원</span></li>
 										
@@ -468,10 +469,16 @@ function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2, zipNo
 				var shipping_cost_per_seller = new Array();
 				var cart_no = new Array();
 				
+				<c:forEach var="item3" items="${prices}">
+					total_price.push(${item3.total_price});	
+				
+				</c:forEach>
+				
+				
 				 <c:forEach var="item2" items="${pdto}">
 				    seller_code.push(${item2.seller_code});		
 					shipping_cost_per_seller.push(${item2.shipping_cost}); 
-					total_price.push(${item2.total_price});
+					
 				
 					/* console.log(${item2.seller_code});
 					console.log(${item2.shipping_cost}); */
