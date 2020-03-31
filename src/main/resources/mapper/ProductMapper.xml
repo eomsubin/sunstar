@@ -72,7 +72,7 @@
 	</select>
 	
 	<select id="getproductList" resultType="com.sunstar.dto.ProductDTO" parameterType="string">
-	 select p.product_code, p.price, p.product_name, p.thumb_img, p.explains, p.category_code, p.add_date, c.lv3, c.lv2, c.lv1, c.lv2code, s.seller_name, s.basic_shipping_cost
+	 select p.product_code, p.price, p.product_name, p.thumb_img, p.explains, p.category_code, p.add_date, c.lv3, c.lv2, c.lv1, c.lv2code, s.seller_name, s.basic_shipping_cost, s.free_shipping_cost
      from product_list p  
      join category c
 	 on p.category_code = c.category_code

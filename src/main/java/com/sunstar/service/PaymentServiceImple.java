@@ -124,6 +124,12 @@ public class PaymentServiceImple implements PaymentService {
 		// TODO Auto-generated method stub
 		return pm.getProductCount(userinfo);
 	}
+
+	@Override
+	public CartDTO getPrices(SellerDTO seller_customer) {
+		
+		return pm.getPrices(seller_customer);
+	}
 	
 	
 

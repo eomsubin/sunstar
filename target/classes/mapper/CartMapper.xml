@@ -23,8 +23,7 @@
 
 	<select id="cartList" resultType="com.sunstar.dto.CartDTO">
 		select DISTINCT c.*
-		, p.product_name, p.price, p.cost, p.shipping_cost, p.thumb_img
-		, p.category_code, p.seller_code
+		, p.product_name, p.price, p.cost, p.thumb_img, p.category_code, p.seller_code
 		, s.basic_shipping_cost, s.free_shipping_cost, s.seller_name
 		, o.inventory
 		from cart c

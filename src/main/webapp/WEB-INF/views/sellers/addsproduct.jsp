@@ -399,8 +399,7 @@ console.log('end');
 					<div class="form-group row">
 						<label for="shipping_cost" class="col-sm-2 col-form-label">배송비</label>
 						<div class="col-sm-10">
-							<input type="text" class="form-control "
-								name="shipping_cost" id="shipping_cost" value="${shipping_cost}" required>
+							<input type="text" class="form-control "  value="${shipping_cost}" required>
 							<div class="invalid-tooltip">필수 입력 사항 / 1회 배송비를 입력해주세요</div>
 						</div>
 					</div>

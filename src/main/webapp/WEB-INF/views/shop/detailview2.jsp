@@ -573,7 +573,7 @@ $(document).ready(function(){
 								<li class="delivery_item" id="delevery_li" style="width: 100%">
 									<button id="delivery_btn" class="btn btn-light btn-block" style="text-align: left">배송비 &#45;
 									<c:choose>
-									<c:when test="${view.shipping_cost == 0}">무료배송</button>
+									<c:when test="${view.free_shipping_cost <= view.price}">무료배송</button>
 										<div class="delivery_view ml-3">
 										<ul style="list-style: none">
 										<li><span>추가 배송비  &#58;  </span>제주도 3,000원</li>
@@ -582,7 +582,7 @@ $(document).ready(function(){
 									<c:otherwise>조건부 무료</button>
 									<div class="delivery_view ml-3">
 										<ul style="list-style: none">
-											<li><span>배송비  &#58;  </span><fmt:formatNumber pattern="###,###,###" value="${view.shipping_cost}"/>원</li>
+											<li><span>배송비  &#58;  </span><fmt:formatNumber pattern="###,###,###" value="${view.basic_shipping_cost}"/>원</li>
 											<br>
 											<li><span>조건부 무료  &#58;  </span><fmt:formatNumber pattern="###,###,###" value="${view.free_shipping_cost}"/>원 이상</li>
 											<br>
