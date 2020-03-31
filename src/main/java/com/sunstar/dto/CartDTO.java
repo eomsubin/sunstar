@@ -1,12 +1,10 @@
 package com.sunstar.dto;
 
-import lombok.Setter;
-import lombok.ToString;
-
-import java.awt.Image;
 import java.util.List;
 
 import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 @Getter @Setter @ToString
 public class CartDTO {
@@ -19,7 +17,7 @@ public class CartDTO {
 	 * , constraint cart_cart_no_id_pk primary key(cart_no, id) 
 	 * , constraint cart_id_fk foreign key(id) references customer(id) ON DELETE CASCADE );
 	 */
-	private int cart_no;
+	private String cart_no;
 	private String id;
 	private int product_code;
 	private String cart_quantity;
@@ -35,6 +33,7 @@ public class CartDTO {
 	private String seller_code;
 	private String seller_name;
 	private int inventory;
+	private int total_price;
 	
 	private String option1;
 	private String option2;

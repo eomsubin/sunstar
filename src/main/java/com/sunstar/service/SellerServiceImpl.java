@@ -301,7 +301,18 @@ public class SellerServiceImpl implements SellerService {
 		// TODO Auto-generated method stub
 		return  mapper.day_chart_plus(dto);
 	}
-	
+
+	@Override
+	public void delete_products(String seller_code) {
+		mapper.delete_products(seller_code);			
+	}
+
+	@Override
+	public void delete_auth(String id) {
+		mapper.delete_auth(id);
+		
+	}
+
 	
 
 }                                                                                                                                                         

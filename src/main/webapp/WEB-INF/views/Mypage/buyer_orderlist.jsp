@@ -135,8 +135,39 @@ function jusoCallBack(review_content, order_no, review_star){
 						
 					</tbody>
 				</table>
+				
 			</div>
+			
+				<nav aria-label="Page navigation example" style="position: relative; left:650px; top:50px;">
+  <ul class="pagination">
+  	<c:if test="${page.prev}">
+    <li class="page-item"><a class="page-link" href="order?currPage=${page.startBlock-1}&psize=${page.sizePerPage}">이전</a></li>
+    </c:if>
+    
+    	<c:forEach var="i" begin="${page.startBlock}"
+						end="${page.endBlock}">
+    		
+    		<c:if test="${i == page.currPage}">
+									
+    		<li class="page-item"><a class="page-link" href="#">${i}</a></li>
+    		</c:if>
+    		<c:if test="${i != page.currPage }">
+    		<li class="page-item"><a class="page-link" href="order?currPage=${i}&psize=${page.sizePerPage}">${i}</a></li>
+    			</c:if>
+    
+    	</c:forEach>
+   	 <c:if test="${page.next}">
+   		 <li class="page-item"><a class="page-link" href="order?currPage=${page.endBlock+1}&psize=${page.sizePerPage}">다음</a></li>
+   	  </c:if>
+  </ul>
+  
+</nav>
+
 		</div>
+		
+
+
+
 	</section>
 
 

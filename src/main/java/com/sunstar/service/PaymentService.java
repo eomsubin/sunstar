@@ -3,6 +3,7 @@ package com.sunstar.service;
 import java.util.List;
 
 import com.sunstar.dto.CartDTO;
+import com.sunstar.dto.MakePage;
 import com.sunstar.dto.OrderDTO;
 import com.sunstar.dto.SellerDTO;
 
@@ -17,7 +18,7 @@ public interface PaymentService {
 	int addOrder(OrderDTO allData);
 
 
-	List<OrderDTO> buylist(String id);
+	List<OrderDTO> buylist(MakePage page);
 
 
 	CartDTO getUserInfo(String id);

@@ -52,7 +52,7 @@
 	</delete>
 	
 	<select id="orderDetail" parameterType="string" resultType="com.sunstar.dto.OrderDTO">
-		select o.order_code,o.order_way,o.delivery_state,price,l.add_price,quantity,o.shipping_addr1,o.shipping_addr2,o.shipping_addr3,
+		select o.order_code,o.order_way,l.delivery_state,price,l.add_price,quantity,o.shipping_addr1,o.shipping_addr2,o.shipping_addr3,
 		product_name,p.shipping_cost,l.option1,l.option2,s.seller_name,p.seller_code,l.order_no
 		from ordered o left join order_list l
 		on o.order_code=l.order_code
@@ -67,6 +67,20 @@
 		select distinct *
 		from price
 		where order_code=#{order_code}
+	
+	</select>
+	
+	<select id="getTotalCount" parameterType="string" resultType="int">
+		select count(*)
+		from order_list l left join ordered o
+		on l.order_code = o.order_code
+		left join product_list p
+		on l.product_code = p.product_code
+		left join review rv
+        on rv.order_no = l.order_no
+		where id=#{id}
+		order by l.order_no desc;
+       
 	
 	</select>
 	
