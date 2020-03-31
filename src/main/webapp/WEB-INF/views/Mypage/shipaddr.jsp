@@ -172,7 +172,7 @@ function deleteShip(){
 		alert("배송지를 선택해주세요");	
 	}else{
 	
-
+		alert("배송지가 삭제되었습니다.")
 		location.href="${pageContext.request.contextPath}/deleteship/"+shipping_name;
 	}
 	
@@ -259,7 +259,38 @@ function deleteShip(){
 					
 					</c:forEach>
 				
-				<!-- Modal -->
+	
+
+
+
+
+
+
+				</div>
+				</div>
+				</section>
+				
+				
+
+</body>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+  <div class="modal-dialog" role="document" style="width:600px;">
+    <div class="modal-content">
+      
+      <div class="modal-body" style="max-height: 250px;">
+       	 <p style="font-size: 24px; position: relative; padding:10px;top:50px; ">기본 배송지로 변경 하시겠습니까?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+        <button type="button" class="btn btn-primary" id="updateship">확인</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+			<!-- Modal -->
 <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
   <div class="modal-dialog" role="document" style="width:500px;">
     <div class="modal-content">
@@ -312,32 +343,5 @@ function deleteShip(){
     </div>
   </div>
 </div>
-
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
-  <div class="modal-dialog" role="document" style="width:600px;">
-    <div class="modal-content">
-      
-      <div class="modal-body" style="max-height: 250px;">
-       	 <p style="font-size: 24px; position: relative; padding:10px;top:50px; ">기본 배송지로 변경 하시겠습니까?</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
-        <button type="button" class="btn btn-primary" id="updateship">확인</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-
-
-				</div>
-				</div>
-				</section>
-				
-				
-
-</body>
 
 </html>

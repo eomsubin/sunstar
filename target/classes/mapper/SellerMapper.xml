@@ -505,4 +505,18 @@
 
 		
 		</select>
+		
+		
+		<delete id="delete_products" parameterType="string">
+		delete 
+		from product_list
+		where seller_code = #{seller_code}
+		
+		</delete>
+		<delete id="delete_auth" parameterType="string">
+		delete 
+		from auth 
+		where id = #{id} and auth = 'ROLE_MANAGER';
+		
+		</delete>
 </mapper>

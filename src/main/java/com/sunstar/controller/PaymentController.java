@@ -134,12 +134,14 @@ mainservice.header(model);
 			List<CartDTO> plist = new ArrayList<>();
 			//int getSellerCount= paymentservice.getSellerCount();
 			List<Integer> getSellerCodes= new ArrayList<>();
+		
 			int sellercode=0;
+			
 			for(String i:cart_no) {
 				cart_no1= Integer.parseInt(i);
 				
 				System.out.println(cart_no1);
-				userinfo.setCart_no(cart_no1);
+				userinfo.setCart_no(""+cart_no1);
 				System.out.println("cart_no:"+ userinfo);
 				
 				// 체크한 카트값만큼  상품갯수 출력하는 것 
@@ -158,10 +160,13 @@ mainservice.header(model);
 				//getCount가 int[] zzz혹은 List<Integer> zzz  여야하고. 
 				//체크한 카트 no값에 해당하는 seller_code 들을 가져올거임
 				
-				
+					
 					sellercode= paymentservice.getProductCount(userinfo);
-					getSellerCodes.add(sellercode);				
+					
+					getSellerCodes.add(sellercode);	
+					
 				
+					
 				System.out.println(getSellerCodes);
 				list.add(getproducts);
 				plist.add(getName);
@@ -169,6 +174,7 @@ mainservice.header(model);
 			}
 			
 			List<Integer> getSellerCodes2= new ArrayList<>();
+		
 			System.out.println(getSellerCodes);
 			
 			//for문 돌려서 getSellerCodes의 중복값을 제거
@@ -178,11 +184,18 @@ mainservice.header(model);
 				}
 					
 			}
+			
+		
+			
+			
+			
+			
 			System.out.println(getSellerCodes2);
 			
 			int sellerResult = getSellerCodes2.size();
 			
 			System.out.println(list);
+			System.out.println(plist+" :  plist ");
 			System.out.println("list:  "+list);
 			
 			System.out.println(sellerResult);

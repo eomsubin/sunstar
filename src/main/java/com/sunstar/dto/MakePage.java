@@ -12,6 +12,8 @@ import lombok.ToString;
 public class MakePage {
 	//id
 	private String seller_code;
+	private String id;
+	
 	
 	private int currPage;
 	private int totalCount;

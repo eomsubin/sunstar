@@ -2,6 +2,7 @@ package com.sunstar.service;
 
 
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,9 +33,15 @@ public class CartServiceImpl implements CartService {
 	}
 
 	@Override
-	public String deleteItem(String cart_no) {
+	public int deleteItem(String cart_no) throws Exception {
 		// TODO Auto-generated method stub
 		return cartmapper.deleteItem(cart_no);
+	}
+
+	@Override
+	public int changeQuantity(HashMap<String, String> data) {
+		// TODO Auto-generated method stub
+		return cartmapper.changeQuantity(data);
 	}
 
 	}

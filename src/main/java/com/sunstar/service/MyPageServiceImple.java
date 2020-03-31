@@ -79,6 +79,12 @@ public class MyPageServiceImple implements MyPageService {
 		// TODO Auto-generated method stub
 		return mpmapper.getPrice(order_code);
 	}
+
+	@Override
+	public int getTotalCount(String id) {
+		// TODO Auto-generated method stub
+		return mpmapper.getTotalCount(id);
+	}
 	
 	
 	

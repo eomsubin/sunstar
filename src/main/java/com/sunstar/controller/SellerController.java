@@ -1028,7 +1028,15 @@ public class SellerController {
 
 	@RequestMapping("/changeInfo")
 	public String changeInfo(SellerDTO dto) {
-
+		//  전화번호  - 추가해서 DB에 저장
+		String tel = dto.getSeller_tel();
+		String tel1 = tel.substring(0,3);
+		String tel2 = tel.substring(3, 7);
+		String tel3 = tel.substring(7, 11);
+		
+		String new_tel  = tel1 + "-" + tel2 + "-" + tel3;
+		dto.setSeller_tel(new_tel);
+		
 		sellerservice.changeInfo(dto);
 		return "redirect:/seller/sellerinfo";
 	}
@@ -1400,10 +1408,21 @@ public class SellerController {
 	}
 
 	@RequestMapping("/searchOrderView")
-	public String  searchOrderView(Model model, @RequestParam String search_order ) {
+	public String  searchOrderView(Model model, Principal principal, @RequestParam String search_order ) {
+		
 
 		List<OrderDTO> list = sellerservice.searchOrderView(search_order);
+		
+		System.out.println("list 출력 : " + list);
+		if(list.isEmpty() ) {
+			return "redirect:/seller/search_order";
+		}
+		
+		
 		OrderDTO dto  = new OrderDTO();
+		if(list.get(0).getOrder_code() == null || list.get(0).getOrder_code()=="") {
+			return "redirect:/seller/search_order";
+		}
 		dto.setOrder_code(list.get(0).getOrder_code());
 		dto.setOrder_way(list.get(0).getOrder_way());
 		dto.setTo_name(list.get(0).getTo_name());
@@ -1428,7 +1447,48 @@ public class SellerController {
 		model.addAttribute("list", list);
 		model.addAttribute("sellerpage", "search_order.jsp");
 		return "sellers/temp";
+		
+		
+		//id 가져오는 방법
+	/*	String id= getId(model, principal);
+		System.out.println(id);
+		String seller_code = sellerservice.getSellerCode(id);
+		
+		List<OrderDTO> odto = sellerservice.orderlist(seller_code);
+		
+		
+		for(int i = 0 ; i<odto.size();i++) {
+			if(odto.contains(search_order)) {
+				List<OrderDTO> list = sellerservice.searchOrderView(search_order);
+				OrderDTO dto  = new OrderDTO();
+				dto.setOrder_code(list.get(0).getOrder_code());
+				dto.setOrder_way(list.get(0).getOrder_way());
+				dto.setTo_name(list.get(0).getTo_name());
+				dto.setShipping_addr1(list.get(0).getShipping_addr1());
+				dto.setShipping_addr2(list.get(0).getShipping_addr2());
+				dto.setShipping_addr3(list.get(0).getShipping_addr3());
+				dto.setShipping_zip(list.get(0).getShipping_zip());
+				dto.setDelivery_state(list.get(0).getDelivery_state());
+				dto.setTracking_no(list.get(0).getTracking_no());
+				dto.setShipping_company(list.get(0).getShipping_company());
+				dto.setShipping_cost(list.get(0).getShipping_cost());
+				dto.setShipping_company(list.get(0).getShipping_company());
+		
+				int allprice = 0;
+				for(int j =0; j< list.size();j++) {
+					allprice+= list.get(i).getPrice();
+				}
+				dto.setPrice(allprice+list.get(0).getShipping_cost());
+				model.addAttribute("dto", dto);
+				model.addAttribute("list", list);
+				model.addAttribute("sellerpage", "search_order.jsp");
+				return "sellers/temp";
+			}
+		}		
+		return "redirect:/seller/search_order";*/
+
 	}
+	
 	@RequestMapping("/product_review")
 	public String product_review(Model m, Principal p ) {
 		String id= getId(m, p);
@@ -1556,7 +1616,55 @@ public class SellerController {
 		return "sellers/temp";
 	}
 	
+	@RequestMapping("/switchCustomer")
+	public String switchCustomer(Model m, Principal p) {
+		//id 가져오는 방법
+		String id= getId(m, p);
+		System.out.println(id);
+		String seller_code = sellerservice.getSellerCode(id);
 
+		List<OrderDTO> orderlist = sellerservice.orderlist(seller_code);
+		
+		String compl = "정상처리 주문코드 -> ";
+		String order_codes = "";
+		
+		
+		for(int i = 0; i< orderlist.size(); i++) {
+			orderlist.get(i).getDelivery_state();
+			System.out.println(orderlist.get(i).getDelivery_state());
+			//delivery_state 가 '완료가 아니라면 반려
+
+			if( orderlist.get(i).getDelivery_state().equals("배송완료") ||
+					orderlist.get(i).getDelivery_state().equals("반송완료") ||
+					orderlist.get(i).getDelivery_state().equals("배송완료 및 교환완료") ||
+					orderlist.get(i).getDelivery_state().equals("결체취소 완료")) {
+				compl += orderlist.get(i).getOrder_code() + ", ";	
+			}else {
+				order_codes += 	orderlist.get(i).getOrder_code() + ", ";		
+			}
+		}
+		m.addAttribute("compl", compl);
+		System.out.println("order_codes = " + order_codes);
+		m.addAttribute("order_codes", order_codes);
+		
+		m.addAttribute("sellerpage", "switchCustomer.jsp");
+		return "sellers/temp";
+		
+	}
+	
+	@RequestMapping("/real_switch_customer")
+	public String real_switch_customer(Model m, Principal p) {
+		//id 가져오는 방법
+		String id= getId(m, p);
+		System.out.println(id);
+		String seller_code = sellerservice.getSellerCode(id);
+
+		//상품 삭제 	
+		sellerservice.delete_products(seller_code);
+		//권한 삭제
+		sellerservice.delete_auth(id);
+		return "redirect:http://${pageContext.request.contextPath}/";
+	}
 	
 }
 
