@@ -287,14 +287,14 @@ $(document).ready(function(){
 							<label for="validationDefault05">계약 택배사</label>
 								
 						<select class="form-control" id="shipping_company" name="shipping_company" >
-								<option value="${dto.shipping_company}" selected="selected">현재 - ${dto.shipping_company}</option>
-								<option value="한진택배">한진택배</option>
-								<option value="CJ대한통운">CJ대한통운</option>
-								<option value="KGB택배">KGB택배</option>
-								<option value="우체국택배">우체국택배</option>
-								<option value="롯데택배">롯데택배</option>
-								<option value="Fedex">Fedex</option>
-							</select>
+							<option value="${dto.shipping_company}" selected="selected">현재 - ${dto.shipping_company}</option>
+							<option value="한진택배">한진택배</option>
+							<option value="CJ대한통운">CJ대한통운</option>
+							<option value="KGB택배">KGB택배</option>
+							<option value="우체국택배">우체국택배</option>
+							<option value="롯데택배">롯데택배</option>
+							<option value="Fedex">Fedex</option>
+						</select>
 							
 						</div>
 						<div class="col-md-4">

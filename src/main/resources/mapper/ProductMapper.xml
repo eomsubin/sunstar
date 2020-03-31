@@ -5,7 +5,7 @@
 <mapper namespace="com.sunstar.mapper.ProductMapper">
 	<!-- bori -->
     <select id="productview" resultType="com.sunstar.dto.ProductDTO" parameterType="int">
-      select p.product_code, product_name, p.thumb_img, price, cost, shipping_cost, public_state, review_state, c.category_code, c.lv1, c.lv2, c.lv2code, c.lv3, detail_img1, detail_img2, detail_img3, detail_img4, detail_img5, detail_img6
+      select p.product_code, product_name, p.thumb_img, price, cost, public_state, review_state, c.category_code, c.lv1, c.lv2, c.lv2code, c.lv3, detail_img1, detail_img2, detail_img3, detail_img4, detail_img5, detail_img6
       , s.seller_code, seller_name, seller_logo, seller_tel, seller_email, business_license, seller_logo, comm_img1, comm_img2, comm_img3, shipping_company, basic_shipping_cost, free_shipping_cost
       from product_list p  join category c 
       on p.category_code = c.category_code
@@ -72,7 +72,7 @@
 	</select>
 	
 	<select id="getproductList" resultType="com.sunstar.dto.ProductDTO" parameterType="string">
-	 select p.product_code, p.price, p.product_name, p.shipping_cost, p.thumb_img, p.explains, p.category_code, p.add_date, c.lv3, c.lv2, c.lv1, c.lv2code, s.seller_name, s.basic_shipping_cost
+	 select p.product_code, p.price, p.product_name, p.thumb_img, p.explains, p.category_code, p.add_date, c.lv3, c.lv2, c.lv1, c.lv2code, s.seller_name, s.basic_shipping_cost, s.free_shipping_cost
      from product_list p  
      join category c
 	 on p.category_code = c.category_code
@@ -129,4 +129,20 @@
 	on ol.order_code = oed.order_code
 	where product_code = #{product_code}
 	</select>
+	
+	<!-- 리뷰 폼 -->
+	<select id="getOrderdetail" resultType="com.sunstar.dto.OrderDTO" parameterType="string">
+	select ol.*, p.*, s.seller_name
+    from order_list ol 
+    join product_list p 
+    on ol.product_code = p.product_code 
+    join seller s
+    on p.seller_code = s.seller_code
+    where order_no = #{order_no}
+	</select>
+	
+	<!-- 리뷰 넣기 -->
+	<insert id="customerinsertreview">
+	insert into review(order_no, review_star, review_writedate, review_content) values(#{order_no},#{review_star},now(),#{review_content});
+	</insert>
 </mapper>

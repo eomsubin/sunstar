@@ -573,7 +573,7 @@ $(document).ready(function(){
 								<li class="delivery_item" id="delevery_li" style="width: 100%">
 									<button id="delivery_btn" class="btn btn-light btn-block" style="text-align: left">배송비 &#45;
 									<c:choose>
-									<c:when test="${view.shipping_cost == 0}">무료배송</button>
+									<c:when test="${view.free_shipping_cost <= view.price}">무료배송</button>
 										<div class="delivery_view ml-3">
 										<ul style="list-style: none">
 										<li><span>추가 배송비  &#58;  </span>제주도 3,000원</li>
@@ -582,7 +582,7 @@ $(document).ready(function(){
 									<c:otherwise>조건부 무료</button>
 									<div class="delivery_view ml-3">
 										<ul style="list-style: none">
-											<li><span>배송비  &#58;  </span><fmt:formatNumber pattern="###,###,###" value="${view.shipping_cost}"/>원</li>
+											<li><span>배송비  &#58;  </span><fmt:formatNumber pattern="###,###,###" value="${view.basic_shipping_cost}"/>원</li>
 											<br>
 											<li><span>조건부 무료  &#58;  </span><fmt:formatNumber pattern="###,###,###" value="${view.free_shipping_cost}"/>원 이상</li>
 											<br>
@@ -723,7 +723,7 @@ $(document).ready(function(){
 		<div id="pcomment" style="display: none;">
 			   <div class="infopadding">
 			   ${review[0]}
-			   <h3 class="tit_productinfo">일반 상품평<span class="text-reviewcount ml-3"><fmt:formatNumber pattern="###,###,###" value="${fn:length(review)}"/></span><span class="text_info">상품평은 구매완료후 작성하실 수 있습니다.</span></h3>
+			   <h3 class="tit_productinfo">일반 상품평<span class="text-reviewcount ml-3"><fmt:formatNumber pattern="###,###,###" value="${fn:length(review)}"/></span><span class="text_info">상품평은 구매완료후 <strong>마이페이지 > 주문/배송내역</strong>에서 작성하실 수 있습니다.</span></h3>
 			   <table class="table_productinfo">
 							<colgroup>
 								<col style="width:15%">

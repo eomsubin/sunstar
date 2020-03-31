@@ -14,7 +14,13 @@
 </style>
 <script>
 	$(document).ready(function() {
-
+		$('#all').on('click', function() {
+			if ($('#all').prop('checked')) {
+				$('input[type=checkbox]').prop('checked', true);
+			} else {
+				$('input[type=checkbox]').prop('checked', false);
+			}
+		});
 		///$('.content_toggle').hide();
 		$('tr.tgl').on('click', function() {
 			$(this).next().children().slideToggle("fast");
@@ -48,6 +54,26 @@
 		
 	})
 	
+	
+function reviews_del() {
+	let ckbox = document.getElementsByName("review_no");
+	let ckboxlengh = ckbox.length;
+	let checked = 0;
+
+	let review_nos = new Array();
+
+	for (i = 0; i < ckboxlengh; i++) {
+		if (ckbox[i].checked == true) {
+			let review_no = ckbox[i].value;
+
+			review_nos.push(review_no);
+			console.log(ckbox[i].value);
+			checked += 1;
+		}
+	}
+
+	location.href = "${pageContext.request.contextPath}/seller/reviews_del/" + review_nos;
+}
 
 </script>
 </head>
@@ -56,21 +82,25 @@
 
 	<div class="container-fluid">
 		<!-- Page Heading -->
-		<h1 class="h3 mb-2 text-gray-800">상품관련 문의</h1>
+		<h1 class="h3 mb-2 text-gray-800">상품평 관리</h1>
 		<p class="mb-4">
-			구매자로부터 상품에 대한 문의에 답변을 할수 있습니다. <a target="_blank"
+			상품에 대한 평가를 볼 수있습니다. <a target="_blank"
 				href="https://datatables.net">자세한 안내는 이 곳을 클릭</a>.
 		</p>
 
 		<!-- DataTales Example -->
 		<div class="card shadow mb-4">
 			<div class="card-header py-3">
-				<h6 class="m-0 font-weight-bold text-primary">상품 문의</h6>
+				<h6 class="m-0 font-weight-bold text-primary">상품평</h6>
 			</div>
 			<div class="card-body " style="padding-left: 30px;">
 
 				<div class="table-responsive">
 
+<div>
+	<button class="btn btn-info" onclick="reviews_del();">선택 삭제</button>
+
+</div>
 
 					<table class="table table-bordered" id="dataTable" width="100%"
 						cellspacing="0">
@@ -78,7 +108,7 @@
 		<tr>
 			<th style="width: 50px"><input type="checkbox" id="all"></th>
 			<th>주문번호</th>
-			<th>상품번호 (리뷰번호)</th>
+			<th>상품번호(일련번호)</th>
 			<th>옵션1 / 옵션2</th>
 			<th>이미지</th>
 			<th>별점</th>

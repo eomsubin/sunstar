@@ -101,6 +101,8 @@ public interface SellerService {
 
 	void delete_auth(String id);
 
+	void search_order_update(OrderDTO dto);
+
 
 
 
