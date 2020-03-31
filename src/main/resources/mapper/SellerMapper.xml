@@ -269,7 +269,7 @@
 		
 		<select id="viewStepOrder" parameterType="string" resultType="com.sunstar.dto.OrderDTO">
 			select o.order_code, l.product_code, l.option1, l.option2, l.inventory, l.add_price,  p.price, o.message, 
-			o.order_way,  o.to_name, c.tel, o.shipping_addr1, o.shipping_addr2, o.shipping_addr3, o.shipping_zip, l.delivery_state, o.tracking_no
+			o.order_way,  o.to_name, c.tel, o.shipping_addr1, o.shipping_addr2, o.shipping_addr3, o.shipping_zip, l.delivery_state, l.tracking_no
 			from ordered o left join order_list l
 			on o.order_code = l.order_code
 			inner join customer c 
@@ -471,7 +471,6 @@
 		
 		</select>
 		<select id="month_chart_plus" parameterType="com.sunstar.dto.ChartDTO" resultType="integer">
-		
 		select ifnull(sum(shipping_cost),0)
 		from product_list p  join order_list l
 		on p.product_code = l.product_code
@@ -516,7 +515,28 @@
 		<delete id="delete_auth" parameterType="string">
 		delete 
 		from auth 
-		where id = #{id} and auth = 'ROLE_MANAGER';
+		where id = #{id} and auth = 'ROLE_MANAGER'
 		
 		</delete>
+		
+		<update id="search_order_update" parameterType="com.sunstar.dto.OrderDTO">
+		
+		update ordered
+		set 
+			to_name	= #{to_name},
+			shipping_zip = #{shipping_zip},
+			message = #{message}
+		where order_code = #{order_code}
+		</update>
+		
+		<update id="search_order_update_2" parameterType="com.sunstar.dto.OrderDTO">
+		
+		update order_list
+		set 
+			delivery_state = #{delivery_state},
+			tracking_no = #{tracking_no}
+			
+		where order_code = #{order_code}
+		</update>
+		
 </mapper>

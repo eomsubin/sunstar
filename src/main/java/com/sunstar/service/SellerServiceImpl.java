@@ -313,6 +313,13 @@ public class SellerServiceImpl implements SellerService {
 		
 	}
 
+	@Override
+	public void search_order_update(OrderDTO dto) {
+			
+			mapper.search_order_update_2(dto);
+			mapper.search_order_update(dto);
+	}
+
 	
 
 }                                                                                                                                                         

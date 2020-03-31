@@ -111,6 +111,10 @@ public interface SellerMapper {
 
 	void delete_auth(String id);
 
+	void search_order_update(OrderDTO dto);
+
+	void search_order_update_2(OrderDTO dto);
+
 
 
 

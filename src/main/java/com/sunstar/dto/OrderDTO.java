@@ -11,6 +11,7 @@ public class OrderDTO {
 	private String order_code;
 	private String id;
 	private String name;
+	private int cart_quantity;
 	private String tel;
 	private String shipping_addr1;
 	private String shipping_addr2;
