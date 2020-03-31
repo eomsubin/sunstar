@@ -1498,7 +1498,21 @@ public class SellerController {
 		sellerservice.review_del(review_no);
 
 
-		return "redirect:/seller/search_order";		
+		return "redirect:/seller/product_review";		
+	}
+	
+	
+	@RequestMapping("/reviews_del/{review_nos}")
+	public String reviews_del(@PathVariable String review_nos) {
+		
+		String[] review_no_cut = review_nos.split(",");
+		
+		for(int i = 0; i < review_no_cut.length; i++) {
+			int review_no = Integer.parseInt(review_no_cut[i]);
+			sellerservice.review_del(review_no);
+			System.out.println("삭제한  reveiw_no : " + review_no);
+		}
+		return "redirect:/seller/product_review";
 	}
 
 	//판매자별 월별 총 수익
