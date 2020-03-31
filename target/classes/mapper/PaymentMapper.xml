@@ -35,7 +35,7 @@
        where c.id=#{id}
         and cart_no=#{cart_no}
         and c.option1=o.option1
-        order by s.seller_code desc;
+        order by s.seller_code desc
         
 
     
@@ -47,7 +47,7 @@
 	
 	
 	<insert id="addOrder" parameterType="com.sunstar.dto.OrderDTO">
-	insert into ordered(order_code,order_way,delivery_state,id,message,shipping_addr1,shipping_addr2,shipping_addr3,shipping_zip,to_name) values(#{order_code},#{order_way},#{delivery_state},#{id},#{message},#{shipping_addr1},#{shipping_addr2},#{shipping_addr3},#{shipping_zip},#{to_name})
+	insert into ordered(order_code,order_way,id,message,shipping_addr1,shipping_addr2,shipping_addr3,shipping_zip,to_name) values(#{order_code},#{order_way},#{id},#{message},#{shipping_addr1},#{shipping_addr2},#{shipping_addr3},#{shipping_zip},#{to_name})
 	
 	</insert>
 	
@@ -69,10 +69,7 @@
 			values(#{id},#{shipping_addr1},#{shipping_addr2},#{shipping_addr3},#{shipping_zip},#{order_code},#{to_name},#{shipping_name})
 	</insert> -->
 	
-<<<<<<< HEAD
 
-=======
->>>>>>> branch 'master' of https://github.com/eomsubin/sunstar.git
 	<select id="buylist" resultType="com.sunstar.dto.OrderDTO" parameterType="com.sunstar.dto.MakePage">
 		select o.order_code,p.product_code,product_name,thumb_img,p.price,quantity,delivery_state,tracking_no,p.shipping_cost,l.add_price, l.order_no, rv.review_no
 		from order_list l left join ordered o
@@ -143,7 +140,7 @@
    
 	
         
-       order by s.seller_name;
+       order by s.seller_name
 </select>
 
 <update id="declineInventory" parameterType="com.sunstar.dto.OrderListDTO">

@@ -26,7 +26,7 @@
 						<!-- Top Left -->
 						<div class="top-left">
 							<ul class="list-main">
-								<li><a href="${pageContext.request.contextPath}/"><img style="width:60px; height:25px;" src="${pageContext.request.contextPath}/resources/img/logo.png" alt="logo"></a></li>
+								<li><a href="${pageContext.request.contextPath}/"><img style="width:60px; height:25px;" src="${pageContext.request.contextPath}/resources/img/logo.jpg" alt="logo"></a></li>
 							</ul>
 						</div>
 						<!--/ End Top Left -->

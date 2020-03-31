@@ -60,6 +60,12 @@ $(document).ready(function(){
 function orderDetail(order_code){
 	location.href="${pageContext.request.contextPath}/mypage/orderdetail/"+order_code;
 }
+
+
+function godetailreview(order_no){
+	var pop = window.open("${pageContext.request.contextPath}/customerdetailreview?order_no="+order_no, "pop","width=560,height=380, scrollbars=yes, resizable=yes");
+}
+
 function goinsertreview(order_no){
 	console.log(order_no)
 	// 호출된 페이지(jusopopup.jsp)에서 실제 주소검색URL(http://www.juso.go.kr/addrlink/addrLinkUrl.do)를 호출하게 됩니다.
@@ -129,7 +135,7 @@ function jusoCallBack(review_content, order_no, review_star){
 							<td style="vertical-align: middle; text-align: center;">${(pay.price+pay.add_price)*pay.quantity}원  (${pay.quantity })</td>
 							<td style="vertical-align: middle;">${pay.shipping_cost}원</td>
 							<td style="vertical-align: middle;">${pay.delivery_state}</td>
-							<td style="vertical-align: middle;"><c:if test="${empty pay.review_no}"><button onclick="goinsertreview(${pay.order_no});">상품평 작성</button></c:if><c:if test="${not empty pay.review_no}">상품평 보기</c:if></td>
+							<td style="vertical-align: middle;"><c:if test="${empty pay.review_no and pay.delivery_state eq '결제완료'}"><button type="button" style="padding :3px 10px; background-color: #fbab60;" onclick="goinsertreview(${pay.order_no});">상품평 작성</button></c:if><c:if test="${not empty pay.review_no}"><button type="button" style="padding :3px 10px;" onclick="godetailreview(${pay.order_no});">상품평 보기</button></c:if></td>
 						</tr>
 						</c:forEach>
 						

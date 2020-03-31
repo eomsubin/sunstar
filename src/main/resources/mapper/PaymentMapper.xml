@@ -35,7 +35,7 @@
        where c.id=#{id}
         and cart_no=#{cart_no}
         and c.option1=o.option1
-        order by s.seller_code desc;
+        order by s.seller_code desc
         
 
     
@@ -140,7 +140,7 @@
    
 	
         
-       order by s.seller_name;
+       order by s.seller_name
 </select>
 
 <update id="declineInventory" parameterType="com.sunstar.dto.OrderListDTO">

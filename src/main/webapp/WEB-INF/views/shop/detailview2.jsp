@@ -722,7 +722,6 @@ $(document).ready(function(){
 		<!-- 상품평  -->
 		<div id="pcomment" style="display: none;">
 			   <div class="infopadding">
-			   ${review[0]}
 			   <h3 class="tit_productinfo">일반 상품평<span class="text-reviewcount ml-3"><fmt:formatNumber pattern="###,###,###" value="${fn:length(review)}"/></span><span class="text_info">상품평은 구매완료후 <strong>마이페이지 > 주문/배송내역</strong>에서 작성하실 수 있습니다.</span></h3>
 			   <table class="table_productinfo">
 							<colgroup>

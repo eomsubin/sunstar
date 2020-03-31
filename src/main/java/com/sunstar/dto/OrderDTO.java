@@ -58,5 +58,4 @@ public class OrderDTO {
 	
 	// review
 	private String review_no;
-	
 }

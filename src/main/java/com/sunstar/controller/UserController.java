@@ -204,17 +204,24 @@ public class UserController {
 	// ¸®ºä ÀÛ¼º Æû 
 	@RequestMapping("/insertreviewform")
 	public String insertreviewform(Model model, @RequestParam String order_no) {
-		System.out.println(order_no);
 		OrderDTO dto = productservice.getOrderdetail(order_no);
 		model.addAttribute("detail",dto);
 		return "User/insertreviewform";
 	}
 	
+	// ¸®ºä ÀÛ¼º
 	@RequestMapping("/insertreview")
 	public String insertreview(Model model, @RequestParam HashMap<String, String> map)
 	{
-		System.out.println(map);
 		productservice.customerinsertreview(map);
 		return "redirect:/mypage/order";
+	}
+	
+	// ¸®ºä º¸±â
+	@RequestMapping("/customerdetailreview")
+	public String customerdetailreview(Model model, @RequestParam String order_no){
+		HashMap<String, String> dto = productservice.customerdetailreview(order_no);
+		model.addAttribute("detail",dto);
+		return "User/customerdetailreview";
 	}
 }

@@ -74,8 +74,8 @@ public class ProductController {
 		}
 		if("".equals(map.get("s")))
 			map.remove("s");
-		
-		// end param
+		if("".equals(map.get("word")))
+			map.remove("word");
 		
 		//check category lv
 		String category = (String)map.get("category");

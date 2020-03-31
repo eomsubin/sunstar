@@ -572,6 +572,7 @@
 <script>
 	$(document).ready(function(){
 		console.log($(location).attr('href'));
+		console.log($('#${map.lv1}').selected);
 	})
 </script>
 </head>
@@ -786,8 +787,8 @@
 										<div class="product-price">
 											<span><fmt:formatNumber pattern="###,###,###" value="${plist.price}"/>원</span>
 										</div>
-										<span class="shippingcost"><c:if test="${plist.shipping_cost eq 0}">무료배송</c:if>
-											   <c:if test="${plist.shipping_cost ne 0}">배송비 <fmt:formatNumber pattern="###,###,###" value="${plist.shipping_cost}"/>원</c:if></span>
+										<span class="shippingcost"><c:if test="${plist.basic_shipping_cost eq 0}">무료배송</c:if>
+											   <c:if test="${plist.basic_shipping_cost ne 0}">배송비 <fmt:formatNumber pattern="###,###,###" value="${plist.basic_shipping_cost}"/>원</c:if></span>
 									</div>
 								</div>
 							</div>
