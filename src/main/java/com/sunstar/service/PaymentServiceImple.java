@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.sunstar.dto.CartDTO;
+import com.sunstar.dto.MakePage;
 import com.sunstar.dto.OrderDTO;
 import com.sunstar.dto.OrderListDTO;
 import com.sunstar.dto.SellerDTO;
@@ -56,11 +57,26 @@ public class PaymentServiceImple implements PaymentService {
 				pm.declineInventory(order);
 			}
 			
+			
+			/*// 셀러코드 중복제거
+			List<String> getSeller_codes2 = new ArrayList<>();
+				
+			for(int i=0;i<odto.getSeller_codes().size();i++)
+					if(!getSeller_codes2.contains(odto.getSeller_codes().get(i))) {
+					
+					getSeller_codes2.add(odto.getSeller_codes().get(i));
+					
+					odto.setSeller_codes(getSeller_codes2);
+			}*/
+			
+			
 			for(int i=0; i<odto.getSeller_codes().size();i++) {
+				
+				
 				OrderDTO price = new OrderDTO();
 				price.setOrder_code(odto.getOrder_code());
 				price.setSeller_code(odto.getSeller_codes().get(i));
-				/*price.setTotal_price(odto.getTotal_prices().get(i));*/
+				price.setTotal_price(odto.getTotal_prices().get(i));
 				price.setShipping_cost_per_seller(odto.getShipping_cost_per_sellers().get(i));
 				System.out.println(price);
 				pm.addPrice(price);
@@ -78,10 +94,10 @@ public class PaymentServiceImple implements PaymentService {
 	}
 
 	@Override
-	public List<OrderDTO> buylist(String id) {
+	public List<OrderDTO> buylist(MakePage page) {
 		
 		
-		return pm.buylist(id);
+		return pm.buylist(page);
 	}
 
 	@Override

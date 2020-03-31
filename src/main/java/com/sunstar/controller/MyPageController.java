@@ -1,4 +1,4 @@
-
+ 
 package com.sunstar.controller;
 
 import java.security.Principal;
@@ -57,7 +57,7 @@ public class MyPageController {
 	}
 	
 	@RequestMapping("/mypage/order")
-	public String orderList(Model model, Principal principal, @RequestParam(required=false, defaultValue="0") int currPage,@RequestParam(required=false,defaultValue="10") int pageSize ) {
+	public String orderList(Model model, Principal principal, @RequestParam(required=false, defaultValue="1") int currPage,@RequestParam(required=false,defaultValue="10") int pageSize ) {
 		mainservice.header(model);
 		
 		if(principal!=null) {
@@ -81,23 +81,36 @@ public class MyPageController {
 			}else {
 				makepage.setSizePerPage(pageSize); 
 			}
-
-			int blockSize = 10;
+			
+			
+			
+			
+			
+			int blockSize = 3;
 			
 			MakePage page = new MakePage(currPage, totalCount, makepage.getSizePerPage(), blockSize);
 			
-			int startrow = page.getStartRow();
+			System.out.println("현재페이지"+page.getCurrPage());
+			System.out.println("총 갯수"+page.getTotalCount());
+			System.out.println("1페이지당 표시개수"+page.getSizePerPage());
+			System.out.println("블럭사이즈"+page.getBlockSize());
+			System.out.println("시작줄"+page.getStartRow());
+			System.out.println("끝줄"+page.getEndRow());
+			System.out.println("시작블럭"+page.getStartBlock());
+			System.out.println("끝블럭"+page.getEndBlock());
+			System.out.println("이전있니"+page.isPrev());
+			System.out.println("다음있니"+page.isNext());
+			System.out.println("======page==end===");
 			
-			page.setStartRow(startrow);
+		
+			
+			page.setId(id);
 			System.out.println(page.getStartRow());
-			page.setStartRow(page.getStartRow());
-			System.out.println(page.getStartRow());
 			
-			
-			
-			List<OrderDTO> buylist = paymentservice.buylist(id);
+			List<OrderDTO> buylist = paymentservice.buylist(page);
 			
 			model.addAttribute("buylist",buylist);
+			model.addAttribute("page",page);
 			model.addAttribute("contentpage","Mypage/buyer_orderlist.jsp");
 			
 			

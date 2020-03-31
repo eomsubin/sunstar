@@ -35,6 +35,7 @@ public class CartDTO {
 	private String seller_code;
 	private String seller_name;
 	private int inventory;
+	private int total_price;
 	
 	private String option1;
 	private String option2;
