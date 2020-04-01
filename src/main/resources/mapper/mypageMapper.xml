@@ -84,4 +84,18 @@
 	
 	</select>
 	
+	<update id="refund" parameterType="com.sunstar.dto.OrderListDTO">
+		update order_list
+		set
+			delivery_state="결제취소 요청(구매자사유)",refund_bank=#{refund_bank},refund_account=#{refund_account},refund_msg=#{refund_msg},refund_price=#{refund_price}
+		
+		where order_no= #{order_no}
+	</update> 
+	
+	<update id="updatePw" parameterType="com.sunstar.dto.CustomerDTO">
+		update customer
+		set password=#{updatepw}
+		where id=#{id}
+	</update>
+	
 </mapper>

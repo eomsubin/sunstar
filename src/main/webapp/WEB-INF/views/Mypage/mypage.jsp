@@ -100,6 +100,38 @@ function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2, zipNo
 
 
 </script>
+<script>
+
+	function pwUpdate(){
+		
+		var rpw = $('#rpw').val();
+		var upw = $('#upw').val();
+		var upwcheck =$('#upwcheck').val();
+		var password = "${info.password}";
+		console.log(rpw);
+		console.log(password);
+		var Pwreg = /(?=.*\d{1,15})(?=.*[~`!@#$%\^&*()-+=]{1,15})(?=.*[a-zA-Z]{1,50}).{6,15}$/;
+		
+		if(upw=="" || upw==null){
+			alert('변경할 비밀번호를 입력하세요');
+		}else if(upw!=upwcheck){
+			alert('변경 할 비밀번호가 서로 일치하지 않습니다.');
+		}else if(!Pwreg.test(upw)){
+			
+			alert('띄어쓰기 없는 6~15자의 숫자, 특문 각 1회 이상, 영문은 1개 이상 사용하여  6자리 이상 입력하셔야 합니다.')
+			
+		}else{
+			alert('비밀번호 변경이 성공하였습니다.');
+			location.href= "${pageContext.request.contextPath}/mypage/info/"+upw;
+			
+			
+		}
+		
+	}
+
+
+
+</script>
 
 </head>
 <body>
@@ -157,14 +189,13 @@ function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2, zipNo
 							<label>비밀번호</label>
 							
 						 <input type="password"
-								class="form-control" id="rpw" name="password" placeholder="현재 비밀번호를 입력하세요">
+								class="form-control" id="upw" name="upw" placeholder="변경 할 비밀번호를 입력하세요">
 						</div>
 						<div class="form-group">
-						<input type="password"
-								class="form-control" id="upw" name="password" placeholder="변경 할 비밀번호를 입력하세요">
+						
 								
 						<input type="password"
-								class="form-control" id="upwcheck" name="password" placeholder="변경 할 비밀번호를 확인하세요">
+								class="form-control" id="upwcheck" name="upwcheck" placeholder="변경 할 비밀번호를 확인하세요">
 								
 							<div class="alert alert-success" id="alert-success">비밀번호가 일치합니다.</div> 
 							<div class="alert alert-danger" id="alert-danger">비밀번호가 일치하지 않습니다.</div>
