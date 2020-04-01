@@ -10,6 +10,37 @@
     padding: 50px 0;
 }
 
+.cart_null1{
+    margin: 0 auto;
+    text-align: center;
+    padding-top: 150px;
+    padding-bottom: 200px;
+}
+
+.cart_null2{
+	background: url(//pics.gmarket.co.kr/pc/ko/pay/cart/img_cart.png) center top no-repeat;
+    display: block;
+    padding-top: 70px;
+    font-size: 15px;
+    text-align: center;
+    color: #7B7F87;
+    line-height: 22px;
+    font-weight: normal;
+}
+
+
+.none_item{
+	width: 200px;
+    text-align: center;
+    background: #fff;
+    border: 1px solid #ddd;
+    padding: 13px 0 12px;
+    display: block;
+    margin: 27px auto;
+    color: #676767
+}
+
+
 .select {
     background-color: #f6f6f6;
 
@@ -27,18 +58,6 @@
     background-color: #fbab60;
 }
 
-
-
-#selectdel_btn {
-    border: 1px solid #c9c9c9;
-    height: 32px;
-    width: 110px;
-    background-color: #fff;
-    font-family: Poppins, BlinkMacSystemFont, Apple SD Gothic Neo !important;
-    border-radius: 1px;
-
-
-}
 
 .seller {
     border-top: 1px solid #fbab60 !important;

@@ -10,6 +10,7 @@ import com.sunstar.dto.CategoryDTO;
 import com.sunstar.dto.OptionDTO;
 import com.sunstar.dto.OrderDTO;
 import com.sunstar.dto.ProductDTO;
+import com.sunstar.dto.QnaDTO;
 import com.sunstar.dto.ReviewDTO;
 
 @Mapper
@@ -34,6 +35,10 @@ public interface ProductMapper {
 	int customerinsertreview(HashMap<String, String> map);
 
 	HashMap<String, String> customerdetailreview(String order_no);
+
+	List<QnaDTO> qnaList(String product_code);
+
+	void insert_qna(QnaDTO dto);
 
 	
 }

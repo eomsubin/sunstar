@@ -33,6 +33,7 @@ import com.sunstar.dto.CustomerDTO;
 import com.sunstar.dto.CustomerUserDetail;
 import com.sunstar.dto.MakePage;
 import com.sunstar.dto.ProductDTO;
+import com.sunstar.dto.QnaDTO;
 import com.sunstar.dto.ReviewDTO;
 import com.sunstar.service.AuthService;
 import com.sunstar.service.MainService;
@@ -187,11 +188,34 @@ public class ProductController {
 			List<ReviewDTO> review = productservice.reviewList(map);
 			
 			model.addAttribute("review", review);
+			
+			
+			//product_qna
+			//title, content, attatch qna_state, id, product_code, write_date, qna_reply, reply_date
+			List<QnaDTO> qlist = productservice.qnaList(product_code);
+			
+			model.addAttribute("qlist", qlist);
+			
+			
 		}
 		mainservice.header(model);
 		return "home";
 	}
 	
+	@RequestMapping("/insert_qna")
+	public String insert_qna(Model model, QnaDTO dto, Principal principal) {
+		String id = "";
+		if(principal!=null) {
+			id= principal.getName();
+			System.out.println(id);
+		}
+		
+		System.out.println(dto);
+		dto.setId(id);
+		productservice.insert_qna(dto);
+		
+		return "redirect:/detailview2?product_code=" + dto.getProduct_code();
+	}
 	
 /*	@RequestMapping("/RegistrationBuyer")
 	public String RegistrationBuyer(Model model) {

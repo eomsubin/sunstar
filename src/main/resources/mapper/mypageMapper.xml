@@ -12,9 +12,10 @@
 	</update>
 	
 	<select id="getUserInfo" resultType="com.sunstar.dto.CustomerDTO" parameterType="string">
-		select * 
+		select s.*, c.name, c.email, c.password, c.address1, c.address2, c.address3, c.zip, c.enable, c.join_date, c.tel 
 		from customer c 
-		join seller s on c.id=s.id 
+		join seller s 
+		on c.id=s.id 
 		where c.id = #{id}
 	</select>
 	
