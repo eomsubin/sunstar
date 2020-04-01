@@ -586,7 +586,6 @@ body {
 									<th>상품이름</th>
 									<th>가격</th>
 									<th>원가</th>
-									<th>배송비</th>
 									<th style="border-left: 2px solid silver">컬러</th>
 									<th>사이즈</th>
 									<th>재고</th>
@@ -609,7 +608,6 @@ body {
 										<td>${i.product_name}</td>
 										<td>${i.price}</td>
 										<td>${i.cost}</td>
-										<td>${i.shipping_cost}</td>
 										<td style="border-left: 2px solid silver">${i.option1 }</td>
 										<td>${i.option2 }</td>
 										<td>${i.inventory }</td>

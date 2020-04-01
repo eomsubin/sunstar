@@ -22,4 +22,25 @@ public class ChartDTO {
 							"21","22","23","24","25","26","27","28","29","30","31"};
 	
 	private String yyyymmdd;
+	
+	
+	//대시보드 top5 items
+	private int product_code;
+	private String product_name;
+	private int accumulation;
+	
+	//대시보드 파이차트
+	private String category_code;
+	private int top5count;
+	private String lv1;
+	private String lv2;
+	private String lv3;
+	
+	
+	private String today;
+	private String ten_days;
+	
+	
+	
 }
+

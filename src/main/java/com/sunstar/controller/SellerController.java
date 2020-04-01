@@ -6,7 +6,10 @@ import java.io.IOException;
 import java.security.Principal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -69,21 +72,123 @@ public class SellerController {
 		System.out.println(id);
 		String seller_code = sellerservice.getSellerCode(id);
 
+		
+		//상단 단계별 건수 표시
 		int paid = sellerservice.getPaid(seller_code);
 		int ready = sellerservice.getReadyCount(seller_code);
 		int exchange =  sellerservice.getExchangeCount(seller_code);
 		int bringBack = sellerservice.getBringBack(seller_code);
 		int waitAnswer = sellerservice.getWaitAnswer(seller_code);
 
-
 		System.out.println(ready + "/" + exchange + "/" + bringBack + "/" + waitAnswer);
 
+
+		//파이 그래프
+		List<ChartDTO> top5category =  sellerservice.get_top5(seller_code);
+		String category_name = "";
+		String top5Count = "";
+		
+		for(int i = 0; i < top5category.size() ; i++) {
+			if( i == 0 ) {
+				category_name += ("'"+ top5category.get(i).getLv1() +"-"+ top5category.get(i).getLv2() +"-"+ top5category.get(i).getLv3() +"'");
+				top5Count += top5category.get(i).getTop5count();
+				
+			}else {
+				category_name += "," + ("'"+ top5category.get(i).getLv1() +"-"+ top5category.get(i).getLv2() +"-"+ top5category.get(i).getLv3() +"'");
+				top5Count += "," + top5category.get(i).getTop5count();
+			}
+		}
+		
+		System.out.println(category_name);
+		System.out.println(top5Count);
+		
+		//
+		List<ChartDTO> top5products = sellerservice.get_top5items(seller_code);
+		String product_name ="";
+		String top5itemsCount ="";
+		
+		for(int i = 0; i < top5products.size() ; i++) {
+			if( i == 0 ) {
+				product_name += ("'"+ top5products.get(i).getProduct_name() + "'");
+				top5itemsCount += top5products.get(i).getAccumulation();
+				
+			}else {
+				product_name += "," + ("'"+top5products.get(i).getProduct_name() +"'");
+				top5itemsCount += "," + top5products.get(i).getAccumulation();
+			}
+		}
+		
+		System.out.println(category_name);
+		System.out.println(top5Count);
+
+		//
+		Calendar c1 = new GregorianCalendar();		
+		SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd"); // 날짜 포맷 
+
+		
+		ChartDTO getOrderCount = new ChartDTO();
+		List<ChartDTO> getOrderCounts = new ArrayList<>();
+		getOrderCount.setSeller_code(seller_code);
+		
+		
+		String ten_days[] = new String[10];
+		String ten_day_data[] = new String[10];
+		
+		
+		c1.add(Calendar.DATE, -9); 
+		format.format(c1.getTime());
+		
+		ten_days[0] = format.format(c1.getTime());
+		ten_day_data[0] = "0";
+		
+		for(int i = 1; i < 10; i++) {
+			c1.add(Calendar.DATE, +1); 
+			String day= format.format(c1.getTime());
+			ten_days[i]=day;
+			
+			 getOrderCount.setYyyymmdd(day);
+			 ten_day_data[i] = Integer.toString(sellerservice.getOrderCount(getOrderCount));
+		}
+		
+		Arrays.sort(ten_days);
+		Arrays.sort(ten_day_data);
+		
+		String day10 =ten_days[0];
+		String day10data = ten_day_data[0];
+
+
+		for(int a = 1; a < 10; a++) {
+			day10 += "," + ten_days[a];
+			day10data += "," + ten_day_data[a];
+		}
+		
+		
+		System.out.println("첫번째 차트");
+		
+		System.out.println(day10);
+		System.out.println(day10data);
+		
+		System.out.println("------");
+		
+		//
 		model.addAttribute("paid", paid);
 		model.addAttribute("ready", ready);
 		model.addAttribute("exchange", exchange);
 		model.addAttribute("bringback", bringBack);
 		model.addAttribute("waitAnswer",waitAnswer);
-
+		//
+		model.addAttribute("category_name", category_name);
+		model.addAttribute("top5Count", top5Count);
+		//
+		model.addAttribute("product_name", product_name);
+		model.addAttribute("top5itemsCount", top5itemsCount);
+		//
+		
+		model.addAttribute("day10", day10);
+		model.addAttribute("day10data", day10data);
+	
+		
+		
 		model.addAttribute("sellerpage", "temp_main.jsp");
 		return "sellers/temp";
 	}
