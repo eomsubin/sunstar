@@ -66,17 +66,18 @@ public class ProductController {
 	public String productListlv1(Model model, HttpServletRequest httpServletRequest, @RequestParam HashMap<String, Object> map) {
 		header(model);
 		//param
-		Iterator<String> ita = map.keySet().iterator();
+		/*Iterator<String> ita = map.keySet().iterator();
 		while(ita.hasNext())
 		{
 			String key = ita.next();
 			System.out.println(key+", "+map.get(key));
-		}
+		}*/
 		if("".equals(map.get("s")))
 			map.remove("s");
 		if("".equals(map.get("word")))
 			map.remove("word");
 		
+		System.out.println(map);
 		//check category lv
 		String category = (String)map.get("category");
 		List<CategoryDTO> categorylist = productservice.getcategorylist();

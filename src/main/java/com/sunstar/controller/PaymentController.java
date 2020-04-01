@@ -177,7 +177,15 @@ mainservice.header(model);
 			}
 			
 			List<Integer> getSellerCodes2= new ArrayList<>();
-		
+			
+			HashMap<String, String> sellerList = new HashMap<>();
+			HashMap<String,Integer> shipping_cost = new HashMap<>();
+			for(CartDTO dto:list) {
+				sellerList.put(dto.getSeller_code(), dto.getSeller_name());
+				shipping_cost.put(dto.getSeller_code(), dto.getBasic_shipping_cost());
+			}
+			System.out.println("selerlist"+sellerList);
+			System.out.println("shipping:"+shipping_cost);
 			System.out.println(getSellerCodes);
 			
 			//for문 돌려서 getSellerCodes의 중복값을 제거
@@ -190,13 +198,14 @@ mainservice.header(model);
 			
 		
 			
-			
+		
 			
 			
 			System.out.println(getSellerCodes2);
 			
 			int sellerResult = getSellerCodes2.size();
-			
+			model.addAttribute("sellerlist",sellerList);
+			model.addAttribute("shipcost",shipping_cost);
 			System.out.println(list);
 			System.out.println(plist+" :  plist ");
 			System.out.println("list:  "+list);
