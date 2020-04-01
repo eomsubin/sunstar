@@ -115,6 +115,12 @@ public interface SellerMapper {
 
 	void search_order_update_2(OrderDTO dto);
 
+	List<ChartDTO> get_top5(String seller_code);
+
+	List<ChartDTO> get_top5items(String seller_code);
+
+	Integer getOrderCount(ChartDTO getOrderCount);
+
 
 
 

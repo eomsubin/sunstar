@@ -327,6 +327,24 @@ public class SellerServiceImpl implements SellerService {
 			mapper.search_order_update(dto);
 	}
 
+	@Override
+	public List<ChartDTO> get_top5(String seller_code) {
+		// TODO Auto-generated method stub
+		return mapper.get_top5(seller_code);
+	}
+
+	@Override
+	public List<ChartDTO> get_top5items(String seller_code) {
+		// TODO Auto-generated method stub
+		return mapper.get_top5items(seller_code);
+	}
+
+	@Override
+	public Integer getOrderCount(ChartDTO getOrderCount) {
+		// TODO Auto-generated method stub
+		return mapper.getOrderCount(getOrderCount);
+	}
+
 	
 
 }                                                                                                                                                         
