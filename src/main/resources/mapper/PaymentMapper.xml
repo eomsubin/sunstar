@@ -71,7 +71,7 @@
 	</insert> -->
 	
 	<select id="buylist" resultType="com.sunstar.dto.OrderDTO" parameterType="com.sunstar.dto.MakePage">
-		select o.order_code,p.product_code,product_name,thumb_img,p.price,quantity,l.delivery_state,l.tracking_no,l.add_price, review_no,s.basic_shipping_cost
+		select o.order_code,p.product_code,product_name,thumb_img,p.price,quantity,l.delivery_state,l.tracking_no,l.add_price, review_no,s.basic_shipping_cost, l.order_no
 		from order_list l left join ordered o
 		on l.order_code = o.order_code
 		left join product_list p

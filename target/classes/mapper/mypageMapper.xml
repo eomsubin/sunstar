@@ -12,10 +12,10 @@
 	</update>
 	
 	<select id="getUserInfo" resultType="com.sunstar.dto.CustomerDTO" parameterType="string">
-		select *
-		from customer
-		where id=#{id} 
-	
+		select * 
+		from customer c 
+		join seller s on c.id=s.id 
+		where c.id = #{id}
 	</select>
 	
 	<insert id="addshipaddr" parameterType="string">

@@ -227,13 +227,18 @@ public class MyPageController {
 	}
 	
 	@RequestMapping("/mypage/seller_register")
-	public String seller_register(Model model) {
-		
+	public String seller_register(Model model,Principal principal, @RequestParam(required=false) String m) {
+		if(m == null || "".equals(m))
+		{
+			m="0";
+		}
 		mainservice.header(model);
-		
-		
+		CustomerUserDetail userdetail = (CustomerUserDetail)((Authentication)principal).getPrincipal();
+		String id = userdetail.getUsername();
+		CustomerDTO info = mpservice.getUserInfo(id);
+		model.addAttribute("dto", info);
 		model.addAttribute("contentpage","Mypage/seller_register.jsp");
-		
+		model.addAttribute("m", m);
 		
 		return "home";
 	}
