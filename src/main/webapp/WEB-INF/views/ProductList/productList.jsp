@@ -12,6 +12,9 @@
 <head>
 <meta charset="utf-8">
 <title>Insert title here</title>
+
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/css/mypage.css">
 <style>
 	/* Sinlge Product */
 	.single-product{
@@ -572,7 +575,12 @@
 <script>
 	$(document).ready(function(){
 		console.log($(location).attr('href'));
-		console.log($('#${map.lv1}').selected);
+		
+		
+		$('.current:first').text("${map.lv1}");
+		$('li[data-value="패션"]').removeClass("selected");
+		$('li[data-value="${map.lv1}"]').addClass("selected");
+		$('#${map.lv1}').prop('selected', true);
 	})
 </script>
 </head>
@@ -798,16 +806,16 @@
 							<nav aria-label="Page navigation">
 							  <ul class="pagination ">
 							    <!-- 이전 블록 -->
-						   		    <c:if test="${map.page.prev}"><li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/list?category=${map.category}&s=${map.s}&curr=${map.page.startBlock-1}&ps=${map.page.sizePerPage}&sort=${map.sort}" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li></c:if>
-								    <c:if test="${!map.page.prev}"><li class="page-item disabled"><a class="page-link" href="${pageContext.request.contextPath}/list?category=${map.category}&s=${map.s}&curr=${map.page.startBlock-1}&ps=${map.page.sizePerPage}&sort=${map.sort}" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li></c:if> 
+						   		    <c:if test="${map.page.prev}"><li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/list?category=${map.category}&s=${map.s}&curr=${map.page.startBlock-1}&ps=${map.page.sizePerPage}&sort=${map.sort}&word=${map.word}" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li></c:if>
+								    <c:if test="${!map.page.prev}"><li class="page-item disabled"><a class="page-link" href="${pageContext.request.contextPath}/list?category=${map.category}&s=${map.s}&curr=${map.page.startBlock-1}&ps=${map.page.sizePerPage}&sort=${map.sort}&word=${map.word}" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li></c:if> 
 							    <!-- 현재 리스트 -->
 							    <c:forEach var="index" begin="${map.page.startBlock}" end="${map.page.endBlock}">
-										<c:if test="${map.page.currPage eq index}"><li class="page-item active"><a class="page-link" href="${pageContext.request.contextPath}/list?category=${map.category}&s=${map.s}&curr=${index}&ps=${map.page.sizePerPage}&sort=${map.sort}">${index}</a></li></c:if>
-										<c:if test="${map.page.currPage ne index}"><li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/list?category=${map.category}&s=${map.s}&curr=${index}&ps=${map.page.sizePerPage}&sort=${map.sort}">${index}</a></li></c:if>
+										<c:if test="${map.page.currPage eq index}"><li class="page-item active"><a class="page-link" href="${pageContext.request.contextPath}/list?category=${map.category}&s=${map.s}&curr=${index}&ps=${map.page.sizePerPage}&sort=${map.sort}&word=${map.word}">${index}</a></li></c:if>
+										<c:if test="${map.page.currPage ne index}"><li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/list?category=${map.category}&s=${map.s}&curr=${index}&ps=${map.page.sizePerPage}&sort=${map.sort}&word=${map.word}">${index}</a></li></c:if>
 								</c:forEach>
 							    <!-- 다음 블록 -->
-							    	<c:if test="${map.page.next}"><li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/list?category=${map.category}&s=${map.s}&curr=${map.page.endBlock+1}&ps=${map.page.sizePerPage}&sort=${map.sort}" aria-label="Previous"><span aria-hidden="true">&raquo;</span></a></li></c:if>
-								    <c:if test="${!map.page.next}"><li class="page-item disabled"><a class="page-link" href="${pageContext.request.contextPath}/list?category=${map.category}&s=${map.s}&curr=${map.pageendBlock+1}&ps=${map.page.sizePerPage}&sort=${map.sort}" aria-label="Previous"><span aria-hidden="true">&raquo;</span></a></li></c:if>
+							    	<c:if test="${map.page.next}"><li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/list?category=${map.category}&s=${map.s}&curr=${map.page.endBlock+1}&ps=${map.page.sizePerPage}&sort=${map.sort}&word=${map.word}" aria-label="Previous"><span aria-hidden="true">&raquo;</span></a></li></c:if>
+								    <c:if test="${!map.page.next}"><li class="page-item disabled"><a class="page-link" href="${pageContext.request.contextPath}/list?category=${map.category}&s=${map.s}&curr=${map.pageendBlock+1}&ps=${map.page.sizePerPage}&sort=${map.sort}&word=${map.word}" aria-label="Previous"><span aria-hidden="true">&raquo;</span></a></li></c:if>
 							  </ul>
 							</nav>
 						</div>

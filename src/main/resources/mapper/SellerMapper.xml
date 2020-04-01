@@ -540,4 +540,32 @@
 		where order_code = #{order_code}
 		</update>
 		
+		<select id="get_top5" parameterType="string" resultType="com.sunstar.dto.ChartDTO">
+		select p.category_code, count(p.category_code) as top5count, c.lv1, c.lv2, c.lv3
+        from product_list p inner join category c
+        on p.category_code = c.category_code
+        where seller_code = #{seller_code}
+        group by category_code
+        order by count(category_code) desc
+        limit 0,5;
+		</select>
+		
+		<select id="get_top5items" parameterType="string" resultType="com.sunstar.dto.ChartDTO">
+        select distinct p.product_code, product_name, accumulation
+        from product_list p join options o
+        on p.product_code = o.product_code
+        where p.seller_code = #{seller_code}
+        order by accumulation desc
+        limit 0, 5;
+		
+		</select>
+		
+		<select id="getOrderCount" parameterType="com.sunstar.dto.ChartDTO" resultType="integer">
+		 select ifnull(count(o.order_code), 0)
+        from ordered o join price r
+        on o.order_code = r.order_code
+        where r.seller_code = #{seller_code}
+		and left(o.order_code, 8) = #{yyyymmdd}
+		
+		</select>
 </mapper>

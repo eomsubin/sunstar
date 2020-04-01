@@ -64,10 +64,37 @@ function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2, zipNo
 	console.log($('#seller_zip').val(zipNo));
 };
 
-
+	$(document).ready(function(){
+		console.log("${m}");
+		if("${m}">0){
+			alert("신청이 완료되었습니다. 전환까지 평균 1~2일이 소요되며 완료 시  이메일로 알려드립니다.")
+		}
+		
+		$("form").submit(function(event) {
+		 
+			let id = $('#id').val();
+			let result;
+			  $.ajax({
+					url : "${pageContext.request.contextPath}/registerseller/selleridcheck/"+id
+					,dataType : "json"
+					,async: false
+					,success:function(data){
+						result = data;
+					}
+					,error:function(e){
+						console.log(e);
+					}
+				});
+			  if(result>0){
+				  alert("다시 신청할 수 없습니다.")
+				  event.preventDefault(); 
+			  }else{
+				  $(this).submit();
+			  }
+			  
+		});
+	});
 	
-	
-
 
 </script>
 </head>
@@ -106,7 +133,7 @@ function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2, zipNo
 
 				<!-- 내용 -->
 				<div style="width:70%;">
-				<form action="${pageContext.request.contextPath}/seller/changeInfo" method="post">
+				<form action="${pageContext.request.contextPath}/registerseller" method="post">
 					<input type="hidden" name="${_csrf.parameterName}"
 						value="${_csrf.token}" />
 					<div class="form-row col-md-12">
@@ -148,14 +175,14 @@ function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2, zipNo
 						<div class="col-md-4 mb-1">
 							<label for="validationDefault05">우편번호</label> <input type="text"
 								class="form-control" id="seller_zip" name="seller_zip"
-								value="${dto.seller_zip}" required>
+								required>
 						</div>
 						<div class="col-md-3 mb-1">
 							<label for="validationDefault05">은행</label>
 								
 						<select class="form-control" id="bank" name="bank"
 								required>
-								<option selected="selected" value="${dto.bank}" > ${dto.bank}</option>
+								
 								<option value="카카오뱅크">카카오뱅크</option>
 								<option value="국민은행">국민은행</option>
 								<option value="기업은행">기업은행</option>
@@ -207,7 +234,7 @@ function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2, zipNo
 				<input type="button" class="btn btn-info" value="연장" style="font-size:0.66em; padding:2px 4px 1px 3px; margin: 0 !important;"  data-toggle="modal" data-target="#staticBackdrop">
 					<input type="date"
 								class="form-control" id="seller_deadline" name="seller_deadline"
-								>
+								required>
 						</div>
 						
 						
@@ -215,7 +242,6 @@ function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2, zipNo
 							<label for="validationDefault05">계약 택배사</label>
 								
 						<select class="form-control" id="shipping_company" name="shipping_company" >
-								<option value="${dto.shipping_company}" selected="selected">현재 - ${dto.shipping_company}</option>
 								<option value="한진택배">한진택배</option>
 								<option value="CJ대한통운">CJ대한통운</option>
 								<option value="KGB택배">KGB택배</option>
@@ -228,12 +254,12 @@ function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2, zipNo
 						<div class="col-md-4">
 							<label for="validationDefault03">기본 배송비</label>
 							 <input type="text"
-								class="form-control" id="basic_shipping_cost" name="basic_shipping_cost"  >
+								class="form-control" id="basic_shipping_cost" name="basic_shipping_cost"  required>
 						</div>
 						<div class="col-md-4">
 							<label for="free_shipping_cost">무료 배송 기준액</label>
 							 <input type="text"
-								class="form-control" id="free_shipping_cost" name="free_shipping_cost"  >
+								class="form-control" id="free_shipping_cost" name="free_shipping_cost"  required>
 						</div>
 						
 						
@@ -242,8 +268,6 @@ function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2, zipNo
 						<label></label>
 						<br>
 						<input type="submit" class="btn btn-primary" style="margin-left:330px; margin-top:50px;" value="회원전환">
-						
-
 					</div>
 				</form>
 					</div>

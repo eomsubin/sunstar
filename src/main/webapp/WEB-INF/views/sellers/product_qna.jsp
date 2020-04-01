@@ -54,7 +54,6 @@
 								<th style="width: 50px"><input type="checkbox" id="all"></th>
 								<th>문의번호</th>
 								<th>제목</th>
-								<th>첨부파일</th>
 								<th>답변상태</th>
 								<th>구매자ID</th>
 								<th>상품코드</th>
@@ -70,7 +69,6 @@
 
 									<td>${i.qna_no }</td>
 									<td>${i.qna_title }</td>
-									<td>${i.qna_attatch }</td>
 									<c:if test="${i.qna_state == '답변대기'}">
 										<td style="color: red; font-weight: 700;">${i.qna_state }</td>
 									</c:if>

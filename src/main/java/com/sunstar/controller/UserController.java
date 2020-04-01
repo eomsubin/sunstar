@@ -96,6 +96,28 @@ public class UserController {
 		return result;
 	}
 
+	//셀러 가입 
+	@RequestMapping("/registerseller")
+	public String registerseller(Model model, @RequestParam HashMap<String, String> map) {
+		String business_license = ""+((int)(Math.random() * 1000000000));
+		map.put("business_license", business_license);
+		int result = service.join_Seller(map);
+		System.out.println(map);
+		
+		return "redirect:/mypage/seller_register?m="+result;
+				
+	}
+	
+	@RequestMapping("/registerseller/selleridcheck/{id}")
+	@ResponseBody
+	public int sellerIdCheck(@PathVariable String id) {
+		int result = service.selleridcheck(id);
+		System.out.println(result);
+		return result;
+	}
+	//셀러 가입 끝
+	
+	
 	@RequestMapping("/userlogin/FindID")
 	public String FindID(Model model) {
 		model.addAttribute("contentpage", "../User/FindID.jsp");
@@ -182,7 +204,7 @@ public class UserController {
 	@ResponseBody
 	public String getCertificationPWNum(Model model, @RequestParam HashMap<String, String> map) {
 		String CertificationNum = "" + (int) (Math.random() * 1000000);
-		;
+		
 		map.put("CertificationNum", CertificationNum);
 		// 비밀번호 찾기 email 전송
 		final MimeMessagePreparator pp = new MimeMessagePreparator() {
@@ -221,6 +243,7 @@ public class UserController {
 	@RequestMapping("/customerdetailreview")
 	public String customerdetailreview(Model model, @RequestParam String order_no){
 		HashMap<String, String> dto = productservice.customerdetailreview(order_no);
+		
 		model.addAttribute("detail",dto);
 		return "User/customerdetailreview";
 	}

@@ -47,7 +47,7 @@
 	</select>
 	
 	<select id="gettotalcount" resultType="string" parameterType="string">
-	select count(*)
+	select count(*) from (select count(*)
     from product_list p  
     join category c
 	on p.category_code = c.category_code
@@ -68,9 +68,15 @@
 	 	<if test="s != null">
 	 		and s.seller_name = #{s}
 	 	</if>
-	 </where>	 
+	 	<if test="word != null">
+	 		and product_name like concat('%',#{word},'%')
+	 	</if>
+	 </where>
+	 group by p.product_code) as totalcount
 	</select>
 	
+   
+    
 	<select id="getproductList" resultType="com.sunstar.dto.ProductDTO" parameterType="string">
 	 select p.product_code, p.price, p.product_name, p.thumb_img, p.explains, p.category_code, p.add_date, c.lv3, c.lv2, c.lv1, c.lv2code, s.seller_name, s.basic_shipping_cost, s.free_shipping_cost
      from product_list p  
@@ -92,6 +98,9 @@
 	 	</if>
 	 	<if test="s != null">
 	 		and s.seller_name = #{s}
+	 	</if>
+	 	<if test="word != null">
+	 		and product_name like concat('%',#{word},'%')
 	 	</if>
 	 </where>	 
 	 
@@ -158,4 +167,24 @@
     on ol.order_no = rv.order_no
     where ol.order_no = #{order_no}
 	</select>
+	
+	<!-- qna 리스트 -->
+	<select id="qnaList" parameterType="string" resultType="com.sunstar.dto.QnaDTO">
+	
+	select qna_no, qna_title, qna_content, qna_state, 
+	rpad(substr(id,1,4),8,'*') as id, product_code, write_date, qna_reply, reply_date
+	from qna
+	where product_code = #{product_code}
+	order by qna_no desc
+	
+	</select>
+	
+	
+	<insert id="insert_qna" parameterType="com.sunstar.dto.QnaDTO">
+	insert into qna(qna_title, qna_content, qna_state, id, product_code, write_date)
+	values(#{qna_title}, #{qna_content}, '답변대기', #{id}, #{product_code}, now()  )
+	
+	</insert>
+	
+	
 </mapper>
