@@ -186,8 +186,8 @@ public class SellerServiceImpl implements SellerService {
 	}
 
 	@Override
-	public List<OrderDTO> viewStepOrder(String view_step) {
-		return mapper.viewStepOrder(view_step);
+	public List<OrderDTO> viewStepOrder(OrderDTO dto) {
+		return mapper.viewStepOrder(dto);
 	}
 
 	@Override

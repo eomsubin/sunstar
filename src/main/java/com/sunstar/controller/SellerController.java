@@ -887,14 +887,19 @@ public class SellerController {
 
 	//주문목록 단계변경
 	@RequestMapping("/view_step/{stp}")
-	public String viewStep(Model model, @PathVariable String stp) {
-
+	public String viewStep(Model model, Principal principal, @PathVariable String stp) {
+		//id 가져오는 방법
+		String id= getId(model, principal);
+		System.out.println(id);
+		String seller_code = sellerservice.getSellerCode(id);
+		
+		
 		System.out.println("stp" +stp);
 
 		String view_step = "";
-
-
-		if("step2".equals(stp)) {				//결제완료
+		if("step1".equals(stp)) {				//결제완료
+			view_step = "결제대기중";
+		}else if("step2".equals(stp)) {				//결제완료
 			view_step = "결제완료";
 		}else if("step3".equals(stp)) {				//배송준비
 			view_step = "배송준비";  
@@ -902,6 +907,8 @@ public class SellerController {
 			view_step = "배송중";
 		}else if("step5".equals(stp)) {		//배송완료
 			view_step = "배송완료";
+		}else if("step6".equals(stp)) {		//반품요청
+			view_step = "반품요청";
 		}else if("step7".equals(stp)) {		//반품대기
 			view_step = "반품대기";
 		}else if("step8".equals(stp)) {		//반품완료
@@ -916,11 +923,19 @@ public class SellerController {
 			view_step = "반품배송중";
 		}else if("step13".equals(stp)) {				//배송 및 교환완료
 			view_step = "배송 및 교환완료";
+		}else if("step14".equals(stp)) {				//결제취소(판매자사유)
+			view_step = "결제취소 요청(구매자 사유)";
 		}else if("step15".equals(stp)) {				//결제취소(판매자사유)
 			view_step = "결체취소(판매자사유)";
+		}else if("step16".equals(stp)) {				//결제취소(판매자사유)
+			view_step = "결체취소 완료";
 		}
 
-		List<OrderDTO> list = sellerservice.viewStepOrder(view_step);
+		OrderDTO dto = new OrderDTO();
+		dto.setSeller_code(seller_code);
+		dto.setDelivery_state(view_step);
+		
+		List<OrderDTO> list = sellerservice.viewStepOrder(dto);
 		model.addAttribute("orderlist", list);
 
 
@@ -942,12 +957,21 @@ public class SellerController {
 		System.out.println("ordercodes" + ordernos);
 		System.out.println("wantChange..." + ordernos);
 
-		if("step3".equals(stp)) {				//배송준비
-			change_step = "배송준비";
+		
+		
+
+		if("step1".equals(stp)) {				//결제완료
+			change_step = "결제대기중";
+		}else if("step2".equals(stp)) {				//결제완료
+			change_step = "결제완료";
+		}else if("step3".equals(stp)) {				//배송준비
+			change_step = "배송준비";  
 		}else if("step4".equals(stp)) {		//배송중
 			change_step = "배송중";
 		}else if("step5".equals(stp)) {		//배송완료
 			change_step = "배송완료";
+		}else if("step6".equals(stp)) {		//반품요청
+			change_step = "반품요청";
 		}else if("step7".equals(stp)) {		//반품대기
 			change_step = "반품대기";
 		}else if("step8".equals(stp)) {		//반품완료
@@ -962,10 +986,15 @@ public class SellerController {
 			change_step = "반품배송중";
 		}else if("step13".equals(stp)) {				//배송 및 교환완료
 			change_step = "배송 및 교환완료";
+		}else if("step14".equals(stp)) {				//결제취소(판매자사유)
+			change_step = "결제취소 요청(구매자사유)";
 		}else if("step15".equals(stp)) {				//결제취소(판매자사유)
 			change_step = "결체취소(판매자사유)";
+		}else if("step16".equals(stp)) {				//결제취소(판매자사유)
+			change_step = "결체취소 완료";
 		}
-
+		
+		
 		for(String orderno : ordernos) {	     
 			OrderDTO dto = new OrderDTO();
 			
@@ -1477,12 +1506,15 @@ public class SellerController {
 		dto.setShipping_addr2(list.get(0).getShipping_addr2());
 		dto.setShipping_addr3(list.get(0).getShipping_addr3());
 		dto.setShipping_zip(list.get(0).getShipping_zip());
-		dto.setDelivery_state(list.get(0).getDelivery_state());
+/*		dto.setDelivery_state(list.get(0).getDelivery_state());
 		dto.setTracking_no(list.get(0).getTracking_no());
-		dto.setShipping_company(list.get(0).getShipping_company());
-		dto.setShipping_company(list.get(0).getShipping_company());
+		dto.setShipping_company(list.get(0).getShipping_company());*/
 		dto.setMessage(list.get(0).getMessage());
-
+		dto.setRefund_bank(list.get(0).getRefund_bank());
+		dto.setRefund_account(list.get(0).getRefund_account());
+		dto.setRefund_msg(list.get(0).getRefund_msg());
+		
+		
 		int allprice = 0;
 		for(int i =0; i< list.size();i++) {
 			allprice+= list.get(i).getPrice();
@@ -1699,7 +1731,6 @@ public class SellerController {
 		sellerservice.delete_auth(id);
 		return "redirect:http://${pageContext.request.contextPath}/";
 	}
-	
 	
 	
 }
