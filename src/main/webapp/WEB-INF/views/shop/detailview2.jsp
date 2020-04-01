@@ -260,7 +260,59 @@ table{
 	font-weight: 600;
 	color: black !important;
 }
+
+
+#qna_btn{
+	font-size: 0.6em;
+	float:right;
+	border: 1px solid #f7941d;
+	background-color:white;
+	padding: 2px;
+	color:#f7941d;
+	border-radius: 5px;
 }
+.qna_state_wait{
+	border: 1px solid #5f5f5f;
+/* 	background-color: #5f5f5f; */
+	color:#5f5f5f;
+	padding:1px;
+	border-radius: 5px;
+}
+
+.qna_state_com{
+	border:1px solid #f7941d;
+	background-color: #f7941d;
+	color: white;
+	padding:1px;
+	border-radius: 5px;	
+}
+
+
+#qna_insert{
+	width:90%;
+	height: 220px;
+	margin: 0 auto;
+	display: none;
+}
+.qna_close{
+	display: none;
+}
+.qna_reply{
+	display: none;
+}
+
+.insert_qna-btn{
+	font-size: 0.9em;
+	float:right;
+	margin:10px;
+	border: 1px solid ;
+	background-color:#f7941d;
+	padding: 3px;
+	color:white ;
+	border-radius: 5px;
+}
+
+
 </style>
 <script>
 
@@ -447,8 +499,30 @@ $(document).ready(function(){
 	/// 최초 이미지 로드
 	$('.loadimg').css("display", "block");
 	
+	
+	
+	//qna 
+	$('.qna_open').click(function(){
+		console.log('trclick!');
+		
+		$(this).next().slideToggle("fast");
+		console.log($(this).next().next().is('.qna_reply') === true);
+		 if($(this).next().next().is('.qna_reply') === true ){
+				$(this).next().next().slideToggle("fast");
+
+		} 
+	})
+	
+	
+	$('#qna_btn').click(function(){
+		$('#qna_insert').css('display', 'block');
+		
+	})
 });
 </script>
+
+
+
 <title>SBBJ</title>
 </head>
 <body>
@@ -759,7 +833,88 @@ $(document).ready(function(){
 	    
 	    <!-- 상품문의 -->
 	    <div id="pgna" style="display: none;">
-			   상품문의
+			<div class="infopadding">
+			   <h3 class="tit_productinfo">상품 문의 <span class="text-reviewcount ml-3">
+			   <fmt:formatNumber pattern="###,###,###" value="${fn:length(qlist)}"/></span>
+			   
+			   <span class="text_info">상품평은 구매완료후 <strong>마이페이지 > 주문/배송내역</strong>에서 작성하실 수 있습니다.</span>
+			   
+						<button id="qna_btn" > <i class="ti-hand-point-up">상품 문의</i></button></h3>
+						
+						
+		<div id="qna_insert">
+			<form method="post" action="${pageContext.request.contextPath}/insert_qna">
+				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /> 
+				<input type="hidden" name="product_code" value="${view.product_code}" >
+				
+				<sec:authorize access="isAuthenticated()">
+				<input type="hidden" name="id" id="id" 
+				value='<sec:authentication property="principal.UserInfo.id"/>' >
+				</sec:authorize>
+				
+				<label for="qna_title" class="col-sm-2 col-form-label">문의 제목</label>
+				<input type="text" class="form-control"  name="qna_title" id="qna_title">
+				
+				<label for="qna_content" class="col-sm-2 col-form-label">내용</label>
+				<textarea rows="2" class="form-control"  cols="60" name="qna_content" id="qna_content"></textarea>
+				<button type="submit" class="insert_qna-btn"><i class='ti-pencil-alt'></i>문의 작성</button>
+			</form>
+		</div>
+			   <table class="table_productinfo">
+							<colgroup>
+								<col style="width:15%">
+								<col style="width:45%">
+								<col style="width:20%">
+								<col style="width:20%">
+							</colgroup>
+							<thead>
+								<tr style="background-color: #fdf1e3;">
+									<td></td>
+									<td align="center" >제목</td>
+									<td align="center" >작성자</td>
+									<td align="center" >등록일</td>
+								</tr>
+							</thead> 
+							<tbody>
+								<c:forEach var="i" items="${qlist}">
+								<tr class="qna_open">
+									<td align="center">
+									<c:if test="${i.qna_state == '답변대기'}">
+										<span class="qna_state_wait">${i.qna_state}</span>  
+									
+									</c:if>
+									<c:if test="${i.qna_state == '답변완료'}">
+										<span class="qna_state_com">${i.qna_state}</span>  
+									
+									</c:if>
+									</td>
+									<td>	${i.qna_title}</td>
+									<td align="center" >${i.id}</td>
+									<td align="center" >${i.write_date}</td>
+								</tr>
+								<tr class="qna_close" style="border-bottom:  1px solid silver;">
+									<td> </td>
+									<td colspan="2" >${i.qna_content}</td>
+									<td> </td>
+								</tr>
+							<c:if test="${i.qna_state == '답변대기'}">
+							
+							</c:if>
+								
+							<c:if test="${i.qna_state == '답변완료'}">
+								<tr  class="qna_reply" style="background-color: #fdf1e3;">
+									<td  align="center"  > <i class="ti-angle-double-right"></i></td>
+									<td colspan="2">${i.qna_reply}</td>
+									<td  align="center" >${i.reply_date}</td>
+								</tr>
+							</c:if>
+								
+								
+								</c:forEach>
+							</tbody>
+						</table>
+						
+				</div>
 	    </div>
 	    <div class="vip-all_sub vip-tabcontent_lt infopadding">
 		<div class="precautions">

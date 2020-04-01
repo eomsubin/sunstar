@@ -167,4 +167,24 @@
     on ol.order_no = rv.order_no
     where ol.order_no = #{order_no}
 	</select>
+	
+	<!-- qna 리스트 -->
+	<select id="qnaList" parameterType="string" resultType="com.sunstar.dto.QnaDTO">
+	
+	select qna_no, qna_title, qna_content, qna_state, 
+	rpad(substr(id,1,4),8,'*') as id, product_code, write_date, qna_reply, reply_date
+	from qna
+	where product_code = #{product_code}
+	order by qna_no desc
+	
+	</select>
+	
+	
+	<insert id="insert_qna" parameterType="com.sunstar.dto.QnaDTO">
+	insert into qna(qna_title, qna_content, qna_state, id, product_code, write_date)
+	values(#{qna_title}, #{qna_content}, '답변대기', #{id}, #{product_code}, now()  )
+	
+	</insert>
+	
+	
 </mapper>
