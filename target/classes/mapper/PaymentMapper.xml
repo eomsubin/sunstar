@@ -70,16 +70,17 @@
 			values(#{id},#{shipping_addr1},#{shipping_addr2},#{shipping_addr3},#{shipping_zip},#{order_code},#{to_name},#{shipping_name})
 	</insert> -->
 	
-
 	<select id="buylist" resultType="com.sunstar.dto.OrderDTO" parameterType="com.sunstar.dto.MakePage">
-		select o.order_code,p.product_code,product_name,thumb_img,p.price,quantity,delivery_state,tracking_no,l.add_price, l.order_no, rv.review_no
+		select o.order_code,p.product_code,product_name,thumb_img,p.price,quantity,l.delivery_state,l.tracking_no,l.add_price, review_no,s.basic_shipping_cost, l.order_no
 		from order_list l left join ordered o
 		on l.order_code = o.order_code
 		left join product_list p
 		on l.product_code = p.product_code
 		left join review rv
         on rv.order_no = l.order_no
-		where id=#{id}
+        left join seller s
+        on p.seller_code= s.seller_code
+		where o.id=#{id}
 		order by l.order_no desc
 		limit #{startRow},#{sizePerPage}
 	</select>
@@ -163,7 +164,7 @@
     and c.option2=o.option2
 	
         
-       order by s.seller_name
+       order by s.seller_name;
 </select>
 
 <update id="declineInventory" parameterType="com.sunstar.dto.OrderListDTO">

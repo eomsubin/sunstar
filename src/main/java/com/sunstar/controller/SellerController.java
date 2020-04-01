@@ -1,25 +1,15 @@
 package com.sunstar.controller;
 
 
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.security.Principal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import javax.annotation.Resource;
-import javax.imageio.ImageIO;
-import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.sound.midi.Soundbank;
-import javax.xml.ws.RequestWrapper;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.hssf.util.HSSFColor.HSSFColorPredefined;
@@ -31,37 +21,23 @@ import org.apache.poi.ss.usermodel.HorizontalAlignment;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.ss.util.ImageUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.javamail.JavaMailSenderImpl;
-import org.springframework.mail.javamail.MimeMessageHelper;
-import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.fasterxml.jackson.annotation.JsonUnwrapped;
-import com.google.api.client.util.Data;
-import com.mysql.cj.xdevapi.JsonArray;
-import com.sunstar.dto.CartDTO;
 import com.sunstar.dto.CategoryDTO;
 import com.sunstar.dto.ChartDTO;
-import com.sunstar.dto.OptionDTO;
 import com.sunstar.dto.OrderDTO;
 import com.sunstar.dto.ProductDTO;
 import com.sunstar.dto.QnaDTO;
 import com.sunstar.dto.ReviewDTO;
 import com.sunstar.dto.ReviewImgDTO;
 import com.sunstar.dto.SellerDTO;
-import com.sunstar.dto.DataDTO;
 import com.sunstar.dto.MakePage;
 import com.sunstar.service.FileUploadService;
 import com.sunstar.service.SellerService;
@@ -1618,6 +1594,8 @@ public class SellerController {
 		sellerservice.delete_auth(id);
 		return "redirect:http://${pageContext.request.contextPath}/";
 	}
+	
+	
 	
 }
 

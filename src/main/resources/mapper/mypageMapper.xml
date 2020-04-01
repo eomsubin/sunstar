@@ -12,10 +12,10 @@
 	</update>
 	
 	<select id="getUserInfo" resultType="com.sunstar.dto.CustomerDTO" parameterType="string">
-		select *
-		from customer
-		where id=#{id} 
-	
+		select * 
+		from customer c 
+		join seller s on c.id=s.id 
+		where c.id = #{id}
 	</select>
 	
 	<insert id="addshipaddr" parameterType="string">
@@ -53,7 +53,7 @@
 	
 	<select id="orderDetail" parameterType="string" resultType="com.sunstar.dto.OrderDTO">
 		select o.order_code,o.order_way,l.delivery_state,price,l.add_price,quantity,o.shipping_addr1,o.shipping_addr2,o.shipping_addr3,
-		product_name,l.option1,l.option2,s.seller_name,p.seller_code,l.order_no
+		product_name,l.option1,l.option2,s.seller_name,p.seller_code,l.order_no,s.basic_shipping_cost
 		from ordered o left join order_list l
 		on o.order_code=l.order_code
 		left join product_list p

@@ -192,7 +192,7 @@
 							<tr>
 							<th scope="row"></th>
 							<td>상품금액/배송비</td>
-							<td>${orderinfo.price+orderinfo.add_price}원/ ${orderinfo.shipping_cost }원</td>
+							<td>${orderinfo.price+orderinfo.add_price}원/ ${orderinfo.basic_shipping_cost }원</td>
 							<td></td>
 						</tr>
 							<tr>

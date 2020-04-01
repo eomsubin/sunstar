@@ -51,4 +51,16 @@ public class UserServiceimple implements UserService{
 		map.put("newpw", encoder.encode((map.get("newpw"))));
 		return dao.SetNewPassowrd(map);
 	}
+
+	@Override
+	public int join_Seller(HashMap<String, String> map) {
+		// TODO Auto-generated method stub
+		return dao.join_Seller(map);
+	}
+
+	@Override
+	public int selleridcheck(String id) {
+		// TODO Auto-generated method stub
+		return dao.selleridcheck(id);
+	}
 }
