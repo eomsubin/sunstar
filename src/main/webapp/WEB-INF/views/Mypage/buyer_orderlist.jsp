@@ -95,7 +95,7 @@ function jusoCallBack(review_content, order_no, review_star){
 							<h3 class="title">마이페이지</h3>
 							<ul class="categor-list">
 								<li><a href="${pageContext.request.contextPath }/mypage/info">회원정보 변경</a></li>
-								<li><a href="#">회원탈퇴</a></li>
+								<li><a href="${pageContext.request.contextPath }/mypage/userdrop">회원탈퇴</a></li>
 								<li><a href="${pageContext.request.contextPath }/mypage/seller_register">판매 회원전환</a></li>
 								<li><a href="${pageContext.request.contextPath }/mypage/order">주문/배송내역</a></li>
 								<li><a href="${pageContext.request.contextPath }/mypage/shipaddr">배송지관리</a></li>

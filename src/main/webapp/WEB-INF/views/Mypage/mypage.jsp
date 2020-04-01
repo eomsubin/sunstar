@@ -159,7 +159,7 @@ function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2, zipNo
 							<h3 class="title">마이페이지</h3>
 							<ul class="categor-list">
 								<li><a href="${pageContext.request.contextPath }/mypage/info">회원정보 변경</a></li>
-								<li><a href="#">회원탈퇴</a></li>
+								<li><a href="${pageContext.request.contextPath }/mypage/userdrop">회원탈퇴</a></li>
 								<li><a href="${pageContext.request.contextPath }/mypage/seller_register">판매 회원전환</a></li>
 								<li><a href="${pageContext.request.contextPath }/mypage/order">주문/배송내역</a></li>
 								<li><a href="${pageContext.request.contextPath }/mypage/shipaddr">배송지관리</a></li>
@@ -217,8 +217,8 @@ function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2, zipNo
 						<div class="form-group">
 							
 							<label>이메일</label> <input type="email" class="form-control"
-								id="email" value="${info.email }" name="email">
-							<button type="button" style="position: relative; left:330px; bottom:44px;"class="btn btn-secondary btn-lg" >변경</button>
+								id="email" value="${info.email }" name="email" required="required">
+						
 						</div>
 						
 						

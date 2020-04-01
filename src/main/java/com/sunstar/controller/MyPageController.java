@@ -301,7 +301,14 @@ public class MyPageController {
 		return "redirect:/mypage/order";
 	}
 
-	
+	@RequestMapping("/mypage/userdrop")
+	public String userdrop(Model model) {
+		mainservice.header(model);
+		
+		model.addAttribute("contentpage","Mypage/userdrop.jsp");
+		
+		return "home";
+	}
 	
 }
 
