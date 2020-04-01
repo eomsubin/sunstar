@@ -13,6 +13,7 @@ import com.sunstar.dto.CategoryDTO;
 import com.sunstar.dto.OptionDTO;
 import com.sunstar.dto.OrderDTO;
 import com.sunstar.dto.ProductDTO;
+import com.sunstar.dto.QnaDTO;
 import com.sunstar.dto.ReviewDTO;
 import com.sunstar.mapper.ProductMapper;
 
@@ -74,4 +75,15 @@ public class ProductServiceImpl implements ProductService {
 	public HashMap<String, String> customerdetailreview(String order_no) {
 		return productmapper.customerdetailreview(order_no);
 	}
+
+	@Override
+	public List<QnaDTO> qnaList(String product_code) {
+		return productmapper.qnaList(product_code);
+	}
+
+	@Override
+	public void insert_qna(QnaDTO dto) {
+		 productmapper.insert_qna(dto);
+	}
+	
 }

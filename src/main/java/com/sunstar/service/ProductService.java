@@ -7,6 +7,7 @@ import com.sunstar.dao.ProductViewDAO;
 import com.sunstar.dto.CategoryDTO;
 import com.sunstar.dto.OrderDTO;
 import com.sunstar.dto.ProductDTO;
+import com.sunstar.dto.QnaDTO;
 import com.sunstar.dto.ReviewDTO;
 
 public interface ProductService {
@@ -28,6 +29,10 @@ public interface ProductService {
 	public int customerinsertreview(HashMap<String, String> map);
 
 	public HashMap<String, String> customerdetailreview(String order_no);
+
+	public List<QnaDTO> qnaList(String product_code);
+
+	public void insert_qna(QnaDTO dto);
 
 
 
