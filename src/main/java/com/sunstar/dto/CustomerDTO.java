@@ -26,7 +26,7 @@ public class CustomerDTO {
 	private boolean enable;
 	private String join_date;
 	private List<AuthDTO> authlist;
-	
+	private String updatepw;
 	private String seller_code;
 	private String seller_name;
 	private String seller_tel;

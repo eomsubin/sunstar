@@ -71,7 +71,7 @@
 	</insert> -->
 	
 	<select id="buylist" resultType="com.sunstar.dto.OrderDTO" parameterType="com.sunstar.dto.MakePage">
-		select o.order_code,p.product_code,product_name,thumb_img,p.price,quantity,l.delivery_state,l.tracking_no,l.add_price, review_no,s.basic_shipping_cost, l.order_no
+		select o.order_code,p.product_code,product_name,thumb_img,p.price,quantity,l.delivery_state,l.tracking_no,l.add_price, review_no,s.basic_shipping_cost
 		from order_list l left join ordered o
 		on l.order_code = o.order_code
 		left join product_list p
@@ -124,7 +124,7 @@
 	 </select>
 	 
 	  <select id="getPrices" parameterType="com.sunstar.dto.SellerDTO" resultType="com.sunstar.dto.CartDTO">
-	 	  select sum(p.price+c.add_price)*c.cart_quantity as total_price,s.seller_name
+	 	  select sum((p.price+c.add_price)*c.cart_quantity) as total_price,s.seller_name,s.seller_code
     	from cart c
     join customer t
      on c.id = t.id
@@ -134,12 +134,13 @@
     on p.product_code= o.product_code
     join seller s
 	on s.seller_code = p.seller_code
-
+	
      where c.id= #{id}
      and s.seller_code= #{seller_code}
      
         and c.option1=o.option1
         and c.option2=o.option2
+        group by seller_code
        order by s.seller_name
 	 
 	 </select>

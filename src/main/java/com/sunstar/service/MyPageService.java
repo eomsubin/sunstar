@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.sunstar.dto.CustomerDTO;
 import com.sunstar.dto.OrderDTO;
+import com.sunstar.dto.OrderListDTO;
 import com.sunstar.dto.ShipDTO;
 
 public interface MyPageService {
@@ -26,5 +27,9 @@ public interface MyPageService {
 	List<OrderDTO> getPrice(String order_code);
 
 	int getTotalCount(String id);
+
+	void refund(OrderListDTO dto);
+
+	void updatePw(CustomerDTO info);
 }	
 

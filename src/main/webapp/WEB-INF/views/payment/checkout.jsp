@@ -278,12 +278,13 @@ function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2, zipNo
 								
 								<c:forEach var="sellerlist" items="${sellerlist }" >									
 								 	 <ul><li>업체명<span>${sellerlist.value}</span></li>
-								 	 	
+								 	 		
 								 	 		<c:forEach var="shipping" items="${shipcost }">
 								 	 			<c:if test="${sellerlist.key == shipping.key }">
-								 	 		 <li>배송비<span>${shipping.value} 원</span></li> 
+								 	 			
+								 	 				 <li>배송비<span>${shipping.value} 원</span></li> 
 								 	 		 <c:set var="sum2" value="${sum2+(shipping.value)}"/>
-								 	 		 	 </c:if>
+								 	 		 	</c:if>
 								 	 		 	 
 								 	 		 </c:forEach>
 								 	 	
@@ -480,24 +481,34 @@ function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2, zipNo
 				var total_price = new Array();
 				var shipping_cost_per_seller = new Array();
 				var cart_no = new Array();
+				var fianl_data = new Array();
+				var free = new Array();
 				
-				<c:forEach var="item3" items="${prices}">
-					total_price.push(${item3.total_price});	
-				
+				<c:forEach var="item4" items="${shipcost}">
+					shipping_cost_per_seller.push(${item4.value});
 				</c:forEach>
 				
-				
-				 <c:forEach var="item2" items="${pdto}">
-				    seller_code.push(${item2.seller_code});		
-					shipping_cost_per_seller.push(${item2.basic_shipping_cost}); 
-					
-				
-					/* console.log(${item2.seller_code});
-				   */
+				<c:forEach var="item2" items="${sellerlist}" >
+					seller_code.push(${item2.key});
+					<c:forEach var="item3" items="${prices}" >
+					<c:if test="${item2.key==item3.seller_code}">
+						total_price.push(${item3.total_price});	
+					</c:if>
+					</c:forEach>
 				</c:forEach>
+				
+				<c:forEach var="item5" items="${free}">
+					free.push(${item5.value})
+				</c:forEach>
+				
+					final_data = total_price.filter(function(itm,i,a){
+							return i==a.indexOf(itm);
+						
+					});
 					
-					console.log("total"+total_price);
-					console.log("seller_code"+seller_code);
+					
+					console.log(final_data);
+				
 						/* console.log(${pdto}) */
 				
 				<c:forEach var="item" items="${odto}">
@@ -508,7 +519,7 @@ function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2, zipNo
 					add_prices.push(${item.add_price});
 					cart_no.push(${item.cart_no});
 					
-					total_price.push(${sum});
+					
 				</c:forEach>
 				
 				
@@ -552,7 +563,7 @@ function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2, zipNo
 									"shipping_name": "나의 배송지",
 									"seller_codes": seller_code,
 									
-									"total_prices":total_price,
+									"total_prices":final_data,
 									"shipping_cost_per_sellers": shipping_cost_per_seller,
 									"cart_nos": cart_no
 									};
