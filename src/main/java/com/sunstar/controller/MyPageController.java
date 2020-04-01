@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,10 +20,13 @@ import com.sunstar.dto.CustomerDTO;
 import com.sunstar.dto.CustomerUserDetail;
 import com.sunstar.dto.MakePage;
 import com.sunstar.dto.OrderDTO;
+import com.sunstar.dto.OrderListDTO;
 import com.sunstar.dto.ShipDTO;
 import com.sunstar.service.MainService;
 import com.sunstar.service.MyPageService;
 import com.sunstar.service.PaymentService;
+
+import retrofit2.http.Path;
 
 @Controller
 public class MyPageController {
@@ -32,6 +36,29 @@ public class MyPageController {
 	private PaymentService paymentservice;
 	@Autowired
 	private MyPageService mpservice;
+	
+	
+	@RequestMapping(value="/mypage/info/{upw}")
+	public String updatePW(@PathVariable String upw,Principal principal) {
+			if(principal!=null) {
+			
+				CustomerUserDetail userdetail = (CustomerUserDetail)((Authentication)principal).getPrincipal();
+			
+				String id = userdetail.getUsername();
+		    
+				CustomerDTO info = mpservice.getUserInfo(id);
+				info.setUpdatepw(upw);
+				
+				mpservice.updatePw(info);
+		
+			}else {
+				
+				return "redirect:/";
+			}
+			
+		
+		return "/userlogout";
+	}
 	
 	@RequestMapping("/mypage/info")
 	public String mypage(Model model,Principal principal) {
@@ -45,7 +72,10 @@ public class MyPageController {
 		    
 			CustomerDTO info = mpservice.getUserInfo(id);
 			info.setTel(info.getTel().replaceAll("-", ""));
-	
+			
+			
+			
+			
 			model.addAttribute("info",info);
 			model.addAttribute("contentpage","Mypage/mypage.jsp");
 			
@@ -242,6 +272,35 @@ public class MyPageController {
 		
 		return "home";
 	}
+	
+	
+
+	
+	
+	@RequestMapping("/refund/{order_no}/{bank}/{account}/{refundmsg}/{refund_price}")
+	public String refund(@PathVariable String order_no,@PathVariable String bank, @PathVariable String account, @PathVariable String refundmsg,@PathVariable String refund_price) {
+		
+		OrderListDTO dto = new OrderListDTO();
+		dto.setOrder_no(Integer.parseInt(order_no));
+		dto.setRefund_bank(bank);
+		dto.setRefund_account(account);
+		dto.setRefund_msg(refundmsg);
+		dto.setRefund_price(Integer.parseInt(refund_price));
+		
+		mpservice.refund(dto);
+		
+		
+		// orderlist dto 객체 생성 ( id가져오고,dto값 넣기 , pathva 값들 dto에 넣기)
+		
+		
+		// orderlist의 delivery_state  위에잇는거 변경
+		
+		// order_no에 대한 price 를 변경
+		
+		
+		return "redirect:/mypage/order";
+	}
+
 	
 	
 }

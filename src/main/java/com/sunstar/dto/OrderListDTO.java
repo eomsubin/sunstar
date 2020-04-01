@@ -16,5 +16,9 @@ public class OrderListDTO {
 	private int add_price;
 	private String delivery_state;
 	private String tracking_no;
+	private String refund_bank;
+	private String refund_account;
+	private String refund_msg;
+	private int refund_price;
 	
 }

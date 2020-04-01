@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.sunstar.dto.CustomerDTO;
 import com.sunstar.dto.OrderDTO;
+import com.sunstar.dto.OrderListDTO;
 import com.sunstar.dto.ShipDTO;
 
 @Mapper
@@ -31,5 +32,9 @@ public interface MyPageMapper {
 	List<OrderDTO> getPrice(String order_code);
 
 	int getTotalCount(String id);
+
+	void refund(OrderListDTO dto);
+
+	void updatePw(CustomerDTO info);
 }
 

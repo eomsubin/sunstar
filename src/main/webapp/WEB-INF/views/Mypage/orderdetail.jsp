@@ -32,8 +32,8 @@
  --%>
 <!-- Eshop StyleSheet -->
 
- <link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/reset.css"> 
+ <%-- <link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/css/reset.css">  --%>
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/mypage.css">
 <link rel="stylesheet"
@@ -67,7 +67,37 @@
 
 
 </style>
+<script>
+	$(document).ready(function(){
+		var order_no="";
+		var abc="";
+		var refund_price="";
+		$('.cancel').on('click',function(){
+			
+			order_no=$(this).parent().parent().parent().children().find('span').eq(0).text();
+			abc= $(this).parent().parent().parent().children().find('td').eq(13).text();
+			refund_price=abc.substr(0,4);
+			
+			console.log(order_no);
+			console.log(refund_price);
+		});
+		
+		$('#refund').on('click',function(){
+			
+			let bank=$('#bank').val();
+			let account = $('#account').val();
+			let refundmsg = $('#refundmsg').val();
+			
+			
+			location.href="${pageContext.request.contextPath}/refund/"+order_no+"/"+bank+"/"+account+"/"+refundmsg+"/"+refund_price;
+			
+		});
+		
+	});
 
+
+
+</script>
 </head>
 <body>
 	<!-- Product Style -->
@@ -164,9 +194,9 @@
 						</tr>
 					</thead>
 					<tbody class="tbody1">
-					    <li style="display: none">${orderinfo.order_no }</li>
+					    
 						<tr>
-							<th scope="row"></th>
+							<th scope="row"><span class="orderno" style="display: none;" >${orderinfo.order_no }</span></th>
 							<td>상품명</td>
 							<td>${orderinfo.product_name }</td>
 							<td></td>
@@ -199,7 +229,7 @@
 							<th scope="row"></th>
 							<td>배송상태</td>
 							<td>${orderinfo.delivery_state }</td>
-							<td><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" >결제취소</button></td>
+							<td><c:if test="${orderinfo.delivery_state=='결제완료'}"><button type="button" class="btn btn-danger cancel" data-toggle="modal" data-target="#exampleModal"  >결제취소</button></c:if></td>
 						</tr>
 						
 					</tbody>
@@ -230,29 +260,63 @@
 		${detail.option2 }
      </c:forEach> --%>
 
-
-
-
-</body>
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="z-index: 100;">
+
+	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
   <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        ...
+    <div class="modal-content" >
+     
+      <div class="modal-body" style="margin-top: 100px;" >
+         	
+        	<label>은행명</label><select class="form-control"  id="bank" name="bank"
+                        required>
+                        
+                        <option value="카카오뱅크">카카오뱅크</option>
+                        <option value="국민은행">국민은행</option>
+                        <option value="기업은행">기업은행</option>
+                        <option value="농협은행">농협은행</option>
+                        <option value="신한은행">신한은행</option>
+                        <option value="산업은행">산업은행</option>
+                        <option value="우리은행">우리은행</option>
+                        <option value="한국씨티은행">한국씨티은행</option>
+                        <option value="하나은행">하나은행</option>
+                        <option value="SC제일은행">SC제일은행</option>
+                        <option value="경남은행">경남은행</option>
+                        <option value="광주은행">광주은행</option>
+                        <option value="대구은행">대구은행</option>
+                        <option value="도이치은행">도이치은행</option>
+                        <option value="뱅크오브아메리카">뱅크오브아메리카</option>
+                        <option value="부산은행">부산은행</option>
+                        <option value="산림조합중앙회">산림조합중앙회</option>
+                        <option value="저축은행">저축은행</option>
+                        <option value="새마을금고중앙회">새마을금고중앙회</option>
+                        <option value="수협은행">수협은행</option>
+                        <option value="신협중앙회">신협중앙회</option>
+                        <option value="우체국">우체국</option>
+                        <option value="전북은행">전북은행</option>
+                        <option value="제주은행">제주은행</option>
+                        <option value="중국건설은행">중국건설은행</option>
+                        <option value="중국공상은행">중국공상은행</option>
+                        <option value="BNP파리바은행">BNP파리바은행</option>
+                        <option value="HSBC은행">HSBC은행</option>
+                        <option value="JP모간체이스은행">JP모간체이스은행</option>
+                        <option value="케이뱅크">케이뱅크</option>
+                     </select>
+        	<label>환불계좌입력</label><input type="text" id="account" class="form-control" required="required">
+        	<label>환불사유</label><textarea rows="3" cols="1" id="refundmsg"  required="required"></textarea>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        
+        <button type="button" class="btn btn-secondary"  data-dismiss="modal">취소</button>
+        
+        <button type="button" class="btn btn-primary" id="refund">요청</button>
       </div>
+     
     </div>
   </div>
 </div>
+
+</body>
+
 		
 </html>

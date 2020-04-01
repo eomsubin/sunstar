@@ -108,12 +108,12 @@ function jusoCallBack(review_content, order_no, review_star){
 				<table class="table" style="position: relative;  width:850px; top:30px;">
 					<thead>
 						<tr>
-							<th scope="col" style="width:120px; text-align: center;">주문번호</th>
+							<th scope="col" style="width:80px; text-align: center;">주문번호</th>
 							<th scope="col" style="width:60px; text-align: center;">상품정보</th>
-							<th scope="col" style="text-align: center; width:220px;">상품명</th>
+							<th scope="col" style="text-align: center; width:190px;">상품명</th>
 							<th scope="col" style="text-align: center;">상품금액(수량)</th>
 							<th scope="col">배송비</th>
-							<th scope="col">주문상태</th>
+							<th scope="col" style="width:80px; text-align: center;">주문상태</th>
 							<th scope="col">상품평</th>
 						</tr>
 					</thead>
