@@ -28,8 +28,14 @@ public class AdminServiceImple implements AdminService {
 
 	@Override
 	public List<CategoryDTO> getLv1() {
+		
+		return adminmapper.getLv1();
+	}
+
+	@Override
+	public List<CategoryDTO> getLv2(CategoryDTO lv1data) {
 		// TODO Auto-generated method stub
-		return null;
+		return adminmapper.getLv2(lv1data);
 	}
 	
 	
