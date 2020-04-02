@@ -82,7 +82,7 @@ public interface SellerService {
 
 	int getPaid(String seller_code);
 
-	List<OrderDTO> searchOrderView(String search_order);
+	List<OrderDTO> searchOrderView(OrderDTO user);
 
 	List<ReviewDTO> getReview(String seller_code);
 

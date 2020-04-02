@@ -423,7 +423,7 @@
 		</update>
 		
 		
-		<select id="searchOrderView" parameterType="string" resultType="com.sunstar.dto.OrderDTO" >
+		<select id="searchOrderView" parameterType="com.sunstar.dto.OrderDTO" resultType="com.sunstar.dto.OrderDTO" >
 	       select o.order_code, p.product_code, l.option1, l.option2, l.add_price, quantity, price,  o.message,  s.basic_shipping_cost,
 	      o.order_way,l.delivery_state, l.tracking_no, l.shipping_company, o.to_name, 
 	      o.shipping_addr1,o.shipping_addr2,o.shipping_addr3,o.shipping_zip,
@@ -437,6 +437,7 @@
           left join seller s
           on p.seller_code = s.seller_code 
 	      where o.order_code= #{order_code}
+	      and p.seller_code = #{seller_code}
 		</select>
 		
 		<select id="getReview" parameterType="string" resultType="com.sunstar.dto.ReviewDTO">

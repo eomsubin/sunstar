@@ -1489,9 +1489,15 @@ public class SellerController {
 
 	@RequestMapping("/searchOrderView")
 	public String  searchOrderView(Model model, Principal principal, @RequestParam String search_order ) {
-		
+		//id 가져오는 방법
+		String id= getId(model, principal);
+		System.out.println(id);
+		String seller_code = sellerservice.getSellerCode(id);
 
-		List<OrderDTO> list = sellerservice.searchOrderView(search_order);
+		OrderDTO user = new OrderDTO();
+		user.setSeller_code(seller_code);
+		user.setOrder_code(search_order);
+		List<OrderDTO> list = sellerservice.searchOrderView(user);
 		
 		System.out.println("list 출력 : " + list);
 		if(list.isEmpty() ) {
