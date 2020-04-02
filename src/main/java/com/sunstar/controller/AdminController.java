@@ -16,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sunstar.service.AdminService;
 import com.sunstar.service.FileUploadService;
@@ -61,14 +62,12 @@ public class AdminController {
 	}
 	
 	@RequestMapping("/seller_submit")
-	public String seller_submit(Model model, @RequestParam HashMap<String, String> map) {
+	public String seller_submit(Model model, @RequestParam HashMap<String, String> map) throws Exception{
 		System.out.println(map);
-		
-		
+		//승인
 		if(((String)map.get("YN")).equals("submit")) {
-			//권한 등록
+			// 권한 등록 
 			userservice.join_Sellerauth(map);
-
 			// 메일 전송 반복문			
 			StringTokenizer st = new StringTokenizer(map.get("email"),",");
 			while(st.hasMoreTokens()) {
@@ -87,9 +86,13 @@ public class AdminController {
 			};
 			mailSender.send(pp);
 			};
-			//반려
-		}else {
+			return "redirect:/admin/seller_apply";
+		//end 승인
+		//반려
+		}else if(((String)map.get("YN")).equals("reject")){
+			// seller 등록정보 삭제
 			userservice.rejectjoin_Sellerre(map);
+			// 메일 전송 반복문
 			StringTokenizer st = new StringTokenizer(map.get("email"),",");
 			while(st.hasMoreTokens()) {
 			final MimeMessagePreparator pp = new MimeMessagePreparator() {
@@ -106,9 +109,26 @@ public class AdminController {
 			};
 			mailSender.send(pp);
 			};
-		}
+			return "redirect:/admin/seller_apply";
+		//end 반려
+		//계정 정지
+		}else if(((String)map.get("YN")).equals("stop")){
+			// seller auth권한 삭제, seller_state 0, seller의 product_state 0
+			userservice.Acsuspensionseller(map);
+		//end 계정정지
+		//계정 활동
+		}else if(((String)map.get("YN")).equals("activity")){
+			// seller auth권한 부여, seller_state 1, seller의 product_state 1
+			userservice.Actseller(map);
+		//end 계정활동
+		//seller 계정삭제
+		}else if(((String)map.get("YN")).equals("remove")){
+/*			userservice.delseller(map);
+*/			
+		}	
+		//end seller 계정삭제
 		
-		return "redirect:/admin/seller_apply";
+		return "redirect:/admin/seller_list";
 	}
 	
 	@RequestMapping("/seller_list")			

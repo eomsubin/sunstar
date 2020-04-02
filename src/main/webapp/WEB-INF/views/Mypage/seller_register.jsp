@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="sec"
+   uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -63,42 +65,42 @@ function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2, zipNo
 	console.log($('#seller_address3').val(addrDetail));
 	console.log($('#seller_zip').val(zipNo));
 };
-
-	$(document).ready(function(){
-		console.log("${m}");
+ function init(){
+		alert("이미 판매 회원입니다."); 
+		location.href="${pageContext.request.contextPath }/mypage/info";
+	}
+ function regck(){
+		let initresult;
+		let id = $('#id').val();
+		  $.ajax({
+				url : "${pageContext.request.contextPath}/registerseller/selleridcheck/"+id
+				,dataType : "json"
+				,async: false
+				,success:function(data){
+					initresult = data;
+				}
+				,error:function(e){
+					console.log(e);
+				}
+			});
+		  if(initresult>0){
+			  $(":submit").val("처리중입니다.");
+			  $(":input").prop("disabled", "disabled");
+		  }
+		}
+ $(document).ready(function(){
+		$("#hasROLE").trigger("click");
+		regck();
 		if("${m}">0){
 			alert("신청이 완료되었습니다. 전환까지 평균 1~2일이 소요되며 완료 시  이메일로 알려드립니다.")
 		}
-		
-		$("form").submit(function(event) {
-		 
-			let id = $('#id').val();
-			let result;
-			  $.ajax({
-					url : "${pageContext.request.contextPath}/registerseller/selleridcheck/"+id
-					,dataType : "json"
-					,async: false
-					,success:function(data){
-						result = data;
-					}
-					,error:function(e){
-						console.log(e);
-					}
-				});
-			  if(result>0){
-				  alert("다시 신청할 수 없습니다.")
-				  event.preventDefault(); 
-			  }else{
-				  $(this).submit();
-			  }
-			  
-		});
 	});
-	
-
 </script>
 </head>
 <body>
+<sec:authorize access="hasRole('ROLE_MANAGER')">
+	<div id="hasROLE" onclick="init()"></div>
+</sec:authorize>
 	<section class="product-area shop-sidebar shop section">
 	<div class="user-title">
 			<h3> 판매 회원전환</h3>

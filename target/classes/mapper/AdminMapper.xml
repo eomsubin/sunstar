@@ -3,6 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sunstar.mapper.AdminMapper">
+	<!-- jinwoo -->
 	<select id="getSellerApply" parameterType="string" resultType="hashmap">
 	select distinct * 
 	from seller s join auth a 
@@ -12,12 +13,16 @@
 						(select s.id 
 						 from seller s join auth a 
 						 on s.id = a.id 
-						 where auth = "ROLE_MANAGER")
+						 where auth = "ROLE_MANAGER") and s.seller_state = '1'
 	</select>	
+	
 	<select id="getSellerList" parameterType="string" resultType="hashmap">
-	select  * 
-	from seller s join auth a 
-	on s.id = a.id where auth = "ROLE_MANAGER"	
+	<!-- select s.id, s.seller_code, s.id as id2, s.seller_name, s.seller_email, s. seller_address1, s.seller_tel, s.bank, s.business_license, s.seller_deadline -->
+	select distinct *
+	from seller s left join auth a 
+	on s.id = a.id 
+	where auth = 'ROLE_MANAGER'
+	or s.seller_state = '0'	
 	order by seller_code desc
 	</select>
 	
