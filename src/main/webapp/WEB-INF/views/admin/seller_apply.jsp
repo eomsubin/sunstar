@@ -7,8 +7,58 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-
+<script>
+	$(document).ready(function(){
+		
+		$('#all').click(function(){
+			if($('#all').prop('checked')){
+				$('input:checkbox').prop('checked',true);
+			}else{
+				$('input:checkbox').prop('checked',false);
+			}
+		});
+		$('input:checkbox[name=sid]').click(function(){
+			$('#all').prop('checked',false);
+		});
+	});
+	
+	// 승인 또는 반려
+	function submit(ch){ 
+		let idsum="";
+		let emailsum="";
+		let message="";
+		if($('input:checkbox[name=sid]:checked').length==0){
+			return;
+		}
+		$.each($('input:checkbox[name=sid]:checked'),function(){
+			idsum+=$(this).val()+","
+			emailsum+=$(this).data("semail")+","
+		})
+		
+		
+		if(ch==="Y"){
+			$('input:hidden[name=YN]').val("submit");
+		}else{
+			$('input:hidden[name=YN]').val("reject");
+			message=$('input:text[name=message]').val();
+		}
+		// 문자열 합치기
+		idsum = idsum.slice(0,-1);
+		emailsum = emailsum.slice(0,-1);
+		$('input:checkbox[name=sid]:checked').val(idsum);
+		$('input:hidden[name=email]').val(emailsum);
+		$('input:hidden[name=m]').val(message);
+		// 제출
+		/* console.log($('input:checkbox[name=sid]:checked').val());
+		console.log($('input:hidden[name=YN]').val());
+		console.log($('input:hidden[name=m]').val());
+		console.log($('input:hidden[name=email]').val()); */
+		$('form').submit();
+	}
+</script>
 </head>
+<style>
+</style>
 <body>
 	<div class="container-fluid">
 		<!-- Page Heading -->
@@ -25,14 +75,16 @@
 			<div class="card-body">
 				<!-- 여기 내부만 수정하시면 됩니다  -->
 				<div class="table-responsive">
-					<form>
-						<input type="hidden" name="${_csrf.parameterName}"
-							value="${_csrf.token}" />
+					<form method="post" action="${pageContext.request.contextPath}/admin/seller_submit">
+						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+						<input type="hidden" name="YN"/>
+						<input type="hidden" name="m"/>
+						<input type="hidden" name="email"/>
 						<!-- 
 						<button type="button" id="all_print" class="btn btn-secondary"
 							onclick="productallprint()">전체출력</button>
  						-->
-				<table class="table table-bordered" id="dataTable"
+				<table class="table table-bordered mb-0" id="dataTable"
 							style="width: 100%;" cellspacing="0">
 							<thead>
 								<tr>
@@ -52,7 +104,7 @@
 
 								<c:forEach var="i" items="${list}">
 									<tr>
-										<td><input type="checkbox" id="pcode" name="pcode" value="${i.seller_code}"></td>
+										<td><input type="checkbox" name="sid" value="${i.id}" data-semail="${i.seller_email}" /> </td>
 										<td>${i.seller_code}</td>
 										<td>${i.id}</td>
 										<td>${i.seller_name}</td>
@@ -95,6 +147,33 @@
 						<a href="productlist?currPage=${page.endBlock+1}&psize=${page.sizePerPage}&txt=${page.txt}">다음</a>
 					</c:if>
 				</div>
+					<div class="row mt-4">
+					<button style="width: 45%;" class="btn btn-secondary mx-auto" onclick="submit('Y')">승인</button><button style="width: 45%;" class="btn btn-danger mx-auto" data-toggle="modal" data-target="#rejectmodal">반려</button>
+					</div>
+					 <!-- The Modal -->
+  <div class="modal fade" id="rejectmodal">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+      
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">반려 사유</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        
+        <!-- Modal body -->
+        <div class="modal-body">
+          <input class="p-5" type="text" name="message" autofocus="autofocus" style="border: 0px solid white; width: 100%" placeholder="반려 사유">
+        </div>
+        
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="submit('N')">제출</button>
+        </div>
+        
+      </div>
+    </div>
+  </div>
 			</div>
 		</div>
 	</div>

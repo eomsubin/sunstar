@@ -94,4 +94,15 @@
 	from seller
 	where id=#{id}
   	</select>
+  	
+  	<!-- 셀러 권한부여 -->
+  	<insert id="join_Sellerauth" parameterType="string">
+  	insert into auth
+  	values(#{id},'ROLE_MANAGER')
+  	</insert>
+  	
+  	<delete id="rejectjoin_Sellerre" parameterType="string">
+  	delete from seller 
+  	where id = #{id}
+  	</delete>
 </mapper>
