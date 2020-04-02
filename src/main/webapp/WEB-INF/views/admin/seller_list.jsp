@@ -7,7 +7,19 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-
+<script>
+	$(document).ready(function(){
+		
+		$('#all').click(function(){
+			if($('#all').prop('checked')){
+				$('input:checkbox').prop('checked',true);
+			}else{
+				$('input:checkbox').prop('checked',false);
+			}
+		});
+	});
+	
+</script>
 </head>
 <body>
 	<div class="container-fluid">
@@ -31,7 +43,7 @@
 						<button type="button" id="all_print" class="btn btn-secondary"
 							onclick="productallprint()">전체출력</button>
  						-->
-				<table class="table table-bordered" id="dataTable"
+				<table class="table table-bordered mb-0" id="dataTable"
 							style="width: 100%;" cellspacing="0">
 							<thead>
 								<tr>
