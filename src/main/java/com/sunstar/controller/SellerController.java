@@ -8,6 +8,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -102,7 +103,7 @@ public class SellerController {
 		System.out.println(category_name);
 		System.out.println(top5Count);
 		
-		//
+		//판매량 top5
 		List<ChartDTO> top5products = sellerservice.get_top5items(seller_code);
 		String product_name ="";
 		String top5itemsCount ="";
@@ -121,7 +122,7 @@ public class SellerController {
 		System.out.println(category_name);
 		System.out.println(top5Count);
 
-		//
+		//최근 10일간 주문건수
 		Calendar c1 = new GregorianCalendar();		
 		SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd"); // 날짜 포맷 
 
@@ -149,9 +150,6 @@ public class SellerController {
 			 getOrderCount.setYyyymmdd(day);
 			 ten_day_data[i] = Integer.toString(sellerservice.getOrderCount(getOrderCount));
 		}
-		
-		Arrays.sort(ten_days);
-		Arrays.sort(ten_day_data);
 		
 		String day10 =ten_days[0];
 		String day10data = ten_day_data[0];
@@ -1491,9 +1489,15 @@ public class SellerController {
 
 	@RequestMapping("/searchOrderView")
 	public String  searchOrderView(Model model, Principal principal, @RequestParam String search_order ) {
-		
+		//id 가져오는 방법
+		String id= getId(model, principal);
+		System.out.println(id);
+		String seller_code = sellerservice.getSellerCode(id);
 
-		List<OrderDTO> list = sellerservice.searchOrderView(search_order);
+		OrderDTO user = new OrderDTO();
+		user.setSeller_code(seller_code);
+		user.setOrder_code(search_order);
+		List<OrderDTO> list = sellerservice.searchOrderView(user);
 		
 		System.out.println("list 출력 : " + list);
 		if(list.isEmpty() ) {

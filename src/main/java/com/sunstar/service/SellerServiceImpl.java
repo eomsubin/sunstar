@@ -264,8 +264,8 @@ public class SellerServiceImpl implements SellerService {
 	}
 
 	@Override
-	public List<OrderDTO> searchOrderView(String search_order) {
-		return mapper.searchOrderView(search_order);
+	public List<OrderDTO> searchOrderView(OrderDTO user) {
+		return mapper.searchOrderView(user);
 	}
 
 	@Override
