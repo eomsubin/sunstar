@@ -19,6 +19,8 @@ public interface CustomerDAO {
 	public int SetNewPassowrd(HashMap<String, String> map);
 	public int join_Seller(HashMap<String, String> map);
 	public int selleridcheck(String id);
+	public int join_Sellerauth(String id);
+	public int rejectjoin_Sellerre(String id);
 
 	
 }
