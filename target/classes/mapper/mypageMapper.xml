@@ -98,4 +98,24 @@
 		where id=#{id}
 	</update>
 	
+	<update id="updateTel" parameterType="com.sunstar.dto.CustomerDTO">
+		update customer
+		set tel=#{tel}
+		where id=#{id}
+	</update>
+	
+	<delete id="userDrop" parameterType="com.sunstar.dto.CustomerDTO">
+		delete
+		from customer
+		where id=#{id}
+	</delete>
+	
+	<update id="exchange" parameterType="com.sunstar.dto.OrderListDTO">
+		update order_list
+		set 
+			delivery_state=#{delivery_state},refund_bank=#{refund_bank},refund_account=#{refund_account},refund_msg=#{refund_msg}
+			
+		where order_no = #{order_no}
+	</update>
+	
 </mapper>

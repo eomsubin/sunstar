@@ -16,6 +16,16 @@ public interface MainService {
 	public String header(Model model);
 
 	List<ProductDTO> getProductList();
+
+	List<ProductDTO> getDigital();
+
+	List<ProductDTO> getFurniture();
+
+	List<ProductDTO> getFood();
+
+	List<ProductDTO> getAnimal();
+
+	List<ProductDTO> getRecommend();
 		
 	
 	

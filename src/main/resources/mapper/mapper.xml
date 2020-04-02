@@ -14,9 +14,77 @@
 	
 	</select>
 	
+	<!--  패션 누적판매량 순위 1~8위까지   -->
 	<select id="getProductList" resultType="com.sunstar.dto.ProductDTO">
-		select *
-		from product_list
+	    select p.product_code,product_name,price,thumb_img,p.category_code,o.accumulation,c.lv1,o.add_price
+       from product_list p join category c
+       on c.category_code = p.category_code
+       join options o
+       on p.product_code = o.product_code
+       where c.lv1='패션'
+       group by product_code
+       order by o.accumulation desc
+       limit 0,8
+	<!--  가구-인테리어 누적판매량 순위 1~8위까지  -->
+	</select>
+		<select id="getFurniture" resultType="com.sunstar.dto.ProductDTO">
+	    select p.product_code,product_name,price,thumb_img,p.category_code,o.accumulation,c.lv1,o.add_price
+       from product_list p join category c
+       on c.category_code = p.category_code
+       join options o
+       on p.product_code = o.product_code
+       where c.lv1='가구-인테리어'
+       group by product_code
+       order by o.accumulation desc
+       limit 0,8
+	<!--  식품 누적판매량 순위 1~8위까지  -->
+	</select>
+		<select id="getFood" resultType="com.sunstar.dto.ProductDTO">
+	    select p.product_code,product_name,price,thumb_img,p.category_code,o.accumulation,c.lv1,o.add_price
+       from product_list p join category c
+       on c.category_code = p.category_code
+       join options o
+       on p.product_code = o.product_code
+       where c.lv1='식품'
+       group by product_code
+       order by o.accumulation desc
+       limit 0,8
+	<!--  디지털-가전 누적판매량 순위 1~8위까지  -->
+	</select>
+		<select id="getDigital" resultType="com.sunstar.dto.ProductDTO">
+	    select p.product_code,product_name,price,thumb_img,p.category_code,o.accumulation,c.lv1,o.add_price
+       from product_list p join category c
+       on c.category_code = p.category_code
+       join options o
+       on p.product_code = o.product_code
+       where c.lv1='디지털-가전'
+       group by product_code
+       order by o.accumulation desc
+       limit 0,8
+	<!--  반려동물 누적판매량 순위 1~8위까지  -->
+	</select>
+		<select id="getAnimal" resultType="com.sunstar.dto.ProductDTO">
+	    select p.product_code,product_name,price,thumb_img,p.category_code,o.accumulation,c.lv1,o.add_price
+       from product_list p join category c
+       on c.category_code = p.category_code
+       join options o
+       on p.product_code = o.product_code
+       where c.lv1='반려동물'
+       group by product_code
+       order by o.accumulation desc
+       limit 0,8
+	
+	</select>
+	
+	<select id="getRecommend" resultType="com.sunstar.dto.ProductDTO">
+	    select p.product_code,product_name,price,thumb_img,p.category_code,o.accumulation,c.lv1,o.add_price
+       from product_list p join category c
+       on c.category_code = p.category_code
+       join options o
+       on p.product_code = o.product_code
+       group by product_code
+       order by product_code desc
+       limit 0,10
 	
 	</select>
 

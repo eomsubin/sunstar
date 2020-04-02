@@ -1,12 +1,14 @@
 package com.sunstar.controller;
 
 import java.security.Principal;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.sunstar.dto.CategoryDTO;
 import com.sunstar.service.AdminService;
 import com.sunstar.service.FileUploadService;
 
@@ -47,6 +49,10 @@ public class AdminController {
 	
 	@RequestMapping("/category")
 	public String category(Model model) {
+		
+		List<CategoryDTO> lv1 = adminservice.getLv1();
+		
+		
 		model.addAttribute("adminpage", "category.jsp");
 		return "admin/temp";
 	}
@@ -64,6 +70,8 @@ public class AdminController {
 		model.addAttribute("adminpage", "settings.jsp");
 		return "admin/temp";
 	}
+	
+	
 	
 
 	

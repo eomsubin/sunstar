@@ -310,6 +310,62 @@ public class MyPageController {
 		return "home";
 	}
 	
+	@RequestMapping("/userdrop")
+	public String userdrops(Principal principal,Model model) {
+		CustomerUserDetail userdetail = (CustomerUserDetail)((Authentication)principal).getPrincipal();
+		String id = userdetail.getUsername();
+		
+		CustomerDTO cdto=mpservice.getUserInfo(id);
+		
+		int result= mpservice.userDrop(cdto);
+		
+		model.addAttribute("result",result);
+		
+		return "Mypage/dropsuccess";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/updatetel", method=RequestMethod.POST)
+	public void updateTel(@RequestBody CustomerDTO updata) {
+		
+		StringBuffer sb = new StringBuffer(updata.getTel());
+		
+		sb.insert(3, "-");
+		sb.insert(8, "-");
+	
+		updata.setTel(sb.toString());
+		
+		System.out.println(updata.getTel());
+		
+		mpservice.updateTel(updata);
+	}
+	
+	@RequestMapping("/exchange/{order_no}/{delivery_state}/{bank}/{account}/{refundmsg}/{exchangemsg}")
+	public String exchange(@PathVariable String order_no,@PathVariable String delivery_state,@PathVariable String bank,@PathVariable String account,@PathVariable String refundmsg,@PathVariable String exchangemsg ) {
+		
+		OrderListDTO odto = new OrderListDTO();
+		
+		
+		
+		
+		odto.setOrder_no(Integer.parseInt(order_no));
+		odto.setDelivery_state(delivery_state);
+		odto.setRefund_bank(bank);
+		odto.setRefund_account(account);
+		
+		if("반품신청".equals(odto.getDelivery_state())) {
+			
+			odto.setRefund_msg(refundmsg);
+		}else {
+			odto.setRefund_msg(exchangemsg);
+		}
+		
+		mpservice.exchange(odto);
+		
+		
+		return "redirect:/mypage/order";
+	}
+	
 }
 
 

@@ -102,6 +102,62 @@ function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2, zipNo
 </script>
 <script>
 
+	$(document).ready(function(){
+		var csrfHeaderName= "${_csrf.headerName}";
+		var csrfTokenValue= "${_csrf.token}";
+		var telreg = /^[0-9]+$/;
+		
+		$('#telupdate').on('click',function(){
+			
+			let tel= $('#tel').val();
+			let id = $('#id').val();
+			
+			var updata = {"tel": tel, "id":id }
+			
+			if(tel=="" || tel==null){
+				alert('휴대폰번호를 입력하세요');
+			}else if(!telreg.test(tel)){
+				alert('잘못된 형식입니다.다시 정확히 입력해주세요');
+			}else if(tel.lenghth>11){
+				alert('잘못된 형식입니다.다시 정확히 입력해주세요');
+			}else{
+				
+				$.ajax({
+					url:"${pageContext.request.contextPath}/updatetel",
+					data: JSON.stringify(updata),
+					dataType: "JSON",
+					contentType: "application/json; charset=utf-8",
+					type:"POST",
+					beforeSend: function(xhr){
+						xhr.setRequestHeader(csrfHeaderName,csrfTokenValue);
+					}
+					
+					
+				}).fail(function(data){
+					alert('휴대폰번호가 변경되었습니다.')
+					location.href="${pageContext.request.contextPath}/mypage/info";
+				});
+					
+				
+					
+				
+				
+			}	
+				
+			
+		});
+		
+		
+	});
+
+
+
+
+
+
+
+
+
 	function pwUpdate(){
 		
 		var rpw = $('#rpw').val();
@@ -128,7 +184,7 @@ function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2, zipNo
 		}
 		
 	}
-
+	
 
 
 </script>
@@ -212,12 +268,12 @@ function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2, zipNo
 							
 							<label>휴대폰번호</label> <input type="text" class="form-control"
 								id="tel" value="${info.tel }" name="tel">
-							<button type="button" style="position: relative; left:330px; bottom:44px;"class="btn btn-secondary btn-lg" >변경</button>
+							<button type="button" style="position: relative; left:330px; bottom:44px;"class="btn btn-secondary btn-lg" id="telupdate" >변경</button>
 						</div>
 						<div class="form-group">
 							
 							<label>이메일</label> <input type="email" class="form-control"
-								id="email" value="${info.email }" name="email" required="required">
+								id="email" value="${info.email }" name="email" readonly="readonly">
 						
 						</div>
 						
