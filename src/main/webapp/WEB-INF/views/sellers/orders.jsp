@@ -245,10 +245,13 @@ body {
 						
 							<div class="dropdown-divider"></div>
 						
+						<a class="dropdown-item" onclick="viewStep('step1')">결제대기중</a> 
+						<a class="dropdown-item" onclick="viewStep('step2')">결제완료</a> 
 							<a class="dropdown-item" onclick="viewStep('step3')">배송준비</a> <a
 								class="dropdown-item" onclick="viewStep('step4')">배송중</a> <a
 								class="dropdown-item" onclick="viewStep('step5')">배송완료</a>
 							<div class="dropdown-divider"></div>
+							<a class="dropdown-item" onclick="viewStep('step6')">반품요청</a>
 							<a class="dropdown-item" onclick="viewStep('step7')">반품대기</a> <a
 								class="dropdown-item" onclick="viewStep('step8')">반품완료</a>
 							<div class="dropdown-divider"></div>
@@ -259,7 +262,9 @@ body {
 							<a class="dropdown-item" onclick="viewStep('step13')">배송 및
 								교환완료</a>
 							<div class="dropdown-divider"></div>
+							<a class="dropdown-item" onclick="viewStep('step14')">결제취소 요청(구매자 사유)</a>
 							<a class="dropdown-item" onclick="viewStep('step15')">결체취소(판매자사유)</a>
+							<a class="dropdown-item" onclick="viewStep('step16')">결제취소 완료</a>
 						</div>
 				
 </div>

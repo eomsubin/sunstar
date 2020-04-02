@@ -64,7 +64,7 @@ public interface SellerMapper {
 
 	List<ProductDTO> product_list_user(String seller_code);
 
-	List<OrderDTO> viewStepOrder(String view_step);
+	List<OrderDTO> viewStepOrder(OrderDTO dto);
 
 	List<ProductDTO> viewProduct(int pcd);
 

@@ -121,7 +121,7 @@
 								<li><a
 									href="${pageContext.request.contextPath }/mypage/info">회원정보
 										변경</a></li>
-								<li><a href="#">회원탈퇴</a></li>
+								<li><a href="${pageContext.request.contextPath }/mypage/userdrop">회원탈퇴</a></li>
 								<li><a
 									href="${pageContext.request.contextPath }/mypage/seller_register">판매
 										회원전환</a></li>
