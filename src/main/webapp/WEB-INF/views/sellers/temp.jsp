@@ -246,7 +246,7 @@
 	            
 	            <!--  -->
 	             <li class="nav-item dropdown no-arrow mx-1">
-	             <a href="${pageContext.request.contextPath}/seller/seller_list" class="nav-link dropdown-toggle" >
+	             <a href="${pageContext.request.contextPath}/seller/seller_list/${seller_code}" class="nav-link dropdown-toggle" >
 	                <i class="fas fa-home fa-fw"></i>
 	              </a>
 	             

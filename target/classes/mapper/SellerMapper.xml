@@ -261,13 +261,23 @@
 		</update>
 		
 		
-		<select id="product_list_user"  resultType="com.sunstar.dto.ProductDTO">
-		select *
-		from product_list
-		order by product_code desc
-		limit 7,8
+		<select id="product_list_user" parameterType="string"  resultType="com.sunstar.dto.ProductDTO">
+            select p.product_name, p.product_code, accumulation, price, thumb_img
+            from product_list p join options o
+            on p.product_code = o.product_code
+            where seller_code = #{seller_code}
+            group by product_code
+            order by accumulation desc
+            limit 0, 12
 		</select>
 		
+		<select id="product_list_new" parameterType="string"  resultType="com.sunstar.dto.ProductDTO">
+			select product_name, product_code, price, thumb_img
+            from product_list
+            where seller_code = 11111
+            order by product_code desc
+            limit 0, 7
+		</select>
 		
 		<select id="viewStepOrder" parameterType="com.sunstar.dto.OrderDTO" resultType="com.sunstar.dto.OrderDTO">
 			select o.order_code, l.product_code, l.option1, l.option2, l.inventory, l.add_price,  p.price, o.message, 

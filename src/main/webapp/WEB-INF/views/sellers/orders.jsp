@@ -54,23 +54,12 @@ $('.trackingbtn').on('click', function() {
 	
 		let trc = $(this).parent().parent().find('td').eq(14);
 	
-		console
-				.log($(
-						this)
-						.parent()
-						.parent()
-						.find(
-								'td')
-						.eq(
-								13)
-						.text());
+		console.log($(this).parent().parent().find('td').eq(13).text());
 
-										trc.empty();
-										trc
-												.append('<input type="text" name="tracking_no">');
-										items
-												.push(checked_items);
-									});
+		trc.empty();
+		trc.append('<input type="text" name="tracking_no">');
+		items.push(checked_items);
+	});
 
 				})
 

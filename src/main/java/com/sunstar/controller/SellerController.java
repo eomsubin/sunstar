@@ -170,6 +170,10 @@ public class SellerController {
 		
 		System.out.println("------");
 		
+		
+		//
+		model.addAttribute("seller_code", seller_code);
+		
 		//
 		model.addAttribute("paid", paid);
 		model.addAttribute("ready", ready);
@@ -1220,23 +1224,25 @@ public class SellerController {
 
 
 	//판매자별 상품리스트
-	@RequestMapping("/seller_list") 
-	public String seller_list(Model model, Principal principal ) {
-		//id 가져오는 방법
-		String id= getId(model, principal);
-		System.out.println(id);
-		String seller_code = sellerservice.getSellerCode(id); 
+	@RequestMapping("/seller_list/{seller_code}") 
+	public String seller_list(Model model, Principal principal, @PathVariable String seller_code) {
 
-		List<ProductDTO> pdto = sellerservice.list();
+		//사이트 컬러 설정
 		SellerDTO sdto = sellerservice.sellerInfo(seller_code);
-		List<ProductDTO> productlist = sellerservice.product_list_user(seller_code);
-
 		System.out.println(sdto.getSeller_code());
 		System.out.println(sdto.getSeller_color());
+		
+		
+		//판매자별 베스트상품리스트 가져오기 12개
+ 		List<ProductDTO> productlist = sellerservice.product_list_user(seller_code);
 
-		model.addAttribute("productlist",productlist);
+		//판매자별 신규 상품 가져오기 7개
+ 		List<ProductDTO> newlist = sellerservice.product_list_new(seller_code);
 
-		model.addAttribute("pdto", pdto);
+ 		model.addAttribute("productlist",productlist);
+ 		model.addAttribute("newlist", newlist);
+		
+
 		model.addAttribute("sdto", sdto);
 		model.addAttribute("contentpage", "sellers/sellers_list.jsp");
 		return "home";
@@ -1529,15 +1535,15 @@ public class SellerController {
 	}
 	
 	
-	@RequestMapping("/tq")
-	public String search_order_update( OrderDTO dto) {
+	@RequestMapping("/search_order_update")
+	public String search_order_update(OrderDTO dto) {
 		
 		System.out.println(dto);
 		
 			
 		sellerservice.search_order_update(dto);
-		
-		return "redirect:/seller/product_review";	
+		return  "redirect:/seller/search_order";
+
 		
 	}
 	

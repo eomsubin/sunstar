@@ -109,6 +109,8 @@ public interface SellerService {
 
 	Integer getOrderCount(ChartDTO getOrderCount);
 
+	List<ProductDTO> product_list_new(String seller_code);
+
 
 
 
