@@ -17,6 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.sunstar.dto.CategoryDTO;
 import com.sunstar.service.AdminService;
 import com.sunstar.service.FileUploadService;
 import com.sunstar.service.UserService;
@@ -122,6 +123,9 @@ public class AdminController {
 	
 	@RequestMapping("/category")
 	public String category(Model model) {
+		
+		List<CategoryDTO> lv1 = adminservice.getLv1();
+		
 		model.addAttribute("adminpage", "category.jsp");
 		return "admin/temp";
 	}

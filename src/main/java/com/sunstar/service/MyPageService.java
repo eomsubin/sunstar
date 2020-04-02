@@ -31,5 +31,11 @@ public interface MyPageService {
 	void refund(OrderListDTO dto);
 
 	void updatePw(CustomerDTO info);
+
+	void updateTel(CustomerDTO user);
+
+	int userDrop(CustomerDTO cdto);
+
+	void exchange(OrderListDTO odto);
 }	
 

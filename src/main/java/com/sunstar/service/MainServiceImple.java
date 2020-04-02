@@ -45,6 +45,37 @@ public class MainServiceImple implements MainService {
 		
 		return homemapper.getProductList();
 	}
+
+	@Override
+	public List<ProductDTO> getDigital() {
+		// TODO Auto-generated method stub
+		return homemapper.getDigital();
+	}
+
+	@Override
+	public List<ProductDTO> getFurniture() {
+		// TODO Auto-generated method stub
+		return homemapper.getFurniture();
+	}
+
+	@Override
+	public List<ProductDTO> getFood() {
+		// TODO Auto-generated method stub
+		return homemapper.getFood();
+	}
+
+	@Override
+	public List<ProductDTO> getAnimal() {
+		// TODO Auto-generated method stub
+		return homemapper.getAnimal();
+	}
+
+	@Override
+	public List<ProductDTO> getRecommend() {
+		// TODO Auto-generated method stub
+		return homemapper.getRecommend();
+	}
+	
 	
 	
 }

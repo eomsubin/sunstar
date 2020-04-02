@@ -72,6 +72,8 @@
 		var order_no="";
 		var abc="";
 		var refund_price="";
+		var order_no2="";
+		
 		$('.cancel').on('click',function(){
 			
 			order_no=$(this).parent().parent().parent().children().find('span').eq(0).text();
@@ -92,6 +94,45 @@
 			location.href="${pageContext.request.contextPath}/refund/"+order_no+"/"+bank+"/"+account+"/"+refundmsg+"/"+refund_price;
 			
 		});
+		
+		$('.exchange').on('click',function(){
+			order_no2= $(this).parent().parent().parent().children().find('span').eq(0).text();
+			
+			
+			
+			
+			
+		});
+		
+		$('#exchange').on('click',function(){
+			let state = $('#state').val();
+			let bank2= $('#bank2').val();
+			let account2 = $('#account2').val();
+			let refundmsg2 = $('#refundmsg2').val();
+			let exchangemsg= $('#exchangemsg').val();
+			
+			if(bank2==""|| bank2==null){
+				bank2="기본";
+			}
+			if(account2==""|| account2==null){
+				account2="기본";
+			}
+			if(refundmsg2==""|| refundmsg2==null){
+				refundmsg2="기본";
+			}
+			if(exchangemsg==""|| refundmsg2==null){
+				exchangemsg="기본";
+			}
+			
+			
+			
+		
+			location.href="${pageContext.request.contextPath}/exchange/"+order_no2+"/"+state+"/"+bank2+"/"+account2+"/"+refundmsg2+"/"+exchangemsg;
+			
+		});
+		
+		
+		
 		
 	});
 
@@ -229,7 +270,10 @@
 							<th scope="row"></th>
 							<td>배송상태</td>
 							<td>${orderinfo.delivery_state }</td>
-							<td><c:if test="${orderinfo.delivery_state=='결제완료'}"><button type="button" class="btn btn-danger cancel" data-toggle="modal" data-target="#exampleModal"  >결제취소</button></c:if></td>
+							<td><c:if test="${orderinfo.delivery_state=='결제완료'}"><button type="button" class="btn btn-danger cancel" data-toggle="modal" data-target="#exampleModal"  >결제취소</button></c:if>
+							<c:if test="${orderinfo.delivery_state=='배송완료'}"><button type="button" class="btn btn-success exchange" data-toggle="modal" data-target="#staticBackdrop"  >교환/반품신청</button></c:if>
+								
+							</td>
 						</tr>
 						
 					</tbody>
@@ -309,12 +353,82 @@
         
         <button type="button" class="btn btn-secondary"  data-dismiss="modal">취소</button>
         
-        <button type="button" class="btn btn-primary" id="refund">요청</button>
+        <button type="button" class="btn btn-primary" id="refund">신청</button>
       </div>
      
     </div>
   </div>
 </div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      
+      <div class="modal-body">
+      				<div class="container" style="margin-top: 3%;">
+					<select class="custom-select" id="state" name="state" required="required">
+						<option selected>교환이시면 교환신청,  반품이시면 반품신청을 선택해주세요</option>
+						<option value="교환신청">교환신청</option>
+						<option value="반품신청">반품신청</option>
+					</select>
+						<label>반품 시 은행명</label><select class="form-control"  id="bank2" name="bank2"
+                        >
+                        <option selected="selected"></option>
+                        <option value="카카오뱅크">카카오뱅크</option>
+                        <option value="국민은행">국민은행</option>
+                        <option value="기업은행">기업은행</option>
+                        <option value="농협은행">농협은행</option>
+                        <option value="신한은행">신한은행</option>
+                        <option value="산업은행">산업은행</option>
+                        <option value="우리은행">우리은행</option>
+                        <option value="한국씨티은행">한국씨티은행</option>
+                        <option value="하나은행">하나은행</option>
+                        <option value="SC제일은행">SC제일은행</option>
+                        <option value="경남은행">경남은행</option>
+                        <option value="광주은행">광주은행</option>
+                        <option value="대구은행">대구은행</option>
+                        <option value="도이치은행">도이치은행</option>
+                        <option value="뱅크오브아메리카">뱅크오브아메리카</option>
+                        <option value="부산은행">부산은행</option>
+                        <option value="산림조합중앙회">산림조합중앙회</option>
+                        <option value="저축은행">저축은행</option>
+                        <option value="새마을금고중앙회">새마을금고중앙회</option>
+                        <option value="수협은행">수협은행</option>
+                        <option value="신협중앙회">신협중앙회</option>
+                        <option value="우체국">우체국</option>
+                        <option value="전북은행">전북은행</option>
+                        <option value="제주은행">제주은행</option>
+                        <option value="중국건설은행">중국건설은행</option>
+                        <option value="중국공상은행">중국공상은행</option>
+                        <option value="BNP파리바은행">BNP파리바은행</option>
+                        <option value="HSBC은행">HSBC은행</option>
+                        <option value="JP모간체이스은행">JP모간체이스은행</option>
+                        <option value="케이뱅크">케이뱅크</option>
+                     </select>
+					<label>반품 시 계좌입력</label><input type="text" id="account2" class="form-control" >
+        			<label>반품 시 반품사유를 정확히 기입해주세요</label><textarea rows="3" cols="1" id="refundmsg2"  ></textarea>
+        			<label>교환 시 교환사유를 정확히 기입해주세요(교환 시 사이즈와 색상을 필수로 기입해주세요)</label><textarea rows="3" cols="1" id="exchangemsg" ></textarea>
+        			<h4>주의사항</h4>
+        				<p style="margin-top: 2%;">
+        					* 반품과 교환은 배송완료 시점에서 10일이내에만 가능합니다.<br>
+        					* 교환은 동일 상품내 색상,사이즈만 가능 합니다.<br>
+        					* 물류 도착 후 검수기간 3일 소요 (평일기준) <br>
+        					* 검수 완료 후 반품 건 환불, 교환 건 재배송 처리 <br>
+        				  </p>
+					</div>
+					
+				</div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+        <button type="button" class="btn btn-primary" id="exchange">신청</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 
 </body>
 
