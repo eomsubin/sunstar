@@ -10,15 +10,6 @@
  */
 
 
- .navbar.navbar-expand-lg.navbar-light.bg-light {
-	border-top: 1px solid #dadada ;
-	border-bottom: 1px solid #dadada ;
-	font: 14px/1 'Apple SD Gothic Neo', '맑은 고딕' ;
-	
-} 
- 
-
-
 .add_info {
 	font: 14px/1 'Apple SD Gothic Neo', '맑은 고딕' ;
 	text-align: left ;
@@ -74,7 +65,16 @@ img {
 	margin-left: auto ;
 	margin-right: auto ;
 }
-
+	/*footer 즐간격 변경2 */ 
+#wrap > div > div.add_info.m-2 > div > div > dl > dt {
+   margin-top: 10px !important;
+   margin-bottom: 2px !important;
+   margin-left: 10px !important;
+}
+/* 줄간격 변경2 */
+#wrap > div > div.add_info.m-2 > div > div > dl > dd {
+   margin-bottom: 10px !important;
+}
 
 @media screen and (max-width: 1004px) {
 
@@ -101,6 +101,10 @@ img {
 		width: auto ;
 		max-width: 100% ;
 	}
-	
-	
+ .navbar.navbar-expand-lg.navbar-light.bg-light {
+	border-top: 1px solid #dadada ;
+	border-bottom: 1px solid #dadada ;
+	font: 14px/1 'Apple SD Gothic Neo', '맑은 고딕' ;	
+} 
+
 }

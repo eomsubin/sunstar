@@ -15,72 +15,93 @@ tr td {
 }
 </style>
 <script>
-	$(document).ready(
-			/* 
-			$('.alert').alert(); */
+$(document).ready(function() {
+
+	$('.search_btn').click(function() {
+		event.preventDefault();
+		if (search_word()) {
+			$('form').submit();
+		}
+	})
+
+	var vnum = /^[0-9]+$/
+	function search_word() {
+		if ($('#search_order').val().length == 0	|| !vnum.test($('#search_order').val())) {
+			alert('유효한 주문번호를 입력해주세요');
+			return false;
+		} else {
+			return true;
+		}
+	}
+		
+	//수정버튼 클릭 했을때
+$('#order_update').on('click', function(){
+	
+	//버튼 삭제하고 새로운 버튼 추가
+	$('#order_update').remove();
+	$('#order_update_div').append('<input type="submit" style="padding:3px;" class="btn btn-info" value="완료">');
+
+
+	// 운송장번호
+	$('#tracking_no').empty();
+	$('#tracking_no').append('<input type="text" name="tracking_no" value="${dto.tracking_no}">');
+
+	//받는사람 
+	$('#to_name').empty();
+	$('#to_name').append('<input type="text" name="to_name" value="${dto.to_name}">');
+
+	// 우편번호
+	$('#shipping_zip').empty();
+	$('#shipping_zip').append('<input type="text" name="shipping_zip" value="${dto.shipping_zip}">');
+
+	// 메세지
+	$('#message').empty();
+	$('#message').append('<textarea id="message" name="message" cols="50">${dto.message}</textarea>');
+	
+	
+	
+})	
+
+	/* $('.orderlist_update').on('click',function(){
+		
+		//$(this).parent().children().remove();
 			
-			function() {
-
-				$('.search_btn').click(function() {
-					event.preventDefault();
-					if (search_word()) {
-						$('form').submit();
-					}
-				})
-
-				var vnum = /^[0-9]+$/
-				function search_word() {
-					if ($('#search_order').val().length == 0	|| !vnum.test($('#search_order').val())) {
-						alert('유효한 주문번호를 입력해주세요');
-						return false;
-					} else {
-						return true;
-					}
-				}
+		let newbtn = '<input type="submit" value="완료~">';
+		$(this).parent().append(newbtn);
+		
+		
+		let addselect = $(this).parent().parent().children().eq(0);
+		console.log(addselect);
+		
+		let d_s = '<input type="hidden" name="order_code" value="${i.order_code}">'; 
+		d_s+='	<select class="form-control" id="delivery_state" name="delivery_state" >                    ';
+		d_s+='	<option value="${i.delivery_state}" selected="selected">${i.delivery_state}</option>    ';
+		d_s+='	<option value="배송준비">배송준비</option>                                                       ';
+		d_s+='	<option value="배송중">배송중</option>                                                          ';
+		d_s+='	<option value="배송완료">배송완료</option>                                                      ';
+		d_s+='	<option value="반품대기">반품대기</option>                                                      ';
+		d_s+='	<option value="반품완료">반품완료</option>                                                      ';
+		d_s+='	<option value="교환요청">교환요청</option>                                                      ';
+		d_s+='	<option value="반송대기">반송대기</option>                                                      ';
+		d_s+='	<option value="반송완료 및 배송준비">반송완료 및 배송준비</option>                                       ';
+		d_s+='	<option value="배송중">배송중</option>                                                          ';
+		d_s+='	<option value="배송 및 교환완료">배송 및 교환완료</option>                                             ';
+		d_s+='	<option value="결제취소(판매자사유)">결제취소(판매자사유)</option>                                      ';
+		d_s+='	<option value="결제취소(구매자사유)">결제취소(구매자사유)</option>                                      ';
+		d_s+='	<option value="결제취소완료">결제취소완료</option>                                                  ';
+		d_s+='	</select>																					';
 				
-	$('#order_update').on('click', function(){
-		$('#order_update').remove();
+		$(addselect).append(d_s);
 		
-		$('#delivery_state').empty();
-		
-		let d_s = '<input type="hidden" name="order_code" value="${dto.order_code}">'; 
-d_s+='	<select class="form-control" id="delivery_state" name="delivery_state" >                    ';
-d_s+='	<option value="${dto.delivery_state}" selected="selected">${dto.delivery_state}</option>    ';
-d_s+='	<option value="배송준비">배송준비</option>                                                       ';
-d_s+='	<option value="배송중">배송중</option>                                                          ';
-d_s+='	<option value="배송완료">배송완료</option>                                                      ';
-d_s+='	<option value="반품대기">반품대기</option>                                                      ';
-d_s+='	<option value="반품완료">반품완료</option>                                                      ';
-d_s+='	<option value="교환요청">교환요청</option>                                                      ';
-d_s+='	<option value="반송대기">반송대기</option>                                                      ';
-d_s+='	<option value="반송완료 및 배송준비">반송완료 및 배송준비</option>                                       ';
-d_s+='	<option value="배송중">배송중</option>                                                          ';
-d_s+='	<option value="배송 및 교환완료">배송 및 교환완료</option>                                             ';
-d_s+='	<option value="결제취소(판매자사유)">결제취소(판매자사유)</option>                                      ';
-d_s+='	<option value="결제취소(구매자사유)">결제취소(구매자사유)</option>                                      ';
-d_s+='	<option value="결제취소완료">결제취소완료</option>                                                  ';
-d_s+='	</select>																					';
-		
-		$('#delivery_state').append(d_s);
-		
-		$('#tracking_no').empty();
-		$('#tracking_no').append('<input type="text" name="tracking_no" value="${dto.tracking_no}">');
-
-		$('#to_name').empty();
-		$('#to_name').append('<input type="text" name="to_name" value="${dto.to_name}">');
-
-		$('#shipping_zip').empty();
-		$('#shipping_zip').append('<input type="text" name="shipping_zip" value="${dto.shipping_zip}">');
-
-		$('#message').empty();
-		$('#message').append('<textarea id="message" name="message" cols="50">${dto.message}</textarea>');
-		
-		$('#order_update_div').append('<input type="submit"class="btn btn-info" value="완료">');
-		
-		
-	})			
+	
+																	
+	}) */
 })
+
 </script>
+
+
+	
 </head>
 <body>
 
@@ -126,79 +147,135 @@ d_s+='	</select>																					';
 				
 			
 				
-				<div style="margin:">	<form method="post" id="searchupdate" action="${pageContext.request.contextPath}/seller/tq" >
+				<div style="margin:">	<form method="post" id="searchupdate" action="${pageContext.request.contextPath}/seller/search_order_update" >
 				<input type="hidden" name="${_csrf.parameterName}"	value="${_csrf.token}" />
 					<table class="table table-bordered">
 				
 						<thead>
 							<tr style="background-color: #ededed;">
-								<th style="text-align: center;" scope="col">주문번호</th>
-								<th style="text-align: center;" scope="col">${dto.order_code}</th>
-								<th style="text-align: center;" scope="col">주문상태</th>
-								<th id="delivery_state" style="text-align: center;" scope="col">${dto.delivery_state}</th>
-								<th>	<div id="order_update_div">
-					<button id="order_update" class="btn btn-info">수정</button>
-				</div>
-				</th>
+								<th style="text-align: center;" scope="col" colspan="2">주문번호</th>
+								<th style="text-align: center;" scope="col"  colspan="3">${dto.order_code}</th>
+								<th  style="text-align: center;" scope="col"  >
+								
+								<div id="order_update_div">
+									<button id="order_update"  style="padding:3px;" class="btn btn-info">수정</button>
+								</div>
+								</th>
+								
 							</tr>
 						</thead>
 						<tbody>
 							<tr>
 								<td align="center">배송사</td>
-								<td align="center">${dto.shipping_company}</td>
+								<td align="center"  colspan="2">${dto.shipping_company}</td>
 								<td align="center">운송장번호</td>
 								<td colspan="2" id="tracking_no" align="center">${dto.tracking_no }</td>
 								
 							</tr>
 
 							<tr>
-								<td scope="row" colspan="5" align="center"
+								<td scope="row" colspan="6" align="center"
 									style="background-color: #ededed;"><b>배송지</b></td>
 							</tr>
 							<tr>
 								<td align="center">받으시는분</td>
-								<td id="to_name" align="center">${dto.to_name}</td>
+								<td  colspan="2" id="to_name" align="center">${dto.to_name}</td>
 								<td align="center">우편번호</td>
 								<td colspan="2" id="shipping_zip" align="center">${dto.shipping_zip}</td>
 							</tr>
 							<tr>
 								<td align="center">배송 주소</td>
-								<td id="shipping_addr1" align="center" colspan="4">${dto.shipping_addr1}${dto.shipping_addr2}
+								<td id="shipping_addr1" align="center" colspan="5">${dto.shipping_addr1}${dto.shipping_addr2}
 									${dto.shipping_addr3}</td>
 
 							</tr>
 							
 							<tr>
 								<td align="center">배송 메세지</td>
-								<td id="message" align="center" colspan="4">${dto.message}</td>
+								<td id="message" align="center" colspan="5">${dto.message}</td>
 							</tr>
 							<tr>
-								<td scope="row" colspan="5" align="center"
+								<td scope="row" colspan="6" align="center"
 									style="background-color: #ededed;"><b>구매상품 내역</b></td>
 							</tr>
-							<tr>
+			<c:forEach var="i" items="${list}">
+							
+							<tr style=" border-top: 2px solid silver;">
+							<td style="text-align: center;" scope="col">주문상태</td>
+							
 								<td align="center">상품번호</td>
 								<td align="center">상품이름</td>
 								<td  colspan="2" align="center">옵션1/옵션2/추금</td>
 								<td align="center">수량</td>
 							</tr>
-							<c:forEach var="i" items="${list}">
-
 								<tr>
+									<td id="delivery_state" style="text-align: center;" scope="col">
+									
+										<div class="f_select">
+											
+	<%-- <input type="hidden" name="order_code" value="${i.order_code}"> --%>
+	<select class="form-control" id="delivery_state" name="delivery_state" >               
+		<option value="${i.delivery_state}" selected="selected">${i.delivery_state}</option>   
+		<option value="배송준비">배송준비</option>                                                     
+		<option value="배송중">배송중</option>                                                       
+		<option value="배송완료">배송완료</option>                                                     
+		<option value="반품대기">반품대기</option>                                                     
+		<option value="반품완료">반품완료</option>                                                     
+		<option value="교환요청">교환요청</option>                                                     
+		<option value="반송대기">반송대기</option>                                                     
+		<option value="반송완료 및 배송준비">반송완료 및 배송준비</option>                                       
+		<option value="배송중">배송중</option>                                                       
+		<option value="배송 및 교환완료">배송 및 교환완료</option>                                           
+		<option value="결제취소(판매자사유)">결제취소(판매자사유)</option>                                      
+		<option value="결제취소(구매자사유)">결제취소(구매자사유)</option>                                      
+		<option value="결제취소완료">결제취소완료</option>                                                 
+	</select>							
+			<button type="button" class="orderlist_update" class="btn btn-secondary" style="padding:2px;">수정</button>
+						
+										</div>
+								
+								
+									</td>
 									<td align="center">${i.product_code}</td>
 									<td align="center">${i.product_name}</td>
 									<td  colspan="2" align="center">${i.option1}/${i.option2} /
 										${i.add_price}</td>
 									<td align="center">${i.quantity}///${i.price}</td>
 								</tr>
-							</c:forEach>
+								
+							
+				<c:if test="${i.refund_bank != null}">
+				
+						<tr  style="background-color: #e4e4fe;">
+							<td  align="center"><b> 특이사항</b><br>(교환/환불/취소)</td>
+								<td align="center">환불 계좌 은행</td>
+								<td id="to_name" align="center">${i.refund_bank}</td>
+								<td align="center">계좌번호</td>
+								<td colspan="2" id="shipping_zip" align="center">${i.refund_account}</td>
+						</tr>
+						<tr  style="background-color: #e4e4fe; border-top: 2px solid #cbcbfb">
+						<td align="center"><b>교환/환불/취소 사유</b></td>
+								<td id="shipping_addr1" align="center" colspan="5">${i.refund_msg } </td>
+						</tr>
+				
+				
+				</c:if>
+			</c:forEach>
 							<tr>
 								<td align="center">배송비</td>
-								<td align="center">${dto.shipping_cost}</td>
+								<td align="center">${dto.basic_shipping_cost}</td>
 								<td align="center"><b>총금액</b></td>
 								<td colspan="2" lign="center"><b>${dto.price}</b></td>
 							</tr>
-
+							
+							
+							
+				<c:forEach var="a" items="${list}">
+							
+							
+							
+							
+				</c:forEach>			
 						</tbody>
 					</table>
 					</form>

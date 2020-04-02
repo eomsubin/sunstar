@@ -261,24 +261,35 @@
 		</update>
 		
 		
-		<select id="product_list_user"  resultType="com.sunstar.dto.ProductDTO">
-		select *
-		from product_list
-		order by product_code desc
-		limit 7,8
+		<select id="product_list_user" parameterType="string"  resultType="com.sunstar.dto.ProductDTO">
+            select p.product_name, p.product_code, accumulation, price, thumb_img
+            from product_list p join options o
+            on p.product_code = o.product_code
+            where seller_code = #{seller_code}
+            group by product_code
+            order by accumulation desc
+            limit 0, 12
 		</select>
 		
+		<select id="product_list_new" parameterType="string"  resultType="com.sunstar.dto.ProductDTO">
+			select product_name, product_code, price, thumb_img
+            from product_list
+            where seller_code = 11111
+            order by product_code desc
+            limit 0, 7
+		</select>
 		
-		<select id="viewStepOrder" parameterType="string" resultType="com.sunstar.dto.OrderDTO">
+		<select id="viewStepOrder" parameterType="com.sunstar.dto.OrderDTO" resultType="com.sunstar.dto.OrderDTO">
 			select o.order_code, l.product_code, l.option1, l.option2, l.inventory, l.add_price,  p.price, o.message, 
-			o.order_way,  o.to_name, c.tel, o.shipping_addr1, o.shipping_addr2, o.shipping_addr3, o.shipping_zip, l.delivery_state, l.tracking_no
+			o.order_way,  o.to_name, c.tel, o.shipping_addr1, o.shipping_addr2, o.shipping_addr3, o.shipping_zip, l.delivery_state, l.tracking_no,
+			
 			from ordered o left join order_list l
 			on o.order_code = l.order_code
 			inner join customer c 
 			on o.id = c.id
 			left join product_list p
 			on l.product_code = p.product_code
-			where l.delivery_state = #{view_step}
+			where l.delivery_state = #{delivery_state} and seller_code = #{seller_code}
 			order by order_code desc
 		</select>
 		
@@ -413,9 +424,11 @@
 		
 		
 		<select id="searchOrderView" parameterType="string" resultType="com.sunstar.dto.OrderDTO" >
-	       select o.order_code, p.product_code, l.option1, l.option2, l.add_price, quantity, price,  o.message, 
-	      o.order_way,l.delivery_state, l.tracking_no, l.shipping_company, o.to_name, o.shipping_addr1,o.shipping_addr2,o.shipping_addr3,o.shipping_zip,
-	      product_name,l.option1,l.option2,
+	       select o.order_code, p.product_code, l.option1, l.option2, l.add_price, quantity, price,  o.message,  s.basic_shipping_cost,
+	      o.order_way,l.delivery_state, l.tracking_no, l.shipping_company, o.to_name, 
+	      o.shipping_addr1,o.shipping_addr2,o.shipping_addr3,o.shipping_zip,
+	      product_name,l.option1,l.option2, l.refund_bank, l.refund_account, l.refund_msg,
+          
           s.shipping_company
 	      from ordered o left join order_list l
 	      on o.order_code=l.order_code

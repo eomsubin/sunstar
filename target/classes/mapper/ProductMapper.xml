@@ -29,8 +29,9 @@
     join category c 
     on c.category_code = p.category_code 
     <where>
+    		p.public_state = '1'
 	 	<if test="where == 'lv1'">
-	 		c.lv1 = #{category}
+	 		and c.lv1 = #{category}
 	 	</if>
 	 	<if test="where == 'lv2'">
 	 		and c.lv2code = #{category}
@@ -56,8 +57,9 @@
     join seller s
     on s.seller_code = p.seller_code
 	 <where>
+	     		p.public_state = '1'
 	 	<if test="where == 'lv1'">
-	 		c.lv1 = #{category}
+	 		and c.lv1 = #{category}
 	 	</if>
 	 	<if test="where == 'lv2'">
 	 		and c.lv2code = #{category}
@@ -87,8 +89,9 @@
      join seller s
      on s.seller_code = p.seller_code
 	 <where>
+     		p.public_state = '1'
 	 	<if test="where == 'lv1'">
-	 		c.lv1 = #{category}
+	 		and c.lv1 = #{category}
 	 	</if>
 	 	<if test="where == 'lv2'">
 	 		and c.lv2code = #{category}
@@ -147,7 +150,7 @@
     on ol.product_code = p.product_code 
     join seller s
     on p.seller_code = s.seller_code
-    where order_no = #{order_no}
+    where order_no = #{order_no} and p.review_state = '1'
 	</select>
 	
 	<!-- 리뷰 넣기 -->

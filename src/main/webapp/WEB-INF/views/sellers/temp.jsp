@@ -90,8 +90,6 @@
                         <h6 class="collapse-header">주문관리</h6>
                         <a class="collapse-item" href="${pageContext.request.contextPath}/seller/orders">주문 확인</a>
                         <a class="collapse-item" href="${pageContext.request.contextPath}/seller/search_order">단일주문건 확인</a>
-                        <a class="collapse-item" href="#">교환관리</a>
-                        <a class="collapse-item" href="#">반품관리</a>
                         <a class="collapse-item" href="${pageContext.request.contextPath}/seller/product_review">리뷰관리</a>
                     </div>
                 </div>
@@ -248,7 +246,7 @@
 	            
 	            <!--  -->
 	             <li class="nav-item dropdown no-arrow mx-1">
-	             <a href="${pageContext.request.contextPath}/seller/seller_list" class="nav-link dropdown-toggle" >
+	             <a href="${pageContext.request.contextPath}/seller/seller_list/${seller_code}" class="nav-link dropdown-toggle" >
 	                <i class="fas fa-home fa-fw"></i>
 	              </a>
 	             
