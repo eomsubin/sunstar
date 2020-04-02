@@ -21,4 +21,14 @@
 	order by seller_code desc
 	</select>
 	
+	<select id="getLv1" resultType="com.sunstar.dto.CategoryDTO">
+		 select distinct lv1 from category
+	
+	</select>
+	
+	<select id="getLv2" parameterType="com.sunstar.dto.CategoryDTO" resultType="com.sunstar.dto.CategoryDTO">
+		select distinct lv2 from category where lv1=#{lv1}
+	
+	</select>
+	
 </mapper>

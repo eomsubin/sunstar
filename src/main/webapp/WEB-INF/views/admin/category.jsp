@@ -7,7 +7,33 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-
+<script>
+	$(document).ready(function(){
+		
+		var csrfHeaderName= "${_csrf.headerName}";
+		var csrfTokenValue= "${_csrf.token}";
+		
+		$('#lv1').on('change',function(){
+			var lv1= $(this).val();
+			console.log(lv1);
+			
+			var lv1data= {"lv1": lv1};
+			
+			
+			$.ajax({
+				
+				
+				
+			});
+		
+		});
+		
+		
+		
+	});
+	
+	
+</script>
 </head>
 <body>
 	<div class="container-fluid">
@@ -27,22 +53,22 @@
 				<div class="form-group">
 					<label for="exampleFormControlSelect2">1차 분류</label> 
 					<select multiple class="form-control"
-						id="exampleFormControlSelect2">
-						<option>1</option>
-						<option>2</option>
-						<option>3</option>
-						<option>4</option>
-						<option>5</option>
+						id="lv1" >
+						<c:forEach var="lv1" items="${lv1 }">
+							<option value="${lv1.lv1}">${lv1.lv1}</option>
+				
+						</c:forEach>
+						
 					</select>
+					
+				
 				</div>
 				<div class="form-group">
 					<label for="exampleFormControlSelect2">2차 분류</label> <select multiple class="form-control"
 						id="exampleFormControlSelect2">
-						<option>1</option>
-						<option>2</option>
-						<option>3</option>
-						<option>4</option>
-						<option>5</option>
+						<c:forEach var="lv2" items="${lv2 }">
+						<option>${lv2 }</option>
+						</c:forEach>
 					</select>
 				</div>
 				<div class="form-group">
