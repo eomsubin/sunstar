@@ -28,13 +28,10 @@
 			}
 		});
 
-						$('#btnupdateinventorymodal').on('click', function() {
-							$('#updateinventorymodal').modal();
-						})
-
-						$('#btndeletemodal').on('click', function() {
-							$('#deletemodal').modal();
-						})
+	
+		$('#btndeletemodal').on('click', function() {
+			$('#deletemodal').modal();
+		})
 		$('#btndelete').on('click', function() {
 			$("input[name=pcode]:checked").each(function() {
 				var pcode = $(this).val();
@@ -43,7 +40,7 @@
 		});
 });
 
-						//운송장입력 버튼을 누르면, 체크한 상품들의 운송장 번호를 
+	//운송장입력 버튼을 누르면, 체크한 상품들의 운송장 번호를 
 $('.trackingbtn').on('click', function() {
 	let items = new Array();
 	$('.trackingbtn').hide();
@@ -51,13 +48,14 @@ $('.trackingbtn').on('click', function() {
 
 	$('input:checkbox[name="order_no"]:checked').each( function(item) {
 		let checked_items = $(this).val();
-	
-		let trc = $(this).parent().parent().find('td').eq(14);
-	
-		console.log($(this).parent().parent().find('td').eq(13).text());
-
+	//	console.log(checked_items);
+	//	console.log($(this).parent().parent().find('td').eq(13).text());
+		let trc = $(this).parent().parent().find('#ttt');
+		console.log(trc);
+		
 		trc.empty();
 		trc.append('<input type="text" name="tracking_no">');
+
 		items.push(checked_items);
 	});
 

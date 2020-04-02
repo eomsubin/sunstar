@@ -31,9 +31,25 @@ body {
 					Example</h6>
 			</div>
 			<div class="card-body">
+			 <c:if test="${dd > 10}">
+ 			 	<div style="text-align: center;">
+				 
+					<p>현재는 정산신청 기간이 아닙니다.</p>
+					<p><strong>매월 1일부터 10일 사이</strong>에 신청해주세요</p>
+				</div>
+			
+			</c:if>
 
 
-				<!-- 내용 -->
+			 <c:if test="${01 < dd && dd < 11}">
+			 <div style="text-align: center;">
+			 
+				<p>정산신청 기간은 매월 1일부터 10일입니다.</p>
+				<p style="color: red; font-size: 1.3em; font-weight: 700;">현재 정산신청 기간입니다.</p>
+				<p>아래 항목을 모두 기입 하신 후 신청 해주세요! </p>
+			</div>
+			
+			<!-- 내용 -->
 
 				<form>
 					<div class="form-row">
@@ -82,6 +98,8 @@ body {
 					<button type="submit" class="btn btn-primary">Sign in</button>
 				</form>
 				<!-- 내용 끝 -->
+			</c:if>
+				
 
 
 			</div>

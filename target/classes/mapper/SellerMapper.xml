@@ -480,42 +480,35 @@
 		<select id="month_chart" parameterType="com.sunstar.dto.ChartDTO" resultType="integer">
 		
 		select ifnull(sum(total_price),0)
-        from  price r 
+        from  price 
         where seller_code = #{seller_code}
-        and left(r.order_code, 6) = #{month};
+        and left(order_code, 6) = #{month}
 		
 		</select>
 		<select id="month_chart_plus" parameterType="com.sunstar.dto.ChartDTO" resultType="integer">
-	<!-- 	select ifnull(sum(shipping_cost),0)
-		from product_list p  join order_list l
-		on p.product_code = l.product_code
-		join ordered o 
-		on o.order_code = l.order_code
-		where seller_code = #{seller_code} 
-        and left(o.order_code, 6) = #{month}
-		order by shipping_cost  
- -->
+	    select ifnull(sum(shipping_cost_per_seller),0)
+        from  price 
+        where seller_code = #{seller_code}
+        and left(order_code, 6) = #{month};
 		</select>
 		
 		
 		<select id="day_chart" parameterType="com.sunstar.dto.ChartDTO" resultType="integer">
 		
 		select ifnull(sum(total_price), 0)
-		from ordered o join price r
-		on o.order_code = r.order_code
+		from price 
 		where seller_code = #{seller_code}
-		and left(o.order_code, 8) = #{yyyymmdd}
+		and left(order_code, 8) = #{yyyymmdd}
 
 		
 		</select>
 		
 		<select id="day_chart_plus" parameterType="com.sunstar.dto.ChartDTO" resultType="integer">
 		
-		select ifnull(sum(r.shipping_cost_per_seller), 0)
-		from ordered o join price r
-		on o.order_code = r.order_code
+		select ifnull(sum(shipping_cost_per_seller), 0)
+		from price 
 		where seller_code = #{seller_code}
-		and left(o.order_code, 8) = #{yyyymmdd}
+		and left(order_code, 8) = #{yyyymmdd}
 
 		
 		</select>
