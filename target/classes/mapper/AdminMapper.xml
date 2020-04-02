@@ -3,5 +3,22 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sunstar.mapper.AdminMapper">
-
+	<select id="getSellerApply" parameterType="string" resultType="hashmap">
+	select distinct * 
+	from seller s join auth a 
+	on s.id = a.id 
+	
+	where not s.id in 
+						(select s.id 
+						 from seller s join auth a 
+						 on s.id = a.id 
+						 where auth = "ROLE_MANAGER")
+	</select>	
+	<select id="getSellerList" parameterType="string" resultType="hashmap">
+	select  * 
+	from seller s join auth a 
+	on s.id = a.id where auth = "ROLE_MANAGER"	
+	order by seller_code desc
+	</select>
+	
 </mapper>

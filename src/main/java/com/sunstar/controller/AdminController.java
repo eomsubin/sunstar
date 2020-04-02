@@ -1,6 +1,8 @@
 package com.sunstar.controller;
 
 import java.security.Principal;
+import java.util.HashMap;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -36,12 +38,18 @@ public class AdminController {
 	@RequestMapping("/seller_apply")
 	public String seller_apply(Model model) {
 		model.addAttribute("adminpage", "seller_apply.jsp");
+		HashMap<String, String> map = new HashMap<>();
+		List<HashMap<String, String>> apply = adminservice.getSellerApply(map);
+		model.addAttribute("list",apply);
 		return "admin/temp";
 	}
 	
 	@RequestMapping("/seller_list")
 	public String seller_list(Model model) {
 		model.addAttribute("adminpage", "seller_list.jsp");
+		HashMap<String, String> map = new HashMap<>();
+		List<HashMap<String, String>> list = adminservice.getSellerList(map);
+		model.addAttribute("list",list);
 		return "admin/temp";
 	}
 	
