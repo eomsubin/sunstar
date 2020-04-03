@@ -2,6 +2,7 @@ package com.sunstar.service;
 
 import java.util.List;
 
+import com.sunstar.dto.AccountsDTO;
 import com.sunstar.dto.CartDTO;
 import com.sunstar.dto.CategoryDTO;
 import com.sunstar.dto.ChartDTO;
@@ -110,6 +111,13 @@ public interface SellerService {
 	Integer getOrderCount(ChartDTO getOrderCount);
 
 	List<ProductDTO> product_list_new(String seller_code);
+
+	AccountsDTO getTotal_price(AccountsDTO setdto);
+
+	void insertAccount(AccountsDTO dto);
+
+	List<AccountsDTO> getAccountList(String seller_code);
+
 
 
 

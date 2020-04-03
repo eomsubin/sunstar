@@ -22,4 +22,10 @@ public interface UserService {
 	public int join_Sellerauth(HashMap<String, String> map);
 
 	public int rejectjoin_Sellerre(HashMap<String, String> map);
+
+	public int Acsuspensionseller(HashMap<String, String> map);
+
+	public int Actseller(HashMap<String, String> map);
+
+	public int delseller(HashMap<String, String> map);
 }

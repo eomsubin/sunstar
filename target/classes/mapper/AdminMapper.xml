@@ -3,6 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sunstar.mapper.AdminMapper">
+	<!-- jinwoo -->
 	<select id="getSellerApply" parameterType="string" resultType="hashmap">
 	select distinct * 
 	from seller s join auth a 
@@ -12,12 +13,16 @@
 						(select s.id 
 						 from seller s join auth a 
 						 on s.id = a.id 
-						 where auth = "ROLE_MANAGER")
+						 where auth = "ROLE_MANAGER") and s.seller_state = '1'
 	</select>	
+	
 	<select id="getSellerList" parameterType="string" resultType="hashmap">
-	select  * 
-	from seller s join auth a 
-	on s.id = a.id where auth = "ROLE_MANAGER"	
+	<!-- select s.id, s.seller_code, s.id as id2, s.seller_name, s.seller_email, s. seller_address1, s.seller_tel, s.bank, s.business_license, s.seller_deadline -->
+	select distinct *
+	from seller s left join auth a 
+	on s.id = a.id 
+	where auth = 'ROLE_MANAGER'
+	or s.seller_state = '0'	
 	order by seller_code desc
 	</select>
 	
@@ -26,9 +31,39 @@
 	
 	</select>
 	
-	<select id="getLv2" parameterType="com.sunstar.dto.CategoryDTO" resultType="com.sunstar.dto.CategoryDTO">
-		select distinct lv2 from category where lv1=#{lv1}
+	<select id="getLv2"  resultType="com.sunstar.dto.CategoryDTO" parameterType="string">
+		select distinct lv2,lv1,lv2code from category
+		
+	 
+	</select>
+		<select id="getLv3"  resultType="com.sunstar.dto.CategoryDTO" parameterType="string">
+		select distinct lv3,lv2,lv2code,category_code from category
 	
 	</select>
+	
+	<insert id="add_lv2" parameterType="com.sunstar.dto.CategoryDTO">
+		<selectKey keyProperty="lv2code,category_code" order="BEFORE" resultType="com.sunstar.dto.CategoryDTO" >
+			   select concat(#{lv2con},lpad(max(substr(category_code,2,4))+1,4,"0")) as category_code, concat(#{lv2con},lpad(max(substr(lv2code,2,3))+1,2,"0")) as lv2code
+   			 	from category
+    			where lv1= #{lv1}
+		</selectKey>
+	
+		insert into category(lv2,lv2code,lv1,category_code,lv3)
+		values(#{lv2},#{lv2code},#{lv1},#{category_code},#{lv3})
+	
+	</insert>
+	
+	 <insert id="add_lv3" parameterType="com.sunstar.dto.CategoryDTO">
+	 	<selectKey keyProperty="lv2code,category_code" order="BEFORE" resultType="com.sunstar.dto.CategoryDTO" >
+			   select concat(#{lv2con},lpad(max(substr(category_code,2,4))+1,4,"0")) as category_code, concat(#{lv2con},lpad(max(substr(lv2code,2,3))+1,2,"0")) as lv2code
+   			 	from category
+    			where lv1= #{lv1}
+		</selectKey>
+		insert into category(lv2,lv2code,lv1,category_code,lv3)
+		values(#{lv2},#{lv2code},#{lv1},#{category_code},#{lv3})
+	 
+	 
+	 
+	 </insert>
 	
 </mapper>
