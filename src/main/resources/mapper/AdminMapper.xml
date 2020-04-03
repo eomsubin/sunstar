@@ -26,9 +26,27 @@
 	
 	</select>
 	
-	<select id="getLv2" parameterType="com.sunstar.dto.CategoryDTO" resultType="com.sunstar.dto.CategoryDTO">
-		select distinct lv2 from category where lv1=#{lv1}
+	<select id="getLv2"  resultType="com.sunstar.dto.CategoryDTO" parameterType="string">
+		select distinct lv2,lv1,lv2code from category
+		
+	 
+	</select>
+		<select id="getLv3"  resultType="com.sunstar.dto.CategoryDTO" parameterType="string">
+		select distinct lv3,lv2,lv2code,category_code from category
 	
 	</select>
+	
+	<insert id="add_lv2" parameterType="com.sunstar.dto.CategoryDTO">
+		<selectKey keyProperty="lv2code,category_code" order="BEFORE" resultType="com.sunstar.dto.CategoryDTO" >
+			   select concat(#{lv2con},lpad(max(substr(category_code,2,4))+1,4,"0")) as category_code, concat(#{lv2con},lpad(max(substr(lv2code,2,3))+1,2,"0")) as lv2code
+   			 	from category
+    			where lv1= #{lv1}
+		</selectKey>
+	
+		insert into category(lv2,lv2code,lv1,category_code,lv3)
+		values(#{lv2},#{lv2code},#{lv1},#{category_code},#{lv3})
+	
+	</insert>
+	
 	
 </mapper>

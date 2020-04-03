@@ -14,4 +14,5 @@ public class CategoryDTO {
 	private String lv123;
 	private String lv2code;
 	
+	private String lv2con;
 }

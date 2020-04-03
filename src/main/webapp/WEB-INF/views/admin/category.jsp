@@ -10,23 +10,36 @@
 <script>
 	$(document).ready(function(){
 		
-		var csrfHeaderName= "${_csrf.headerName}";
-		var csrfTokenValue= "${_csrf.token}";
 		
-		$('#lv1').on('change',function(){
-			var lv1= $(this).val();
-			console.log(lv1);
-			
-			var lv1data= {"lv1": lv1};
-			
-			
-			$.ajax({
-				
-				
-				
-			});
-		
+		$('#all').click(function(){
+			if($('#all').prop('checked')){
+				$('input:checkbox').prop('checked',true);
+			}else{
+				$('input:checkbox').prop('checked',false);
+			}
 		});
+		
+			
+		var lv1_val="";
+		$('.lv2add').on('click',function(){
+			
+			 lv1_val=$(this).parent().parent().find('input:checkbox[name="lv1check"]').val();
+			
+			console.log(lv1_val);
+		
+				
+	
+		});
+		
+		$('#addbtn1').on('click',function(){
+			
+			let lv2_name = $('#lv2').val();
+			let lv3_name = $('#lv3').val();
+ 			console.log(lv2_name);
+			
+			location.href="${pageContext.request.contextPath}/admin/add_lv2/"+lv1_val+"/"+lv2_name+"/"+lv3_name;
+		});
+		
 		
 		
 		
@@ -50,42 +63,93 @@
 			</div>
 			<div class="card-body">
 				<!-- 여기 내부만 수정하시면 됩니다  -->
-				<div class="form-group">
-					<label for="exampleFormControlSelect2">1차 분류</label> 
-					<select multiple class="form-control"
-						id="lv1" >
-						<c:forEach var="lv1" items="${lv1 }">
-							<option value="${lv1.lv1}">${lv1.lv1}</option>
+								
+				<table class="table table-bordered mb-0" id="dataTable"
+							style="width: 100%;" cellspacing="0">
+							<thead>
+								<tr>
+									<th style="width: 50px"><input type="checkbox" id="all"></th>
+									<th colspan="6">카테고리명</th>
+									
+									<th >카테고리생성</th>
+									<th >삭제</th>
+									<!-- <th>업체명</th>
+									<th>이메일</th>
+									<th style="border-left: 2px solid silver" colspan="3">주소</th>
+									<th style="border-right: 2px solid silver;">전화번호</th>
+									<th>거래은행</th>
+									<th>사업자등록번호</th>
+									<th>판매가능기한</th> -->
+								</tr>
+							</thead>
+							<tbody>
+								<c:forEach var="lv1" items="${lv1 }">
+								<tr class="table-danger">
+									<td><input type="checkbox" name="lv1check" value="${lv1.lv1 }"></td>
+									<td colspan="6" >(1차)${lv1.lv1 }</td>
+									<td><button class="lv2add" data-toggle="modal" data-target="#exampleModal">2차카테고리 추가</button></td>
+									<td></td>
+								</tr>
+									<c:forEach var="lv2" items="${lv2 }">
+									<tr class="table-warning">
+										<c:if test="${lv1.lv1 eq lv2.lv1 }">
+											<td><input type="checkbox" name="lv2check" value="${lv2.lv2code }"></td>
+											<td colspan="6">(2차)${lv2.lv2 }</td>
+											<td><button>3차카테고리 추가</button></td>
+											<td>삭제하기</td>
+										</c:if>
+									</tr>
+									<c:forEach var="lv3" items="${lv3 }">
+									   
+										<c:if test="${lv2.lv2 eq lv3.lv2 and lv1.lv1 eq lv2.lv1 }">
+										<tr >
+											<td><input type="checkbox" name="lv3check" value="${lv3.category_code }"></td>
+											<td colspan="6">(3차)${lv3.lv3 }</td>
+											<td></td>
+											<td>삭제하기</td>
+											
+										</tr>
+										</c:if>
+										
+									</c:forEach>
+								</c:forEach>
+								</c:forEach>
+									
+									
+							</tbody>
+						</table>
 				
-						</c:forEach>
-						
-					</select>
-					
 				
-				</div>
-				<div class="form-group">
-					<label for="exampleFormControlSelect2">2차 분류</label> <select multiple class="form-control"
-						id="exampleFormControlSelect2">
-						<c:forEach var="lv2" items="${lv2 }">
-						<option>${lv2 }</option>
-						</c:forEach>
-					</select>
-				</div>
-				<div class="form-group">
-					<label for="exampleFormControlSelect2">3차 분류</label> <select multiple class="form-control"
-						id="exampleFormControlSelect2">
-						<option>1</option>
-						<option>2</option>
-						<option>3</option>
-						<option>4</option>
-						<option>5</option>
-					</select>
-				</div>
-
-
+			
 				<!-- 여기 내부만 수정하시면 됩니다  -->
 			</div>
 		</div>
 	</div>
+	
+	<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">2차 카테고리 추가</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        	
+        		<label>2차 카테고리명</label><input type="text" id="lv2" name="lv2" class="form-control" required="required" >
+        		<label>3차 카테고리명(기본으로 하나이상 추가해주셔야합니다.)</label><input type="text" id="lv2" name="lv2" class="form-control" required="required" >
+        		
+        	
+       
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+        <button type="button" class="btn btn-primary" id="addbtn1">추가하기</button>
+      </div>
+    </div>
+  </div>
+</div>
 </body>
 </html>
