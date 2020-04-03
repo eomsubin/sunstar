@@ -128,6 +128,7 @@
 
 
 <div class="all_container" >
+<h2> 스삐제 판매자 코너</h2>
 
 <div class="list-group align-top">
   <a href="${pageContext.request.contextPath}/seller/seller" class="list-group-item list-group-item-primary ">
