@@ -25,16 +25,6 @@ footer{
 	background-color: #fff;
 }
 
-/*footer 즐간격 변경2 */ 
-#wrap > div > div.add_info.m-2 > div > div > dl > dt {
-	margin-top: 10px;
-	margin-bottom: 2px;
-	margin-left: 10px;
-}
-/* 줄간격 변경2 */
-#wrap > div > div.add_info.m-2 > div > div > dl > dd {
-	margin-bottom: 10px;
-}
 
 #wrap > div > div.add_info.m-2 > div > div > dl > dd a{
 	font-size: 12px;

@@ -14,5 +14,7 @@ public interface CSMapper {
 
 	int inquiryadd(MailDTO dto);
 
+	List<MailDTO> inquirylist(String id);
+
 	
 }
