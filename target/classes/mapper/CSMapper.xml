@@ -8,4 +8,7 @@
 		from notice
 		order by notice_no desc
 	</select>
+	<insert id="inquiryadd" parameterType="com.sunstar.dto.MailDTO">
+	insert into mails(email, category, title, content, id, order_code) values(#{email}, #{category}, #{title}, #{content},  #{id}, #{order_code})
+	</insert>
 </mapper>

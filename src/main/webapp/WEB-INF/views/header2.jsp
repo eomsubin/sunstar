@@ -188,7 +188,7 @@
                   <div class="right-bar">
                      <!-- Search Form -->
                      <div class="sinlge-bar">
-                        <a href="#" class="single-icon"><i class="ti-headphone-alt"></i></a>
+                        <a href="${pageContext.request.contextPath}/CS" class="single-icon"><i class="ti-headphone-alt"></i></a>
                      </div>
                      <div class="sinlge-bar">
                         <a href="#" class="single-icon"><i class="ti-desktop"></i></a>

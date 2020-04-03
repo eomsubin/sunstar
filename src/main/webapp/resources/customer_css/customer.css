@@ -5,6 +5,43 @@ body{
     
 }
 
+.topbar a{
+	color: #424646;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 24px;
+}
+
+#navbarNavDropdown a{
+	font: 14px/1 'Apple SD Gothic Neo', '맑은 고딕';
+}
+
+#navbarNavDropdown > ul > li{
+	border:0;
+}
+
+footer{
+	background-color: #fff;
+}
+
+/*footer 즐간격 변경2 */ 
+#wrap > div > div.add_info.m-2 > div > div > dl > dt {
+	margin-top: 10px;
+	margin-bottom: 2px;
+	margin-left: 10px;
+}
+/* 줄간격 변경2 */
+#wrap > div > div.add_info.m-2 > div > div > dl > dd {
+	margin-bottom: 10px;
+}
+
+#wrap > div > div.add_info.m-2 > div > div > dl > dd a{
+	font-size: 12px;
+}
+
+
+
 .container{
     background-color: white;
     font-family: 'NanumSquare', sans-serif;
@@ -21,6 +58,7 @@ body{
 .jinwoo{
     position: relative;
     top:20px;
+    margin-bottom: 80px;
 }
 
 ul li{
