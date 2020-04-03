@@ -312,6 +312,10 @@ table{
 	border-radius: 5px;
 }
 
+.qna_open:hover{
+	background-color: #f1f1f1;
+}
+
 
 </style>
 <script>
@@ -858,7 +862,7 @@ $(document).ready(function(){
 			   <h3 class="tit_productinfo">상품 문의 <span class="text-reviewcount ml-3">
 			   <fmt:formatNumber pattern="###,###,###" value="${fn:length(qlist)}"/></span>
 			   
-			   <span class="text_info">상품평은 구매완료후 <strong>마이페이지 > 주문/배송내역</strong>에서 작성하실 수 있습니다.</span>
+			   <span class="text_info">보다 신속한 답변을 원하시면 <strong>1577-1577 (수신자부담)</strong>로 문의주세요.</span>
 			   
 						<button id="qna_btn" > <i class="ti-hand-point-up">상품 문의</i></button></h3>
 						

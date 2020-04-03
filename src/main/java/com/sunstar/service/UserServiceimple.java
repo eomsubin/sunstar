@@ -1,6 +1,7 @@
 package com.sunstar.service;
 
 import java.util.HashMap;
+import java.util.StringTokenizer;
 
 import javax.annotation.Resource;
 
@@ -50,5 +51,35 @@ public class UserServiceimple implements UserService{
 	public int SetNewPassowrd(HashMap<String, String> map) {
 		map.put("newpw", encoder.encode((map.get("newpw"))));
 		return dao.SetNewPassowrd(map);
+	}
+
+	@Override
+	public int join_Seller(HashMap<String, String> map) {
+		return dao.join_Seller(map);
+	}
+
+	@Override
+	public int selleridcheck(String id) {
+		return dao.selleridcheck(id);
+	}
+
+	@Override
+	public int join_Sellerauth(HashMap<String, String> map) {
+		StringTokenizer st = new StringTokenizer(map.get("sid"),",");
+		int result =0; 
+		while(st.hasMoreTokens()) {
+			result += dao.join_Sellerauth(st.nextToken());
+		}
+		return result;
+	}
+
+	@Override
+	public int rejectjoin_Sellerre(HashMap<String, String> map) {
+		StringTokenizer st = new StringTokenizer(map.get("sid"),",");
+		int result =0; 
+		while(st.hasMoreTokens()) {
+			result += dao.rejectjoin_Sellerre(st.nextToken());
+		}
+		return result;
 	}
 }

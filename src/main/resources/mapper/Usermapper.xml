@@ -77,4 +77,32 @@
   	set password = #{newpw}
   	where id = #{id}
   	</update>
+  	
+  	<insert id="join_Seller" parameterType="string">
+  			<selectKey resultType="string" keyProperty="seller_code"
+			order="BEFORE">
+			select Max(seller_code)+1 from seller
+			</selectKey>
+  	insert into seller(seller_code, id, seller_name, seller_tel, seller_email, seller_address1, seller_address2, seller_address3, 
+  	seller_zip, bank, bank_no, business_license, seller_deadline, shipping_company, basic_shipping_cost, free_shipping_cost)
+  	values(#{seller_code}, #{id}, #{seller_name}, #{seller_tel}, #{seller_email}, #{seller_address1}, #{seller_address2}, #{seller_address3},
+  	#{seller_zip}, #{bank}, #{bank_no}, #{business_license}, #{seller_deadline}, #{shipping_company}, #{basic_shipping_cost}, #{free_shipping_cost})
+  	</insert>
+  	
+  	<select id="selleridcheck" parameterType="string" resultType="int">
+  	select count(*)
+	from seller
+	where id=#{id}
+  	</select>
+  	
+  	<!-- 셀러 권한부여 -->
+  	<insert id="join_Sellerauth" parameterType="string">
+  	insert into auth
+  	values(#{id},'ROLE_MANAGER')
+  	</insert>
+  	
+  	<delete id="rejectjoin_Sellerre" parameterType="string">
+  	delete from seller 
+  	where id = #{id}
+  	</delete>
 </mapper>

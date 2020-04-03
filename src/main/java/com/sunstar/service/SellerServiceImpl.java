@@ -186,8 +186,8 @@ public class SellerServiceImpl implements SellerService {
 	}
 
 	@Override
-	public List<OrderDTO> viewStepOrder(String view_step) {
-		return mapper.viewStepOrder(view_step);
+	public List<OrderDTO> viewStepOrder(OrderDTO dto) {
+		return mapper.viewStepOrder(dto);
 	}
 
 	@Override
@@ -264,8 +264,8 @@ public class SellerServiceImpl implements SellerService {
 	}
 
 	@Override
-	public List<OrderDTO> searchOrderView(String search_order) {
-		return mapper.searchOrderView(search_order);
+	public List<OrderDTO> searchOrderView(OrderDTO user) {
+		return mapper.searchOrderView(user);
 	}
 
 	@Override
@@ -323,7 +323,10 @@ public class SellerServiceImpl implements SellerService {
 	@Override
 	public void search_order_update(OrderDTO dto) {
 			
+
+			//order_list 업데이트 sql문
 			mapper.search_order_update_2(dto);
+			//ordered 업데이트 sql문
 			mapper.search_order_update(dto);
 	}
 
@@ -343,6 +346,11 @@ public class SellerServiceImpl implements SellerService {
 	public Integer getOrderCount(ChartDTO getOrderCount) {
 		// TODO Auto-generated method stub
 		return mapper.getOrderCount(getOrderCount);
+	}
+
+	@Override
+	public List<ProductDTO> product_list_new(String seller_code) {
+		return mapper.product_list_new(seller_code);
 	}
 
 	

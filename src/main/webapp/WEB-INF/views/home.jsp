@@ -14,9 +14,10 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
 	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
 	crossorigin="anonymous">  
-	<link href="https://fonts.googleapis.com/css?family=Poppins:200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap" rel="stylesheet">
+	<!-- <link href="https://fonts.googleapis.com/css?family=Poppins:200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap" rel="stylesheet"> -->
 <!-- Font Awesome -->
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/font-awesome.css">
+   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/font-awesome.css"> 
 	<!-- Themify Icons -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/themify-icons.css">
 

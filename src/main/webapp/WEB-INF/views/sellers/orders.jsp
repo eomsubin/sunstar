@@ -28,13 +28,10 @@
 			}
 		});
 
-						$('#btnupdateinventorymodal').on('click', function() {
-							$('#updateinventorymodal').modal();
-						})
-
-						$('#btndeletemodal').on('click', function() {
-							$('#deletemodal').modal();
-						})
+	
+		$('#btndeletemodal').on('click', function() {
+			$('#deletemodal').modal();
+		})
 		$('#btndelete').on('click', function() {
 			$("input[name=pcode]:checked").each(function() {
 				var pcode = $(this).val();
@@ -43,7 +40,7 @@
 		});
 });
 
-						//운송장입력 버튼을 누르면, 체크한 상품들의 운송장 번호를 
+	//운송장입력 버튼을 누르면, 체크한 상품들의 운송장 번호를 
 $('.trackingbtn').on('click', function() {
 	let items = new Array();
 	$('.trackingbtn').hide();
@@ -51,26 +48,16 @@ $('.trackingbtn').on('click', function() {
 
 	$('input:checkbox[name="order_no"]:checked').each( function(item) {
 		let checked_items = $(this).val();
-	
-		let trc = $(this).parent().parent().find('td').eq(14);
-	
-		console
-				.log($(
-						this)
-						.parent()
-						.parent()
-						.find(
-								'td')
-						.eq(
-								13)
-						.text());
+	//	console.log(checked_items);
+	//	console.log($(this).parent().parent().find('td').eq(13).text());
+		let trc = $(this).parent().parent().find('#ttt');
+		console.log(trc);
+		
+		trc.empty();
+		trc.append('<input type="text" name="tracking_no">');
 
-										trc.empty();
-										trc
-												.append('<input type="text" name="tracking_no">');
-										items
-												.push(checked_items);
-									});
+		items.push(checked_items);
+	});
 
 				})
 
@@ -245,10 +232,13 @@ body {
 						
 							<div class="dropdown-divider"></div>
 						
+						<a class="dropdown-item" onclick="viewStep('step1')">결제대기중</a> 
+						<a class="dropdown-item" onclick="viewStep('step2')">결제완료</a> 
 							<a class="dropdown-item" onclick="viewStep('step3')">배송준비</a> <a
 								class="dropdown-item" onclick="viewStep('step4')">배송중</a> <a
 								class="dropdown-item" onclick="viewStep('step5')">배송완료</a>
 							<div class="dropdown-divider"></div>
+							<a class="dropdown-item" onclick="viewStep('step6')">반품요청</a>
 							<a class="dropdown-item" onclick="viewStep('step7')">반품대기</a> <a
 								class="dropdown-item" onclick="viewStep('step8')">반품완료</a>
 							<div class="dropdown-divider"></div>
@@ -259,7 +249,9 @@ body {
 							<a class="dropdown-item" onclick="viewStep('step13')">배송 및
 								교환완료</a>
 							<div class="dropdown-divider"></div>
+							<a class="dropdown-item" onclick="viewStep('step14')">결제취소 요청(구매자 사유)</a>
 							<a class="dropdown-item" onclick="viewStep('step15')">결체취소(판매자사유)</a>
+							<a class="dropdown-item" onclick="viewStep('step16')">결제취소 완료</a>
 						</div>
 				
 </div>

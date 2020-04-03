@@ -8,6 +8,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -54,10 +55,10 @@ public class SellerController {
 	@Autowired
 	private FileUploadService fileservice;
 
-	public String getId( Model model, Principal principal) {
+	public String getId( Model m, Principal p) {
 		String id = "";
-		if(principal!=null) {
-			id= principal.getName();
+		if(p!=null) {
+			id= p.getName();
 
 			System.out.println(id);
 		}
@@ -66,9 +67,9 @@ public class SellerController {
 
 
 	@RequestMapping("/seller")
-	public String seller(Model model,  Principal principal) {
+	public String seller(Model m,  Principal p) {
 		//id 가져오는 방법
-		String id= getId(model, principal);
+		String id= getId(m, p);
 		System.out.println(id);
 		String seller_code = sellerservice.getSellerCode(id);
 
@@ -102,7 +103,7 @@ public class SellerController {
 		System.out.println(category_name);
 		System.out.println(top5Count);
 		
-		//
+		//판매량 top5
 		List<ChartDTO> top5products = sellerservice.get_top5items(seller_code);
 		String product_name ="";
 		String top5itemsCount ="";
@@ -121,7 +122,7 @@ public class SellerController {
 		System.out.println(category_name);
 		System.out.println(top5Count);
 
-		//
+		//최근 10일간 주문건수
 		Calendar c1 = new GregorianCalendar();		
 		SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd"); // 날짜 포맷 
 
@@ -150,9 +151,6 @@ public class SellerController {
 			 ten_day_data[i] = Integer.toString(sellerservice.getOrderCount(getOrderCount));
 		}
 		
-		Arrays.sort(ten_days);
-		Arrays.sort(ten_day_data);
-		
 		String day10 =ten_days[0];
 		String day10data = ten_day_data[0];
 
@@ -170,38 +168,42 @@ public class SellerController {
 		
 		System.out.println("------");
 		
+		
 		//
-		model.addAttribute("paid", paid);
-		model.addAttribute("ready", ready);
-		model.addAttribute("exchange", exchange);
-		model.addAttribute("bringback", bringBack);
-		model.addAttribute("waitAnswer",waitAnswer);
+		m.addAttribute("seller_code", seller_code);
+		
 		//
-		model.addAttribute("category_name", category_name);
-		model.addAttribute("top5Count", top5Count);
+		m.addAttribute("paid", paid);
+		m.addAttribute("ready", ready);
+		m.addAttribute("exchange", exchange);
+		m.addAttribute("bringback", bringBack);
+		m.addAttribute("waitAnswer",waitAnswer);
 		//
-		model.addAttribute("product_name", product_name);
-		model.addAttribute("top5itemsCount", top5itemsCount);
+		m.addAttribute("category_name", category_name);
+		m.addAttribute("top5Count", top5Count);
+		//
+		m.addAttribute("product_name", product_name);
+		m.addAttribute("top5itemsCount", top5itemsCount);
 		//
 		
-		model.addAttribute("day10", day10);
-		model.addAttribute("day10data", day10data);
+		m.addAttribute("day10", day10);
+		m.addAttribute("day10data", day10data);
 	
 		
 		
-		model.addAttribute("sellerpage", "temp_main.jsp");
+		m.addAttribute("sellerpage", "temp_main.jsp");
 		return "sellers/temp";
 	}
 
 	//상품 목록 보기
 	@RequestMapping("/productlist")
-	public String product(Model model, Principal principal,
+	public String product(Model m, Principal p,
 			@RequestParam(required=false, defaultValue="1")int currPage,
 			@RequestParam(required=false, defaultValue="10")int psize,
 			@RequestParam(required=false, defaultValue="")String txt
 			) {
 		//id 가져오는 방법
-		String id= getId(model, principal);
+		String id= getId(m, p);
 		System.out.println(id);
 
 		String seller_code = sellerservice.getSellerCode(id);
@@ -214,9 +216,9 @@ public class SellerController {
 			Matcher m = p.matcher(txt);
 			if(!m.find()) {
 				txt="";
-				model.addAttribute("txt", txt);
+				m.addAttribute("txt", txt);
 			}else {
-				model.addAttribute("txt",txt);
+				m.addAttribute("txt",txt);
 			}
 		}*/
 
@@ -271,14 +273,14 @@ public class SellerController {
 
 
 		//	System.out.println("list ::"+list );
-		model.addAttribute("list", list);
+		m.addAttribute("list", list);
 
-		model.addAttribute("page", page);
+		m.addAttribute("page", page);
 
 
 		//페이징 및  끝
 
-		model.addAttribute("sellerpage", "productlist.jsp");
+		m.addAttribute("sellerpage", "productlist.jsp");
 		return "sellers/temp";
 	}
 
@@ -336,10 +338,10 @@ public class SellerController {
 
 	//상품목록 출력
 	@RequestMapping(value="/productExcel/")
-	public void productExcel(Model model, Principal principal, HttpServletResponse response) throws Exception{
+	public void productExcel(Model m, Principal p, HttpServletResponse response) throws Exception{
 		List<ProductDTO> productList = new ArrayList<>();
 		//id 가져오는 방법
-		String id= getId(model, principal);
+		String id= getId(m, p);
 		System.out.println(id);
 
 		String seller_code = sellerservice.getSellerCode(id);
@@ -501,12 +503,12 @@ public class SellerController {
 
 	//상품 추가 하기
 	@RequestMapping("/addproduct")
-	public String addproduct(Model model, Principal principal) {
+	public String addproduct(Model m, Principal p) {
 		//id 가져오는 방법
-		String id= getId(model, principal);
+		String id= getId(m, p);
 		System.out.println(id);
 		String seller_code = sellerservice.getSellerCode(id);
-		model.addAttribute("seller_code", seller_code);
+		m.addAttribute("seller_code", seller_code);
 
 		//페이지에 카테고리 표시
 		List<CategoryDTO> clist = sellerservice.getCategory();
@@ -515,25 +517,25 @@ public class SellerController {
 			dto.setLv123(dto.getLv1()+" - "+dto.getLv2()+" - "+dto.getLv3()); 
 			dlist.add(dto);
 		}
-		model.addAttribute("dlist", dlist);
+		m.addAttribute("dlist", dlist);
 
 		//기본배송비 불러오기
 		SellerDTO dto = sellerservice.sellerInfo(seller_code);
 		String basic_shipping_cost = dto.getBasic_shipping_cost();
 
 
-		model.addAttribute("shipping_cost", basic_shipping_cost);
+		m.addAttribute("shipping_cost", basic_shipping_cost);
 
 
 
-		model.addAttribute("sellerpage", "addsproduct.jsp");
+		m.addAttribute("sellerpage", "addsproduct.jsp");
 		return "sellers/temp";
 	}
 
 	//상품 추가 결과
 	@RequestMapping(value = "/addproductresult", method = {RequestMethod.GET, RequestMethod.POST},
 			headers = ("content-type=multipart/*"))
-	public String addproductresult(HttpServletRequest request, ProductDTO dto, HttpServletRequest req, Model model) {
+	public String addproductresult(HttpServletRequest request, ProductDTO dto, HttpServletRequest req, Model m) {
 
 		//multipart 파일을 multi에 담아줌
 		MultipartFile multi = dto.getAthumb_img();
@@ -692,26 +694,26 @@ public class SellerController {
 
 	//주문 목록
 	@RequestMapping("/orders")
-	public String orders(Model model, Principal principal) {
+	public String orders(Model m, Principal p) {
 
 		//id 가져오는 방법
-		String id= getId(model, principal);
+		String id= getId(m, p);
 		System.out.println(id);
 		String seller_code = sellerservice.getSellerCode(id);
 
 		List<OrderDTO> orderlist = sellerservice.orderlist(seller_code);
-		model.addAttribute("orderlist", orderlist);
-		model.addAttribute("sellerpage", "orders.jsp");
+		m.addAttribute("orderlist", orderlist);
+		m.addAttribute("sellerpage", "orders.jsp");
 		return "sellers/temp";
 
 	}
 
 	//주문목록 출력
 	@RequestMapping(value="/orderexcel/{state}")
-	public void orderexcel(HttpServletResponse response, @PathVariable String state, Model model, Principal principal) throws Exception{
+	public void orderexcel(HttpServletResponse response, @PathVariable String state, Model m, Principal p) throws Exception{
 
 		//id 가져오는 방법
-		String id= getId(model, principal);
+		String id= getId(m, p);
 		System.out.println(id);
 		String seller_code = sellerservice.getSellerCode(id);
 
@@ -887,14 +889,19 @@ public class SellerController {
 
 	//주문목록 단계변경
 	@RequestMapping("/view_step/{stp}")
-	public String viewStep(Model model, @PathVariable String stp) {
-
+	public String viewStep(Model m, Principal p, @PathVariable String stp) {
+		//id 가져오는 방법
+		String id= getId(m, p);
+		System.out.println(id);
+		String seller_code = sellerservice.getSellerCode(id);
+		
+		
 		System.out.println("stp" +stp);
 
 		String view_step = "";
-
-
-		if("step2".equals(stp)) {				//결제완료
+		if("step1".equals(stp)) {				//결제완료
+			view_step = "결제대기중";
+		}else if("step2".equals(stp)) {				//결제완료
 			view_step = "결제완료";
 		}else if("step3".equals(stp)) {				//배송준비
 			view_step = "배송준비";  
@@ -902,6 +909,8 @@ public class SellerController {
 			view_step = "배송중";
 		}else if("step5".equals(stp)) {		//배송완료
 			view_step = "배송완료";
+		}else if("step6".equals(stp)) {		//반품요청
+			view_step = "반품요청";
 		}else if("step7".equals(stp)) {		//반품대기
 			view_step = "반품대기";
 		}else if("step8".equals(stp)) {		//반품완료
@@ -916,15 +925,23 @@ public class SellerController {
 			view_step = "반품배송중";
 		}else if("step13".equals(stp)) {				//배송 및 교환완료
 			view_step = "배송 및 교환완료";
+		}else if("step14".equals(stp)) {				//결제취소(판매자사유)
+			view_step = "결제취소 요청(구매자 사유)";
 		}else if("step15".equals(stp)) {				//결제취소(판매자사유)
 			view_step = "결체취소(판매자사유)";
+		}else if("step16".equals(stp)) {				//결제취소(판매자사유)
+			view_step = "결체취소 완료";
 		}
 
-		List<OrderDTO> list = sellerservice.viewStepOrder(view_step);
-		model.addAttribute("orderlist", list);
+		OrderDTO dto = new OrderDTO();
+		dto.setSeller_code(seller_code);
+		dto.setDelivery_state(view_step);
+		
+		List<OrderDTO> list = sellerservice.viewStepOrder(dto);
+		m.addAttribute("orderlist", list);
 
 
-		model.addAttribute("sellerpage", "orders.jsp");
+		m.addAttribute("sellerpage", "orders.jsp");
 		return "sellers/temp";		
 	}
 
@@ -942,12 +959,21 @@ public class SellerController {
 		System.out.println("ordercodes" + ordernos);
 		System.out.println("wantChange..." + ordernos);
 
-		if("step3".equals(stp)) {				//배송준비
-			change_step = "배송준비";
+		
+		
+
+		if("step1".equals(stp)) {				//결제완료
+			change_step = "결제대기중";
+		}else if("step2".equals(stp)) {				//결제완료
+			change_step = "결제완료";
+		}else if("step3".equals(stp)) {				//배송준비
+			change_step = "배송준비";  
 		}else if("step4".equals(stp)) {		//배송중
 			change_step = "배송중";
 		}else if("step5".equals(stp)) {		//배송완료
 			change_step = "배송완료";
+		}else if("step6".equals(stp)) {		//반품요청
+			change_step = "반품요청";
 		}else if("step7".equals(stp)) {		//반품대기
 			change_step = "반품대기";
 		}else if("step8".equals(stp)) {		//반품완료
@@ -962,10 +988,15 @@ public class SellerController {
 			change_step = "반품배송중";
 		}else if("step13".equals(stp)) {				//배송 및 교환완료
 			change_step = "배송 및 교환완료";
+		}else if("step14".equals(stp)) {				//결제취소(판매자사유)
+			change_step = "결제취소 요청(구매자사유)";
 		}else if("step15".equals(stp)) {				//결제취소(판매자사유)
 			change_step = "결체취소(판매자사유)";
+		}else if("step16".equals(stp)) {				//결제취소(판매자사유)
+			change_step = "결체취소 완료";
 		}
-
+		
+		
 		for(String orderno : ordernos) {	     
 			OrderDTO dto = new OrderDTO();
 			
@@ -1012,54 +1043,49 @@ public class SellerController {
 
 
 	}*/
-/*	// 월별
-	@RequestMapping("/charts")
-	public String monthlist(Model model) {
-
-		String order_code = "202003";
-		int orderSum = 0;
-
-		List<OrderDTO> monthlist = sellerservice.getDayProfit(order_code);
-
-		for(OrderDTO dto : monthlist) {
-			System.out.println();
-			System.out.println(dto);
-			System.out.println();
-			orderSum += (dto.getPrice() + dto.getAdd_price() + dto.getShipping_cost() * dto.getQuantity());
-		}
-
-		//3월수익
-		System.out.println(orderSum);
-
-
-		model.addAttribute("sellerpage", "charts.jsp");
-		return "sellers/temp";
-	}
-
-*/
 	//정산 신청
 	@RequestMapping("/requestaccounting")
-	public String requestaccounting(Model model) {
+	public String requestaccounting(Model m, Principal p ) {
+		
+
+		//id 가져오는 방법
+		String id= getId(m, p);
+		System.out.println(id);
+		String seller_code = sellerservice.getSellerCode(id);
+		
+		
+		//1일~ 10일 사이에 정산 신청
+		SimpleDateFormat frm = new SimpleDateFormat("dd"); 
+		Date date = new Date();
+		String dd = frm.format(date);
+		System.out.println(dd);
+		
+		m.addAttribute("dd", dd);		
+		
+		//가져올 정보
+		
+		//지난달 1일부부터 말일까지의 총수익 (판매금액 + 배송비)
+		
+		//계좌 정보
 
 
-
-		model.addAttribute("sellerpage", "requestaccounting.jsp");
+		m.addAttribute("sellerpage", "requestaccounting.jsp");
 		return "sellers/temp";
 	}
 
 	//정산 리스트
 	@RequestMapping("/accounting")
-	public String accounting(Model model) {
+	public String accounting(Model m) {
 
-		model.addAttribute("sellerpage", "accounting.jsp");
+		m.addAttribute("sellerpage", "accounting.jsp");
 		return "sellers/temp";
 	}
 
 	//판매자 정보
 	@RequestMapping("/sellerinfo")
-	public String sellerinfo(Model model, Principal principal) {
+	public String sellerinfo(Model m, Principal p) {
 		//id 가져오는 방법
-		String id= getId(model, principal);
+		String id= getId(m, p);
 		System.out.println(id);
 		String seller_code = sellerservice.getSellerCode(id);
 		System.out.println("sellerinfo - sellercode : " + seller_code);
@@ -1068,8 +1094,8 @@ public class SellerController {
 
 		System.out.println("sellerinfo - sellerdto : " + dto);
 
-		model.addAttribute("dto", dto);
-		model.addAttribute("sellerpage", "seller_info.jsp");
+		m.addAttribute("dto", dto);
+		m.addAttribute("sellerpage", "seller_info.jsp");
 		return "sellers/temp";
 	}
 
@@ -1092,27 +1118,27 @@ public class SellerController {
 
 	//판매자 설정
 	@RequestMapping("/sellersetting")
-	public String sellersetting(Model model, Principal principal) {
+	public String sellersetting(Model m, Principal p) {
 		//id 가져오는 방법
-		String id= getId(model, principal);
+		String id= getId(m, p);
 		System.out.println(id);
 		String seller_code = sellerservice.getSellerCode(id);
 
 
 		SellerDTO dto = sellerservice.sellerInfo(seller_code);
 
-		model.addAttribute("dto", dto);
+		m.addAttribute("dto", dto);
 		System.out.println(dto.getComm_img1());
-		model.addAttribute("sellerpage", "seller_setting.jsp");
+		m.addAttribute("sellerpage", "seller_setting.jsp");
 		return "sellers/temp";
 	}
 
 	//판매자 설정 리절트
 	@RequestMapping(value="/settingUpdate", method = {RequestMethod.GET, RequestMethod.POST},
 			headers = ("content-type=multipart/*"))
-	public String settingUpdate(Principal p, HttpServletRequest request,  Model model, SellerDTO dto) {
+	public String settingUpdate(Principal p, HttpServletRequest request,  Model m, SellerDTO dto) {
 		//id 가져오는 방법
-		String id= getId(model,p);
+		String id= getId(m,p);
 		System.out.println(id);
 
 		dto.setId(id);
@@ -1191,40 +1217,42 @@ public class SellerController {
 
 
 	//판매자별 상품리스트
-	@RequestMapping("/seller_list") 
-	public String seller_list(Model model, Principal principal ) {
-		//id 가져오는 방법
-		String id= getId(model, principal);
-		System.out.println(id);
-		String seller_code = sellerservice.getSellerCode(id); 
+	@RequestMapping("/seller_list/{seller_code}") 
+	public String seller_list(Model m, Principal p, @PathVariable String seller_code) {
 
-		List<ProductDTO> pdto = sellerservice.list();
+		//사이트 컬러 설정
 		SellerDTO sdto = sellerservice.sellerInfo(seller_code);
-		List<ProductDTO> productlist = sellerservice.product_list_user(seller_code);
-
 		System.out.println(sdto.getSeller_code());
 		System.out.println(sdto.getSeller_color());
+		
+		
+		//판매자별 베스트상품리스트 가져오기 12개
+ 		List<ProductDTO> productlist = sellerservice.product_list_user(seller_code);
 
-		model.addAttribute("productlist",productlist);
+		//판매자별 신규 상품 가져오기 7개
+ 		List<ProductDTO> newlist = sellerservice.product_list_new(seller_code);
 
-		model.addAttribute("pdto", pdto);
-		model.addAttribute("sdto", sdto);
-		model.addAttribute("contentpage", "sellers/sellers_list.jsp");
+ 		m.addAttribute("productlist",productlist);
+ 		m.addAttribute("newlist", newlist);
+		
+
+		m.addAttribute("sdto", sdto);
+		m.addAttribute("contentpage", "sellers/sellers_list.jsp");
 		return "home";
 	}
 
 
 	//dataTable
 	@RequestMapping("/dataTableTest")
-	public String datatable_test(Model model, Principal principal) {
+	public String datatable_test(Model m, Principal p) {
 		//id 가져오는 방법
-		String id= getId(model, principal);
+		String id= getId(m, p);
 		System.out.println(id);
 		String seller_code = sellerservice.getSellerCode(id);
 		List<OrderDTO> orderlist = sellerservice.orderlist(seller_code);
-		model.addAttribute("olist", orderlist);
+		m.addAttribute("olist", orderlist);
 
-		model.addAttribute("sellerpage", "datatableTest.jsp");
+		m.addAttribute("sellerpage", "datatableTest.jsp");
 		return "sellers/temp";
 
 	}
@@ -1362,9 +1390,9 @@ public class SellerController {
 	}
 
 	@RequestMapping("/product_qna")
-	public String product_qna(Model model, Principal principal) {
+	public String product_qna(Model m, Principal p) {
 		//id 가져오는 방법
-		String id= getId(model, principal);
+		String id= getId(m, p);
 
 		System.out.println(id);
 
@@ -1372,14 +1400,14 @@ public class SellerController {
 
 		List<QnaDTO> list = sellerservice.getQnaList(seller_code);
 
-		model.addAttribute("list", list);
-		model.addAttribute("sellerpage", "product_qna.jsp");
+		m.addAttribute("list", list);
+		m.addAttribute("sellerpage", "product_qna.jsp");
 		return "sellers/temp";
 	}
 
 
 	@RequestMapping("/qna_reply")
-	public String qna_reply(Model model, QnaDTO dto) {
+	public String qna_reply(Model m, QnaDTO dto) {
 
 		dto.setQna_state("답변완료");
 		sellerservice.qna_reply(dto);
@@ -1388,7 +1416,7 @@ public class SellerController {
 	}
 
 	@RequestMapping("/qna_reply_del")
-	public String qna_reply_del(Model model, QnaDTO dto) {
+	public String qna_reply_del(Model m, QnaDTO dto) {
 
 		dto.setQna_state("답변대기");
 		dto.setQna_reply(null);
@@ -1402,7 +1430,7 @@ public class SellerController {
 
 	@RequestMapping(value="/deadline", method = {RequestMethod.GET, RequestMethod.POST},
 			headers = ("content-type=multipart/*"))
-	public String deadline(MultipartFile deadline_file, String deadline, String seller_name, Model model) {
+	public String deadline(MultipartFile deadline_file, String deadline, String seller_name, Model m) {
 		MultipartFile multi = deadline_file;
 		SimpleDateFormat frm = new SimpleDateFormat("yyyyMMddHHmmss");
 		Date date = new Date();
@@ -1441,24 +1469,30 @@ public class SellerController {
 			}
 		};
 		mailSender.send(pp);
-		model.addAttribute("sellerpage", "suc.jsp");
+		m.addAttribute("sellerpage", "suc.jsp");
 		return "seller/success";
 	}
 	 */
 
 
 	@RequestMapping("/search_order")
-	public String search_order(Model model) {
+	public String search_order(Model m) {
 
-		model.addAttribute("sellerpage", "search_order.jsp");
+		m.addAttribute("sellerpage", "search_order.jsp");
 		return "sellers/temp";
 	}
 
 	@RequestMapping("/searchOrderView")
-	public String  searchOrderView(Model model, Principal principal, @RequestParam String search_order ) {
-		
+	public String  searchOrderView(Model m, Principal p, @RequestParam String search_order ) {
+		//id 가져오는 방법
+		String id= getId(m, p);
+		System.out.println(id);
+		String seller_code = sellerservice.getSellerCode(id);
 
-		List<OrderDTO> list = sellerservice.searchOrderView(search_order);
+		OrderDTO user = new OrderDTO();
+		user.setSeller_code(seller_code);
+		user.setOrder_code(search_order);
+		List<OrderDTO> list = sellerservice.searchOrderView(user);
 		
 		System.out.println("list 출력 : " + list);
 		if(list.isEmpty() ) {
@@ -1477,12 +1511,15 @@ public class SellerController {
 		dto.setShipping_addr2(list.get(0).getShipping_addr2());
 		dto.setShipping_addr3(list.get(0).getShipping_addr3());
 		dto.setShipping_zip(list.get(0).getShipping_zip());
-		dto.setDelivery_state(list.get(0).getDelivery_state());
+/*		dto.setDelivery_state(list.get(0).getDelivery_state());
 		dto.setTracking_no(list.get(0).getTracking_no());
-		dto.setShipping_company(list.get(0).getShipping_company());
-		dto.setShipping_company(list.get(0).getShipping_company());
+		dto.setShipping_company(list.get(0).getShipping_company());*/
 		dto.setMessage(list.get(0).getMessage());
-
+		dto.setRefund_bank(list.get(0).getRefund_bank());
+		dto.setRefund_account(list.get(0).getRefund_account());
+		dto.setRefund_msg(list.get(0).getRefund_msg());
+		
+		
 		int allprice = 0;
 		for(int i =0; i< list.size();i++) {
 			allprice+= list.get(i).getPrice();
@@ -1490,22 +1527,22 @@ public class SellerController {
 		dto.setPrice(allprice);
 
 
-		model.addAttribute("dto", dto);
-		model.addAttribute("list", list);
-		model.addAttribute("sellerpage", "search_order.jsp");
+		m.addAttribute("dto", dto);
+		m.addAttribute("list", list);
+		m.addAttribute("sellerpage", "search_order.jsp");
 		return "sellers/temp";
 	}
 	
 	
-	@RequestMapping("/tq")
-	public String search_order_update( OrderDTO dto) {
+	@RequestMapping("/search_order_update")
+	public String search_order_update(OrderDTO dto) {
 		
 		System.out.println(dto);
 		
 			
 		sellerservice.search_order_update(dto);
-		
-		return "redirect:/seller/product_review";	
+		return  "redirect:/seller/search_order";
+
 		
 	}
 	
@@ -1561,7 +1598,7 @@ public class SellerController {
 	}
 
 	//판매자별 월별 총 수익
-	@RequestMapping("/charts/month")
+	@RequestMapping("/charts")
 	public String month_chart(Model m, Principal p ) {
 		String id= getId(m, p);
 		System.out.println(id);
@@ -1636,6 +1673,110 @@ public class SellerController {
 			}
 		}
 		
+		
+		
+
+		//파이 그래프
+		List<ChartDTO> top5category =  sellerservice.get_top5(seller_code);
+		String category_name = "";
+		String top5Count = "";
+		
+		for(int i = 0; i < top5category.size() ; i++) {
+			if( i == 0 ) {
+				category_name += ("'"+ top5category.get(i).getLv1() +"-"+ top5category.get(i).getLv2() +"-"+ top5category.get(i).getLv3() +"'");
+				top5Count += top5category.get(i).getTop5count();
+				
+			}else {
+				category_name += "," + ("'"+ top5category.get(i).getLv1() +"-"+ top5category.get(i).getLv2() +"-"+ top5category.get(i).getLv3() +"'");
+				top5Count += "," + top5category.get(i).getTop5count();
+			}
+		}
+		
+		System.out.println(category_name);
+		System.out.println(top5Count);
+		
+		//판매량 top5
+		List<ChartDTO> top5products = sellerservice.get_top5items(seller_code);
+		String product_name ="";
+		String top5itemsCount ="";
+		
+		for(int i = 0; i < top5products.size() ; i++) {
+			if( i == 0 ) {
+				product_name += ("'"+ top5products.get(i).getProduct_name() + "'");
+				top5itemsCount += top5products.get(i).getAccumulation();
+				
+			}else {
+				product_name += "," + ("'"+top5products.get(i).getProduct_name() +"'");
+				top5itemsCount += "," + top5products.get(i).getAccumulation();
+			}
+		}
+		
+		System.out.println(category_name);
+		System.out.println(top5Count);
+
+		//최근 10일간 주문건수
+		Calendar c1 = new GregorianCalendar();		
+		SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd"); // 날짜 포맷 
+
+		
+		ChartDTO getOrderCount = new ChartDTO();
+		List<ChartDTO> getOrderCounts = new ArrayList<>();
+		getOrderCount.setSeller_code(seller_code);
+		
+		
+		String ten_days[] = new String[10];
+		String ten_day_data[] = new String[10];
+		
+		
+		c1.add(Calendar.DATE, -9); 
+		format.format(c1.getTime());
+		
+		ten_days[0] = format.format(c1.getTime());
+		ten_day_data[0] = "0";
+		
+		for(int i = 1; i < 10; i++) {
+			c1.add(Calendar.DATE, +1); 
+			String day= format.format(c1.getTime());
+			ten_days[i]=day;
+			
+			 getOrderCount.setYyyymmdd(day);
+			 ten_day_data[i] = Integer.toString(sellerservice.getOrderCount(getOrderCount));
+		}
+		
+		String day10 =ten_days[0];
+		String day10data = ten_day_data[0];
+
+
+		for(int a = 1; a < 10; a++) {
+			day10 += "," + ten_days[a];
+			day10data += "," + ten_day_data[a];
+		}
+		
+		
+		System.out.println("첫번째 차트");
+		
+		System.out.println(day10);
+		System.out.println(day10data);
+		
+		System.out.println("------");
+		
+		
+		//
+		m.addAttribute("seller_code", seller_code);
+		
+		//
+		//
+		m.addAttribute("category_name", category_name);
+		m.addAttribute("top5Count", top5Count);
+		//
+		m.addAttribute("product_name", product_name);
+		m.addAttribute("top5itemsCount", top5itemsCount);
+		//
+		
+		m.addAttribute("day10", day10);
+		m.addAttribute("day10data", day10data);
+		
+		
 		System.out.println(daydata);
 
 		System.out.println(daydataplus);
@@ -1646,7 +1787,7 @@ public class SellerController {
 		
 		////
 		
-		m.addAttribute("sellerpage", "charts/month_chart.jsp");
+		m.addAttribute("sellerpage", "charts.jsp");
 		return "sellers/temp";
 	}
 	
@@ -1699,7 +1840,6 @@ public class SellerController {
 		sellerservice.delete_auth(id);
 		return "redirect:http://${pageContext.request.contextPath}/";
 	}
-	
 	
 	
 }

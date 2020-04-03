@@ -56,7 +56,7 @@ public interface SellerService {
 
 	List<ProductDTO> product_list_user(String seller_code);
 
-	List<OrderDTO> viewStepOrder(String view_step);
+	List<OrderDTO> viewStepOrder(OrderDTO dto);
 
 	List<ProductDTO> viewProduct(int pcd);
 
@@ -82,7 +82,7 @@ public interface SellerService {
 
 	int getPaid(String seller_code);
 
-	List<OrderDTO> searchOrderView(String search_order);
+	List<OrderDTO> searchOrderView(OrderDTO user);
 
 	List<ReviewDTO> getReview(String seller_code);
 
@@ -108,6 +108,8 @@ public interface SellerService {
 	List<ChartDTO> get_top5items(String seller_code);
 
 	Integer getOrderCount(ChartDTO getOrderCount);
+
+	List<ProductDTO> product_list_new(String seller_code);
 
 
 

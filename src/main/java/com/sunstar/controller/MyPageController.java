@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,10 +20,13 @@ import com.sunstar.dto.CustomerDTO;
 import com.sunstar.dto.CustomerUserDetail;
 import com.sunstar.dto.MakePage;
 import com.sunstar.dto.OrderDTO;
+import com.sunstar.dto.OrderListDTO;
 import com.sunstar.dto.ShipDTO;
 import com.sunstar.service.MainService;
 import com.sunstar.service.MyPageService;
 import com.sunstar.service.PaymentService;
+
+import retrofit2.http.Path;
 
 @Controller
 public class MyPageController {
@@ -32,6 +36,29 @@ public class MyPageController {
 	private PaymentService paymentservice;
 	@Autowired
 	private MyPageService mpservice;
+	
+	
+	@RequestMapping(value="/mypage/info/{upw}")
+	public String updatePW(@PathVariable String upw,Principal principal) {
+			if(principal!=null) {
+			
+				CustomerUserDetail userdetail = (CustomerUserDetail)((Authentication)principal).getPrincipal();
+			
+				String id = userdetail.getUsername();
+		    
+				CustomerDTO info = mpservice.getUserInfo(id);
+				info.setUpdatepw(upw);
+				
+				mpservice.updatePw(info);
+		
+			}else {
+				
+				return "redirect:/";
+			}
+			
+		
+		return "/userlogout";
+	}
 	
 	@RequestMapping("/mypage/info")
 	public String mypage(Model model,Principal principal) {
@@ -45,7 +72,10 @@ public class MyPageController {
 		    
 			CustomerDTO info = mpservice.getUserInfo(id);
 			info.setTel(info.getTel().replaceAll("-", ""));
-	
+			
+			
+			
+			
 			model.addAttribute("info",info);
 			model.addAttribute("contentpage","Mypage/mypage.jsp");
 			
@@ -227,17 +257,114 @@ public class MyPageController {
 	}
 	
 	@RequestMapping("/mypage/seller_register")
-	public String seller_register(Model model) {
-		
+	public String seller_register(Model model,Principal principal, @RequestParam(required=false) String m) {
+		if(m == null || "".equals(m))
+		{
+			m="0";
+		}
 		mainservice.header(model);
-		
-		
+		CustomerUserDetail userdetail = (CustomerUserDetail)((Authentication)principal).getPrincipal();
+		String id = userdetail.getUsername();
+		CustomerDTO info = mpservice.getUserInfo(id);
+		model.addAttribute("dto", info);
 		model.addAttribute("contentpage","Mypage/seller_register.jsp");
-		
+		model.addAttribute("m", m);
 		
 		return "home";
 	}
 	
+	
+
+	
+	
+	@RequestMapping("/refund/{order_no}/{bank}/{account}/{refundmsg}/{refund_price}")
+	public String refund(@PathVariable String order_no,@PathVariable String bank, @PathVariable String account, @PathVariable String refundmsg,@PathVariable String refund_price) {
+		
+		OrderListDTO dto = new OrderListDTO();
+		dto.setOrder_no(Integer.parseInt(order_no));
+		dto.setRefund_bank(bank);
+		dto.setRefund_account(account);
+		dto.setRefund_msg(refundmsg);
+		dto.setRefund_price(Integer.parseInt(refund_price));
+		
+		mpservice.refund(dto);
+		
+		
+		// orderlist dto 객체 생성 ( id가져오고,dto값 넣기 , pathva 값들 dto에 넣기)
+		
+		
+		// orderlist의 delivery_state  위에잇는거 변경
+		
+		// order_no에 대한 price 를 변경
+		
+		
+		return "redirect:/mypage/order";
+	}
+
+	@RequestMapping("/mypage/userdrop")
+	public String userdrop(Model model) {
+		mainservice.header(model);
+		
+		model.addAttribute("contentpage","Mypage/userdrop.jsp");
+		
+		return "home";
+	}
+	
+	@RequestMapping("/userdrop")
+	public String userdrops(Principal principal,Model model) {
+		CustomerUserDetail userdetail = (CustomerUserDetail)((Authentication)principal).getPrincipal();
+		String id = userdetail.getUsername();
+		
+		CustomerDTO cdto=mpservice.getUserInfo(id);
+		
+		int result= mpservice.userDrop(cdto);
+		
+		model.addAttribute("result",result);
+		
+		return "Mypage/dropsuccess";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/updatetel", method=RequestMethod.POST)
+	public void updateTel(@RequestBody CustomerDTO updata) {
+		
+		StringBuffer sb = new StringBuffer(updata.getTel());
+		
+		sb.insert(3, "-");
+		sb.insert(8, "-");
+	
+		updata.setTel(sb.toString());
+		
+		System.out.println(updata.getTel());
+		
+		mpservice.updateTel(updata);
+	}
+	
+	@RequestMapping("/exchange/{order_no}/{delivery_state}/{bank}/{account}/{refundmsg}/{exchangemsg}")
+	public String exchange(@PathVariable String order_no,@PathVariable String delivery_state,@PathVariable String bank,@PathVariable String account,@PathVariable String refundmsg,@PathVariable String exchangemsg ) {
+		
+		OrderListDTO odto = new OrderListDTO();
+		
+		
+		
+		
+		odto.setOrder_no(Integer.parseInt(order_no));
+		odto.setDelivery_state(delivery_state);
+		odto.setRefund_bank(bank);
+		odto.setRefund_account(account);
+		
+		if("반품신청".equals(odto.getDelivery_state())) {
+			
+			odto.setRefund_msg(refundmsg);
+		}else {
+			odto.setRefund_msg(exchangemsg);
+		}
+		
+		mpservice.exchange(odto);
+		
+		
+		return "redirect:/mypage/order";
+	}
 	
 }
 

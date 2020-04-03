@@ -3,11 +3,15 @@ package com.sunstar.service;
 
 import java.util.List;
 
+import javax.annotation.Resource;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.sunstar.dto.CustomerDTO;
 import com.sunstar.dto.OrderDTO;
+import com.sunstar.dto.OrderListDTO;
 import com.sunstar.dto.ShipDTO;
 import com.sunstar.mapper.MyPageMapper;
 
@@ -16,7 +20,9 @@ public class MyPageServiceImple implements MyPageService {
 	
 	@Autowired
 	private MyPageMapper mpmapper;
-
+	@Resource(name="passwordEncoder")
+	private BCryptPasswordEncoder encoder;
+	
 	@Override
 	public void infoUpdate(CustomerDTO info) {
 		mpmapper.infoUpdate(info);
@@ -84,6 +90,42 @@ public class MyPageServiceImple implements MyPageService {
 	public int getTotalCount(String id) {
 		// TODO Auto-generated method stub
 		return mpmapper.getTotalCount(id);
+	}
+
+	@Override
+	public void refund(OrderListDTO dto) {
+		mpmapper.refund(dto);
+		
+	}
+
+	@Override
+	public void updatePw(CustomerDTO info) {
+		
+		String newpw=encoder.encode(info.getUpdatepw());
+		info.setUpdatepw(newpw);
+		
+		mpmapper.updatePw(info);
+		
+		
+		
+	}
+
+	@Override
+	public void updateTel(CustomerDTO user) {
+		mpmapper.updateTel(user);
+		
+	}
+
+	@Override
+	public int userDrop(CustomerDTO cdto) {
+		// TODO Auto-generated method stub
+		return mpmapper.userDrop(cdto);
+	}
+
+	@Override
+	public void exchange(OrderListDTO odto) {
+		mpmapper.exchange(odto);
+		
 	}
 	
 	

@@ -58,4 +58,9 @@ public class OrderDTO {
 	private int free_shipping_cost;
 	// review
 	private String review_no;
+	
+	
+	private String refund_bank;
+	private String refund_account;
+	private String refund_msg;
 }
