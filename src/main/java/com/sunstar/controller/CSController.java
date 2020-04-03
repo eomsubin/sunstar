@@ -6,29 +6,54 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.sunstar.dto.MailDTO;
 import com.sunstar.dto.NoticeDTO;
-import com.sunstar.service.NoticeService;
+import com.sunstar.service.CustomerService;
+
 
 @Controller
 public class CSController {
 
 	@Autowired
-	private NoticeService noticeservice;
+	private CustomerService customerservice;
 	
-	@RequestMapping("/customer")
-	public String customer()
+	@RequestMapping("/CS")
+	public String customer(Model model) throws Exception
 	{
-		return "CS/customer";
+		model.addAttribute("contentpage", "CS.jsp");
+		return "CS/CShome";
 	}
 	
 	@RequestMapping("/notice")
-	public String noticeList(Model model)
+	public String noticeList(Model model) throws Exception
 	{
-		List<NoticeDTO> noticeList=noticeservice.noticelist();
-		model.addAttribute("noticeList", noticeList);
-		return "CS/notice";
+		List<NoticeDTO> noticeList=customerservice.noticelist();
+		model.addAttribute("contentpage", "notice.jsp");
+		return "CS/CShome";
 	}
+	
+	@RequestMapping("/inquiry")
+	public String inquiry(Model model) throws Exception
+	{
+		model.addAttribute("contentpage", "inquiry.jsp");
+		return "CS/CShome";
+	}
+	
+	
+
+	@RequestMapping("/inquiry/add")
+	public String inquiryadd(@ModelAttribute MailDTO dto) throws Exception
+	{
+		System.out.println("test");
+		System.out.println(dto+"adasdsadasadsa");
+		customerservice.addinquiry(dto);
+		return "redirect:/CS";
+	}
+	
+	
+	
 
 }

@@ -14,10 +14,14 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
+import com.sunstar.dto.CategoryDTO;
 import com.sunstar.service.AdminService;
 import com.sunstar.service.FileUploadService;
 import com.sunstar.service.UserService;
@@ -142,9 +146,20 @@ public class AdminController {
 	
 	@RequestMapping("/category")
 	public String category(Model model) {
+		
+		List<CategoryDTO> lv1 = adminservice.getLv1();
+		
+		
+		
+		model.addAttribute("lv1",lv1);
+		
+		
 		model.addAttribute("adminpage", "category.jsp");
 		return "admin/temp";
 	}
+	
+	
+	
 	
 	@RequestMapping("/oneforone")
 	public String oneforone(Model model) {
@@ -159,6 +174,8 @@ public class AdminController {
 		model.addAttribute("adminpage", "settings.jsp");
 		return "admin/temp";
 	}
+	
+	
 	
 
 	

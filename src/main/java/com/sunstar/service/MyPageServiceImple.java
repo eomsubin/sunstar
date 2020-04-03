@@ -109,6 +109,24 @@ public class MyPageServiceImple implements MyPageService {
 		
 		
 	}
+
+	@Override
+	public void updateTel(CustomerDTO user) {
+		mpmapper.updateTel(user);
+		
+	}
+
+	@Override
+	public int userDrop(CustomerDTO cdto) {
+		// TODO Auto-generated method stub
+		return mpmapper.userDrop(cdto);
+	}
+
+	@Override
+	public void exchange(OrderListDTO odto) {
+		mpmapper.exchange(odto);
+		
+	}
 	
 	
 	

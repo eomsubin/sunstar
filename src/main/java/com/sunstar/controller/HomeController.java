@@ -83,9 +83,21 @@ public class HomeController {
 		
 		mainservice.header(model);
 		
-		List<ProductDTO> plist = mainservice.getProductList();
+		List<ProductDTO> fashion = mainservice.getProductList();
+		List<CategoryDTO> category=mainservice.getCategory();
+		List<ProductDTO> digital = mainservice.getDigital();
+		List<ProductDTO> furniture = mainservice.getFurniture();
+		List<ProductDTO> food = mainservice.getFood();
+		List<ProductDTO> animal = mainservice.getAnimal();
+		List<ProductDTO> recommend = mainservice.getRecommend();
 		
-		model.addAttribute("plist",plist);
+		model.addAttribute("fashion",fashion);
+		model.addAttribute("digital",digital);
+		model.addAttribute("furniture",furniture);
+		model.addAttribute("food",food);
+		model.addAttribute("animal",animal);
+		model.addAttribute("recommend",recommend);
+		model.addAttribute("category",category);
 		model.addAttribute("contentpage", "body.jsp");
 		
 		return "home";

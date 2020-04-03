@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.sunstar.dto.AccountsDTO;
 import com.sunstar.dto.CartDTO;
 import com.sunstar.dto.CategoryDTO;
 import com.sunstar.dto.ChartDTO;
@@ -90,7 +91,7 @@ public interface SellerMapper {
 
 	int getPaid(String seller_code);
 
-	List<OrderDTO> searchOrderView(String search_order);
+	List<OrderDTO> searchOrderView(OrderDTO user);
 
 	List<ReviewDTO> getReview(String seller_code);
 
@@ -120,6 +121,14 @@ public interface SellerMapper {
 	List<ChartDTO> get_top5items(String seller_code);
 
 	Integer getOrderCount(ChartDTO getOrderCount);
+
+	List<ProductDTO> product_list_new(String seller_code);
+
+	AccountsDTO getTotal_price(AccountsDTO setdto);
+
+	void insertAccount(AccountsDTO dto);
+
+	List<AccountsDTO> getAccountList(String seller_code);
 
 
 

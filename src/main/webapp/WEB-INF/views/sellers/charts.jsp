@@ -1,94 +1,405 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+
+
+<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+<meta charset="UTF-8">
 <title>Insert title here</title>
-<style>
-body {
-	font-size: 0.77em;
-}
-</style>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 
 </head>
 <body>
 
+	<div class="container-fluid">
+		<!-- Page Heading -->
+		<h1 class="h3 mb-2 text-gray-800">통계</h1>
+		<p class="mb-4">
+			그래프로 판매 경향을 확인 할 수 있습니다. <a target="_blank"
+				href="https://datatables.net">자세한 안내는 이 곳을 클릭</a>.
+		</p>
+		
+		<div class="row">
+			<div class="col-xl-4 col-lg-5">
+				<div class="card shadow mb-4">
+					<!-- Card Header - Dropdown -->
+					<div
+						class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+						<h6 class="m-0 font-weight-bold text-primary">최근 열흘간 주문건수</h6>
+						<div class="dropdown no-arrow">
+							<a class="dropdown-toggle" href="#" role="button"
+								id="dropdownMenuLink" data-toggle="dropdown"
+								aria-haspopup="true" aria-expanded="false"> <i
+								class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+							</a>
+							<div
+								class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+								aria-labelledby="dropdownMenuLink">
+								<div class="dropdown-header">Dropdown Header:</div>
+								<a class="dropdown-item" href="#">Action</a> <a
+									class="dropdown-item" href="#">Another action</a>
+								<div class="dropdown-divider"></div>
+								<a class="dropdown-item" href="#">Something else here</a>
+							</div>
+						</div>
+					</div>
+					<!-- Card Body -->
+					<div class="card-body">
+						<!-- 	<div class="chart-pie pt-4 pb-2"> -->
+						<!--  -->
 
-    <!-- Content Wrapper -->
-    <div id="content-wrapper" class="d-flex flex-column">
 
-      <!-- Main Content -->
-      <div id="content">
+						<%-- <canvas id="myPieChart"></canvas> --%>
+
+						<canvas id="orderCount" width="264px;" height="320px;"></canvas>
+
+						<script>
+							var ctx = document.getElementById('orderCount');
+							var myChart = new Chart(ctx, {
+							    type: 'bar',
+							    data: {
+							        labels: [${day10}],
+							        datasets: [{
+							            label: '일별 주문건수',
+							            data: [${day10data}],
+							            backgroundColor: [
+							                'rgba(86, 187, 127, 0.8)',
+							                'rgba(159, 204, 62, 0.8)',
+							                'rgba(216,224,50, 0.8)',
+							                'rgba(255,209,28, 0.8)',
+							                'rgba(249,171,31, 0.8)',
+							                'rgba(245,140,74, 0.8)',
+							                'rgba(241,106,102, 0.8)',
+							                'rgba(236,101,160, 0.8)',
+							                'rgba(168,118,179, 0.8)',
+							                'rgba(105,145,204, 0.8)',
+
+							            ],
+							            borderColor: [
+							            ],
+							            borderWidth: 2
+							        }]
+							    },
+							    options: {
+							        scales: {
+							            yAxes: [{
+							                ticks: {
+							                	min:0,
+							                    stepSize:1
+							                }
+							            }]
+							        }
+							    }
+							});
+							</script>
 
 
-        <!-- Begin Page Content -->
-        <div class="container-fluid">
+					</div>
+				</div>
+			</div>
 
-          <!-- Page Heading -->
-          <h1 class="h3 mb-2 text-gray-800">Charts</h1>
-          <p class="mb-4">Chart.js is a third party plugin that is used to generate the charts in this theme. The charts below have been customized - for further customization options, please visit the <a target="_blank" href="https://www.chartjs.org/docs/latest/">official Chart.js documentation</a>.</p>
+			<!-- Pie Chart -->
+			<div class="col-xl-4 col-lg-5">
+				<div class="card shadow mb-4">
+					<!-- Card Header - Dropdown -->
+					<div
+						class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+						<h6 class="m-0 font-weight-bold text-primary">카테고리별 등록된 상품수</h6>
+						<div class="dropdown no-arrow">
+							<a class="dropdown-toggle" href="#" role="button"
+								id="dropdownMenuLink" data-toggle="dropdown"
+								aria-haspopup="true" aria-expanded="false"> <i
+								class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+							</a>
+							<div
+								class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+								aria-labelledby="dropdownMenuLink">
+								<div class="dropdown-header">Dropdown Header:</div>
+								<a class="dropdown-item" href="#">Action</a> <a
+									class="dropdown-item" href="#">Another action</a>
+								<div class="dropdown-divider"></div>
+								<a class="dropdown-item" href="#">Something else here</a>
+							</div>
+						</div>
+					</div>
+					<!-- Card Body -->
+					<div class="card-body">
+						<!-- 	<div class="chart-pie pt-4 pb-2"> -->
+						<!--  -->
 
-          <!-- Content Row -->
-          <div class="row">
 
-            <div class="col-xl-8 col-lg-7">
+						<%-- <canvas id="myPieChart"></canvas> --%>
 
-              <!-- Area Chart -->
-              <div class="card shadow mb-4">
-                <div class="card-header py-3">
-                  <h6 class="m-0 font-weight-bold text-primary">Area Chart</h6>
-                </div>
-                <div class="card-body">
-                  <div class="chart-area">
-                    <canvas id="myAreaChart"></canvas>
-                  </div>
-                  <hr>
-                  Styling for the area chart can be found in the <code>/js/demo/chart-area-demo.js</code> file.
-                </div>
-              </div>
+						<canvas id="categoryPieChart" width="264px;" height="320px;"></canvas>
 
-              <!-- Bar Chart -->
-              <div class="card shadow mb-4">
-                <div class="card-header py-3">
-                  <h6 class="m-0 font-weight-bold text-primary">Bar Chart</h6>
-                </div>
-                <div class="card-body">
-                  <div class="chart-bar">
-                    <canvas id="myBarChart"></canvas>
-                  </div>
-                  <hr>
-                  Styling for the bar chart can be found in the <code>/js/demo/chart-bar-demo.js</code> file.
-                </div>
-              </div>
+						<script>
+							var ctx = document.getElementById('categoryPieChart');
+							var myChart = new Chart(ctx, {
+							    type: 'doughnut',
+							    data: {
+							        labels: [${category_name}],
+							        datasets: [{
+							            label: '카테고리',
+							            data: [${top5Count}],
+							            backgroundColor: [
+							                'rgba(255, 99, 132, 0.8)',
+							                'rgba(54, 162, 235, 0.8)',
+							                'rgba(255, 206, 86, 0.8)',
+							                'rgba(75, 192, 192, 0.8)',
+							                'rgba(153, 102, 255, 0.8)',
+							                'rgba(255, 159, 64, 0.8)'
+							            ],
+							            borderColor: [
+							                'rgba(255, 99, 132, 0.8)',
+							                'rgba(54, 162, 235, 0.8)',
+							                'rgba(255, 206, 86, 0.8)',
+							                'rgba(75, 192, 192, 0.8)',
+							                'rgba(153, 102, 255, 0.8)',
+							                'rgba(255, 159, 64, 0.8)'
+							            ],
+							            borderWidth: 2
+							        }]
+							    },
+							    options: {
+							        scales: {
+							            yAxes: {
+							                pointOnColumn: false,
+							                showLabel: false
+							            }
+							        }
+							    }
+							});
+							</script>
 
-            </div>
 
-            <!-- Donut Chart -->
-            <div class="col-xl-4 col-lg-5">
-              <div class="card shadow mb-4">
-                <!-- Card Header - Dropdown -->
-                <div class="card-header py-3">
-                  <h6 class="m-0 font-weight-bold text-primary">Donut Chart</h6>
-                </div>
-                <!-- Card Body -->
-                <div class="card-body">
-                  <div class="chart-pie pt-4">
-                    <canvas id="myPieChart"></canvas>
-                  </div>
-                  <hr>
-                  Styling for the donut chart can be found in the <code>/js/demo/chart-pie-demo.js</code> file.
-                </div>
-              </div>
-            </div>
-          </div>
 
-        </div>
-        <!-- /.container-fluid -->
+					</div>
+				</div>
+			</div>
 
-      </div>
-      <!-- End of Main Content -->
+			<div class="col-xl-4 col-lg-5">
+				<div class="card shadow mb-4">
+					<!-- Card Header - Dropdown -->
+					<div
+						class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+						<h6 class="m-0 font-weight-bold text-primary">판매량 TOP 5</h6>
+						<div class="dropdown no-arrow">
+							<a class="dropdown-toggle" href="#" role="button"
+								id="dropdownMenuLink" data-toggle="dropdown"
+								aria-haspopup="true" aria-expanded="false"> <i
+								class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+							</a>
+							<div
+								class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+								aria-labelledby="dropdownMenuLink">
+								<div class="dropdown-header">Dropdown Header:</div>
+								<a class="dropdown-item" href="#">Action</a> <a
+									class="dropdown-item" href="#">Another action</a>
+								<div class="dropdown-divider"></div>
+								<a class="dropdown-item" href="#">Something else here</a>
+							</div>
+						</div>
+					</div>
+					<!-- Card Body -->
+					<div class="card-body">
+						<!-- 	<div class="chart-pie pt-4 pb-2"> -->
+						<!--  -->
 
+
+						<%-- <canvas id="myPieChart"></canvas> --%>
+
+						<canvas id="accPieChart" width="264px;" height="320px;"></canvas>
+
+						<script>
+							var ctx = document.getElementById('accPieChart');
+							var myChart = new Chart(ctx, {
+							    type: 'bar',
+							    data: {
+							        labels: [${product_name}],
+							        datasets: [{
+							            label: '누적 판매량',
+							            data: [${top5itemsCount}],
+							            backgroundColor: [
+							                'rgba(255, 99, 132, 0.8)',
+							                'rgba(54, 162, 235, 0.8)',
+							                'rgba(255, 206, 86, 0.8)',
+							                'rgba(75, 192, 192, 0.8)',
+							                'rgba(153, 102, 255, 0.8)',
+							                'rgba(255, 159, 64, 0.8)'
+							            ],
+							            borderColor: [
+							                'rgba(255, 99, 132, 0.8)',
+							                'rgba(54, 162, 235, 0.8)',
+							                'rgba(255, 206, 86, 0.8)',
+							                'rgba(75, 192, 192, 0.8)',
+							                'rgba(153, 102, 255, 0.8)',
+							                'rgba(255, 159, 64, 0.8)'
+							            ],
+							            borderWidth: 2
+							        }]
+							    },
+							    options: {
+							        scales: {
+							            yAxes: [{
+							                ticks: {
+							                   /*  beginAtZero: false */
+							                }
+							            }]
+							        }
+							    }
+							});
+							</script>
+
+
+						<!--  -->
+						<!-- 						</div>
+ -->
+						<!-- <div class="mt-4 text-center small">
+							<span class="mr-2"> <i class="fas fa-circle text-primary"></i>
+								Direct
+							</span> <span class="mr-2"> <i class="fas fa-circle text-success"></i>
+								Social
+							</span> <span class="mr-2"> <i class="fas fa-circle text-info"></i>
+								Referral
+							</span>
+						</div> -->
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="card shadow mb-4">
+			<div class="card-header py-3">
+				<h6 class="m-0 font-weight-bold text-primary">일별 수익(3월)</h6>
+			</div>
+			<div class="card-body">
+			
+			
+				<div class="table-responsive">
+
+					<canvas id="myChart2" width="400" height="100"></canvas>
+
+
+				</div>
+			</div>
+		</div>
+		<!-- DataTales Example -->
+		<div class="card shadow mb-4">
+			<div class="card-header py-3">
+				<h6 class="m-0 font-weight-bold text-primary">월별 수익</h6>
+			</div>
+			<div class="card-body">
+				<div class="table-responsive">
+
+					<canvas id="myChart" width="400" height="100"></canvas>
+
+
+				</div>
+			</div>
+		</div>
+
+
+
+
+		<script>
+	var ctx = document.getElementById('myChart').getContext('2d');
+	var myChart = new Chart(ctx, {
+
+		
+		type: 'line',
+	    data: {
+	    	
+	    	labels: [${month}],
+	        datasets: [{
+	            label: '월별 판매금액',
+	            data:[${mdata}],
+	           // data: [12, 19, 3, 5, 2, 3],
+	            backgroundColor: [
+	                'rgba(255, 214, 226, 2)'
+	             ], 
+	            borderColor: [
+	                'rgba(245, 122, 158, 7)'
+	            ],
+	            borderWidth: 2,
+	        },{
+	            label: '월별 판매금액(배송비 포함)',
+	            data:[${mdataa}],
+	           // data: [12, 19, 3, 5, 2, 3],
+	            backgroundColor: [
+	                'rgba(250, 218, 177, 2)'
+	             ], 
+	            borderColor: [
+	                'rgba(255, 186, 97, 6)'
+	            ],
+	            borderWidth: 2,
+	        	
+	        }]
+	    },
+	    options: {
+	        scales: {
+	            yAxes: [{
+	                ticks: {
+	                    beginAtZero: true
+	                }
+	            }]
+	        }
+	    }
+	});
+
+	
+	
+	
+	
+var ctx = document.getElementById('myChart2').getContext('2d');
+var myChart = new Chart(ctx, {
+
+	
+	type: 'line',
+    data: {
+    	
+    	labels: [${days}],
+        datasets: [{
+            label: '일별 판매금액',
+            
+            data:[${daydata}],
+            backgroundColor: [
+                'rgba(196, 237, 255, 3)'
+            ], 
+            borderColor: [
+                'rgba(186, 196, 245, 7)'
+            ],
+            borderWidth: 2,
+        },{
+            label: '일별 판매금액(배송비 포함)',
+            data:[${daydataplus}],
+           // data: [12, 19, 3, 5, 2, 3],
+            backgroundColor: [
+                'rgba(174, 201, 245, 2)'
+             ], 
+            borderColor: [
+                'rgba(23, 95, 212, 6)'
+            ],
+            borderWidth: 2,
+        	
+        }
+        
+        
+        ]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    }
+});
+
+</script>
+		
+	</div>
 
 </body>
 </html>

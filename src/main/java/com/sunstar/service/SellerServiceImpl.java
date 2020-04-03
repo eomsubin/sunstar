@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.sunstar.dto.AccountsDTO;
 import com.sunstar.dto.CartDTO;
 import com.sunstar.dto.CategoryDTO;
 import com.sunstar.dto.ChartDTO;
@@ -264,8 +265,8 @@ public class SellerServiceImpl implements SellerService {
 	}
 
 	@Override
-	public List<OrderDTO> searchOrderView(String search_order) {
-		return mapper.searchOrderView(search_order);
+	public List<OrderDTO> searchOrderView(OrderDTO user) {
+		return mapper.searchOrderView(user);
 	}
 
 	@Override
@@ -323,7 +324,10 @@ public class SellerServiceImpl implements SellerService {
 	@Override
 	public void search_order_update(OrderDTO dto) {
 			
+
+			//order_list 업데이트 sql문
 			mapper.search_order_update_2(dto);
+			//ordered 업데이트 sql문
 			mapper.search_order_update(dto);
 	}
 
@@ -343,6 +347,28 @@ public class SellerServiceImpl implements SellerService {
 	public Integer getOrderCount(ChartDTO getOrderCount) {
 		// TODO Auto-generated method stub
 		return mapper.getOrderCount(getOrderCount);
+	}
+
+	@Override
+	public List<ProductDTO> product_list_new(String seller_code) {
+		return mapper.product_list_new(seller_code);
+	}
+
+	@Override
+	public AccountsDTO getTotal_price(AccountsDTO setdto) {
+		// TODO Auto-generated method stub
+		return mapper.getTotal_price(setdto);
+	}
+
+	@Override
+	public void insertAccount(AccountsDTO dto) {
+		mapper.insertAccount(dto);
+	}
+
+	@Override
+	public List<AccountsDTO> getAccountList(String seller_code) {
+		// TODO Auto-generated method stub
+		return mapper.getAccountList(seller_code);
 	}
 
 	

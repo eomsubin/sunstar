@@ -12,7 +12,7 @@
 <title>장바구니</title>
 <script>
    $(document).ready(function() {
-      
+    
       // 테이블 스타일
       $('.table tr:last-child').addClass("lasttr");
       $('.table tr:first-child').addClass("firsttr");   
@@ -367,7 +367,7 @@
                <div class="cart_null1" >
                <div class="cart_null2">
                <strong>장바구니에 담긴 상품이 없습니다.</strong>
-               <button class="none_item">홈으로 가기</button>
+               <a href="${pageContext.request.contextPath}/" class="none_item">홈으로 가기</a>
                </div>
                </div>
                </c:if>

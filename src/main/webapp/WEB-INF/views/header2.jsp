@@ -95,16 +95,16 @@
                            <li><i class="ti-user"></i> <a
                               href="${pageContext.request.contextPath}/RegistrationBuyer">회원가입</a></li>
                         </sec:authorize>
-                        <sec:authorize access="isAuthenticated()">
-                           <li><i class="ti-user"></i> <a href="${pageContext.request.contextPath }/mypage/info">마이페이지</a></li>
+                            <sec:authorize access="hasRole('ROLE_ADMIN')">
+                           <li><i class="ti-settings"></i> <a href="${pageContext.request.contextPath }/admin/index">관리자페이지</a></li>
                         </sec:authorize>
                         <sec:authorize access="hasRole('ROLE_MANAGER')">
                            <li><i class="ti-user"></i> <a href="${pageContext.request.contextPath }/seller/seller">판매자페이지</a></li>
                         </sec:authorize>
-                        <sec:authorize access="hasRole('ROLE_ADMIN')">
-                           <li><i class="ti-user"></i> <a href="${pageContext.request.contextPath }/admin/index">관리자페이지</a></li>
-                        </sec:authorize>
 
+                        <sec:authorize access="isAuthenticated()">
+                           <li><i class="ti-user"></i> <a href="${pageContext.request.contextPath }/mypage/info">마이페이지</a></li>
+                        </sec:authorize>
                         <sec:authorize access="isAnonymous()">
                            <li><i class="ti-power-off"></i><a
                               href="${pageContext.request.contextPath}/userlogin">로그인</a></li>
@@ -194,7 +194,7 @@
                   <div class="right-bar">
                      <!-- Search Form -->
                      <div class="sinlge-bar">
-                        <a href="#" class="single-icon"><i class="ti-headphone-alt"></i></a>
+                        <a href="${pageContext.request.contextPath}/CS" class="single-icon"><i class="ti-headphone-alt"></i></a>
                      </div>
                      <div class="sinlge-bar">
                         <a href="#" class="single-icon"><i class="ti-desktop"></i></a>

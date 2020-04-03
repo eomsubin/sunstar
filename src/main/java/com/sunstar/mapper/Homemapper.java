@@ -16,6 +16,16 @@ public interface Homemapper {
 	List<CategoryDTO> getCategory2();
 
 	List<ProductDTO> getProductList();
+
+	List<ProductDTO> getDigital();
+
+	List<ProductDTO> getFurniture();
+
+	List<ProductDTO> getFood();
+
+	List<ProductDTO> getAnimal();
+
+	List<ProductDTO> getRecommend();
 	
 	
 }
