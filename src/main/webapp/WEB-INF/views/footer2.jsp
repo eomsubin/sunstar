@@ -29,7 +29,7 @@
                   <li class="nav-item mr-5"><a class="nav-link" href="#">회사소개</a></li>
                   <li class="nav-item mr-5"><a class="nav-link" href="#">이용약관</a></li>
                   <li class="nav-item mr-5"><a class="nav-link" href="#">입점문의</a></li>
-                  <li class="nav-item mr-5"><a class="nav-link" href="#">사이트맵</a></li>
+                  <li class="nav-item mr-5"><a class="nav-link" href="${pageContext.request.contextPath}/sitemap">사이트맵</a></li>
                   <li class="nav-item dropdown">
                     <a
                       class="nav-link dropdown-toggle"
@@ -53,10 +53,10 @@
             
             <div class="add_info m-2">
               <div class="row">
-                <div class="col-1">
-                  <img src="${pageContext.request.contextPath}/resources/img/logo.png" style="width: 100px; height: 70px; align-items: center" />
+                <div class="col-3">
+                  <img src="${pageContext.request.contextPath}/resources/img/logo.jpg" style="width: 260px;  align-items: center" />
                 </div>
-                <div class="add_company col-5">
+                <div class="add_company col-3">
                   <dl>
                     <dt>쓰삐제(주)</dt>
 
