@@ -119,4 +119,14 @@ public class UserServiceimple implements UserService{
 		}
 		return result;		
 	}
+
+	@Override
+	public int delseller(HashMap<String, String> map) {
+		StringTokenizer st = new StringTokenizer(map.get("sid"),",");
+		int result =0; 
+		while(st.hasMoreTokens()) {
+			result += dao.delseller(st.nextToken());
+		}
+		return result;		
+	}
 }

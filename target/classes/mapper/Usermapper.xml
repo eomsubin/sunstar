@@ -140,4 +140,10 @@
 			  	</set>
   			where s.id = #{id}
   	</update>
+  	
+  	<delete id="delseller" parameterType="string">
+  	delete 
+  	from seller
+  	where id = #{id}
+  	</delete>
 </mapper>

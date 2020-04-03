@@ -14,6 +14,7 @@
 <script>
 
 	$(document).ready(function(){
+		var table = $('#dataTable').DataTable();
 		$('#dataTable').DataTable();
 		
 		$('#allck').click(function(){
@@ -26,6 +27,15 @@
 		$('input:checkbox[name=sid]').click(function(){
 			$('#allck').prop('checked',false);
 		});
+		
+	    $('#dataTable tbody').on('click', 'tr', function () {
+	        if($(this).find(':input').prop('checked')){
+	        	$(this).find(':input').prop('checked',false)
+	        }else{
+	        	$(this).find(':input').prop('checked',true)
+	        }	        
+	        $('#allck').prop('checked',false);
+	    } );
 	});
 	
 	// 승인 또는 반려

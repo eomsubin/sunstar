@@ -127,8 +127,8 @@ public class AdminController {
 		//end 계정활동
 		//seller 계정삭제
 		}else if(((String)map.get("YN")).equals("remove")){
-/*			userservice.delseller(map);
-*/			
+			userservice.delseller(map);
+			
 		}	
 		//end seller 계정삭제
 		
