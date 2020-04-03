@@ -12,9 +12,8 @@
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
 <script>
 	$(document).ready(function(){
-
-	    $('#dataTable').DataTable(
-    		);
+		var table = $('#dataTable').DataTable();
+	    $('#dataTable').DataTable();
  		$('#allck').click(function(){
 			if($('#allck').prop('checked')){
 				$('input:checkbox').prop('checked',true);
@@ -25,6 +24,23 @@
 		$('input:checkbox[name=sid]').click(function(){
 			$('#allck').prop('checked',false);
 		});
+		
+	    $('#dataTable tbody').on('click', 'tr', function () {
+	    	event.stopPropagation();
+	        if($(this).find(':input').prop('checked')){
+	        	$(this).find(':input').prop('checked',false)
+	        }else{
+	        	$(this).find(':input').prop('checked',true)
+	        }	        
+	        /*
+	        var data = table.row( this ).data();
+	        console.log(data);
+	        console.log(data[0]);
+	        data[0].prop('checked',true); */
+	        $('#allck').prop('checked',false);
+	    } );
+		
+		
 	});
 	
 	// 승인 또는 반려
@@ -79,6 +95,9 @@ table tbody tr:hover{
 table tbody tr:hover>.sorting_1{
     background-color: #eaeaea;
 }
+a{
+	color : #858796;
+}
 </style>
 <body>
 	<div class="container-fluid">
@@ -124,7 +143,7 @@ table tbody tr:hover>.sorting_1{
 								<c:forEach var="item" items="${list}">
 								<tr>
 									<td><input type="checkbox" name="sid" value="${item.id}" data-semail="${item.seller_email}" data-seller_state="${item.seller_state}" /></td>
-									<td>${item.seller_code}</td>
+									<td><a href="${pageContext.request.contextPath}/seller/seller_list/${item.seller_code}">${item.seller_code}</a></td>
 									<td>${item.seller_name}</td>
 									<td>${item.id}</td>
 									<td>${item.seller_email}</td>

@@ -26,4 +26,6 @@ public interface UserService {
 	public int Acsuspensionseller(HashMap<String, String> map);
 
 	public int Actseller(HashMap<String, String> map);
+
+	public int delseller(HashMap<String, String> map);
 }

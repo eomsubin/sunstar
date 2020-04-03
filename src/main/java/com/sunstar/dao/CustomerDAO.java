@@ -24,6 +24,7 @@ public interface CustomerDAO {
 	public int delseller_auth(String id);
 	public int updateseller_state(HashMap<String, String> map);
 	public int updatesellerproduct_state(HashMap<String, String> map);
+	public int delseller(String id);
 
 	
 }
