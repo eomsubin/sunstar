@@ -15,5 +15,6 @@ public interface AdminService {
 	List<CategoryDTO> getLv2();
 	List<CategoryDTO> getLv3();
 	void add_lv2(CategoryDTO cdto);
+	void add_lv3(CategoryDTO cdto);
 
 }

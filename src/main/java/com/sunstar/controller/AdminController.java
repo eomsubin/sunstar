@@ -150,7 +150,7 @@ public class AdminController {
 	public String add_lv2(@PathVariable String lv1_val,@PathVariable String lv2_name,@PathVariable String lv3_name) {
 		
 		System.out.println(lv1_val+"  "+lv2_name);
-		
+		System.out.println(lv3_name);
 		CategoryDTO cdto = new CategoryDTO();
 		cdto.setLv1(lv1_val);
 		cdto.setLv2(lv2_name);
@@ -162,6 +162,18 @@ public class AdminController {
 		return "redirect:/admin/category";
 	}
 	
+	@RequestMapping("/add_lv3/{level1}/{level2}/{lev3_name}")
+	public String add_lv3(@PathVariable String level1,@PathVariable String level2,@PathVariable String lev3_name) {
+		
+		CategoryDTO cdto = new CategoryDTO();
+		cdto.setLv1(level1);
+		cdto.setLv2(level2);
+		cdto.setLv3(lev3_name);
+		
+		adminservice.add_lv3(cdto);
+		
+		return "redirect:/admin/category";
+	}
 	
 	
 	

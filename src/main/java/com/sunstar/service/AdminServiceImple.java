@@ -78,6 +78,26 @@ public class AdminServiceImple implements AdminService {
 		adminmapper.add_lv2(cdto);
 		
 	}
+
+	@Override
+	public void add_lv3(CategoryDTO cdto) {
+		
+		if(cdto.getLv1().equals("패션")) {
+			cdto.setLv2con("A");
+		}else if(cdto.getLv1().equals("디지털-가전")) {
+			cdto.setLv2con("B");
+		}else if(cdto.getLv1().equals("가구-인테리어")) {
+			cdto.setLv2con("C");
+		}else if(cdto.getLv1().equals("식품")) {
+			cdto.setLv2con("D");
+		}else {
+			cdto.setLv2con("E");
+		}
+			
+		adminmapper.add_lv3(cdto);
+		
+	}
+	
 	
 	
 

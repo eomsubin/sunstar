@@ -18,6 +18,7 @@ public interface AdminMapper {
 	public List<CategoryDTO> getLv2();
 	public List<CategoryDTO> getLv3();
 	public void add_lv2(CategoryDTO cdto);
+	public void add_lv3(CategoryDTO cdto);
 	
 
 }

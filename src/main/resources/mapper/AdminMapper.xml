@@ -53,5 +53,17 @@
 	
 	</insert>
 	
+	 <insert id="add_lv3" parameterType="com.sunstar.dto.CategoryDTO">
+	 	<selectKey keyProperty="lv2code,category_code" order="BEFORE" resultType="com.sunstar.dto.CategoryDTO" >
+			   select concat(#{lv2con},lpad(max(substr(category_code,2,4))+1,4,"0")) as category_code, concat(#{lv2con},lpad(max(substr(lv2code,2,3))+1,2,"0")) as lv2code
+   			 	from category
+    			where lv1= #{lv1}
+		</selectKey>
+		insert into category(lv2,lv2code,lv1,category_code,lv3)
+		values(#{lv2},#{lv2code},#{lv1},#{category_code},#{lv3})
+	 
+	 
+	 
+	 </insert>
 	
 </mapper>

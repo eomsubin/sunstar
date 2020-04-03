@@ -40,6 +40,32 @@
 			location.href="${pageContext.request.contextPath}/admin/add_lv2/"+lv1_val+"/"+lv2_name+"/"+lv3_name;
 		});
 		
+		var level1 = "";
+		var level2 ="";
+		$('.lv3add').on('click',function(){
+			
+			 level1 = $(this).val();
+			
+			
+			 level2 = $(this).parent().parent().find('input:checkbox[name="lv2check"]').val();
+			
+			
+			
+		});
+		
+		$('#addbtn2').on('click',function(){
+			
+			let lev3_name = $('#lv3code').val();
+			console.log(lev3_name);
+			
+
+			console.log(level1);
+			console.log(level2);
+			
+			location.href="${pageContext.request.contextPath}/admin/add_lv3/"+level1+"/"+level2+"/"+lev3_name;
+			
+		});
+		
 		
 		
 		
@@ -93,9 +119,9 @@
 									<c:forEach var="lv2" items="${lv2 }">
 									<tr class="table-warning">
 										<c:if test="${lv1.lv1 eq lv2.lv1 }">
-											<td><input type="checkbox" name="lv2check" value="${lv2.lv2code }"></td>
+											<td><input type="checkbox" name="lv2check" value="${lv2.lv2 }"></td>
 											<td colspan="6">(2차)${lv2.lv2 }</td>
-											<td><button>3차카테고리 추가</button></td>
+											<td><button class="lv3add" value="${lv2.lv1 }" data-toggle="modal" data-target="#exampleModal2">3차카테고리 추가</button></td>
 											<td>삭제하기</td>
 										</c:if>
 									</tr>
@@ -139,7 +165,7 @@
       <div class="modal-body">
         	
         		<label>2차 카테고리명</label><input type="text" id="lv2" name="lv2" class="form-control" required="required" >
-        		<label>3차 카테고리명(기본으로 하나이상 추가해주셔야합니다.)</label><input type="text" id="lv2" name="lv2" class="form-control" required="required" >
+        		<label>3차 카테고리명(기본으로 하나이상 추가해주셔야합니다.)</label><input type="text" id="lv3" name="lv3" class="form-control" required="required" >
         		
         	
        
@@ -147,6 +173,28 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
         <button type="button" class="btn btn-primary" id="addbtn1">추가하기</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">3차 카테고리 추가</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        	<label>3차 카테고리명 </label><input type="text" id="lv3code" name="lv3code" class="form-control" required="required" >
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+        <button type="button" class="btn btn-primary" id="addbtn2">추가하기</button>
       </div>
     </div>
   </div>
