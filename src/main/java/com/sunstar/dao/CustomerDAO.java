@@ -21,6 +21,9 @@ public interface CustomerDAO {
 	public int selleridcheck(String id);
 	public int join_Sellerauth(String id);
 	public int rejectjoin_Sellerre(String id);
+	public int delseller_auth(String id);
+	public int updateseller_state(HashMap<String, String> map);
+	public int updatesellerproduct_state(HashMap<String, String> map);
 
 	
 }

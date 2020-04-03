@@ -1,24 +1,30 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css">  
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
+
 <script>
+
 	$(document).ready(function(){
+		$('#dataTable').DataTable();
 		
-		$('#all').click(function(){
-			if($('#all').prop('checked')){
+		$('#allck').click(function(){
+			if($('#allck').prop('checked')){
 				$('input:checkbox').prop('checked',true);
 			}else{
 				$('input:checkbox').prop('checked',false);
 			}
 		});
 		$('input:checkbox[name=sid]').click(function(){
-			$('#all').prop('checked',false);
+			$('#allck').prop('checked',false);
 		});
 	});
 	
@@ -49,15 +55,31 @@
 		$('input:hidden[name=email]').val(emailsum);
 		$('input:hidden[name=m]').val(message);
 		// 제출
-		/* console.log($('input:checkbox[name=sid]:checked').val());
+		console.log($('input:checkbox[name=sid]:checked').val());
 		console.log($('input:hidden[name=YN]').val());
 		console.log($('input:hidden[name=m]').val());
-		console.log($('input:hidden[name=email]').val()); */
+		console.log($('input:hidden[name=email]').val());
 		$('form').submit();
 	}
+	
 </script>
 </head>
-<style>
+<style> 
+table tbody tr.odd {
+    background-color: #f9f9f9;
+}
+table tbody tr.odd>.sorting_1{
+    background-color: #f1f1f1;
+}
+table tbody tr.even>.sorting_1{
+    background-color: #fafafa;
+}
+table tbody tr:hover{
+    background-color: #eaeaea;
+}
+table tbody tr:hover>.sorting_1{
+    background-color: #eaeaea;
+}
 </style>
 <body>
 	<div class="container-fluid">
@@ -84,39 +106,38 @@
 						<button type="button" id="all_print" class="btn btn-secondary"
 							onclick="productallprint()">전체출력</button>
  						-->
-				<table class="table table-bordered mb-0" id="dataTable"
-							style="width: 100%;" cellspacing="0">
+						<table class="table table-bordered mb-0" id="dataTable"
+							style="width: 100%;">
 							<thead>
 								<tr>
-									<th style="width: 50px"><input type="checkbox" id="all"></th>
+ 									<th><input type="checkbox" id="allck"></th>
 									<th>고유번호</th>
-									<th>아이디</th>
-									<th>업체명</th>
-									<th>이메일</th>
-									<th style="border-left: 2px solid silver" colspan="3">주소</th>
-									<th style="border-right: 2px solid silver;">전화번호</th>
+ 									<th>업체명</th>
+									<th>아이디</th>	
+ 									<th>이메일</th>
+									<th>주소</th>
+									<th>전화번호</th>
 									<th>거래은행</th>
 									<th>사업자등록번호</th>
 									<th>판매가능기한</th>
 								</tr>
 							</thead>
-							<tbody>
-
-								<c:forEach var="i" items="${list}">
-									<tr>
-										<td><input type="checkbox" name="sid" value="${i.id}" data-semail="${i.seller_email}" /> </td>
-										<td>${i.seller_code}</td>
-										<td>${i.id}</td>
-										<td>${i.seller_name}</td>
-										<td>${i.seller_email}</td>
-										<td style="border-left: 2px solid silver" colspan="3">${i.seller_address1}</td>
-										<td style="border-right: 2px solid silver;">${i.seller_tel}</td>
-										<td>${i.bank}</td>
-										<td>${i.business_license}</td>
-										<td>${i.seller_deadline}</td>
-									</tr>
+ 							<tbody>								
+								<c:forEach var="item" items="${list}">
+								<tr>
+									<td><input type="checkbox" name="sid" value="${item.id}" data-semail="${item.seller_email}" /></td>
+									<td>${item.seller_code}</td>
+									<td>${item.seller_name}</td>
+									<td>${item.id}</td>
+									<td>${item.seller_email}</td>
+									<td>${item.seller_address1} ${item.seller_address2} ${item.seller_address3}</td>
+									<td>${item.seller_tel}</td>
+									<td>${item.bank}</td>
+									<td>${item.business_license}</td>
+									<td>${item.seller_deadline}</td>
+								</tr>
 								</c:forEach>
-							</tbody>
+							</tbody> 
 						</table>
 										<%-- <td ><a class="btn btn-success detailmdl"
 											data-toggle="modal" data-target=".bd-example-modal-lg"> <img
@@ -132,20 +153,6 @@
 										</a></td> --%>						
 					</form>
 
-	<!-- 페이징 -->
-					<c:if test="${page.prev}">
-						<a href="productlist?currPage=${page.startBlock-1}&psize=${page.sizePerPage}&txt=${page.txt}">이전</a>
-					</c:if>
-
-					<c:forEach var="i" begin="${page.startBlock}"
-						end="${page.endBlock}">
-						<c:if test="${i == page.currPage}"></c:if>
-						<c:if test="${i != page.currPage }"><a href="productlist?currPage=${i}&psize=${page.sizePerPage}&txt=${page.txt}"></a></c:if>
-					</c:forEach>
-
-					<c:if test="${page.next}">
-						<a href="productlist?currPage=${page.endBlock+1}&psize=${page.sizePerPage}&txt=${page.txt}">다음</a>
-					</c:if>
 				</div>
 					<div class="row mt-4">
 					<button style="width: 45%;" class="btn btn-secondary mx-auto" onclick="submit('Y')">승인</button><button style="width: 45%;" class="btn btn-danger mx-auto" data-toggle="modal" data-target="#rejectmodal">반려</button>
