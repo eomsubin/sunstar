@@ -34,6 +34,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.sunstar.dto.AccountsDTO;
 import com.sunstar.dto.CategoryDTO;
 import com.sunstar.dto.ChartDTO;
 import com.sunstar.dto.OrderDTO;
@@ -1032,51 +1033,112 @@ public class SellerController {
 	}
 
 
-	/*	@RequestMapping("/updateTracking")
-	public String updateTracking(@RequestParam(required=false) List<String> ordercode, 
-			@RequestParam(required=false) List<String> tracking_no ) {
 
-		System.out.println(ordercode);
-		System.out.println(tracking_no);
-
-		return "redirect:/seller/orders";
-
-
-	}*/
 	//정산 신청
 	@RequestMapping("/requestaccounting")
 	public String requestaccounting(Model m, Principal p ) {
-		
-
 		//id 가져오는 방법
 		String id= getId(m, p);
 		System.out.println(id);
 		String seller_code = sellerservice.getSellerCode(id);
 		
 		
-		//1일~ 10일 사이에 정산 신청
-		SimpleDateFormat frm = new SimpleDateFormat("dd"); 
-		Date date = new Date();
-		String dd = frm.format(date);
-		System.out.println(dd);
 		
+		SellerDTO dto = sellerservice.sellerInfo(seller_code);
+		//1일~ 10일 사이에 정산 신청.
+		SimpleDateFormat form_dd = new SimpleDateFormat("dd"); 
+		Calendar cal = Calendar.getInstance();
+		String dd = Integer.toString( cal.get(Calendar.DATE));
+		System.out.println("dd - " + dd);
+		
+		//지난달 정보 구하기
+		SimpleDateFormat form_yyyymm = new SimpleDateFormat("yyyyMM"); 
+		cal.add(cal.MONTH, -1);
+		String yyyymm = form_yyyymm.format(cal.getTime());
+		String yyyy = yyyymm.substring(0, 4);
+		String mm = yyyymm.substring(4, 6);
+		System.out.println("yyyymm - " + yyyymm );
+		
+		
+				
+			//
+		
+		//dto값에 셀러코드랑 연도월 넣기
+		ChartDTO setdto = new ChartDTO();
+		setdto.setSeller_code(seller_code);
+		setdto.setMonth(Integer.parseInt(yyyymm));
+		
+		System.out.println("setdto" + setdto);
+		//지난달 총금액 구하기
+		int total =  sellerservice.month_chart(setdto);
+		int shipping =  sellerservice.month_chart_plus(setdto);
+		int total_profit = total + shipping;
+		
+		int commission = (int)(total_profit * 0.1);
+		int balance_accounts = (int)(total_profit * 0.9);
+
+		System.out.println(total);
+		System.out.println(shipping);
+		System.out.println(total_profit);
+		System.out.println(commission);
+		System.out.println(balance_accounts);
+		
+		//날짜
+		
+		m.addAttribute("seller_code", seller_code);	
+
+		m.addAttribute("dto", dto);			
+		
+		
+		m.addAttribute("yyyy", yyyy);		
+		m.addAttribute("mm", mm);		
 		m.addAttribute("dd", dd);		
-		
-		//가져올 정보
-		
-		//지난달 1일부부터 말일까지의 총수익 (판매금액 + 배송비)
-		
-		//계좌 정보
 
-
+		m.addAttribute("total_profit", total_profit);
+		m.addAttribute("commission", commission);
+		m.addAttribute("balance_accounts", balance_accounts);
 		m.addAttribute("sellerpage", "requestaccounting.jsp");
 		return "sellers/temp";
+	}
+	
+	//정산값 입력
+	@RequestMapping("/insertAccount")
+	public String insertAccount(Model m, Principal p, AccountsDTO dto ) {
+		//id 가져오는 방법
+		String id= getId(m, p);
+		System.out.println(id);
+		String seller_code = sellerservice.getSellerCode(id);
+		
+		List<AccountsDTO> alist= sellerservice.getAccountList(seller_code);
+		List<String> ymlist = new ArrayList<>();
+		
+		for(int i =0 ; i < alist.size(); i++) {
+			ymlist.add(alist.get(i).getYyyymm());
+			
+		}
+		
+		
+		if( ymlist.contains(dto.getYyyymm()) ) {
+			return 	"redirect:/seller/accounting";
+		}else {
+			sellerservice.insertAccount(dto);
+		}
+			
+		return "redirect:/seller/accounting";
 	}
 
 	//정산 리스트
 	@RequestMapping("/accounting")
-	public String accounting(Model m) {
-
+	public String accounting(Model m, Principal p ) {
+		//id 가져오는 방법
+		String id= getId(m, p);
+		System.out.println(id);
+		String seller_code = sellerservice.getSellerCode(id);
+		
+		
+		List<AccountsDTO> alist= sellerservice.getAccountList(seller_code);
+		
+		m.addAttribute("alist", alist);
 		m.addAttribute("sellerpage", "accounting.jsp");
 		return "sellers/temp";
 	}
@@ -1621,9 +1683,9 @@ public class SellerController {
 
 		for(int i = 0 ; i < 12 ; i++){
 			System.out.println(month_data[i]);
-			dto.setMonth(dto.getYyyymm()[i]);
+			dto.setMonth(dto.getYyyymms()[i]);
 
-			System.out.println("yyyymm의 값 :: " +dto.getYyyymm()[i]);
+			System.out.println("yyyymm의 값 :: " +dto.getYyyymms()[i]);
 			if(dto.getMm()[i] == 1) {
 				mdata += sellerservice.month_chart(dto);
 				mdataa +=  (int)(sellerservice.month_chart(dto) + sellerservice.month_chart_plus(dto));
