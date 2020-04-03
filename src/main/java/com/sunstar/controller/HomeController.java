@@ -313,4 +313,14 @@ public class HomeController {
 	{
 		return "error";
 	}
+	
+	//ªÁ¿Ã∆Æ∏ 
+	@RequestMapping("/sitemap")
+	public String sitemap(Model model) {
+		mainservice.header(model);
+		
+		model.addAttribute("contentpage", "sitemap.jsp");
+		
+		return "home";
+	}
 }

@@ -127,7 +127,7 @@
             <div class="row">
                <div class="col-lg-3 col-md-2 col-12">
                   <!-- Logo -->
-                  <div class="logo" style="position: relative; bottom: 72px;">
+                  <div class="logo" style="position: relative; bottom: 44px;">
                      <a href="${pageContext.request.contextPath }/"><img 
                         src="${pageContext.request.contextPath}/resources/img/logo.jpg"
                         alt="logo"></a>

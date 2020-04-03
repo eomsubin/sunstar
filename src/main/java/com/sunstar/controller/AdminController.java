@@ -14,40 +14,34 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.sunstar.dto.CategoryDTO;
 import com.sunstar.service.AdminService;
-import com.sunstar.service.FileUploadService;
 import com.sunstar.service.UserService;
 
 @Controller @RequestMapping("/admin/*")
 public class AdminController {
-	
-	@Autowired
-	private AdminService adminservice;
-	
-	@Autowired
-	@Qualifier("userservice")
-	private UserService userservice;
-	
-	@Autowired
-	private JavaMailSenderImpl mailSender;
-	
-	public String getId( Model model, Principal principal) {
-		String id = "";
-		if(principal!=null) {
-			id= principal.getName();
-			System.out.println(id);
-		}
-		return id;
-	}
-
+   
+   @Autowired
+   private AdminService adminservice;
+   
+   @Autowired
+   @Qualifier("userservice")
+   private UserService userservice;
+   
+   @Autowired
+   private JavaMailSenderImpl mailSender;
+   
+   public String getId( Model model, Principal principal) {
+      String id = "";
+      if(principal!=null) {
+         id= principal.getName();
+         System.out.println(id);
+      }
+      return id;
+   }
 	
 	@RequestMapping("/index")
 	public String index(Model model) {
@@ -159,8 +153,6 @@ public class AdminController {
 	}
 	
 	
-	
-	
 	@RequestMapping("/oneforone")
 	public String oneforone(Model model) {
 		model.addAttribute("adminpage", "oneforone.jsp");
@@ -174,11 +166,5 @@ public class AdminController {
 		model.addAttribute("adminpage", "settings.jsp");
 		return "admin/temp";
 	}
-	
-	
-	
-
-	
-	
-	
+   
 }
