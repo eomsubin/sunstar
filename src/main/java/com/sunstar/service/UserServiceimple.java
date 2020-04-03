@@ -24,7 +24,7 @@ public class UserServiceimple implements UserService{
 	private CustomerDAO dao;
 	
 	@Transactional
-	@Override
+	@Override //jinwoo
 	public int join_Customer(CustomerDTO dto) {
 		String newpwd = encoder.encode(dto.getPassword());
 		dto.setPassword(newpwd);
@@ -32,38 +32,38 @@ public class UserServiceimple implements UserService{
 		return dao.join_Customer_auth(dto);
 	}
 
-	@Override
+	@Override //jinwoo
 	public int customeridcheck(String id) {
 		return dao.customeridcheck(id);
 	}
 
-	@Override
+	@Override //jinwoo
 	public int customeremailcheck(HashMap<String, String> map) {
 		return dao.customeremailcheck(map);
 	}
 
-	@Override
+	@Override //jinwoo
 	public CustomerDTO customerfindid(HashMap<String, String> map) {
 		return dao.customerfindid(map);
 	}
 
-	@Override
+	@Override //jinwoo
 	public int SetNewPassowrd(HashMap<String, String> map) {
 		map.put("newpw", encoder.encode((map.get("newpw"))));
 		return dao.SetNewPassowrd(map);
 	}
 
-	@Override
+	@Override //jinwoo
 	public int join_Seller(HashMap<String, String> map) {
 		return dao.join_Seller(map);
 	}
 
-	@Override
+	@Override //jinwoo
 	public int selleridcheck(String id) {
 		return dao.selleridcheck(id);
 	}
 
-	@Override
+	@Override //jinwoo
 	public int join_Sellerauth(HashMap<String, String> map) {
 		StringTokenizer st = new StringTokenizer(map.get("sid"),",");
 		int result =0; 
@@ -73,7 +73,7 @@ public class UserServiceimple implements UserService{
 		return result;
 	}
 
-	@Override
+	@Override //jinwoo
 	public int rejectjoin_Sellerre(HashMap<String, String> map) {
 		StringTokenizer st = new StringTokenizer(map.get("sid"),",");
 		int result =0; 
@@ -81,5 +81,52 @@ public class UserServiceimple implements UserService{
 			result += dao.rejectjoin_Sellerre(st.nextToken());
 		}
 		return result;
+	}
+
+	@Transactional
+	@Override //jinwoo
+	public int Acsuspensionseller(HashMap<String, String> map) {
+		// seller auth권한 삭제, seller_state 0, seller의 product_state 0
+		StringTokenizer st = new StringTokenizer(map.get("sid"),",");
+		String act=(String)map.get("YN");
+		int result =0; 
+		while(st.hasMoreTokens()) {
+			HashMap<String, String> query = new HashMap<>();  
+			String id= st.nextToken();
+			query.put("id", id);
+			query.put("act", act);
+			result += dao.delseller_auth(id);
+			result += dao.updateseller_state(query);
+			result += dao.updatesellerproduct_state(query);
+		}
+		return result;
+	}
+
+	@Override
+	public int Actseller(HashMap<String, String> map) {
+		// seller auth권한 부여, seller_state 1, seller의 product_state 1
+		StringTokenizer st = new StringTokenizer(map.get("sid"),",");
+		String act=(String)map.get("YN");
+		int result =0; 
+		while(st.hasMoreTokens()) {
+			HashMap<String, String> query = new HashMap<>();  
+			String id= st.nextToken();
+			query.put("id", id);
+			query.put("act", act);
+			result += dao.join_Sellerauth(id);
+			result += dao.updateseller_state(query);
+			result += dao.updatesellerproduct_state(query);
+		}
+		return result;		
+	}
+
+	@Override
+	public int delseller(HashMap<String, String> map) {
+		StringTokenizer st = new StringTokenizer(map.get("sid"),",");
+		int result =0; 
+		while(st.hasMoreTokens()) {
+			result += dao.delseller(st.nextToken());
+		}
+		return result;		
 	}
 }

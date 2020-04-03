@@ -322,7 +322,19 @@ table{
 
 $(document).ready(function(){
 	$(".ctotal").append("총 구매금액<p class='total'>");
-
+	inventory0();
+	
+	function inventory0(){
+		var inventory=$("#selectoption option:selected").data("optioninventory");
+		 if(inventory == 0)
+		{
+			$(".custom-select").css("background-color", "#f8f9fa");
+		} 	
+	}
+	
+	
+	
+	
 	//옵션 선택
 	$("select").change(function(){
 		var option = $("#selectoption option:selected").val();
@@ -618,7 +630,7 @@ $(document).ready(function(){
 						<div class="prod_info">
 							<div class="d-flex bd-highlight my-3"
 								style="border-bottom: 1px solid #dadada">
-								<div class="p-2 bd-highlight"><a href="${pageContext.request.contextPath}/seller_list">${view.seller_code}</a></div>
+								<div class="p-2 bd-highlight"><a href="${pageContext.request.contextPath}/seller/seller_list/${view.seller_code}">${view.seller_code}</a></div>
 								<div class="ml-auto p-2 bd-highlight">${view.product_code}</div>
 							</div>
 						</div>
@@ -672,46 +684,55 @@ $(document).ready(function(){
 								</li>
 							</ul>
 						</div>
-								
-						
-						
-	
-						
+
+
+
+
+
 						<!-- 상품 옵션 -->
 						<fieldset>
 							<legend>옵션선택</legend>
 							<!-- 선택옵션전체 -->
+							
 							<select class="custom-select mb-2" id="selectoption">
-								<option value="" disabled selected hidden>선택하세요</option>
-								<c:forEach items="${view.options}" var="option" varStatus="status">
-									<!--선택n)옵션1/옵션2-재고:n개 (+#,###원) -->
-									<option data-optioninventory="${option.inventory}" data-seloption1="${option.option1}" data-seloption2="${option.option2}" data-seladd_price="${option.add_price}" value="${option}">
-									
-									<%-- <c:if test="${not empty option.option1 and not empty option.option2 and not empty option.add_price}">선택${status.index+1}&#41;&#32; ${option.option1} &#47; ${option.option2} &#45;&#32; 
-									재고 &#32;${option.inventory}개 &#40;&#43;<fmt:formatNumber pattern="###,###,###" value="${option.add_price}"/>원&#41;</c:if> --%>
-									<c:if test="${not empty option.option1}">선택${status.index+1}&#41;&#32;${option.option1}</c:if>
-									<c:if test="${not empty option.option2}">&#47; ${option.option2}&#32;</c:if>
-									<c:if test="${option.add_price>0}"> &#40;&#43;<fmt:formatNumber pattern="###,###,###" value="${option.add_price}"/>원&#41;</c:if>
-									&#45;&#32;재고 &#32;${option.inventory}개
+								<c:forEach items="${view.options}" var="option"
+									varStatus="status">	
+									<c:if test="${option.inventory eq 0}">
+										<option value="" disabled selected hidden data-optioninventory="${option.inventory}">재고가 없습니다.</option>
+								</c:if>	
+								
+									<c:if test="${option.inventory ne 0}">
+										<option value="" disabled selected hidden>선택하세요</option>
+										<!--선택n)옵션1/옵션2-재고:n개 (+#,###원) -->
+										<option data-optioninventory="${option.inventory}"
+											data-seloption1="${option.option1}"
+											data-seloption2="${option.option2}"
+											data-seladd_price="${option.add_price}" value="${option}">
+											<c:if test="${not empty option.option1}">선택${status.index+1}&#41;&#32;${option.option1}</c:if>
+											<c:if test="${not empty option.option2}">&#47; ${option.option2}&#32;</c:if>
+											<c:if test="${option.add_price>0}"> &#40;&#43;<fmt:formatNumber
+													pattern="###,###,###" value="${option.add_price}" />원&#41;</c:if>
+											&#45;&#32;재고 &#32;${option.inventory}개
+									</c:if>
 								</c:forEach>
 							</select>
 							
-							
-							<!-- 옵션 선택 완료 -->
-							<div class="cresult">
-							</div>
 
-							<div class="ctotal my-3">
-							
-							</div>
-							
+
+
+							<!-- 옵션 선택 완료 -->
+							<div class="cresult"></div>
+
+							<div class="ctotal my-3"></div>
+
 
 							<!--구매,장바구니 버튼-->
 							<div class="ordercart_btn mb-3 ml-1">
 								<button class="cart_btn btn btn-outline-dark btn-lg"
-									type="button" style="width: 49%; height:60px; font-weight: bolder; font-size:25px; ">장바구니</button>
+									type="button"
+									style="width: 49%; height: 60px; font-weight: bolder; font-size: 25px;">장바구니</button>
 								<button class="buy_btn btn btn-danger btn-lg" type="button"
-									style="width: 49%; height:60px; font-weight: bolder; font-size:25px">구매하기</button>
+									style="width: 49%; height: 60px; font-weight: bolder; font-size: 25px">구매하기</button>
 							</div>
 						</fieldset>
 					</div>

@@ -127,7 +127,7 @@
             <div class="row">
                <div class="col-lg-3 col-md-2 col-12">
                   <!-- Logo -->
-                  <div class="logo" style="position: relative; bottom: 72px;">
+                  <div class="logo" style="position: relative; bottom: 44px;">
                      <a href="${pageContext.request.contextPath }/"><img 
                         src="${pageContext.request.contextPath}/resources/img/logo.jpg"
                         alt="logo"></a>
@@ -194,7 +194,7 @@
                   <div class="right-bar">
                      <!-- Search Form -->
                      <div class="sinlge-bar">
-                        <a href="#" class="single-icon"><i class="ti-headphone-alt"></i></a>
+                        <a href="${pageContext.request.contextPath}/CS" class="single-icon"><i class="ti-headphone-alt"></i></a>
                      </div>
                      <div class="sinlge-bar">
                         <a href="#" class="single-icon"><i class="ti-desktop"></i></a>

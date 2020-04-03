@@ -575,4 +575,18 @@
 		and left(o.order_code, 8) = #{yyyymmdd}
 		
 		</select>
+		
+		
+		<insert id="insertAccount" parameterType="com.sunstar.dto.AccountsDTO">
+		insert into accounts
+		values(#{seller_code}, #{yyyymm}, #{total_profit}, #{commission}, #{balance_accounts}, "정산신청완료")
+		</insert>
+		
+		<select id="getAccountList" parameterType="string" resultType="com.sunstar.dto.AccountsDTO">
+		select * 
+		from accounts
+		where seller_code = #{seller_code}
+		
+		</select>
+
 </mapper>

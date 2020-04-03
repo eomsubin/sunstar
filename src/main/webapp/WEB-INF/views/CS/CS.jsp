@@ -1,67 +1,66 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="EUC-KR"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ page language="java" contentType="text/html; charset=utf-8"
+	pageEncoding="utf-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ page session="false"%>
+<!DOCTYPE html>
 <html>
 <head>
 <!-- Required meta tags -->
-<meta charset="utf-8" />
+<meta charset="utf-8">
 <meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-
-<!-- Bootstrap CSS -->
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
-	crossorigin="anonymous" />
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/customer.css" />
-<title>SBBJ</title>
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/customer_css/customer.css" />
+<title>SBBJ - ê³ ê°ì„¼í„° </title>
 </head>
 <body>
 	<div class="container p-0">
 
 		<div id="contenttop">
 			<ul class="headnav nav nav-pills nav-fill">
-				<li class="nav-item col-sm-3"><a class="nav-link" href="#"
-					style="color: white; font-size: 28px; font-weight: 600">°í°´¼¾ÅÍ</a></li>
+				<li class="nav-item col-sm-3"><a class="nav-link" href="${pageContext.request.contextPath}/CS"
+					style="color: white; font-size: 28px; font-weight: 600">ê³ ê°ì„¼í„°</a></li>
 				<li class="nav-item col-sm-3 my-3"><a href="#"><i
 						class="far fa-address-card fa-2x"></i></a> <br> <span> <a
-						href="#">Á¤º¸º¯°æ</a><br> <a href="#">ºñ¹Ð¹øÈ£ º¯°æ</a><br> <a
-						href="#">Å»Åð</a>
+						href="#">ì •ë³´ë³€ê²½</a><br> <a href="#">ë¹„ë°€ë²ˆí˜¸ ë³€ê²½</a><br> <a
+						href="#">íƒˆí‡´</a>
 				</span></li>
 				<li class="nav-item col-sm-3 my-3"><a href="#"><i
 						class="far fa-credit-card fa-2x"></i></a> <br> <span> <a
-						href="#">ÁÖ¹®</a><br> <a href="#">°áÁ¦</a><br>
+						href="#">ì£¼ë¬¸</a><br> <a href="#">ê²°ì œ</a><br>
 				</span></li>
 
 				<li class="nav-item col-sm-3 my-3" style="border: 0px"><a
 					href="#"><i class="far fa-question-circle fa-2x"></i></a> <br>
-					<span> <a href="#">°í°´¼¾ÅÍ</a><br> <a href="#">±âÅ¸</a><br>
+					<span> <a href="#">ê³ ê°ì„¼í„°</a><br> <a href="#">ê¸°íƒ€</a><br>
 				</span></li>
 			</ul>
 		</div>
 	</div>
-	<div class="container p-0 my-0 jinwoo">
+	<div class="container p-0 mt-3 jinwoo">
 		<div id="contentbody">
 			<div class="row px-3">
 				<div class="side col-sm-3">
 					<nav class="sidenav nav flex-column px-3">
-					<li><a class="nav-link active" href="#">ÀÚÁÖ ¹¯´Â Áú¹®</a></li>
-					<li><a class="nav-link" href="#">1:1 ¹®ÀÇÇÏ±â</a></li>
-					<li><a class="nav-link" href="#">³ªÀÇ ¹®ÀÇ È®ÀÎ</a></li>
-					<li><a class="nav-link" href="#">°í°´¼¾ÅÍ ÀÌ¿ë¾È³»</a></li>
-					<li><a class="nav-link" href="${pageContext.request.contextPath}/notice">°øÁö»çÇ×</a></li>
+					<li><a class="nav-link active" href="#">ìžì£¼ ë¬»ëŠ” ì§ˆë¬¸</a></li>
+					<li><a class="nav-link" href="${pageContext.request.contextPath}/inquiry">1:1 ë¬¸ì˜í•˜ê¸°</a></li>
+					<li><a class="nav-link" href="#">ë‚˜ì˜ ë¬¸ì˜ í™•ì¸</a></li>
+					<li><a class="nav-link" href="#">ê³ ê°ì„¼í„° ì´ìš©ì•ˆë‚´</a></li>
+					<li><a class="nav-link" href="${pageContext.request.contextPath}/notice">ê³µì§€ì‚¬í•­</a></li>
 					<section class="time mt-4 p-3 bg-light">
 					<h5>
-						°í°´¼¾ÅÍ<br>¾÷¹«½Ã°£
+						ê³ ê°ì„¼í„°<br>ì—…ë¬´ì‹œê°„
 					</h5>
 					<p>
-						<strong>09:00~18:00 <span>(ÆòÀÏ)</span></strong><br> <em>ÁÖ¸»/°øÈÞÀÏ
-							ÈÞ¹«</em><br> <em>1:1¹®ÀÇ 24½Ã°£ Á¢¼ö</em>
+						<strong>09:00~18:00 <span>(í‰ì¼)</span></strong><br> <em>ì£¼ë§/ê³µíœ´ì¼
+							íœ´ë¬´</em><br> <em>1:1ë¬¸ì˜ 24ì‹œê°„ ì ‘ìˆ˜</em>
 					</p>
 					<p class="desc">
-						¾÷¹«½Ã°£ ¿Ü¿¡´Â<br> ÀÚÁÖ ¹¯´Â Áú¹®<br> ¶Ç´Â 1:1¹®ÀÇ¸¦<br> ÀÌ¿ëÇØ ÁÖ¼¼¿ä
+						ì—…ë¬´ì‹œê°„ ì™¸ì—ëŠ”<br> ìžì£¼ ë¬»ëŠ” ì§ˆë¬¸<br> ë˜ëŠ” 1:1ë¬¸ì˜ë¥¼<br> ì´ìš©í•´ ì£¼ì„¸ìš”
 					</p>
 					</section> </nav>
 				</div>
@@ -73,7 +72,7 @@
 							aria-label="Example text with button addon"
 							aria-describedby="button-addon1">
 						<div class="input-group-append">
-							<button class="btn btn-outline-secondary" type="button">°Ë»ö</button>
+							<button class="btn btn-outline-secondary" type="button">ê²€ìƒ‰</button>
 						</div>
 					</div>
 					</nav>
@@ -82,9 +81,9 @@
 
 
 					<h5 class="faq pt-4 pb-2">
-						ÀÚÁÖ ¹¯´Â Áú¹® HOT 10 <a
-							href="${pageContext.request.contextPath}/faq"> <span>´õ
-								º¸±â <i class="fas fa-greater-than"></i>
+						ìžì£¼ ë¬»ëŠ” ì§ˆë¬¸ HOT 10 <a
+							href="${pageContext.request.contextPath}/faq"> <span>ë”
+								ë³´ê¸° <i class="fas fa-greater-than"></i>
 						</span></a>
 					</h5>
 
@@ -92,8 +91,8 @@
 						<table class="table table-hover">
 							<thead>
 								<tr>
-									<th scope="col">ºÐ·ù</th>
-									<th scope="col">Áú¹®</th>
+									<th scope="col">ë¶„ë¥˜</th>
+									<th scope="col">ì§ˆë¬¸</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -144,8 +143,8 @@
 
 
 					<h5 class="notice pt-4 pb-2">
-						°øÁö»çÇ× <a href="${pageContext.request.contextPath}/notice"> <span>´õ
-								º¸±â <i class="fas fa-greater-than"></i>
+						ê³µì§€ì‚¬í•­ <a href="${pageContext.request.contextPath}/notice"> <span>ë”
+								ë³´ê¸° <i class="fas fa-greater-than"></i>
 						</span></a>
 					</h5>
 
@@ -153,9 +152,9 @@
 						<table class="table table-hover">
 							<thead>
 								<tr>
-									<th scope="col">ºÐ·ù</th>
-									<th scope="col">Á¦¸ñ</th>
-									<th scope="col">ÀÛ¼ºÀÏ</th>
+									<th scope="col">ë¶„ë¥˜</th>
+									<th scope="col">ì œëª©</th>
+									<th scope="col">ìž‘ì„±ì¼</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -196,18 +195,5 @@
 		</div>
 	</div>
 
-	<!-- Optional JavaScript -->
-	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-		integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
-		crossorigin="anonymous"></script>
-	<script
-		src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-		integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-		crossorigin="anonymous"></script>
-	<script
-		src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
-		integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
-		crossorigin="anonymous"></script>
 </body>
 </html>

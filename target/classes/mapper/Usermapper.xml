@@ -84,9 +84,9 @@
 			select Max(seller_code)+1 from seller
 			</selectKey>
   	insert into seller(seller_code, id, seller_name, seller_tel, seller_email, seller_address1, seller_address2, seller_address3, 
-  	seller_zip, bank, bank_no, business_license, seller_deadline, shipping_company, basic_shipping_cost, free_shipping_cost)
+  	seller_zip, bank, bank_no, business_license, seller_deadline, shipping_company, basic_shipping_cost, free_shipping_cost, seller_state)
   	values(#{seller_code}, #{id}, #{seller_name}, #{seller_tel}, #{seller_email}, #{seller_address1}, #{seller_address2}, #{seller_address3},
-  	#{seller_zip}, #{bank}, #{bank_no}, #{business_license}, #{seller_deadline}, #{shipping_company}, #{basic_shipping_cost}, #{free_shipping_cost})
+  	#{seller_zip}, #{bank}, #{bank_no}, #{business_license}, #{seller_deadline}, #{shipping_company}, #{basic_shipping_cost}, #{free_shipping_cost}, '1')
   	</insert>
   	
   	<select id="selleridcheck" parameterType="string" resultType="int">
@@ -103,6 +103,47 @@
   	
   	<delete id="rejectjoin_Sellerre" parameterType="string">
   	delete from seller 
+  	where id = #{id}
+  	</delete>
+  	
+  	<!-- 셀러 권한 삭제 -->
+  	<delete id="delseller_auth" parameterType="string">
+  	delete from auth 
+  	where id= #{id} and auth ='ROLE_MANAGER'
+  	</delete>
+  	
+  	<!-- 셀러 상태 정지or활동 변경 -->
+  	<update id="updateseller_state" parameterType="string">
+  	update seller
+  	<set>
+  		<if test="act =='stop'">
+  			seller_state = '0'
+  		</if>
+  		<if test="act =='activity'">
+  			seller_state = '1'
+  		</if>
+  	</set>
+  	where id = #{id}
+  	</update>
+  	
+  	<!-- 셀러 상품 비공개, 공개 변경-->
+  	<update id="updatesellerproduct_state" parameterType="string">
+  	update product_list p join seller s 
+  	on p.seller_code = s.seller_code 
+  			  	<set>
+			  		<if test="act =='stop'">
+			  			public_state = '0'
+			  		</if>
+			  		<if test="act =='activity'">
+			  			public_state = '1'
+			  		</if>
+			  	</set>
+  			where s.id = #{id}
+  	</update>
+  	
+  	<delete id="delseller" parameterType="string">
+  	delete 
+  	from seller
   	where id = #{id}
   	</delete>
 </mapper>

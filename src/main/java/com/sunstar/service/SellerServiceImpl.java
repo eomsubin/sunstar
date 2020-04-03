@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.sunstar.dto.AccountsDTO;
 import com.sunstar.dto.CartDTO;
 import com.sunstar.dto.CategoryDTO;
 import com.sunstar.dto.ChartDTO;
@@ -351,6 +352,23 @@ public class SellerServiceImpl implements SellerService {
 	@Override
 	public List<ProductDTO> product_list_new(String seller_code) {
 		return mapper.product_list_new(seller_code);
+	}
+
+	@Override
+	public AccountsDTO getTotal_price(AccountsDTO setdto) {
+		// TODO Auto-generated method stub
+		return mapper.getTotal_price(setdto);
+	}
+
+	@Override
+	public void insertAccount(AccountsDTO dto) {
+		mapper.insertAccount(dto);
+	}
+
+	@Override
+	public List<AccountsDTO> getAccountList(String seller_code) {
+		// TODO Auto-generated method stub
+		return mapper.getAccountList(seller_code);
 	}
 
 	
