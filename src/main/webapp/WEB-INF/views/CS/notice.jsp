@@ -11,7 +11,7 @@
 
 $(document).ready(function(){
    hidecontent();
-   
+ 
    function hidecontent(){
       $('.bcontent').hide();
    }
@@ -22,14 +22,14 @@ $(document).ready(function(){
     $(this).next('.bcontent').toggle();
  });
  
- 
- function defaultcss(){
-	 $('.nav-item').css("color", black);
- }
- 
-
- 
 }); 
+
+function del(notice_no) {
+	var chk = confirm("정말 삭제하시겠습니까?");
+	if (chk) {
+		location.href='${pageContext.request.contextPath}/notice/del?notice_no='+notice_no;
+	}
+}	
 
 </script>
 <title>SBBJ - 공지사항</title>
@@ -80,7 +80,12 @@ $(document).ready(function(){
 									<td class="lefttext">${list.notice_title}</td>
 									<td>${list.notice_date}</td>
 								</tr>
-								<tr class="bcontent"><td colspan="5">${list.notice_content}</td></tr>
+								<tr class="bcontent"><td colspan="4">
+								<div class="delsection"><a type="button" class="btn delnotice btn-sm"
+								onclick='del(${list.notice_no})' style="border:1px solid #274555"
+								>삭제</a></div>
+								${list.notice_content}
+								</tr>
 								</c:forEach>
 								</c:if>
 								
@@ -120,7 +125,10 @@ $(document).ready(function(){
 									<td class="lefttext">${list.notice_title}</td>
 									<td>${list.notice_date}</td>
 								</tr>
-								<tr class="bcontent"><td colspan="5">${list.notice_content}</td></tr>
+								<tr class="bcontent"><td colspan="4">
+								<div class="delsection"><a type="button" class="btn delnotice btn-sm" onclick='del(${list.notice_no})' style="border:1px solid #274555">삭제</a></div>
+								${list.notice_content}</td>
+								</tr>
 								</c:if>
 								</c:forEach>				
 							</tbody>
@@ -159,7 +167,11 @@ $(document).ready(function(){
 									<td class="lefttext">${list.notice_title}</td>
 									<td>${list.notice_date}</td>
 								</tr>
-								<tr class="bcontent"><td colspan="4">${list.notice_content}</td></tr>
+								<tr class="bcontent"><td colspan="4">
+								<div class="delsection"><button type="button" class="btn delnotice btn-sm"
+								onclick='del(${list.notice_no})' style="border:1px solid #274555">삭제</button></div>
+								${list.notice_content}</td>
+								</tr>
 								</c:if>
 								</c:forEach>				
 							</tbody>

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.mysql.cj.protocol.x.Notice;
 import com.sunstar.dto.CustomerUserDetail;
@@ -58,6 +59,16 @@ public class CSController {
 		customerservice.addnotice(dto);
 		return "redirect:/notice";
 	}
+	
+	//공지글 삭제
+	@RequestMapping("/notice/del")
+	public String noticedel(@RequestParam("notice_no") String notice_no) throws Exception
+	{
+		
+		customerservice.delnotice(notice_no);
+		return "redirect:/notice";
+	}
+	
 	
 	//1:1 문의하기
 	@RequestMapping("/CS/inquiry")

@@ -18,6 +18,8 @@ public interface CustomerService {
 
 	public List<NoticeDTO> noticelist();
 
+	public boolean delnotice(String notice_no);
+
 	
 	
 }

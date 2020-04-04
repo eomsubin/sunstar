@@ -42,6 +42,12 @@ public class CustomerServiceImpl implements CustomerService {
 		return csmapper.noticelist();
 	}
 
+	@Override
+	public boolean delnotice(String notice_no) {
+		// TODO Auto-generated method stub
+		return csmapper.delnotice(notice_no);
+	}
+
 
 
 

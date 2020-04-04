@@ -21,5 +21,7 @@ public interface CSMapper {
 
 	List<NoticeDTO> noticelist();
 
+	boolean delnotice(String notice_no);
+
 	
 }

@@ -255,5 +255,11 @@ legend
 	text-align: center;
 }
 
+.delsection{
+	margin-left: 93%;
+	margin-bottom: 1%
+}
 
-
+.bcontent{
+	background-color: #F8F8FF;
+}

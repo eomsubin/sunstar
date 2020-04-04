@@ -31,4 +31,9 @@
 	from mails
 	where id=#{id}
 	</select>
+	
+	<delete id="delnotice" parameterType="String">
+	delete from notice where notice_no = #{notice_no}
+	</delete>
+	
 </mapper>
