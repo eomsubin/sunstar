@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.mysql.cj.protocol.x.Notice;
 import com.sunstar.dto.CustomerUserDetail;
+import com.sunstar.dto.FaqDTO;
 import com.sunstar.dto.MailDTO;
 import com.sunstar.dto.NoticeDTO;
 import com.sunstar.service.CustomerService;
@@ -67,6 +68,40 @@ public class CSController {
 		
 		customerservice.delnotice(notice_no);
 		return "redirect:/notice";
+	}
+	
+	//faq
+	@RequestMapping("/faq")
+	public String faqList(Model model) throws Exception
+	{
+		List<FaqDTO> list=customerservice.faqlist();
+		model.addAttribute("list", list);
+		model.addAttribute("contentpage", "faq.jsp");
+		return "CS/CShome";
+	}
+	
+	@RequestMapping("/faqadd")
+	public String faqaddform(Model model) throws Exception
+	{
+		model.addAttribute("contentpage", "faqadd.jsp");
+		return "CS/CShome";
+	}
+	
+	//faq 글 등록하기
+	@RequestMapping("/faqadd/add")
+	public String noticeadd(@ModelAttribute FaqDTO dto) throws Exception
+	{
+		customerservice.addfaq(dto);
+		return "redirect:/faq";
+	}
+	
+	//faq 삭제
+	@RequestMapping("/faq/del")
+	public String faqdel(@RequestParam("faq_no") String faq_no) throws Exception
+	{
+		
+		customerservice.delfaq(faq_no);
+		return "redirect:/faq";
 	}
 	
 	

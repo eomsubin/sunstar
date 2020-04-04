@@ -10,7 +10,7 @@
 <head>
 <!-- Required meta tags -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/customer_css/noticeadd.css" />
-<title>SBBJ - 문의하기 </title>
+<title>SBBJ - 공지사항 작성</title>
 <script>
 
 </script>

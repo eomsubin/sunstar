@@ -36,4 +36,21 @@
 	delete from notice where notice_no = #{notice_no}
 	</delete>
 	
+	<select id="faqlist" resultType="com.sunstar.dto.FaqDTO">
+	select faq_no, faq_category, faq_title, faq_content, faq_head
+	from faq
+	order by faq_no desc
+	</select>
+	
+	<insert id="faqadd" parameterType="com.sunstar.dto.FaqDTO">
+	<selectKey resultType="String" keyProperty="faq_no"
+			order="BEFORE">
+			select Max(faq_no)+1 from faq
+	</selectKey>
+	insert into faq(faq_no, faq_category, faq_title, faq_content, faq_head) values('5', #{faq_category}, #{faq_title}, #{faq_content}, #{faq_head})
+	</insert>
+	
+	<delete id="faqdel" parameterType="String">
+	delete from faq where faq_no = #{faq_no}
+	</delete>
 </mapper>

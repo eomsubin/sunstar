@@ -59,7 +59,7 @@
 			<div class="row px-3">
 				<div class="side col-sm-3">
 					<nav class="sidenav nav flex-column px-3">
-					<li><a class="nav-link active" href="#">자주 묻는 질문</a></li>
+					<li><a class="nav-link active" href="${pageContext.request.contextPath}/faq">자주 묻는 질문</a></li>
 					<li><a class="nav-link" href="${pageContext.request.contextPath}/CS/inquiry">1:1 문의하기</a></li>
 								<li><a class="nav-link"
 									href="${pageContext.request.contextPath}/CS/inquiry/inquirylist">나의
