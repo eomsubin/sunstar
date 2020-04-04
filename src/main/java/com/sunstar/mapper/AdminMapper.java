@@ -10,10 +10,23 @@ import com.sunstar.dto.CategoryDTO;
 @Mapper
 public interface AdminMapper {
 
-	public List<HashMap<String, String>> getSellerApply(HashMap<String, String> map);
-	public List<HashMap<String, String>> getSellerList(HashMap<String, String> map);
+	public List<HashMap<String, String>> getSellerApply(HashMap<String, String> map); //jinwoo
+	public List<HashMap<String, String>> getSellerList(HashMap<String, String> map); //jinwoo
+	public List<HashMap<String, Object>> getCSellerList(List<String> list); //jinwoo
+	public List<HashMap<String, Object>> getCSellerprduct(List<String> list); // jinwoo
+	public List<HashMap<String, Object>> getCSellerordered(List<String> idl); // jinwoo
+
+	
 	public List<CategoryDTO> getLv1();
 	public List<CategoryDTO> getLv2(CategoryDTO lv1data);
-	public List<HashMap<String, Object>> getCSellerList(List<String> list);
+	public List<CategoryDTO> getLv2(String lv1select);
+	public List<CategoryDTO> getLv3(String lv2select);
+	public List<CategoryDTO> getLv2();
+	public List<CategoryDTO> getLv3();
+	public void add_lv2(CategoryDTO cdto);
+	public void add_lv3(CategoryDTO cdto);
+	
+	
+
 
 }

@@ -31,11 +31,16 @@ import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.sunstar.dto.CategoryDTO;
 import com.sunstar.service.AdminService;
+import com.sunstar.service.FileUploadService;
 import com.sunstar.service.UserService;
 
 @Controller @RequestMapping("/admin/*")
@@ -155,9 +160,16 @@ public class AdminController {
 		return "admin/temp";
 	}
 	
-	@RequestMapping("/sellerExcel/{id}")
-	public void sellerExcel(Model model, HttpServletResponse response, @PathVariable String id) throws Exception{
-		List<HashMap<String, Object>> list= adminservice.getCSellerList(id);
+	@RequestMapping("/sellerExcel/{id}/{act}")
+	public void sellerExcel(Model model, HttpServletResponse response, @PathVariable String id, @PathVariable String act) throws Exception{
+		List<HashMap<String, Object>> list = new ArrayList<>();
+		if(act.equals("1")){
+				list= adminservice.getCSellerList(id);
+		}else if(act.equals("2")) {
+			list = adminservice.getCSellerprduct(id);
+		}else if(act.equals("3")) {
+			list = adminservice.getCSellerordered(id);
+		}
 		
 		Workbook wb = new HSSFWorkbook();
 		Sheet sheet = wb.createSheet("판매자 목록");
@@ -236,18 +248,52 @@ public class AdminController {
 	}
 	
 	@RequestMapping("/category")
-	public String category(Model model) {
+	public String category(Model model
+							 ) {
+		
+		
+	
 		
 		List<CategoryDTO> lv1 = adminservice.getLv1();
-		
-		
+		List<CategoryDTO> lv2= adminservice.getLv2();
+		List<CategoryDTO > lv3= adminservice.getLv3();
 		
 		model.addAttribute("lv1",lv1);
-		
-		
+		model.addAttribute("lv2",lv2);
+		model.addAttribute("lv3",lv3);
 		model.addAttribute("adminpage", "category.jsp");
 		return "admin/temp";
 	}
+	
+	@RequestMapping("/add_lv2/{lv1_val}/{lv2_name}/{lv3_name}")
+	public String add_lv2(@PathVariable String lv1_val,@PathVariable String lv2_name,@PathVariable String lv3_name) {
+		
+		System.out.println(lv1_val+"  "+lv2_name);
+		System.out.println(lv3_name);
+		CategoryDTO cdto = new CategoryDTO();
+		cdto.setLv1(lv1_val);
+		cdto.setLv2(lv2_name);
+		cdto.setLv3(lv3_name);
+		
+		adminservice.add_lv2(cdto);
+		
+		
+		return "redirect:/admin/category";
+	}
+	
+	@RequestMapping("/add_lv3/{level1}/{level2}/{lev3_name}")
+	public String add_lv3(@PathVariable String level1,@PathVariable String level2,@PathVariable String lev3_name) {
+		
+		CategoryDTO cdto = new CategoryDTO();
+		cdto.setLv1(level1);
+		cdto.setLv2(level2);
+		cdto.setLv3(lev3_name);
+		
+		adminservice.add_lv3(cdto);
+		
+		return "redirect:/admin/category";
+	}
+	
 	
 	
 	@RequestMapping("/oneforone")

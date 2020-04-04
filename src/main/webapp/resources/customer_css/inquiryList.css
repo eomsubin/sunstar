@@ -1,0 +1,255 @@
+@charset "utf-8";
+
+body{
+    background-color: #eff1f6;
+    
+}
+
+.topbar a{
+	color: #424646;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 24px;
+}
+
+#navbarNavDropdown a{
+	font: 14px/1 'Apple SD Gothic Neo', '맑은 고딕';
+}
+
+#navbarNavDropdown > ul > li{
+	border:0;
+}
+
+footer{
+	background-color: #fff;
+}
+
+/*footer 즐간격 변경2 */ 
+#wrap > div > div.add_info.m-2 > div > div > dl > dt {
+	margin-top: 10px;
+	margin-bottom: 2px;
+	margin-left: 10px;
+}
+/* 줄간격 변경2 */
+#wrap > div > div.add_info.m-2 > div > div > dl > dd {
+	margin-bottom: 10px;
+}
+
+#wrap > div > div.add_info.m-2 > div > div > dl > dd a{
+	font-size: 12px;
+}
+
+
+
+.container{
+    background-color: white;
+    font-family: 'NanumSquare', sans-serif;
+}
+
+#contenttop{
+   
+    border: 1px solid #dadada;
+    margin-top: 5%;
+    
+}
+
+#contentbody > div > div.side.col-sm-3 > nav > li:nth-child(3) > a{
+	color:#fbab60;
+}
+.jinwoo{
+    position: relative;
+    top:20px;
+    margin-bottom: 80px;
+}
+
+ul li{
+    border-right: 1px solid #dadada;
+    
+}
+
+.headnav li:first-child{
+    border: 0;
+    background-color: #fbab60;
+    padding: 4%;
+    
+}
+
+
+
+.col-sm-9{
+    border: 1px solid #dadada;    
+}
+
+.side{
+    border: 1px solid #dadada;
+    border-right: 0px;
+    text-align: center;
+}
+
+
+.sidenav li a{
+    border-bottom: 1px solid #dadada;
+    font-family: 'NanumSquare', sans-serif;
+}
+
+a{
+    color:#555757;
+    font-size: 17px;
+    
+}
+
+section{
+    
+    font-size: 14px;
+}
+
+.col-sm-3{
+    padding: 0px;
+   
+}
+
+.far{
+    color: #fbab60;
+    padding-bottom: 3%;
+}
+
+.bn_wrap {
+    margin: 7% 0% 20%;
+    text-align: center;
+}
+
+.tbl table th {
+    width: 28% !important;
+    font-size: 14px;
+    color: #666;
+    text-align: left;
+    border-bottom: 1px solid #ebebea;
+    background-color: #f8f9fb;
+    padding: 2% 3%;
+    
+}
+
+.tbl table td {
+    padding: 10px 20px;
+    color: #3a3635;
+    border-bottom: 1px solid #ebebea;
+    background-color: #fff;
+}
+#userBody > tr.itemArea.EMAIL > td > div.email.complete{
+    padding-top: 4%
+}
+
+
+#btnSend, #btnCancel{
+    display: inline-block;
+    height: 42px;
+    width: 154px;
+    margin: 0 2px;
+    font-size: 14px;
+    line-height: 43px;
+    vertical-align: middle;
+    box-sizing: content-box;
+}
+
+#btnSend {
+    color: #fff;
+    border: none;
+    background-color:#fbab60;
+    }
+
+#btnCancel{
+    color: #3a3635;
+    border: 1px solid #d9d9d9;
+    background-color: #fff;
+}
+
+.subtitle{
+    height: 35px;
+    margin-top: 33px;
+    font-size: 20px;
+    font-weight: normal;
+    display: block;
+    font-size: 1.17em;
+    font: 'Malgun Gothic','맑은고딕',Dotum,'돋움';
+    color: #333;
+}
+
+#inquiryTitle, #inquiryContent{
+    width: 468px;
+}
+
+.email.complete > span.sel.ml > select, #upperCategory{
+    height: 30px;
+}
+
+.email.complete > p{
+    margin-top: 1%;
+    color: #999;
+    font-size: 12px;
+}
+
+.ordercode_btn > a{
+    padding: 4px 8px;
+    margin-left: 10px;
+    color: #333;
+    text-indent: 0;
+    text-decoration: none;
+    font-family: 'Malgun Gothic','맑은고딕',Dotum,'돋움';
+    font-size: 13px;
+    background: #f7f7f7;
+    cursor: pointer;
+    border: 1px solid  #d9d9d9;
+}
+
+#inquiryForm > fieldset > div > table{
+    border-top: 2px solid #fbab60;
+    width: 95%
+}
+
+p.ess.mt
+{       
+	margin-top: -3%;
+    margin-right: 30px;
+    font-size: 12px;
+    text-align: right;
+}
+
+fieldset
+{
+margin: 2% 1% 0 0;
+}
+
+legend
+{
+    padding: 0 11px 6px;
+    font-size: 21px;
+    font-weight: normal;
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    padding: 0;
+    font-size: 1.5rem;
+    line-height: inherit;
+    color: inherit;
+    white-space: normal;
+    
+}
+
+.bl_ess{
+    height: 6px;
+    width: 6px;
+    margin: 3px 0 0 -10px;
+    font-size: 0;
+    background-position: 0 -20px;
+    background-image: url(//file.bugsm.co.kr/wbugs/helpdesk/sprite_helpdesk_bullet.png);
+    background-repeat: no-repeat;
+    display: inline-block;
+}
+.lefttext{
+	text-align: left;
+}
+
+.bottomadjust{
+	margin-bottom: 40%
+}
