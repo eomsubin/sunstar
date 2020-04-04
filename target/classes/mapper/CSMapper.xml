@@ -3,11 +3,20 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sunstar.mapper.CSMapper">
-	<select id="noticeList" resultType="com.sunstar.dto.NoticeDTO">
+	<select id="noticelist" resultType="com.sunstar.dto.NoticeDTO">
 		select notice_no, notice_category, notice_title, notice_content, notice_date
 		from notice
 		order by notice_no desc
 	</select>
+	
+	<insert id="noticeadd" parameterType="com.sunstar.dto.NoticeDTO">
+	<selectKey resultType="String" keyProperty="notice_no"
+			order="BEFORE">
+			select Max(notice_no)+1 from notice
+	</selectKey>
+	insert into notice(notice_no, notice_category, notice_title, notice_content, notice_date) values(#{notice_no}, #{notice_category}, #{notice_title}, #{notice_content}, now())
+	</insert>
+	
 	
 	<insert id="inquiryadd" parameterType="com.sunstar.dto.MailDTO">
 	<selectKey resultType="String" keyProperty="no"
@@ -21,6 +30,5 @@
 	select no, id, title, content, date, order_code, category
 	from mails
 	where id=#{id}
-	
 	</select>
 </mapper>

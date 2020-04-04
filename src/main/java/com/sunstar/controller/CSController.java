@@ -11,8 +11,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.mysql.cj.protocol.x.Notice;
 import com.sunstar.dto.CustomerUserDetail;
 import com.sunstar.dto.MailDTO;
+import com.sunstar.dto.NoticeDTO;
 import com.sunstar.service.CustomerService;
 
 
@@ -30,13 +32,31 @@ public class CSController {
 		return "CS/CShome";
 	}
 	
-	//공지사항 
+	//공지사항 리스트
 	@RequestMapping("/notice")
 	public String noticeList(Model model) throws Exception
 	{
-		//List<NoticeDTO> noticeList=customerservice.noticelist();
+		List<NoticeDTO> list=customerservice.noticelist();
+		model.addAttribute("list", list);
 		model.addAttribute("contentpage", "notice.jsp");
 		return "CS/CShome";
+	}	
+	
+	
+	@RequestMapping("/noticeadd")
+	public String noticeaddform(Model model) throws Exception
+	{
+		model.addAttribute("contentpage", "noticeadd.jsp");
+		return "CS/CShome";
+	}
+	
+	
+	//공지 글 등록하기
+	@RequestMapping("/noticeadd/add")
+	public String noticeadd(@ModelAttribute NoticeDTO dto) throws Exception
+	{
+		customerservice.addnotice(dto);
+		return "redirect:/notice";
 	}
 	
 	//1:1 문의하기
@@ -46,15 +66,6 @@ public class CSController {
 		model.addAttribute("contentpage", "inquiry.jsp");
 		return "CS/CShome";
 	}
-	
-	//1:1 문의하기 작성
-	@RequestMapping("/CS/inquiry/add")
-	public String inquiryadd(@ModelAttribute MailDTO dto) throws Exception
-	{
-		customerservice.addinquiry(dto);
-		return "redirect:/CS";
-	}
-	
 	
 	//1:1 문의 내역 리스트
 	@RequestMapping("/CS/inquiry/inquirylist")
@@ -71,6 +82,17 @@ public class CSController {
 		model.addAttribute("contentpage", "inquiryList.jsp");
 		return "CS/CShome";
 	}
+	
+	
+	
+	//1:1 문의하기 작성
+	@RequestMapping("/CS/inquiry/add")
+	public String inquiryadd(@ModelAttribute MailDTO dto) throws Exception
+	{
+		customerservice.addinquiry(dto);
+		return "redirect:/CS";
+	}
+	
 	
 
 }
