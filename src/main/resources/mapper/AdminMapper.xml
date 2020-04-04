@@ -26,6 +26,15 @@
 	order by seller_code desc
 	</select>
 	
+	<select id="getCSellerList" resultType="hashmap" parameterType="list">
+	select * from seller
+	where id in
+	<foreach item="item" index="index" collection="list"
+      open="(" separator="," close=")">
+        #{item}
+    </foreach> 
+	</select>
+	
 	<select id="getLv1" resultType="com.sunstar.dto.CategoryDTO">
 		 select distinct lv1 from category
 	

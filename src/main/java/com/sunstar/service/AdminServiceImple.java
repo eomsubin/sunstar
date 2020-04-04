@@ -1,7 +1,9 @@
 package com.sunstar.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.StringTokenizer;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,12 +18,12 @@ public class AdminServiceImple implements AdminService {
 	@Autowired
 	private AdminMapper adminmapper;
 	
-	@Override
+	@Override // jinwoo
 	public List<HashMap<String, String>> getSellerApply(HashMap<String, String> map) {
 		return adminmapper.getSellerApply(map);
 	}
 
-	@Override
+	@Override // jinwoo
 	public List<HashMap<String, String>> getSellerList(HashMap<String, String> map) {
 		return adminmapper.getSellerList(map);
 	}
@@ -36,6 +38,17 @@ public class AdminServiceImple implements AdminService {
 	public List<CategoryDTO> getLv2(CategoryDTO lv1data) {
 		// TODO Auto-generated method stub
 		return adminmapper.getLv2(lv1data);
+	}
+
+	@Override // jinwoo
+	public List<HashMap<String, Object>> getCSellerList(String id) {
+		StringTokenizer str = new StringTokenizer(id,",");
+		List<String> idl = new ArrayList<String>();
+		while(str.hasMoreTokens())
+		{
+			idl.add(str.nextToken());
+		}
+		return adminmapper.getCSellerList(idl);
 	}
 	
 	

@@ -14,5 +14,6 @@ public interface AdminMapper {
 	public List<HashMap<String, String>> getSellerList(HashMap<String, String> map);
 	public List<CategoryDTO> getLv1();
 	public List<CategoryDTO> getLv2(CategoryDTO lv1data);
+	public List<HashMap<String, Object>> getCSellerList(List<String> list);
 
 }

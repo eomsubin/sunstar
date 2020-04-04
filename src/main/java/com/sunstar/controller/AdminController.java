@@ -1,12 +1,28 @@
 package com.sunstar.controller;
 
 import java.security.Principal;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.StringTokenizer;
 
 import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.hssf.util.HSSFColor.HSSFColorPredefined;
+import org.apache.poi.ss.usermodel.BorderStyle;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.FillPatternType;
+import org.apache.poi.ss.usermodel.HorizontalAlignment;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
@@ -14,6 +30,7 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -136,6 +153,86 @@ public class AdminController {
 		List<HashMap<String, String>> list = adminservice.getSellerList(map);
 		model.addAttribute("list",list);
 		return "admin/temp";
+	}
+	
+	@RequestMapping("/sellerExcel/{id}")
+	public void sellerExcel(Model model, HttpServletResponse response, @PathVariable String id) throws Exception{
+		List<HashMap<String, Object>> list= adminservice.getCSellerList(id);
+		
+		Workbook wb = new HSSFWorkbook();
+		Sheet sheet = wb.createSheet("판매자 목록");
+		Row row = null;
+		Cell cell = null;
+		int nowNum = 0;
+		
+		CellStyle headStyle = wb.createCellStyle();
+		
+		// 가는 경계선을 가집니다.
+		headStyle.setBorderTop(BorderStyle.THIN);
+		headStyle.setBorderBottom(BorderStyle.THIN);
+		headStyle.setBorderLeft(BorderStyle.THIN);
+		headStyle.setBorderRight(BorderStyle.THIN);
+
+		// 배경색은 노란색입니다.
+		headStyle.setFillForegroundColor(HSSFColorPredefined.YELLOW.getIndex());
+		headStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+
+		// 데이터는 가운데 정렬합니다.
+		headStyle.setAlignment(HorizontalAlignment.CENTER);	
+		// 데이터용 경계 스타일 테두리만 지정
+		
+		CellStyle bodyStyle = wb.createCellStyle();
+		bodyStyle.setBorderTop(BorderStyle.THIN);
+		bodyStyle.setBorderBottom(BorderStyle.THIN);
+		bodyStyle.setBorderLeft(BorderStyle.THIN);
+		bodyStyle.setBorderRight(BorderStyle.THIN);
+		// 헤더 생성
+		
+		HashMap<String, Object> item = list.get(0);
+		Iterator<String> keyita = item.keySet().iterator();
+		List<String> keylist = new ArrayList<String>();
+		
+		while(keyita.hasNext())
+		{
+			keylist.add(keyita.next());
+		}
+		
+		row = sheet.createRow(nowNum++);
+		int index=0;
+		for(String key : keylist)
+		{
+			cell = row.createCell(index++);
+			cell.setCellStyle(headStyle);
+			cell.setCellValue(key);
+		}
+		
+		for(HashMap<String, Object> map : list)
+		{			
+			index=0;
+			row = sheet.createRow(nowNum++);
+			for(String key : keylist) {
+				cell = row.createCell(index++);
+				cell.setCellStyle(bodyStyle);
+				cell.setCellValue(""+map.get(key));
+				}
+		}
+		
+		// 컨텐츠 타입과 파일명 지정
+		response.setContentType("ms-vnd/excel");
+		
+		SimpleDateFormat frm = new SimpleDateFormat("yyyyMMddHHmmss");
+
+		Date date = new Date();
+
+		String time1 = frm.format(date);
+
+		String filename = "attachment;filename="+time1+".xls";
+
+		response.setHeader("Content-Disposition", filename );
+
+		// 엑셀 출력
+		wb.write(response.getOutputStream());
+		wb.close();
 	}
 	
 	@RequestMapping("/category")

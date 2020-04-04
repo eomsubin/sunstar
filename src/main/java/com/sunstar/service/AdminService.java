@@ -11,5 +11,6 @@ public interface AdminService {
 	List<HashMap<String, String>> getSellerList(HashMap<String, String> map);
 	List<CategoryDTO> getLv1();
 	List<CategoryDTO> getLv2(CategoryDTO lv1data);
+	List<HashMap<String, Object>> getCSellerList(String id);
 
 }
