@@ -125,3 +125,11 @@ thead{
     font-size: 15px;
     float: right;
 }
+
+.modalbtn{
+	background-color: #fbab60;
+	border: 0
+}
+.modal-footer{
+	margin : 0 auto !important;
+}

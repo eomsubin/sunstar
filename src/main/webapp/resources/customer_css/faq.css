@@ -246,14 +246,3 @@ legend
     background-repeat: no-repeat;
     display: inline-block;
 }
-
-.lefttext{
-	text-align: left;
-}
-
-#noticeAll > table > thead > tr, #noticecom > table > thead > tr, #noticeham > table > thead > tr{
-	text-align: center;
-}
-
-
-

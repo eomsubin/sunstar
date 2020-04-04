@@ -136,9 +136,7 @@ section{
     border-bottom: 1px solid #ebebea;
     background-color: #fff;
 }
-#userBody > tr.itemArea.EMAIL > td > div.email.complete{
-    padding-top: 4%
-}
+
 
 
 #btnSend, #btnCancel{
@@ -175,34 +173,12 @@ section{
     color: #333;
 }
 
-#inquiryTitle, #inquiryContent{
+#noticeTitle, #noticeContent{
     width: 468px;
 }
 
-.email.complete > span.sel.ml > select, #upperCategory{
-    height: 30px;
-}
 
-.email.complete > p{
-    margin-top: 1%;
-    color: #999;
-    font-size: 12px;
-}
-
-.ordercode_btn > a{
-    padding: 4px 8px;
-    margin-left: 10px;
-    color: #333;
-    text-indent: 0;
-    text-decoration: none;
-    font-family: 'Malgun Gothic','맑은고딕',Dotum,'돋움';
-    font-size: 13px;
-    background: #f7f7f7;
-    cursor: pointer;
-    border: 1px solid  #d9d9d9;
-}
-
-#inquiryForm > fieldset > div > table{
+#noticeForm > fieldset > div > table{
     border-top: 2px solid #fbab60;
     width: 95%
 }
@@ -233,27 +209,6 @@ legend
     line-height: inherit;
     color: inherit;
     white-space: normal;
-    
 }
-
-.bl_ess{
-    height: 6px;
-    width: 6px;
-    margin: 3px 0 0 -10px;
-    font-size: 0;
-    background-position: 0 -20px;
-    background-image: url(//file.bugsm.co.kr/wbugs/helpdesk/sprite_helpdesk_bullet.png);
-    background-repeat: no-repeat;
-    display: inline-block;
-}
-
-.lefttext{
-	text-align: left;
-}
-
-#noticeAll > table > thead > tr, #noticecom > table > thead > tr, #noticeham > table > thead > tr{
-	text-align: center;
-}
-
 
 
