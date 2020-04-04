@@ -16,14 +16,27 @@
 </head>
 <script>
 	function review(){
-		let order_no = "${detail.order_no}"
+		let order_no = "${detail.order_no}";
+		if($('#comment').val().length < 10){
+			alert("최소 10자 이상 입력해주세요.");
+			return;
+		}
 		let review_content = $('#comment').val();
-		let review_star = 3;
+		if($(".star-input").find(":checked").length=== 0){
+			alert("별점을 매겨주세요");
+			return;
+		}
+		let review_star = $(".star-input").find(":checked").val();
 	 	opener.jusoCallBack(review_content, order_no, review_star);      
 	  	window.close();
 	}
 	
 	$(document).ready(function(){
+		$('#comment').keyup(function(){
+			console.log($(this).val().length+"val");
+			$('#textlength').text($(this).val().length+"/300")
+		})
+		
 		var starRating = function(){
 			  var $star = $(".star-input"),
 			      $result = $star.find("output>b");
@@ -51,7 +64,7 @@
 			    		$result.text("별점을 매겨주세요");
 			    	} else {
 			    		$result.text($checked.parent().text());
-			    		$checked.nextAll().removeClass("yellow");
+			    		$checked.parent().nextAll().removeClass("yellow");
 			    	}
 			  });
 			};
@@ -157,9 +170,12 @@
 		  				<br><output for="star-input" class="ml-3 content"><b>별점을 매겨주세요</b></output>						
 			</span>
 		</div>
-		<div class="form-group">
-			<textarea class="form-control mt-4" rows="5" id="comment" name="comment" placeholder="최소 10자 이상 입력해주세요."></textarea>
+		
+		<div class="form-group" style="border: 1px solid silver; border-radius: 5px;">
+			<textarea style="border: 0px solid silver;" class="form-control" rows="5" id="comment" name="comment" placeholder="최소 10자 이상 입력해주세요." maxlength="300"></textarea>
+			<p id="textlength" style="font-size: 15px" class="seller m-1">0/300</p>
 		</div>
+		
 		<button onclick="review()">등록</button>	
 		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 	</form>
