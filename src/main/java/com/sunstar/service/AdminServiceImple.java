@@ -28,18 +28,6 @@ public class AdminServiceImple implements AdminService {
 		return adminmapper.getSellerList(map);
 	}
 
-	@Override
-	public List<CategoryDTO> getLv1() {
-		
-		return adminmapper.getLv1();
-	}
-
-	@Override
-	public List<CategoryDTO> getLv2(CategoryDTO lv1data) {
-		// TODO Auto-generated method stub
-		return adminmapper.getLv2(lv1data);
-	}
-
 	@Override // jinwoo
 	public List<HashMap<String, Object>> getCSellerList(String id) {
 		StringTokenizer str = new StringTokenizer(id,",");
@@ -50,7 +38,98 @@ public class AdminServiceImple implements AdminService {
 		}
 		return adminmapper.getCSellerList(idl);
 	}
-	
-	
 
+	@Override // jinwoo
+	public List<HashMap<String, Object>> getCSellerprduct(String id) {
+		StringTokenizer str = new StringTokenizer(id,",");
+		List<String> idl = new ArrayList<String>();
+		while(str.hasMoreTokens())
+		{
+			idl.add(str.nextToken());
+		}
+		return adminmapper.getCSellerprduct(idl);
+	}
+
+	@Override // jinwoo
+	public List<HashMap<String, Object>> getCSellerordered(String id) {
+		StringTokenizer str = new StringTokenizer(id,",");
+		List<String> idl = new ArrayList<String>();
+		while(str.hasMoreTokens())
+		{
+			idl.add(str.nextToken());
+		}
+		return adminmapper.getCSellerordered(idl);
+	}
+	
+	@Override
+	public List<CategoryDTO> getLv1() {
+		
+		return adminmapper.getLv1();
+	}
+
+	@Override
+	public List<CategoryDTO> getLv2(String lv1select) {
+		// TODO Auto-generated method stub
+		
+	
+		
+		
+		return adminmapper.getLv2(lv1select);
+	}
+
+	@Override
+	public List<CategoryDTO> getLv3(String lv2select) {
+		// TODO Auto-generated method stub
+		return adminmapper.getLv3(lv2select);
+	}
+
+	@Override
+	public List<CategoryDTO> getLv2() {
+		// TODO Auto-generated method stub
+		return adminmapper.getLv2();
+	}
+
+	@Override
+	public List<CategoryDTO> getLv3() {
+		// TODO Auto-generated method stub
+		return adminmapper.getLv3();
+	}
+
+	@Override
+	public void add_lv2(CategoryDTO cdto) {
+		
+		if(cdto.getLv1().equals("패션")) {
+			cdto.setLv2con("A");
+		}else if(cdto.getLv1().equals("디지털-가전")) {
+			cdto.setLv2con("B");
+		}else if(cdto.getLv1().equals("가구-인테리어")) {
+			cdto.setLv2con("C");
+		}else if(cdto.getLv1().equals("식품")) {
+			cdto.setLv2con("D");
+		}else {
+			cdto.setLv2con("E");
+		}
+		
+		adminmapper.add_lv2(cdto);
+		
+	}
+
+	@Override
+	public void add_lv3(CategoryDTO cdto) {
+		
+		if(cdto.getLv1().equals("패션")) {
+			cdto.setLv2con("A");
+		}else if(cdto.getLv1().equals("디지털-가전")) {
+			cdto.setLv2con("B");
+		}else if(cdto.getLv1().equals("가구-인테리어")) {
+			cdto.setLv2con("C");
+		}else if(cdto.getLv1().equals("식품")) {
+			cdto.setLv2con("D");
+		}else {
+			cdto.setLv2con("E");
+		}
+			
+		adminmapper.add_lv3(cdto);
+		
+	}
 }

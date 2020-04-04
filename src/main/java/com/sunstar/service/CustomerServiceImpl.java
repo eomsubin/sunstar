@@ -27,6 +27,12 @@ public class CustomerServiceImpl implements CustomerService {
 		return csmapper.inquiryadd(dto);
 	}
 
+	@Override
+	public List<MailDTO> getInquirylist(String id) {
+		// TODO Auto-generated method stub
+		return csmapper.inquirylist(id);
+	}
+
 
 
 

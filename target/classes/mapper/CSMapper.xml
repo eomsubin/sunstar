@@ -8,7 +8,19 @@
 		from notice
 		order by notice_no desc
 	</select>
+	
 	<insert id="inquiryadd" parameterType="com.sunstar.dto.MailDTO">
-	insert into mails(email, category, title, content, id, order_code) values(#{email}, #{category}, #{title}, #{content},  #{id}, #{order_code})
+	<selectKey resultType="String" keyProperty="no"
+			order="BEFORE">
+			select Max(no)+1 from mails
+	</selectKey>
+	insert into mails(no, email, category, title, content, id, order_code, date) values(#{no}, #{email}, #{category}, #{title}, #{content},  #{id}, #{order_code}, now())
 	</insert>
+	
+	<select id="inquirylist" parameterType="String" resultType="com.sunstar.dto.MailDTO">
+	select no, id, title, content, date, order_code, category
+	from mails
+	where id=#{id}
+	
+	</select>
 </mapper>

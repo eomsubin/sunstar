@@ -1,94 +1,18 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="EUC-KR"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ page language="java" contentType="text/html; charset=utf-8"
+	pageEncoding="utf-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page session="false"%>
+<!DOCTYPE html>
 <html>
 <head>
 <!-- Required meta tags -->
-<meta charset="utf-8" />
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-
-<!-- Bootstrap CSS -->
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
-	crossorigin="anonymous" />
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/notice.css" />
-<link rel="stylesheet" href="/controller/resources/css/font-awesome.css">
-<!-- Themify Icons -->
-<link rel="stylesheet" href="/controller/resources/css/themify-icons.css">
-<title>SBBJ</title>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/customer_css/notice.css" />
+<title>SBBJ - ê³µì§€ì‚¬í•­</title>
 </head>
-<body>
-	<header>
-		<jsp:include page="../Registration/Regheader.jsp" />
-	</header>
-	<div class="container p-0">
-	
-		<div id="contenttop">
-			<ul class="headnav nav nav-pills nav-fill">
-				<li class="nav-item col-sm-3"><a class="nav-link" href="#"
-					style="color: white; font-size: 28px; font-weight: 600"> °í°´¼¾ÅÍ</a></li>
-				<li class="nav-item col-sm-3 my-3"><a href="#"><i
-						class="far fa-address-card fa-2x"></i></a> <br> <span> <a
-						href="#">È¸¿øÁ¤º¸</a><br>
-				</span></li>
-				<li class="nav-item col-sm-3 my-3"><a href="#"><i
-						class="far fa-credit-card fa-2x"></i></a> <br> <span> <a
-						href="#">ÁÖ¹®</a> / <a href="#">°áÁ¦</a><br>
-				</span></li>
-
-				<li class="nav-item col-sm-3 my-3" style="border: 0px"><a
-					href="#"><i class="far fa-question-circle fa-2x"></i></a> <br>
-					<span> <a href="#">±âÅ¸</a><br>
-				</span></li>
-			</ul>
-		</div>
-	</div>
-
-	<div class="container p-0 my-0 jinwoo">
-		<div id="contentbody">
-			<div class="row px-3">
-				<div class="side col-sm-3">
-					<nav class="sidenav nav flex-column px-3">
-					<li><a class="nav-link active" href="#">ÀÚÁÖ ¹¯´Â Áú¹®</a></li>
-					<li><a class="nav-link" href="#">1:1 ¹®ÀÇÇÏ±â</a></li>
-					<li><a class="nav-link" href="#">³ªÀÇ ¹®ÀÇ È®ÀÎ</a></li>
-					<li><a class="nav-link" href="#">°í°´¼¾ÅÍ ÀÌ¿ë¾È³»</a></li>
-					<li><a class="nav-link" href="#">°øÁö»çÇ×</a></li>
-					<section class="time mt-4 p-3 bg-light">
-					<h5>
-						°í°´¼¾ÅÍ<br>¾÷¹«½Ã°£
-					</h5>
-					<p>
-						<strong>09:00~18:00 <span>(ÆòÀÏ)</span></strong><br> <em>ÁÖ¸»/°øÈÞÀÏ
-							ÈÞ¹«</em><br> <em>1:1¹®ÀÇ 24½Ã°£ Á¢¼ö</em>
-					</p>
-					<p class="desc">
-						¾÷¹«½Ã°£ ¿Ü¿¡´Â<br> ÀÚÁÖ ¹¯´Â Áú¹®<br> ¶Ç´Â 1:1¹®ÀÇ¸¦<br> ÀÌ¿ëÇØ ÁÖ¼¼¿ä
-					</p>
-					</section> </nav>
-				</div>
-				
+<body>			
 				<div class="col-sm-9">
-					<nav class="navbar navbar-light  bg-light mt-3">
-					<div class="input-group p-2">
-						<input type="text" class="form-control"
-							aria-label="Example text with button addon"
-							aria-describedby="button-addon1">
-						<div class="input-group-append">
-							<button class="btn btn-outline-secondary" type="button">°Ë»ö</button>
-						</div>
-					</div>
-					</nav>
 
-					<hr class="my-4">
-
-					<h5 class="notice pt-4 pb-2">°øÁö»çÇ×</h5>
+					<h5 class="notice pt-4 pb-4">ê³µì§€ì‚¬í•­</h5>
 				
 					<div id="notice">
 						<table class="table table-hover">
@@ -101,9 +25,9 @@
 							<thead>
 								<tr>
 									<th scope="col">NO</th>
-									<th scope="col">°øÁöºÐ·ù</th>
-									<th scope="col" class="lefttext">Á¦¸ñ</th>
-									<th scope="col">°øÁöÀÏÀÚ</th>
+									<th scope="col">ê³µì§€ë¶„ë¥˜</th>
+									<th scope="col" class="lefttext">ì œëª©</th>
+									<th scope="col">ê³µì§€ì¼ìž</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -120,13 +44,17 @@
 							</tbody>
 						</table>
 					</div>
+					
+					<hr class="my-4">
+					
+					<nav class="navbar" style="width: 50%; margin: 0px auto;">
+					<div class="input-group p-2">
+						<input type="text" class="form-control" aria-label="Example text with button addon" aria-describedby="button-addon1">
+						<div class="input-group-append">
+							<button class="btn btn-outline-secondary" type="button">ê²€ìƒ‰</button>
+						</div>
+					</div>
+					</nav>
 				</div>
-			</div>
-		</div>
-	</div>
-	</div>
-<footer>
-	<jsp:include page="../CSFooter.jsp" />
-	</footer>
 </body>
 </html>

@@ -11,6 +11,8 @@ public interface CustomerService {
 
 	public int addinquiry(MailDTO dto);
 
+	public List<MailDTO> getInquirylist(String id);
+
 	
 	
 }
