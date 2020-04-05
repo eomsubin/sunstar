@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.sunstar.dto.CategoryDTO;
+import com.sunstar.dto.MailDTO;
 import com.sunstar.mapper.AdminMapper;
 import com.sunstar.mapper.MyPageMapper;
 
@@ -77,6 +78,13 @@ public class AdminServiceImple implements AdminService {
 		
 		adminmapper.add_lv2(cdto);
 		
+	}
+
+	
+	//∏ﬁ¿œ
+	@Override
+	public List<MailDTO> getMails() {
+		return adminmapper.getMails();
 	}
 	
 	

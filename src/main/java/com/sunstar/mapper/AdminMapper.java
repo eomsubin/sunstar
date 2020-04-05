@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.sunstar.dto.CategoryDTO;
+import com.sunstar.dto.MailDTO;
 
 @Mapper
 public interface AdminMapper {
@@ -18,6 +19,9 @@ public interface AdminMapper {
 	public List<CategoryDTO> getLv2();
 	public List<CategoryDTO> getLv3();
 	public void add_lv2(CategoryDTO cdto);
+	
+	//∏ﬁ¿œ
+	public List<MailDTO> getMails();
 	
 
 }

@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.sunstar.dto.CategoryDTO;
+import com.sunstar.dto.MailDTO;
 import com.sunstar.service.AdminService;
 import com.sunstar.service.FileUploadService;
 import com.sunstar.service.UserService;
@@ -167,6 +168,11 @@ public class AdminController {
 	
 	@RequestMapping("/oneforone")
 	public String oneforone(Model model) {
+		
+		
+		List<MailDTO> mlist = adminservice.getMails();
+		
+		model.addAttribute("mlist", mlist);
 		model.addAttribute("adminpage", "oneforone.jsp");
 		return "admin/temp";
 	}

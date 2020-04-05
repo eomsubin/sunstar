@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.sunstar.dto.CategoryDTO;
+import com.sunstar.dto.MailDTO;
 
 public interface AdminService {
 
@@ -15,5 +16,7 @@ public interface AdminService {
 	List<CategoryDTO> getLv2();
 	List<CategoryDTO> getLv3();
 	void add_lv2(CategoryDTO cdto);
+	//mail
+	List<MailDTO> getMails();
 
 }
