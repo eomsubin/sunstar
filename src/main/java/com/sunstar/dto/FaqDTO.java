@@ -14,3 +14,4 @@ public class FaqDTO {
 	private String faq_content;
 	private String faq_head;
 }
+

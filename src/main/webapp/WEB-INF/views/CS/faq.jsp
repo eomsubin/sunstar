@@ -6,71 +6,106 @@
 <html>
 <head>
 <!-- Required meta tags -->
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/customer_css/notice.css" />
-<title>SBBJ - 공지사항</title>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/customer_css/faq.css" />
+<script>
+$(document).ready(function(){
+	   hidecontent();
+	 
+	   function hidecontent(){
+	      $('.bcontent').hide();
+	   }
+	   
+	   
+	 $('.topcontent').on('click', function(){
+	    $(this).siblings('.bcontent').hide(); 
+	    $(this).next('.bcontent').toggle();
+	 });
+	 
+	}); 
+	
+function del(faq_no){
+	var chk = confirm("정말 삭제하시겠습니까?");
+	if(chk){
+		location.href='${pageContext.request.contextPath}/faq/del?faq_no='+faq_no;
+	}
+	
+}
+
+
+</script>
+<title>SBBJ - FAQ</title>
 </head>
 <body>			
 				<div class="col-sm-9">
 
-					<h5 class="notice pt-4 pb-4">공지사항</h5>
+					<h5 class="faq pt-4 pb-4">자주 묻는 질문</h5>
 					
-					<nav>
-  <div class="nav nav-tabs" id="nav-tab" role="tablist">
-    <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">전체 공지</a>
-    <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">일반 공지</a>
-    <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">안전거래 공지</a>
-  	<a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">위해상품 공지</a>
-  	<a type="button" class="btn addnotice" href="${pageContext.request.contextPath}/noticeadd" style="margin-left:auto; color:white; background-color: #274555">공지 작성 </a> 
-  </div>
-</nav>
-<div class="tab-content" id="nav-tabContent">
-<!-- 전체공지 -->
-  <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-  					<div id="noticeAll">
+					<nav class="navbar navbar-light  bg-light mt-3">
+					<div class="input-group p-2">
+						<input type="text" class="form-control"
+							aria-label="Example text with button addon"
+							aria-describedby="button-addon1">
+						<div class="input-group-append">
+							<button class="btn btn-outline-secondary" type="button">검색</button>
+						</div>
+					</div>
+					</nav>
+					
+	
+	  		<div class="addbtn">
+	     	<a type="button" class="btn addfaq my-2" href="${pageContext.request.contextPath}/faqadd" style="color:white; background-color: #274555">FAQ 작성 </a> 
+	  		</div>
+	
+
+				<!-- 전체faq -->
+
+  					<div id="faqAll">
 						<table class="table table-hover mt-3">
 							<colgroup>
 								<col width="7%;">
 								<col width="13%;">
+								<col width="13%;">
 								<col width="*">
-								<col width="20%;">
 							</colgroup>
 							<thead>
 								<tr>
 									<th scope="col">NO</th>
-									<th scope="col">공지분류</th>
+									<th scope="col">분류</th>
+									<th scope="col">말머리</th>
 									<th scope="col" class="lefttext">제목</th>
-									<th scope="col">공지일자</th>
 								</tr>
 							</thead>
 							<tbody>
 								
 								<c:if test="${list[0] eq null}">
-              					 <tr><td colspan="4"><strong>공지 내역이 없습니다.</strong></td></tr>
+              					 <tr><td colspan="4"><strong>자주 묻는 질문 내역이 없습니다.</strong></td></tr>
             		   			</c:if>
             		   		   <c:if test="${list[0] ne null}">
 						 		<c:forEach var="list" items="${list}">
 								<tr style="text-align: center;" class="topcontent">
-									<td>${list.notice_no}</td>
-									<td>${list.notice_category}</td>
-									<td class="lefttext">${list.notice_title}</td>
-									<td>${list.notice_date}</td>
+									<td>${list.faq_no}</td>
+									<td>${list.faq_category}</td>
+									<td>${list.faq_head}</td>
+									<td class="lefttext">${list.faq_title}</td>
 								</tr>
-								<tr class="bcontent"><td colspan="4">${list.notice_content}</td></tr>
+								<tr class="bcontent"><td colspan="4">
+								<div class="delsection">
+								<a type="button" class="btn delfaq btn-sm"
+								onclick='del(${list.faq_no})' style="border:1px solid #274555">삭제</a></div>
+								${list.faq_content}
+								
+								</td>
+								</tr>
 								</c:forEach>
 								</c:if>
 								
 							</tbody>
 						</table>
 					</div>
-					${list }
-</div>
-  <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">일반 공지</div>
-  <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">안전거래 공지</div>
-  <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">위해상품 공지</div>
-</div>
+
 					
 					<hr class="my-4">
 
-				</div>
+				
 </body>
 </html>

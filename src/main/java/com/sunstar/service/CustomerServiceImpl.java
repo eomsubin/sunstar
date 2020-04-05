@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.mysql.cj.protocol.x.Notice;
+import com.sunstar.dto.FaqDTO;
 import com.sunstar.dto.MailDTO;
 import com.sunstar.dto.NoticeDTO;
 import com.sunstar.mapper.CSMapper;
@@ -46,6 +47,24 @@ public class CustomerServiceImpl implements CustomerService {
 	public boolean delnotice(String notice_no) {
 		// TODO Auto-generated method stub
 		return csmapper.delnotice(notice_no);
+	}
+
+	@Override
+	public List<FaqDTO> faqlist() {
+		// TODO Auto-generated method stub
+		return csmapper.faqlist();
+	}
+
+	@Override
+	public int addfaq(FaqDTO dto) {
+		// TODO Auto-generated method stub
+		return csmapper.faqadd(dto);
+	}
+
+	@Override
+	public boolean delfaq(String faq_no) {
+		// TODO Auto-generated method stub
+		return csmapper.faqdel(faq_no);
 	}
 
 
