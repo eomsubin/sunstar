@@ -4,6 +4,10 @@ body{
     background-color: #eff1f6;
     
 }
+.lefttext{
+	text-align: left !important;
+}
+
 
 .topbar a{
 	color: #424646;

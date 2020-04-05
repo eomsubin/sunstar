@@ -27,4 +27,8 @@ public interface CSMapper {
 	int faqadd(FaqDTO dto);
 
 	boolean faqdel(String faq_no);
+
+	List<FaqDTO> faqhot10();
+
+	List<NoticeDTO> noticehot5();
 }

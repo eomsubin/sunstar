@@ -27,6 +27,10 @@ public interface CustomerService {
 
 	public boolean delfaq(String faq_no);
 
+	public List<FaqDTO> faqhot10();
+
+	public List<NoticeDTO> noticehot5();
+
 	
 	
 }

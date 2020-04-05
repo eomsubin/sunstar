@@ -40,9 +40,9 @@
                                         <span class="sel" style="width: 198px;">
                                             <select id="upperCategory" required="required" name="faq_category">
                                                 <option value="">FAQ분류 선택</option>
-                                                <option value="일반">회원정보</option>
-                                                <option value="안전">상품</option>
-                                                <option value="위해">기타</option>
+                                                <option value="회원정보">회원정보</option>
+                                                <option value="상품">상품</option>
+                                                <option value="기타">기타</option>
                                             </select>
                                         </span>
                                     </div>
@@ -62,12 +62,13 @@
                                         <span class="sel" style="width: 198px;">
                                             <select id="upperHead" required="required" name="faq_head">
                                                 <option value="">말머리 선택</option>
-                                                <option value="일반">정보변경</option>
-                                                <option value="일반">비밀번호 변경</option>
-                                                <option value="일반">탈퇴</option>
-                                                <option value="일반">주문</option>
-                                                <option value="일반">결제</option>
-                                                <option value="일반">기타</option>
+                                                <option value="HOT">HOT</option>
+                                                <option value="정보변경">정보변경</option>
+                                                <option value="비밀번호변경">비밀번호 변경</option>
+                                                <option value="탈퇴">탈퇴</option>
+                                                <option value="주문">주문</option>
+                                                <option value="결제">결제</option>
+                                                <option value="기타">기타</option>
                                             </select>
                                         </span>
                                     </div>

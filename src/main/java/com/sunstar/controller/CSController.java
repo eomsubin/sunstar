@@ -30,9 +30,14 @@ public class CSController {
 	@RequestMapping("/CS")
 	public String customer(Model model) throws Exception
 	{
+		List<FaqDTO> faq=customerservice.faqhot10();
+		List<NoticeDTO> notice=customerservice.noticehot5();
+		model.addAttribute("faq",faq);
+		model.addAttribute("notice",notice);
 		model.addAttribute("contentpage", "CS.jsp");
 		return "CS/CShome";
-	}
+		}
+
 	
 	//공지사항 리스트
 	@RequestMapping("/notice")
@@ -140,5 +145,6 @@ public class CSController {
 	}
 	
 	
-
+	
+	
 }

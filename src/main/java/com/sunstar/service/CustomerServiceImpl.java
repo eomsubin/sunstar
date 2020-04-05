@@ -67,6 +67,18 @@ public class CustomerServiceImpl implements CustomerService {
 		return csmapper.faqdel(faq_no);
 	}
 
+	@Override
+	public List<FaqDTO> faqhot10() {
+		// TODO Auto-generated method stub
+		return csmapper.faqhot10();
+	}
+
+	@Override
+	public List<NoticeDTO> noticehot5() {
+		// TODO Auto-generated method stub
+		return csmapper.noticehot5();
+	}
+
 
 
 
