@@ -38,6 +38,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.sunstar.dto.AccountsDTO;
 import com.sunstar.dto.CategoryDTO;
 import com.sunstar.dto.MailDTO;
 import com.sunstar.service.AdminService;
@@ -342,6 +343,20 @@ public class AdminController {
 		
 		
 		model.addAttribute("adminpage", "settings.jsp");
+		return "admin/temp";
+	}
+	
+	@RequestMapping("/acc")
+	public String acc(Model model) {
+		
+		
+		List<AccountsDTO> alist = adminservice.getAccList();
+		System.out.println(alist);
+		
+		model.addAttribute("alist", alist);
+
+		model.addAttribute("adminpage", "acc.jsp");
+
 		return "admin/temp";
 	}
    

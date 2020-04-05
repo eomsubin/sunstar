@@ -8,6 +8,7 @@ import java.util.StringTokenizer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.sunstar.dto.AccountsDTO;
 import com.sunstar.dto.CategoryDTO;
 import com.sunstar.dto.MailDTO;
 import com.sunstar.mapper.AdminMapper;
@@ -142,6 +143,12 @@ public class AdminServiceImple implements AdminService {
 	@Override
 	public void updateReply(MailDTO dto) {
 		adminmapper.updateReply(dto);
+	}
+
+	@Override
+	public List<AccountsDTO> getAccList() {
+		// TODO Auto-generated method stub
+		return adminmapper.getAccList();
 	}
 
 	

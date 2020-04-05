@@ -80,6 +80,7 @@
                         <a class="collapse-item" href="${pageContext.request.contextPath}/admin/seller_list">판매자 목록</a>
                         <a class="collapse-item" href="${pageContext.request.contextPath}/admin/seller_apply">신청 현황</a>
                         <a class="collapse-item" href="${pageContext.request.contextPath}/admin/category">카테고리 </a>
+                        <a class="collapse-item" href="${pageContext.request.contextPath}/admin/acc">정산신청 </a>
                     </div>
                 </div>
             </li>
@@ -92,8 +93,8 @@
                 </a>
                 <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="${pageContext.request.contextPath}/admin/notice">공지사항</a>
-                        <a class="collapse-item" href="${pageContext.request.contextPath}/admin/faq">자주하는 질문</a>
+                        <a class="collapse-item" href="${pageContext.request.contextPath}/notice">공지사항</a>
+                        <a class="collapse-item" href="${pageContext.request.contextPath}/faq">자주하는 질문</a>
                         <a class="collapse-item" href="${pageContext.request.contextPath}/admin/oneforone">1:1문의</a>
                     </div>
                 </div>

@@ -3,6 +3,7 @@ package com.sunstar.service;
 import java.util.HashMap;
 import java.util.List;
 
+import com.sunstar.dto.AccountsDTO;
 import com.sunstar.dto.CategoryDTO;
 import com.sunstar.dto.MailDTO;
 
@@ -23,6 +24,7 @@ public interface AdminService {
 	void add_lv3(CategoryDTO cdto);
 	List<MailDTO> getMails();
 	void updateReply(MailDTO dto);
+	List<AccountsDTO> getAccList();
 
 
 }

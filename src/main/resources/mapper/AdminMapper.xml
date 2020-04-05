@@ -118,6 +118,10 @@
 		where no=#{no}
 				
 	</update>
+	
+	<select id="getAccList" resultType="com.sunstar.dto.AccountsDTO">
+		select  * from accounts
+	</select>
 </mapper>
 	
 	
