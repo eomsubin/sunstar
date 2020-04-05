@@ -175,7 +175,6 @@
 			<textarea style="border: 0px solid silver;" class="form-control" rows="5" id="comment" name="comment" placeholder="최소 10자 이상 입력해주세요." maxlength="300"></textarea>
 			<p id="textlength" style="font-size: 15px" class="seller m-1">0/300</p>
 		</div>
-		
 		<button onclick="review()">등록</button>	
 		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 	</form>
