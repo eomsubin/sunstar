@@ -10,6 +10,12 @@
 <script>
 
 </script>
+
+<style>
+.inbl{
+	display: inline-block;
+}
+</style>
 </head>
 <body>
 	<div class="container-fluid">
@@ -42,14 +48,19 @@
 					<tbody>
 
 						<c:forEach var="i" items="${mlist}">
-							<tr>
+							<tr style="border-top:2px solid silver">
 								<td>${i.no}</td>
 								<td>${i.category}</td>
 								<td>${i.order_code}</td>
 								<td>${i.title}</td>
 								<td>${i.id}</td>
 								<td>${i.email}</td>
-								<td>답변상태</td>
+								<c:if test="${i.rep_state == '답변대기'}">
+									<td style="color: red; font-weight: 700;">${i.rep_state }</td>
+								</c:if>
+								<c:if test="${i.rep_state == '답변완료'}">
+									<td>${i.rep_state }</td>
+								</c:if>
 							</tr>
 							<tr>
 								<td></td>
@@ -57,28 +68,39 @@
 								<td colspan="5">${i.content}</td>
 							</tr>
 
-
-							<tr>
+					<c:if test="${i.rep_state == '답변완료' }">
+					<tr  style="border-bottom:2px solid silver">
+						<td></td>
+						<td>답변내용</td>
+						<td colspan="5">${i.reply}</td>
+					</tr>
+					
+					</c:if>
+					<c:if test="${i.rep_state == '답변대기' }">
+					
+							<tr  style="border-bottom:2px solid silver">
 								<td></td>
 								<td>답변 입력</td>
-								<td colspan="4" class="findtext">
+								<td colspan="5" class="findtext">
 									<div class="form-group">
 
-					<form>
-					<input type="hidden" value="${i.no}" >
-					<input type="hidden" value="${i.email}">
-					<textarea class="form-control" name="answer" id="answer" class="answer">asdf</textarea>
-					<input type="submit" value="전송">
+					<form action="${pageContext.request.contextPath}/admin/sendmail" method="post">
+					<input type="hidden" name="${_csrf.parameterName}"
+							value="${_csrf.token}" />
+						<input type="hidden" name="no" value="${i.no}" >
+						<input type="hidden" name="email" value="${i.email}">
+						<textarea class="form-control " name="reply" id="reply" class="reply"></textarea>
+						<input type="submit" class="btn btn-primary " value="전송">
 					</form>
 									</div>
 								</td>
-								<td>
+								
 
 									<%-- <button type="button" class="sendMailBtn btn btn-info"
 										onclick="sendMail('${i.no}','${i.email }') ">답변 전송</button> --%>
-								</td>
+								
 							</tr>
-
+					</c:if>
 
 						</c:forEach>
 

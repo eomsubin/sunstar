@@ -29,5 +29,6 @@ public interface AdminMapper {
 	
 	//¸ŞÀÏ
 	public List<MailDTO> getMails();
+	public void updateReply(MailDTO dto);
 	
 }

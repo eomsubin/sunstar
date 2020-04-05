@@ -16,4 +16,7 @@ public class MailDTO {
 	private String content;
 	private String order_code;
 	private String date;
+	
+	private String reply;
+	private String rep_state;
 }

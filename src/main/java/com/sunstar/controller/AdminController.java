@@ -308,6 +308,35 @@ public class AdminController {
 		return "admin/temp";
 	}
 	
+	@RequestMapping("/sendmail")
+	public String sendmail(MailDTO dto) {
+		
+		System.out.println(dto);
+		
+		adminservice.updateReply(dto);
+		
+		//메일전송
+		  final MimeMessagePreparator pp = new MimeMessagePreparator() {
+	         
+	         @Override
+	         public void prepare(MimeMessage mimeMessage) throws Exception {
+	            final MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true, "utf-8");
+	            helper.setFrom("wlsdn9489@naver.com");
+	            helper.setTo("choi-solyi@naver.com");
+	            helper.setSubject("1:1문의에 대한답변입니다.");
+	            helper.setText("<b><p>"+ "안녕하세요.스삐제에 문의해주셔서 감사합니다. <br> 문의사항에 대한 답변입니다."+ "</p></b>"
+	            		+ dto.getReply()+ "</b>"
+	                  + "<br>"
+	                  + "<img src="+"http://choisolyi.dothome.co.kr/img/thankyou.jpg"+">", true);
+	         }
+	      };
+	      
+	      mailSender.send(pp);
+
+		
+		return "redirect:/admin/oneforone";
+	}
+	
 	@RequestMapping("/settings")
 	public String settings(Model model) {
 		

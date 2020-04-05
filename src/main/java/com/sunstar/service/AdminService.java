@@ -22,6 +22,7 @@ public interface AdminService {
 	void add_lv2(CategoryDTO cdto);
 	void add_lv3(CategoryDTO cdto);
 	List<MailDTO> getMails();
+	void updateReply(MailDTO dto);
 
 
 }

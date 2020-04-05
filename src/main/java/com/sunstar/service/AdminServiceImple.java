@@ -138,4 +138,13 @@ public class AdminServiceImple implements AdminService {
 	public List<MailDTO> getMails() {
 		return adminmapper.getMails();
 	}
+
+	@Override
+	public void updateReply(MailDTO dto) {
+		adminmapper.updateReply(dto);
+	}
+
+	
+	
+	
 }
