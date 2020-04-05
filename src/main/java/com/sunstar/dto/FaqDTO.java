@@ -7,13 +7,11 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Setter @Getter @AllArgsConstructor @NoArgsConstructor @ToString
-public class MailDTO {
-	private String no;
-	private String id;
-	private String email ;
-	private String category;
-	private String title;
-	private String content;
-	private String order_code;
-	private String date;
+public class FaqDTO {
+	private String faq_no;
+	private String faq_category;
+	private String faq_title;
+	private String faq_content;
+	private String faq_head;
 }
+

@@ -1,7 +1,9 @@
 package com.sunstar.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.StringTokenizer;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,16 +19,49 @@ public class AdminServiceImple implements AdminService {
 	@Autowired
 	private AdminMapper adminmapper;
 	
-	@Override
+	@Override // jinwoo
 	public List<HashMap<String, String>> getSellerApply(HashMap<String, String> map) {
 		return adminmapper.getSellerApply(map);
 	}
 
-	@Override
+	@Override // jinwoo
 	public List<HashMap<String, String>> getSellerList(HashMap<String, String> map) {
 		return adminmapper.getSellerList(map);
 	}
 
+	@Override // jinwoo
+	public List<HashMap<String, Object>> getCSellerList(String id) {
+		StringTokenizer str = new StringTokenizer(id,",");
+		List<String> idl = new ArrayList<String>();
+		while(str.hasMoreTokens())
+		{
+			idl.add(str.nextToken());
+		}
+		return adminmapper.getCSellerList(idl);
+	}
+
+	@Override // jinwoo
+	public List<HashMap<String, Object>> getCSellerprduct(String id) {
+		StringTokenizer str = new StringTokenizer(id,",");
+		List<String> idl = new ArrayList<String>();
+		while(str.hasMoreTokens())
+		{
+			idl.add(str.nextToken());
+		}
+		return adminmapper.getCSellerprduct(idl);
+	}
+
+	@Override // jinwoo
+	public List<HashMap<String, Object>> getCSellerordered(String id) {
+		StringTokenizer str = new StringTokenizer(id,",");
+		List<String> idl = new ArrayList<String>();
+		while(str.hasMoreTokens())
+		{
+			idl.add(str.nextToken());
+		}
+		return adminmapper.getCSellerordered(idl);
+	}
+	
 	@Override
 	public List<CategoryDTO> getLv1() {
 		
@@ -80,13 +115,27 @@ public class AdminServiceImple implements AdminService {
 		
 	}
 
-	
+	@Override
+	public void add_lv3(CategoryDTO cdto) {
+		
+		if(cdto.getLv1().equals("패션")) {
+			cdto.setLv2con("A");
+		}else if(cdto.getLv1().equals("디지털-가전")) {
+			cdto.setLv2con("B");
+		}else if(cdto.getLv1().equals("가구-인테리어")) {
+			cdto.setLv2con("C");
+		}else if(cdto.getLv1().equals("식품")) {
+			cdto.setLv2con("D");
+		}else {
+			cdto.setLv2con("E");
+		}
+			
+		adminmapper.add_lv3(cdto);
+		
+	}
 	//메일
 	@Override
 	public List<MailDTO> getMails() {
 		return adminmapper.getMails();
 	}
-	
-	
-
 }

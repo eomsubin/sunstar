@@ -1,13 +1,28 @@
-
 package com.sunstar.controller;
 
 import java.security.Principal;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.StringTokenizer;
 
 import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.hssf.util.HSSFColor.HSSFColorPredefined;
+import org.apache.poi.ss.usermodel.BorderStyle;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.FillPatternType;
+import org.apache.poi.ss.usermodel.HorizontalAlignment;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
@@ -31,26 +46,25 @@ import com.sunstar.service.UserService;
 
 @Controller @RequestMapping("/admin/*")
 public class AdminController {
-	
-	@Autowired
-	private AdminService adminservice;
-	
-	@Autowired
-	@Qualifier("userservice")
-	private UserService userservice;
-	
-	@Autowired
-	private JavaMailSenderImpl mailSender;
-	
-	public String getId( Model model, Principal principal) {
-		String id = "";
-		if(principal!=null) {
-			id= principal.getName();
-			System.out.println(id);
-		}
-		return id;
-	}
-
+   
+   @Autowired
+   private AdminService adminservice;
+   
+   @Autowired
+   @Qualifier("userservice")
+   private UserService userservice;
+   
+   @Autowired
+   private JavaMailSenderImpl mailSender;
+   
+   public String getId( Model model, Principal principal) {
+      String id = "";
+      if(principal!=null) {
+         id= principal.getName();
+         System.out.println(id);
+      }
+      return id;
+   }
 	
 	@RequestMapping("/index")
 	public String index(Model model) {
@@ -69,14 +83,12 @@ public class AdminController {
 	}
 	
 	@RequestMapping("/seller_submit")
-	public String seller_submit(Model model, @RequestParam HashMap<String, String> map) {
+	public String seller_submit(Model model, @RequestParam HashMap<String, String> map) throws Exception{
 		System.out.println(map);
-		
-		
+		//승인
 		if(((String)map.get("YN")).equals("submit")) {
-			//권한 등록
+			// 권한 등록 
 			userservice.join_Sellerauth(map);
-
 			// 메일 전송 반복문			
 			StringTokenizer st = new StringTokenizer(map.get("email"),",");
 			while(st.hasMoreTokens()) {
@@ -95,9 +107,13 @@ public class AdminController {
 			};
 			mailSender.send(pp);
 			};
-			//반려
-		}else {
+			return "redirect:/admin/seller_apply";
+		//end 승인
+		//반려
+		}else if(((String)map.get("YN")).equals("reject")){
+			// seller 등록정보 삭제
 			userservice.rejectjoin_Sellerre(map);
+			// 메일 전송 반복문
 			StringTokenizer st = new StringTokenizer(map.get("email"),",");
 			while(st.hasMoreTokens()) {
 			final MimeMessagePreparator pp = new MimeMessagePreparator() {
@@ -114,9 +130,26 @@ public class AdminController {
 			};
 			mailSender.send(pp);
 			};
-		}
+			return "redirect:/admin/seller_apply";
+		//end 반려
+		//계정 정지
+		}else if(((String)map.get("YN")).equals("stop")){
+			// seller auth권한 삭제, seller_state 0, seller의 product_state 0
+			userservice.Acsuspensionseller(map);
+		//end 계정정지
+		//계정 활동
+		}else if(((String)map.get("YN")).equals("activity")){
+			// seller auth권한 부여, seller_state 1, seller의 product_state 1
+			userservice.Actseller(map);
+		//end 계정활동
+		//seller 계정삭제
+		}else if(((String)map.get("YN")).equals("remove")){
+			userservice.delseller(map);
+			
+		}	
+		//end seller 계정삭제
 		
-		return "redirect:/admin/seller_apply";
+		return "redirect:/admin/seller_list";
 	}
 	
 	@RequestMapping("/seller_list")			
@@ -128,6 +161,92 @@ public class AdminController {
 		return "admin/temp";
 	}
 	
+	@RequestMapping("/sellerExcel/{id}/{act}")
+	public void sellerExcel(Model model, HttpServletResponse response, @PathVariable String id, @PathVariable String act) throws Exception{
+		List<HashMap<String, Object>> list = new ArrayList<>();
+		if(act.equals("1")){
+				list= adminservice.getCSellerList(id);
+		}else if(act.equals("2")) {
+			list = adminservice.getCSellerprduct(id);
+		}else if(act.equals("3")) {
+			list = adminservice.getCSellerordered(id);
+		}
+		
+		Workbook wb = new HSSFWorkbook();
+		Sheet sheet = wb.createSheet("판매자 목록");
+		Row row = null;
+		Cell cell = null;
+		int nowNum = 0;
+		
+		CellStyle headStyle = wb.createCellStyle();
+		
+		// 가는 경계선을 가집니다.
+		headStyle.setBorderTop(BorderStyle.THIN);
+		headStyle.setBorderBottom(BorderStyle.THIN);
+		headStyle.setBorderLeft(BorderStyle.THIN);
+		headStyle.setBorderRight(BorderStyle.THIN);
+
+		// 배경색은 노란색입니다.
+		headStyle.setFillForegroundColor(HSSFColorPredefined.YELLOW.getIndex());
+		headStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+
+		// 데이터는 가운데 정렬합니다.
+		headStyle.setAlignment(HorizontalAlignment.CENTER);	
+		// 데이터용 경계 스타일 테두리만 지정
+		
+		CellStyle bodyStyle = wb.createCellStyle();
+		bodyStyle.setBorderTop(BorderStyle.THIN);
+		bodyStyle.setBorderBottom(BorderStyle.THIN);
+		bodyStyle.setBorderLeft(BorderStyle.THIN);
+		bodyStyle.setBorderRight(BorderStyle.THIN);
+		// 헤더 생성
+		
+		HashMap<String, Object> item = list.get(0);
+		Iterator<String> keyita = item.keySet().iterator();
+		List<String> keylist = new ArrayList<String>();
+		
+		while(keyita.hasNext())
+		{
+			keylist.add(keyita.next());
+		}
+		
+		row = sheet.createRow(nowNum++);
+		int index=0;
+		for(String key : keylist)
+		{
+			cell = row.createCell(index++);
+			cell.setCellStyle(headStyle);
+			cell.setCellValue(key);
+		}
+		
+		for(HashMap<String, Object> map : list)
+		{			
+			index=0;
+			row = sheet.createRow(nowNum++);
+			for(String key : keylist) {
+				cell = row.createCell(index++);
+				cell.setCellStyle(bodyStyle);
+				cell.setCellValue(""+map.get(key));
+				}
+		}
+		
+		// 컨텐츠 타입과 파일명 지정
+		response.setContentType("ms-vnd/excel");
+		
+		SimpleDateFormat frm = new SimpleDateFormat("yyyyMMddHHmmss");
+
+		Date date = new Date();
+
+		String time1 = frm.format(date);
+
+		String filename = "attachment;filename="+time1+".xls";
+
+		response.setHeader("Content-Disposition", filename );
+
+		// 엑셀 출력
+		wb.write(response.getOutputStream());
+		wb.close();
+	}
 	
 	@RequestMapping("/category")
 	public String category(Model model
@@ -151,7 +270,7 @@ public class AdminController {
 	public String add_lv2(@PathVariable String lv1_val,@PathVariable String lv2_name,@PathVariable String lv3_name) {
 		
 		System.out.println(lv1_val+"  "+lv2_name);
-		
+		System.out.println(lv3_name);
 		CategoryDTO cdto = new CategoryDTO();
 		cdto.setLv1(lv1_val);
 		cdto.setLv2(lv2_name);
@@ -163,6 +282,18 @@ public class AdminController {
 		return "redirect:/admin/category";
 	}
 	
+	@RequestMapping("/add_lv3/{level1}/{level2}/{lev3_name}")
+	public String add_lv3(@PathVariable String level1,@PathVariable String level2,@PathVariable String lev3_name) {
+		
+		CategoryDTO cdto = new CategoryDTO();
+		cdto.setLv1(level1);
+		cdto.setLv2(level2);
+		cdto.setLv3(lev3_name);
+		
+		adminservice.add_lv3(cdto);
+		
+		return "redirect:/admin/category";
+	}
 	
 	
 	
@@ -184,9 +315,5 @@ public class AdminController {
 		model.addAttribute("adminpage", "settings.jsp");
 		return "admin/temp";
 	}
-	
-	
-	
+   
 }
-	
-

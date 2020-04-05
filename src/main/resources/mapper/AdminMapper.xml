@@ -26,6 +26,43 @@
 	order by seller_code desc
 	</select>
 	
+	<select id="getCSellerList" resultType="hashmap" parameterType="list">
+	select * from seller
+	where id in
+	<foreach item="item" index="index" collection="list"
+      open="(" separator="," close=")">
+        #{item}
+    </foreach> 
+	</select>
+	
+	<select id="getCSellerprduct" resultType="hashmap" parameterType="list">
+	select s.id, p.* 
+	from product_list p join seller s 
+	on p.seller_code=s.seller_code 
+	where s.id in 
+	<foreach item="item" index="index" collection="list"
+      open="(" separator="," close=")">
+        #{item}
+    </foreach> 	
+	</select>
+	
+	<select id="getCSellerordered" resultType="hashmap" parameterType="list">
+	select ol.*, p.*, s.*, o.id as 'customerid', o.order_way, o.message, o.shipping_addr1, o.shipping_addr2, o.shipping_addr3, o.shipping_zip, o.to_name
+	from order_list ol left join ordered o 
+	on ol.order_code=o.order_code 
+	left join product_list p 
+	on ol.product_code=p.product_code
+	left join seller s
+	on s.seller_code = p.seller_code
+	where s.id in 
+	<foreach item="item" index="index" collection="list"
+      open="(" separator="," close=")">
+        #{item}
+    </foreach> 	
+	</select>
+	<!-- end jinwoo -->
+	
+	
 	<select id="getLv1" resultType="com.sunstar.dto.CategoryDTO">
 		 select distinct lv1 from category
 	
@@ -53,6 +90,18 @@
 	
 	</insert>
 	
+	 <insert id="add_lv3" parameterType="com.sunstar.dto.CategoryDTO">
+	 	<selectKey keyProperty="lv2code,category_code" order="BEFORE" resultType="com.sunstar.dto.CategoryDTO" >
+			   select concat(#{lv2con},lpad(max(substr(category_code,2,4))+1,4,"0")) as category_code, concat(#{lv2con},lpad(max(substr(lv2code,2,3))+1,2,"0")) as lv2code
+   			 	from category
+    			where lv1= #{lv1}
+		</selectKey>
+		insert into category(lv2,lv2code,lv1,category_code,lv3)
+		values(#{lv2},#{lv2code},#{lv1},#{category_code},#{lv3})
+	 
+	 
+	 
+	 </insert>
 	
 	
 	<!-- 메일 가져오기  -->
@@ -61,5 +110,6 @@
 		from mails
 		order by no desc
 	</select>
-	
 </mapper>
+	
+	
