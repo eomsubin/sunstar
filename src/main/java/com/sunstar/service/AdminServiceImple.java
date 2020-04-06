@@ -68,6 +68,43 @@ public class AdminServiceImple implements AdminService {
 		return adminmapper.getCustomerList(map);
 	}	
 	
+
+	@Override // jinwoo 
+	public List<HashMap<String, Object>> getCCustomerList(String id) {
+		StringTokenizer str = new StringTokenizer(id,",");
+		List<String> idl = new ArrayList<String>();
+		while(str.hasMoreTokens())
+		{
+			idl.add(str.nextToken());
+		}
+		return adminmapper.getCCustomerList(idl);
+	}
+	
+	@Override
+	public List<HashMap<String, Object>> getCCustomermails(String id) {
+		StringTokenizer str = new StringTokenizer(id,",");
+		List<String> idl = new ArrayList<String>();
+		while(str.hasMoreTokens())
+		{
+			idl.add(str.nextToken());
+		}
+		return adminmapper.getCCustomermails(idl);
+	}
+	
+	@Override
+	public List<HashMap<String, Object>> getCCustomerordered(String id) {
+		StringTokenizer str = new StringTokenizer(id,",");
+		List<String> idl = new ArrayList<String>();
+		while(str.hasMoreTokens())
+		{
+			idl.add(str.nextToken());
+		}
+		return adminmapper.getCCustomerordered(idl);
+	}
+
+
+	
+	// end jinwoo 
 	@Override
 	public List<CategoryDTO> getLv1() {
 		

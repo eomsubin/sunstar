@@ -89,7 +89,7 @@
 		idsum = idsum.slice(0,-1);
 		
 		//console.log(idsum);
-		location.href = "${pageContext.request.contextPath}/admin/sellerExcel/"+idsum+"/"+act;
+		location.href = "${pageContext.request.contextPath}/admin/Excel/"+idsum+"/"+act;
 	}
 </script>
 </head>

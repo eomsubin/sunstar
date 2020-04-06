@@ -129,4 +129,29 @@ public class UserServiceimple implements UserService{
 		}
 		return result;		
 	}
+
+	@Override
+	public int Setenable_customer(HashMap<String, String> map) {
+		StringTokenizer st = new StringTokenizer(map.get("id"),",");
+		String act=(String)map.get("YN");
+		int result =0; 
+		while(st.hasMoreTokens()) {
+			HashMap<String, String> query = new HashMap<>();  
+			String id= st.nextToken();
+			query.put("id", id);
+			query.put("act", act);
+			result += dao.Setenable_customer(query);
+		}
+		return result;
+	}
+
+	@Override
+	public int delcustomer(HashMap<String, String> map) {
+		StringTokenizer st = new StringTokenizer(map.get("id"),",");
+		int result =0; 
+		while(st.hasMoreTokens()) {
+			result += dao.delcustomer(st.nextToken());
+		}
+		return result;		
+	}
 }

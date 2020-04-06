@@ -74,7 +74,7 @@
 		console.log($('input:hidden[name=YN]').val());
 		console.log($('input:hidden[name=m]').val());
 		console.log($('input:hidden[name=email]').val()); 
-		//$('form').submit();
+		$('form').submit();
 	}
 	
 	function productallprint(act) {
@@ -88,8 +88,8 @@
 		})
 		idsum = idsum.slice(0,-1);
 		
-		//console.log(idsum);
-		//location.href = "${pageContext.request.contextPath}/admin/customerExcel/"+idsum+"/"+act;
+		console.log(idsum);
+		location.href = "${pageContext.request.contextPath}/admin/Excel/"+idsum+"/"+act;
 	}
 </script>
 </head>
@@ -128,7 +128,7 @@ a{
 			<div class="card-body">
 				<!-- 여기 내부만 수정하시면 됩니다  -->
 				<div class="table-responsive">
-					<form method="post" action="${pageContext.request.contextPath}/admin/seller_submit">
+					<form method="post" action="${pageContext.request.contextPath}/admin/customer_submit">
 						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 						<input type="hidden" name="YN"/>
 						<input type="hidden" name="m"/>
@@ -138,7 +138,7 @@ a{
 							onclick="productallprint()">전체출력</button>
  						-->
  						<p class="my-0">엑셀로 출력 </p>
- 					<button type="button" class="btn btn-secondary mx-3 mb-3" onclick="productallprint(1)">고객 정보</button> <button type="button" class="btn btn-secondary mb-3" onclick="productallprint(2)">고객 문의정보</button> <button type="button" class="btn btn-secondary mb-3 mx-3" onclick="productallprint(3)">고객 주문정보</button>  
+ 					<button type="button" class="btn btn-secondary mx-3 mb-3" onclick="productallprint(4)">고객 정보</button> <button type="button" class="btn btn-secondary mb-3" onclick="productallprint(5)">고객 문의정보</button> <button type="button" class="btn btn-secondary mb-3 mx-3" onclick="productallprint(6)">고객 주문정보</button>  
 				<table class="table table-bordered mb-0" id="dataTable"
 							style="width: 100%;">
 							<thead>
