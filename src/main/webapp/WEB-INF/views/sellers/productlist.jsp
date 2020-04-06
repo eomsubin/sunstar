@@ -312,11 +312,14 @@ $(document).ready(function() {
 	$('#btndeletemodal').on('click', function() {
 		$('#deletemodal').modal();
 	})
+	
+	let pcodes = new Array();
 	$('#btndelete').on('click',	function() {
 		$("input[name=pcode]:checked").each(function() {
 			var pcode = $(this).val();
 			console.log(pcode);
-			location.href = "${pageContext.request.contextPath}/seller/deleteproduct/"+ pcode;
+			pcodes.push(pcode);
+			location.href = "${pageContext.request.contextPath}/seller/deleteproduct/"+ pcodes;
 
 		});
 	})

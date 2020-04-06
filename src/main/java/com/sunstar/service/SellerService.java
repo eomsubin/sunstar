@@ -25,7 +25,7 @@ public interface SellerService {
 
 	List<ProductDTO> list();
 
-	void deleteProduct(int pcode);
+	void deleteProduct(int data);
 
 	List<String> getOptioncolor(int pcode);
 	

@@ -67,7 +67,7 @@
 									href="${pageContext.request.contextPath}/seller/view_step/step3">
 									<div
 										class="text-xs font-weight-bold text-danger text-uppercase mb-1">
-										배송대기중</div>
+										배송준비</div>
 									<div class="h5 mb-0 font-weight-bold text-gray-800">
 										<c:out value="${ready}"></c:out>
 									</div>
