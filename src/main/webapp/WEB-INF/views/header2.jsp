@@ -103,7 +103,7 @@
                         </sec:authorize>
 
                         <sec:authorize access="isAuthenticated()">
-                           <li><i class="ti-user"></i> <a href="${pageContext.request.contextPath }/mypage/info">마이페이지</a></li>
+                           <li><i class="ti-user"></i> <a href="${pageContext.request.contextPath }/mypage/order">마이페이지</a></li>
                         </sec:authorize>
                         <sec:authorize access="isAnonymous()">
                            <li><i class="ti-power-off"></i><a

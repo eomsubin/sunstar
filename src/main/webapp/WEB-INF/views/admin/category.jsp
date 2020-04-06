@@ -107,7 +107,7 @@
 		<!-- Page Heading -->
 		<h1 class="h3 mb-2 text-gray-800">카테고리</h1>
 		<p class="mb-4">
-			카테고리를 추가 할 수 있습니다.
+			카테고리를 추가,삭제 할 수 있습니다.
 		</p>
 
 		<!-- DataTales Example -->
@@ -124,7 +124,6 @@
 								<tr>
 									<th style="width: 50px"><input type="checkbox" id="all"></th>
 									<th colspan="6">카테고리명</th>
-									
 									<th >카테고리생성</th>
 									<th >삭제</th>
 									<!-- <th>업체명</th>
@@ -138,19 +137,19 @@
 							</thead>
 							<tbody>
 								<c:forEach var="lv1" items="${lv1 }">
-								<tr class="table-danger">
+								<tr class="table-primary">
 									<td><input type="checkbox" name="lv1check" value="${lv1.lv1 }"></td>
 									<td colspan="6" >(1차)${lv1.lv1 }</td>
 									<td><button class="lv2add btn btn-secondary" data-toggle="modal" data-target="#exampleModal">2차카테고리 추가</button></td>
 									<td></td>
 								</tr>
 									<c:forEach var="lv2" items="${lv2 }">
-									<tr class="table-warning">
+									<tr class="table-active">
 										<c:if test="${lv1.lv1 eq lv2.lv1 }">
 											<td><input type="checkbox" name="lv2check" value="${lv2.lv2 }"></td>
 											<td colspan="6">(2차)${lv2.lv2 }</td>
-											<td><button class="lv3add btn btn-danger" value="${lv2.lv1 }" data-toggle="modal" data-target="#exampleModal2">3차카테고리 추가</button></td>
-											<td><button class="droplv2 btn btn-primary" value="${lv2.lv2 }">2차 삭제하기</button></td>
+											<td><button class="lv3add btn btn-secondary" value="${lv2.lv1 }" data-toggle="modal" data-target="#exampleModal2">3차카테고리 추가</button></td>
+											<td><button class="droplv2 btn btn-danger" value="${lv2.lv2 }">2차 삭제하기</button></td>
 										</c:if>
 									</tr>
 									<c:forEach var="lv3" items="${lv3 }">
@@ -160,7 +159,7 @@
 											<td><input type="checkbox" name="lv3check" value="${lv3.category_code }"></td>
 											<td colspan="6">(3차)${lv3.lv3 }</td>
 											<td></td>
-											<td><button class="droplv3 btn btn-success" value="${lv3.lv3 }">3차 삭제하기</button></td>
+											<td><button class="droplv3 btn btn-danger" value="${lv3.lv3 }">3차 삭제하기</button></td>
 											
 										</tr>
 										</c:if>
