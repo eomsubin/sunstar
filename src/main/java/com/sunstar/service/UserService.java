@@ -28,4 +28,8 @@ public interface UserService {
 	public int Actseller(HashMap<String, String> map);
 
 	public int delseller(HashMap<String, String> map);
+
+	public int Setenable_customer(HashMap<String, String> map);
+
+	public int delcustomer(HashMap<String, String> map);
 }

@@ -93,6 +93,7 @@
                 </a>
                 <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
+						<a class="collapse-item" href="${pageContext.request.contextPath}/admin/customer_list">고객 목록</a>                   
                         <a class="collapse-item" href="${pageContext.request.contextPath}/notice">공지사항</a>
                         <a class="collapse-item" href="${pageContext.request.contextPath}/faq">자주하는 질문</a>
                         <a class="collapse-item" href="${pageContext.request.contextPath}/admin/oneforone">1:1문의</a>

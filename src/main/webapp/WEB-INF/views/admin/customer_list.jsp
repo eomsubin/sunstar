@@ -21,7 +21,7 @@
 				$('input:checkbox').prop('checked',false);
 			}
 		});
-		$('input:checkbox[name=sid]').click(function(){
+		$('input:checkbox[name=id]').click(function(){
 			$('#allck').prop('checked',false);
 		});
 		
@@ -48,12 +48,12 @@
 		let idsum="";
 		let emailsum="";
 		let message="";
-		if($('input:checkbox[name=sid]:checked').length==0){
+		if($('input:checkbox[name=id]:checked').length==0){
 			return;
 		}
-		$.each($('input:checkbox[name=sid]:checked'),function(){
+		$.each($('input:checkbox[name=id]:checked'),function(){
 			idsum+=$(this).val()+","
-			emailsum+=$(this).data("semail")+","
+			emailsum+=$(this).data("email")+","
 		})
 		if(ch==="O"){
 			$('input:hidden[name=YN]').val("activity");
@@ -66,11 +66,11 @@
 		// 문자열 합치기
 		idsum = idsum.slice(0,-1);
 		emailsum = emailsum.slice(0,-1);
-		$('input:checkbox[name=sid]:checked').val(idsum);
+		$('input:checkbox[name=id]:checked').val(idsum);
 		$('input:hidden[name=email]').val(emailsum);
 		$('input:hidden[name=m]').val(message);
 		// 제출
-		console.log($('input:checkbox[name=sid]:checked').val());
+		console.log($('input:checkbox[name=id]:checked').val());
 		console.log($('input:hidden[name=YN]').val());
 		console.log($('input:hidden[name=m]').val());
 		console.log($('input:hidden[name=email]').val()); 
@@ -80,15 +80,15 @@
 	function productallprint(act) {
 		let idsum="";
 		
-		if($('input:checkbox[name=sid]:checked').length==0){
+		if($('input:checkbox[name=id]:checked').length==0){
 			return;
 		}
-		$.each($('input:checkbox[name=sid]:checked'),function(){
+		$.each($('input:checkbox[name=id]:checked'),function(){
 			idsum+=$(this).val()+","
 		})
 		idsum = idsum.slice(0,-1);
 		
-		//console.log(idsum);
+		console.log(idsum);
 		location.href = "${pageContext.request.contextPath}/admin/Excel/"+idsum+"/"+act;
 	}
 </script>
@@ -116,19 +116,19 @@ a{
 <body>
 	<div class="container-fluid">
 		<!-- Page Heading -->
-		<h1 class="h3 mb-2 text-gray-800">판매자 목록</h1>
+		<h1 class="h3 mb-2 text-gray-800">고객 목록</h1>
 		<p class="mb-4">
 			<!-- 페이지 설명 <a target="_blank" href="https://datatables.net">추가 링크 삽입</a>. -->
 		</p>
 		<!-- DataTales Example -->
 		<div class="card shadow mb-4">
 			<div class="card-header py-3">
-				<h6 class="m-0 font-weight-bold text-primary">판매자 목록</h6>
+				<h6 class="m-0 font-weight-bold text-primary">고객 목록</h6>
 			</div>
 			<div class="card-body">
 				<!-- 여기 내부만 수정하시면 됩니다  -->
 				<div class="table-responsive">
-					<form method="post" action="${pageContext.request.contextPath}/admin/seller_submit">
+					<form method="post" action="${pageContext.request.contextPath}/admin/customer_submit">
 						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 						<input type="hidden" name="YN"/>
 						<input type="hidden" name="m"/>
@@ -138,37 +138,33 @@ a{
 							onclick="productallprint()">전체출력</button>
  						-->
  						<p class="my-0">엑셀로 출력 </p>
- 					<button type="button" class="btn btn-secondary mx-3 mb-3" onclick="productallprint(1)">판매자 정보</button> <button type="button" class="btn btn-secondary mb-3" onclick="productallprint(2)">판매자 상품</button> <button type="button" class="btn btn-secondary mb-3 mx-3" onclick="productallprint(3)">판매자 주문정보</button>  
+ 					<button type="button" class="btn btn-secondary mx-3 mb-3" onclick="productallprint(4)">고객 정보</button> <button type="button" class="btn btn-secondary mb-3" onclick="productallprint(5)">고객 문의정보</button> <button type="button" class="btn btn-secondary mb-3 mx-3" onclick="productallprint(6)">고객 주문정보</button>  
 				<table class="table table-bordered mb-0" id="dataTable"
 							style="width: 100%;">
 							<thead>
 								<tr>
  									<th><input type="checkbox" id="allck"></th>
-									<th>고유번호</th>
- 									<th>업체명</th>
-									<th>아이디</th>	
- 									<th>이메일</th>
-									<th>주소</th>
+									<th>아이디</th>
+ 									<th>이름</th>
+									<th>이메일</th>	
+ 									<th>주소</th>
 									<th>전화번호</th>
 									<th>상태</th>
-									<th>사업자등록번호</th>
-									<th>판매가능기한</th>
+									<th>가입일</th>
 								</tr>
 							</thead>
  							<tbody>								
 								<c:forEach var="item" items="${list}">
 								<tr>
-									<td><input type="checkbox" name="sid" value="${item.id}" data-semail="${item.seller_email}" data-seller_state="${item.seller_state}" /></td>
-									<td><a href="${pageContext.request.contextPath}/seller/seller_list/${item.seller_code}">${item.seller_code}</a></td>
-									<td>${item.seller_name}</td>
+									<td><input type="checkbox" name="id" value="${item.id}" data-email="${item.email}" data-enable="${item.enable}" /></td>
 									<td>${item.id}</td>
-									<td>${item.seller_email}</td>
-									<td>${item.seller_address1} ${item.seller_address2} ${item.seller_address3}</td>
-									<td>${item.seller_tel}</td>
-									<c:if test="${item.seller_state eq 1}"><td>활동</td></c:if>
-									<c:if test="${item.seller_state ne 1}"><td>정지</td></c:if>
-									<td>${item.business_license}</td>
-									<td>${item.seller_deadline}</td>
+									<td>${item.name}</td>
+									<td>${item.email}</td>
+									<td>${item.address1} ${item.address2} ${item.address3}</td>
+									<td>${item.tel}</td>
+									<c:if test="${item.enable eq 1}"><td>활동</td></c:if>
+									<c:if test="${item.enable ne 1}"><td>정지</td></c:if>								
+									<td>${item.join_date}</td>
 								</tr>
 								</c:forEach>
 							</tbody> 

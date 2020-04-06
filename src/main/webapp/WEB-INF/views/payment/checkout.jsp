@@ -277,14 +277,16 @@ function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2, zipNo
 									<c:set var="sum2" value="0"/>
 								
 								<c:forEach var="sellerlist" items="${sellerlist }" >									
-								 	 <ul><li>업체명<span>${sellerlist.value}</span></li>
+								 	 <ul><li style="font-weight: 800; color: #FE9A2E;">업체명<span>${sellerlist.value}</span></li>
 								 	 		
 								 	 		<c:forEach var="shipping" items="${shipcost }">
 								 	 			<c:if test="${sellerlist.key == shipping.key }">
 								 	 			
-								 	 				 <li>배송비<span>${shipping.value} 원</span></li> 
+								 	 				 <li style="font-weight: 800; color: #FE9A2E;">배송비<span>${shipping.value} 원</span></li> 
 								 	 		 <c:set var="sum2" value="${sum2+(shipping.value)}"/>
 								 	 		 	</c:if>
+								 	 		 
+								 	 		 	
 								 	 		 	 
 								 	 		 </c:forEach>
 								 	 	
@@ -625,8 +627,8 @@ function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2, zipNo
 						msg += '상점 거래ID : ' + rsp.merchant_uid;
 						msg += '결제 금액 : ' + rsp.paid_amount;
 						msg += '카드 승인번호 : ' + rsp.apply_num; 
+						location.href="${pageContext.request.contextPath}/checkout_complete";
 						
-						location.href="${pageContext.request.contextPath}/";
 					} else {
 
 						// 결제 실패 시 로직,

@@ -44,10 +44,11 @@
 	
 <style>
 .shipinfo{
-	background-color: silver;
+	background-color:#FBEFEF;
 	position: relative;
 	left:110px;
 	width:700px;
+	padding: 15px;
 }
 .addbtn{
 	text-align:center;
@@ -211,12 +212,13 @@ function deleteShip(){
 						<div class="single-widget category ">
 							<h3 class="title">마이페이지</h3>
 							<ul class="categor-list">
-								<li><a href="${pageContext.request.contextPath }/mypage/info">회원정보 변경</a></li>
-								<li><a href="${pageContext.request.contextPath }/mypage/userdrop">회원탈퇴</a></li>
-								<li><a href="${pageContext.request.contextPath }/mypage/seller_register">판매 회원전환</a></li>
 								<li><a href="${pageContext.request.contextPath }/mypage/order">주문/배송내역</a></li>
+								<li><a href="${pageContext.request.contextPath }/cartList">장바구니</a>
+								<li><a href="${pageContext.request.contextPath }/mypage/info">회원정보 변경</a></li>
 								<li><a href="${pageContext.request.contextPath }/mypage/shipaddr">배송지관리</a></li>
-
+								<li><a href="${pageContext.request.contextPath }/mypage/seller_register">판매 회원전환</a></li>
+									<li><a href="${pageContext.request.contextPath }/CS/inquiry">Q&A</a>
+								<li><a href="${pageContext.request.contextPath }/mypage/userdrop">회원탈퇴</a></li>
 							</ul>
 						</div>
 						<!--/ End Single Widget -->
@@ -224,7 +226,7 @@ function deleteShip(){
 				</div>
 				<div class="shipinfo">
 				<br>
-					<h5>엄수빈</h5>
+					<h5>${info.name }</h5>
 					<br>
 					<button type="button"  class="btn btn-secondary">기본 배송지</button>
 					<br><br>
