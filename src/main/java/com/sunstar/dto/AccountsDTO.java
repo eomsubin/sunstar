@@ -12,4 +12,7 @@ public class AccountsDTO {
 	private int commission;
 	private int balance_accounts;
 	private String account_state;
+
+	private String bank;
+	private String bank_no;
 }

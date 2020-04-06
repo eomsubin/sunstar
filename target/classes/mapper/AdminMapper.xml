@@ -133,8 +133,19 @@
 	</update>
 	
 	<select id="getAccList" resultType="com.sunstar.dto.AccountsDTO">
-		select  * from accounts
+		select  * 
+        from accounts a join seller s
+        on a.seller_code = s.seller_code
 	</select>
+
+	<update id="updateAccList" parameterType="com.sunstar.dto.AccountsDTO">
+	
+		update accounts
+		set account_state = '입금완료'
+		where seller_code = #{seller_code} and yyyymm = #{yyyymm}
+	</update>	
+	
+	
 </mapper>
 	
 	
