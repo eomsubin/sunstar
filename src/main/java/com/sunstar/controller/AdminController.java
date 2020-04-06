@@ -77,7 +77,6 @@ public class AdminController {
 		model.addAttribute("adminpage", "temp_main.jsp");
 		return "admin/temp";
 		
-		
 	}
 	
 	// jinwoo
