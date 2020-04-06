@@ -17,13 +17,26 @@
 		var email1 = $('input:hidden[name="userinfo"]').data("email").split("@",1);
 		var email2 = $('input:hidden[name="userinfo"]').data("email").split("@").reverse()[0]
 		
-		
-		//이메일 폼 넣기
+		//user이메일 가져오기
 		$('.emailId').val(email1);
 		$('.emailDomain').val(email2);
-
+		
+        //이메일 도메인 변경
+	    $('.emailDomainType').change(function(){
+		   console.log($(this).val())
+	            if($(this).val() =='1'){
+	               $('.emailDomain').attr("disabled",false)
+	               $('.emailDomain').text('ㅇ나ㅓㅏㄹㅇ');
+	            }else{
+	               $('.emailDomain').text($(this).val());
+	               $('.emailDomain').attr("disabled",true)
+	            } 
+	     });
+		
+		//이메일 보내기
  		  $("#btnSend").on("click",function(){
- 			$('email').val(email1+"@"+email2);
+ 			$('.email').val($('input:hidden[name="userinfo"]').data("email"));
+ 			alert($('.email').val());
 	        }); 
 	});
 </script>
@@ -78,17 +91,14 @@
                                         <input type="text" class="emailDomain inp" style="width:133px" title="이메일 계정 입력" required="required">
                                         <span class="sel ml" style="width:100px">
                                             <select class="emailDomainType" title="이메일 계정" required="required">
-                                                <option value="another">직접입력</option>
-                                                <option>naver.com</option>
-                                                <option>daum.net</option>
-                                                <option>nate.com</option>
-                                                <option>gmail.com</option>
-                                                <option>hotmail.com</option>
-                                                <option>outlook.com</option>
-                                                <option>yahoo.com</option>
-                                                <option>korea.com</option>
-                                                <option>dreamwiz.com</option>
-                                                <option>chol.com</option>
+                                                <option value="1">직접입력</option>
+                                                <option value="naver.com">naver.com</option>
+                                                <option value="daum.net">daum.net</option>
+                                                <option value="nate.com">nate.com</option>
+                                                <option value="gmail.com">gmail.com</option>
+                                                <option value="hotmail.com">hotmail.com</option>
+                                                <option value="outlook.com">outlook.com</option>
+                                                <option value="yahoo.com">yahoo.com</option>
                                             </select>
                                         </span>
                                         <p class="alram_txt">문의하신 내용의 답변 완료 시 이메일로 알려드립니다.</p>
