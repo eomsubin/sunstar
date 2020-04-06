@@ -281,8 +281,7 @@
 		
 		<select id="viewStepOrder" parameterType="com.sunstar.dto.OrderDTO" resultType="com.sunstar.dto.OrderDTO">
 			select o.order_code, l.product_code, l.option1, l.option2, l.inventory, l.add_price,  p.price, o.message, 
-			o.order_way,  o.to_name, c.tel, o.shipping_addr1, o.shipping_addr2, o.shipping_addr3, o.shipping_zip, l.delivery_state, l.tracking_no,
-			
+			o.order_way,  o.to_name, c.tel, o.shipping_addr1, o.shipping_addr2, o.shipping_addr3, o.shipping_zip, l.delivery_state, l.tracking_no			
 			from ordered o left join order_list l
 			on o.order_code = l.order_code
 			inner join customer c 
