@@ -13,6 +13,18 @@
 
 
 </style>
+
+<script>
+$(document).ready(function(){
+	$('.deposit-btn').on('click', function(){
+		let seller_code = $(this).parent().parent().find('td.deposit-seller-code').text();
+		let yymm = $(this).parent().parent().find('.deposit-yymm').text();
+
+		location.href="${pageContext.request.contextPath}/admin/accUpdate"+ seller_code+"/"+yymm;
+	})
+})
+
+</script>
 </head>
 <body>
 	<div class="container-fluid">
@@ -46,27 +58,20 @@
 				<tbody>
 					<c:forEach var="i" items="${alist}">
 					<tr>
-					<td>${i.seller_code }</td>
-					<td scope="row">${i.yyyymm}</td>
+					<td class="deposit-seller-code">${i.seller_code }</td>
+					<td class="deposit-yymm" scope="row">${i.yyyymm}</td>
 					
 					<td><fmt:formatNumber pattern="###,###,###" value="${i.total_profit}" />원</td>
 					<td><fmt:formatNumber pattern="###,###,###" value="${i.commission}" />원</td>
 					<td style="color:red;"><fmt:formatNumber pattern="###,###,###" value="${i.balance_accounts}" />원</td>
 					<td>${i.account_state}</td>
-					<td><button class="btn btn-primary">입금</button></td>
+					<td><button class="deposit-btn btn btn-primary ">입금</button></td>
 					
 					</tr>
 					</c:forEach>
 				</tbody>
 			
-			
-			
-			
 			</table>
-			
-					
-					
-			<!-- 여기 내부만 수정하시면 됩니다  -->
 			</div>
 		</div>
 	</div>

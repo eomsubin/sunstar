@@ -359,5 +359,13 @@ public class AdminController {
 
 		return "admin/temp";
 	}
+	
+	
+	@RequestMapping("/accUpdate/{seller_code}/{yymm}")
+	public String accUpdate( @PathVariable String seller_code, @PathVariable String yymm) {
+		
+		return "redirect:/admin/acc";
+
+	}
    
 }
