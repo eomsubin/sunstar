@@ -47,29 +47,12 @@ public class PaymentController {
 	private MyPageService mpservice;
 
 
-
-	/*private List<CartDTO> justbuylist=new ArrayList<>();
-	@ResponseBody
-	@RequestMapping(value="/checkout2",method=RequestMethod.POST)
-	private List<CartDTO> checkout2(@RequestBody List<CartDTO> a ){
-		
-		
-		justbuylist = a;
-		
-		
-		return justbuylist;
-	}*/
-	
-	
 	
 	// 카트에서의 값가지고 주문페이지 넘어가기
 	@RequestMapping(value="/checkout", method = {RequestMethod.POST,RequestMethod.GET})
 	public String checkout( Model model, Principal principal, @RequestParam String[] cart_no)
 	{		
 
-		
-		
-		
 		mainservice.header(model);
 		
 		if(principal!=null) {
