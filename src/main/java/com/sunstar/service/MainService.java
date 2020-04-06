@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 
 import com.sunstar.dto.CategoryDTO;
 import com.sunstar.dto.ProductDTO;
+import com.sunstar.dto.SellerDTO;
 
 public interface MainService {
 
@@ -26,7 +27,7 @@ public interface MainService {
 	List<ProductDTO> getAnimal();
 
 	List<ProductDTO> getRecommend();
-		
+
 	
 	
 }

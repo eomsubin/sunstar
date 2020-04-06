@@ -26,6 +26,43 @@
 	order by seller_code desc
 	</select>
 	
+	<select id="getCSellerList" resultType="hashmap" parameterType="list">
+	select * from seller
+	where id in
+	<foreach item="item" index="index" collection="list"
+      open="(" separator="," close=")">
+        #{item}
+    </foreach> 
+	</select>
+	
+	<select id="getCSellerprduct" resultType="hashmap" parameterType="list">
+	select s.id, p.* 
+	from product_list p join seller s 
+	on p.seller_code=s.seller_code 
+	where s.id in 
+	<foreach item="item" index="index" collection="list"
+      open="(" separator="," close=")">
+        #{item}
+    </foreach> 	
+	</select>
+	
+	<select id="getCSellerordered" resultType="hashmap" parameterType="list">
+	select ol.*, p.*, s.*, o.id as 'customerid', o.order_way, o.message, o.shipping_addr1, o.shipping_addr2, o.shipping_addr3, o.shipping_zip, o.to_name
+	from order_list ol left join ordered o 
+	on ol.order_code=o.order_code 
+	left join product_list p 
+	on ol.product_code=p.product_code
+	left join seller s
+	on s.seller_code = p.seller_code
+	where s.id in 
+	<foreach item="item" index="index" collection="list"
+      open="(" separator="," close=")">
+        #{item}
+    </foreach> 	
+	</select>
+	<!-- end jinwoo -->
+	
+	
 	<select id="getLv1" resultType="com.sunstar.dto.CategoryDTO">
 		 select distinct lv1 from category
 	
@@ -66,4 +103,25 @@
 	 
 	 </insert>
 	
+	
+	<!-- 메일 가져오기  -->
+	<select id="getMails" resultType="com.sunstar.dto.MailDTO">
+		select no, category, title, content, id, order_code, date, email, rep_state, reply
+		from mails
+		order by no desc
+	</select>
+	
+	<update id="updateReply" parameterType="com.sunstar.dto.MailDTO">
+		update mails
+		set reply = #{reply} ,
+		rep_state = "답변완료"
+		where no=#{no}
+				
+	</update>
+	
+	<select id="getAccList" resultType="com.sunstar.dto.AccountsDTO">
+		select  * from accounts
+	</select>
 </mapper>
+	
+	

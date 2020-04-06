@@ -4,6 +4,10 @@ body{
     background-color: #eff1f6;
     
 }
+.lefttext{
+	text-align: left !important;
+}
+
 
 .topbar a{
 	color: #424646;
@@ -25,16 +29,6 @@ footer{
 	background-color: #fff;
 }
 
-/*footer 즐간격 변경2 */ 
-#wrap > div > div.add_info.m-2 > div > div > dl > dt {
-	margin-top: 10px;
-	margin-bottom: 2px;
-	margin-left: 10px;
-}
-/* 줄간격 변경2 */
-#wrap > div > div.add_info.m-2 > div > div > dl > dd {
-	margin-bottom: 10px;
-}
 
 #wrap > div > div.add_info.m-2 > div > div > dl > dd a{
 	font-size: 12px;
@@ -134,4 +128,12 @@ thead{
 .faq span{
     font-size: 15px;
     float: right;
+}
+
+.modalbtn{
+	background-color: #fbab60;
+	border: 0
+}
+.modal-footer{
+	margin : 0 auto !important;
 }

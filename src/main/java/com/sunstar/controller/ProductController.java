@@ -216,41 +216,4 @@ public class ProductController {
 		
 		return "redirect:/detailview2?product_code=" + dto.getProduct_code();
 	}
-	
-/*	@RequestMapping("/RegistrationBuyer")
-	public String RegistrationBuyer(Model model) {
-		model.addAttribute("contentpage", "registercustomer.jsp");
-		return "Registration/register";
-	}
-		
-	@RequestMapping("/registercustomer/insertcustomer")
-	public String insertcustomer(Model model, @ModelAttribute CustomerDTO dto, String tel1,  String tel2,  String email1) {
-		dto.setEnable(true);
-		dto.setTel(dto.getTel()+"-"+tel1+"-"+tel2);
-		dto.setEmail(dto.getEmail()+"@"+email1);
-		
-		ArrayList<AuthDTO> arr = new ArrayList<AuthDTO>();
-		arr.add(new AuthDTO(dto.getId(),"ROLE_USER"));
-		dto.setAuthlist(arr);
-		
-		service.join_Customer(dto);
-		
-		return "redirect:http://localhost:8080/controller/userlogin";
-	}
-	
-	@RequestMapping("/registercustomer/customeridcheck/{id}")
-	@ResponseBody
-	public int customerIdCheck(@PathVariable String id) {
-		int result = service.customeridcheck(id);
-			return result;
-	}
-	
-	@RequestMapping("/registercustomer/customeremailcheck")
-	@ResponseBody
-	public int customerEmailCheck(@RequestParam String email) {
-		System.out.println(email);
-		int result = service.customeremailcheck(email);
-		System.out.println(result);
-			return result;
-	}*/
 }

@@ -1278,30 +1278,7 @@ public class SellerController {
 
 
 
-	//판매자별 상품리스트
-	@RequestMapping("/seller_list/{seller_code}") 
-	public String seller_list(Model m, Principal p, @PathVariable String seller_code) {
-
-		//사이트 컬러 설정
-		SellerDTO sdto = sellerservice.sellerInfo(seller_code);
-		System.out.println(sdto.getSeller_code());
-		System.out.println(sdto.getSeller_color());
-		
-		
-		//판매자별 베스트상품리스트 가져오기 12개
- 		List<ProductDTO> productlist = sellerservice.product_list_user(seller_code);
-
-		//판매자별 신규 상품 가져오기 7개
- 		List<ProductDTO> newlist = sellerservice.product_list_new(seller_code);
-
- 		m.addAttribute("productlist",productlist);
- 		m.addAttribute("newlist", newlist);
-		
-
-		m.addAttribute("sdto", sdto);
-		m.addAttribute("contentpage", "sellers/sellers_list.jsp");
-		return "home";
-	}
+	
 
 
 	//dataTable

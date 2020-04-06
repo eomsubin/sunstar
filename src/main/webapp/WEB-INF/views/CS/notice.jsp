@@ -1,97 +1,58 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="EUC-KR"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ page language="java" contentType="text/html; charset=utf-8"
+	pageEncoding="utf-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page session="false"%>
+<!DOCTYPE html>
 <html>
 <head>
 <!-- Required meta tags -->
-<meta charset="utf-8" />
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/customer_css/notice.css" />
+<script>
 
-<!-- Bootstrap CSS -->
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
-	crossorigin="anonymous" />
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/notice.css" />
-<link rel="stylesheet" href="/controller/resources/css/font-awesome.css">
-<!-- Themify Icons -->
-<link rel="stylesheet" href="/controller/resources/css/themify-icons.css">
-<title>SBBJ</title>
+$(document).ready(function(){
+   hidecontent();
+ 
+   function hidecontent(){
+      $('.bcontent').hide();
+   }
+   
+   
+ $('.topcontent').on('click', function(){
+    $(this).siblings('.bcontent').hide(); 
+    $(this).next('.bcontent').toggle();
+ });
+ 
+}); 
+
+function del(notice_no) {
+	var chk = confirm("ì •ë§ ì‚­ì œí•˜ì‹œê² ìŠµë‹ˆê¹Œ?");
+	if (chk) {
+		location.href='${pageContext.request.contextPath}/notice/del?notice_no='+notice_no;
+	}
+}	
+
+</script>
+<title>SBBJ - ê³µì§€ì‚¬í•­</title>
 </head>
-<body>
-	<header>
-		<jsp:include page="../Registration/Regheader.jsp" />
-	</header>
-	<div class="container p-0">
-	
-		<div id="contenttop">
-			<ul class="headnav nav nav-pills nav-fill">
-				<li class="nav-item col-sm-3"><a class="nav-link" href="#"
-					style="color: white; font-size: 28px; font-weight: 600"> °í°´¼¾ÅÍ</a></li>
-				<li class="nav-item col-sm-3 my-3"><a href="#"><i
-						class="far fa-address-card fa-2x"></i></a> <br> <span> <a
-						href="#">È¸¿øÁ¤º¸</a><br>
-				</span></li>
-				<li class="nav-item col-sm-3 my-3"><a href="#"><i
-						class="far fa-credit-card fa-2x"></i></a> <br> <span> <a
-						href="#">ÁÖ¹®</a> / <a href="#">°áÁ¦</a><br>
-				</span></li>
-
-				<li class="nav-item col-sm-3 my-3" style="border: 0px"><a
-					href="#"><i class="far fa-question-circle fa-2x"></i></a> <br>
-					<span> <a href="#">±âÅ¸</a><br>
-				</span></li>
-			</ul>
-		</div>
-	</div>
-
-	<div class="container p-0 my-0 jinwoo">
-		<div id="contentbody">
-			<div class="row px-3">
-				<div class="side col-sm-3">
-					<nav class="sidenav nav flex-column px-3">
-					<li><a class="nav-link active" href="#">ÀÚÁÖ ¹¯´Â Áú¹®</a></li>
-					<li><a class="nav-link" href="#">1:1 ¹®ÀÇÇÏ±â</a></li>
-					<li><a class="nav-link" href="#">³ªÀÇ ¹®ÀÇ È®ÀÎ</a></li>
-					<li><a class="nav-link" href="#">°í°´¼¾ÅÍ ÀÌ¿ë¾È³»</a></li>
-					<li><a class="nav-link" href="#">°øÁö»çÇ×</a></li>
-					<section class="time mt-4 p-3 bg-light">
-					<h5>
-						°í°´¼¾ÅÍ<br>¾÷¹«½Ã°£
-					</h5>
-					<p>
-						<strong>09:00~18:00 <span>(ÆòÀÏ)</span></strong><br> <em>ÁÖ¸»/°øÈŞÀÏ
-							ÈŞ¹«</em><br> <em>1:1¹®ÀÇ 24½Ã°£ Á¢¼ö</em>
-					</p>
-					<p class="desc">
-						¾÷¹«½Ã°£ ¿Ü¿¡´Â<br> ÀÚÁÖ ¹¯´Â Áú¹®<br> ¶Ç´Â 1:1¹®ÀÇ¸¦<br> ÀÌ¿ëÇØ ÁÖ¼¼¿ä
-					</p>
-					</section> </nav>
-				</div>
-				
+<body>			
 				<div class="col-sm-9">
-					<nav class="navbar navbar-light  bg-light mt-3">
-					<div class="input-group p-2">
-						<input type="text" class="form-control"
-							aria-label="Example text with button addon"
-							aria-describedby="button-addon1">
-						<div class="input-group-append">
-							<button class="btn btn-outline-secondary" type="button">°Ë»ö</button>
-						</div>
-					</div>
-					</nav>
 
-					<hr class="my-4">
-
-					<h5 class="notice pt-4 pb-2">°øÁö»çÇ×</h5>
-				
-					<div id="notice">
-						<table class="table table-hover">
+					<h5 class="notice pt-4 pb-4">ê³µì§€ì‚¬í•­</h5>
+					
+	<nav>
+	  <div class="nav nav-tabs" id="nav-tab" role="tablist">
+	    <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="home" aria-selected="true">ì „ì²´ ê³µì§€</a>
+	    <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="profil" aria-selected="false">ì¼ë°˜ ê³µì§€</a>
+	  	<a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="contact" aria-selected="false">ìœ„í•´ìƒí’ˆ ê³µì§€</a>
+	  	<a type="button" class="btn addnotice mb-1" href="${pageContext.request.contextPath}/noticeadd" style="margin-left:auto; color:white; background-color: #274555">ê³µì§€ ì‘ì„± </a> 
+	  </div>
+	</nav>
+	
+	<div class="tab-content" id="myTabContent">
+	<!-- ì „ì²´ê³µì§€ -->
+  	 <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="home-tab">
+  					<div id="noticeAll">
+						<table class="table table-hover mt-3">
 							<colgroup>
 								<col width="7%;">
 								<col width="13%;">
@@ -101,32 +62,125 @@
 							<thead>
 								<tr>
 									<th scope="col">NO</th>
-									<th scope="col">°øÁöºĞ·ù</th>
-									<th scope="col" class="lefttext">Á¦¸ñ</th>
-									<th scope="col">°øÁöÀÏÀÚ</th>
+									<th scope="col">ê³µì§€ë¶„ë¥˜</th>
+									<th scope="col" class="lefttext">ì œëª©</th>
+									<th scope="col">ê³µì§€ì¼ì</th>
 								</tr>
 							</thead>
 							<tbody>
 								
-								<c:forEach var="noticelist" items="${noticeList }">
-								<tr>
-									<th scope="row">${noticelist.notice_no}</th>
-									<td>${noticelist.notice_category}</td>
-									<td class="lefttext">${noticelist.notice_title}</td>
-									<td>${noticelist.notice_date}</td>
+								<c:if test="${list[0] eq null}">
+              					 <tr><td colspan="4"><strong>ê³µì§€ ë‚´ì—­ì´ ì—†ìŠµë‹ˆë‹¤.</strong></td></tr>
+            		   			</c:if>
+            		   		   <c:if test="${list[0] ne null}">
+						 		<c:forEach var="list" items="${list}">
+								<tr style="text-align: center;" class="topcontent">
+									<td>${list.notice_no}</td>
+									<td>${list.notice_category}</td>
+									<td class="lefttext">${list.notice_title}</td>
+									<td>${list.notice_date}</td>
+								</tr>
+								<tr class="bcontent"><td colspan="4">
+								<div class="delsection"><a type="button" class="btn delnotice btn-sm"
+								onclick='del(${list.notice_no})' style="border:1px solid #274555"
+								>ì‚­ì œ</a></div>
+								${list.notice_content}
 								</tr>
 								</c:forEach>
+								</c:if>
 								
 							</tbody>
 						</table>
 					</div>
 				</div>
-			</div>
-		</div>
+
+			<!-- ì¼ë°˜ê³µì§€ -->
+    		<div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="profile-tab">
+  					<div id="noticecom">
+						<table class="table table-hover mt-3">
+							<colgroup>
+								<col width="7%;">
+								<col width="13%;">
+								<col width="*">
+								<col width="20%;">
+							</colgroup>
+							<thead>
+								<tr>
+									<th scope="col">NO</th>
+									<th scope="col">ê³µì§€ë¶„ë¥˜</th>
+									<th scope="col" class="lefttext">ì œëª©</th>
+									<th scope="col">ê³µì§€ì¼ì</th>
+								</tr>
+							</thead>
+							<tbody>
+								
+								<c:if test="${list[0] eq null}">
+              					 <tr><td colspan="4"><strong>ê³µì§€ ë‚´ì—­ì´ ì—†ìŠµë‹ˆë‹¤.</strong></td></tr>
+            		   			</c:if>
+						 		<c:forEach var="list" items="${list}">
+						 		<c:if test="${list.notice_category == 'ì¼ë°˜'}">
+								<tr style="text-align: center;" class="topcontent">
+									<td>${list.notice_no}</td>
+									<td>${list.notice_category}</td>
+									<td class="lefttext">${list.notice_title}</td>
+									<td>${list.notice_date}</td>
+								</tr>
+								<tr class="bcontent"><td colspan="4">
+								<div class="delsection"><a type="button" class="btn delnotice btn-sm" onclick='del(${list.notice_no})' style="border:1px solid #274555">ì‚­ì œ</a></div>
+								${list.notice_content}</td>
+								</tr>
+								</c:if>
+								</c:forEach>				
+							</tbody>
+						</table>
+					</div>
+</div>
+  
+  
+   <!-- ìœ„í•´ìƒí’ˆ ê³µì§€ -->
+   <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="contact-tab">
+  					<div id="noticeham">
+						<table class="table table-hover mt-3">
+							<colgroup>
+								<col width="7%;">
+								<col width="13%;">
+								<col width="*">
+								<col width="20%;">
+							</colgroup>
+							<thead>
+								<tr>
+									<th scope="col">NO</th>
+									<th scope="col">ê³µì§€ë¶„ë¥˜</th>
+									<th scope="col" class="lefttext">ì œëª©</th>
+									<th scope="col">ê³µì§€ì¼ì</th>
+								</tr>
+							</thead>
+							<tbody>
+								<c:if test="${list[0] eq null}">
+              					 <tr><td colspan="4"><strong>ê³µì§€ ë‚´ì—­ì´ ì—†ìŠµë‹ˆë‹¤.</strong></td></tr>
+            		   			</c:if>
+						 		<c:forEach var="list" items="${list}">
+						 		<c:if test="${list.notice_category == 'ìœ„í•´'}">
+								<tr style="text-align: center;" class="topcontent">
+									<td>${list.notice_no}</td>
+									<td>${list.notice_category}</td>
+									<td class="lefttext">${list.notice_title}</td>
+									<td>${list.notice_date}</td>
+								</tr>
+								<tr class="bcontent"><td colspan="4">
+								<div class="delsection"><button type="button" class="btn delnotice btn-sm"
+								onclick='del(${list.notice_no})' style="border:1px solid #274555">ì‚­ì œ</button></div>
+								${list.notice_content}</td>
+								</tr>
+								</c:if>
+								</c:forEach>				
+							</tbody>
+						</table>
+					</div>
+				</div>
+					
+					<hr class="my-4">
 	</div>
-	</div>
-<footer>
-	<jsp:include page="../CSFooter.jsp" />
-	</footer>
+</div>
 </body>
 </html>
