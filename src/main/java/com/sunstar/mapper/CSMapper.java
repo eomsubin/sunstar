@@ -1,5 +1,6 @@
 package com.sunstar.mapper;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -31,4 +32,6 @@ public interface CSMapper {
 	List<FaqDTO> faqhot10();
 
 	List<NoticeDTO> noticehot5();
+
+	List<HashMap<String, Object>> getOrderList(HashMap<String, Object> map);
 }

@@ -12,6 +12,17 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/customer_css/inquiry.css" />
 <title>SBBJ - 문의하기 </title>
 <script>
+
+function goPopup(){
+	id=$('input:hidden[name="userinfo"]').data("id");
+    var pop = window.open("${pageContext.request.contextPath}/CS/orderList/"+id,"pop","width=570,height=420, scrollbars=yes, resizable=yes"); 
+	 
+};
+
+function jusoCallBack(order_code)
+{
+		$('#orderno1').val(order_code);
+}
 	$(document).ready(function(){
 		var id=$('input:hidden[name="userinfo"]').data("id");
 		var email1 = $('input:hidden[name="userinfo"]').data("email").split("@",1);
@@ -21,23 +32,42 @@
 		$('.emailId').val(email1);
 		$('.emailDomain').val(email2);
 		
-        //이메일 도메인 변경
-	    $('.emailDomainType').change(function(){
-		   console.log($(this).val())
-	            if($(this).val() =='1'){
-	               $('.emailDomain').attr("disabled",false)
-	               $('.emailDomain').text('ㅇ나ㅓㅏㄹㅇ');
-	            }else{
-	               $('.emailDomain').text($(this).val());
-	               $('.emailDomain').attr("disabled",true)
-	            } 
-	     });
-		
-		//이메일 보내기
- 		  $("#btnSend").on("click",function(){
- 			$('.email').val($('input:hidden[name="userinfo"]').data("email"));
- 			alert($('.email').val());
-	        }); 
+		/*
+		 <input type="text" class="emailDomain inp" style="width:133px" title="이메일 계정 입력" required="required">
+         <span class="sel ml" style="width:100px">
+             <select class="emailDomainType" title="이메일 계정" required="required">
+             <option value="1">직접입력</option>
+             <option value="naver.com">naver.com</option>
+             <option value="daum.net">daum.net</option>
+             <option value="nate.com">nate.com</option>
+             <option value="gmail.com">gmail.com</option>
+             <option value="hotmail.com">hotmail.com</option>
+             <option value="outlook.com">outlook.com</option>
+             <option value="yahoo.com">yahoo.com</option>
+             </select>
+          </span>*/
+          
+          
+          //이메일 도메인 변경
+          $('.emailDomainType').change(function(){
+            var domain=$(this).val();
+                  if($(this).val() =='1'){
+                     $('.emailDomain').attr("disabled",false)
+                     $('.emailDomain').val('');
+                  }else{
+                     $('.emailDomain').val(domain);
+                     $('.emailDomain').attr("disabled",true)
+                  } 
+           });
+
+          
+          //이메일 보내기
+          $("#btnSend").on("click",function(){
+        	  var email1 =  $('.emailId').val()
+              var email2 = $('.emailDomain').val()
+              console.log(email2);
+            
+        }); 
 	});
 </script>
 </head>
@@ -86,9 +116,9 @@
                                         </span>
                                     </div>
                                     <div class="email complete" style="display: block;">
-                                        <input type="text" class="emailId inp" style="width:133px" name="email">
+                                        <input type="text" class="emailId inp" style="width:133px" name="email1">
                                         <span class="mid">@</span>
-                                        <input type="text" class="emailDomain inp" style="width:133px" title="이메일 계정 입력" required="required">
+                                        <input type="text" class="emailDomain inp" name="email2" style="width:133px" title="이메일 계정 입력" required="required" data-domain='domain' >
                                         <span class="sel ml" style="width:100px">
                                             <select class="emailDomainType" title="이메일 계정" required="required">
                                                 <option value="1">직접입력</option>
@@ -144,7 +174,7 @@
                             <tr>
                              <th scope="row"><label>주문조회</label></th>
                              <td><span class="input-box"><input name="order_code" type="text" id="orderno1" class="txt" maxlength="10" style="width: 133px;" ></span>
-        <span class="ordercode_btn"><a href="#">주문조회</a></span></td><!--a href="javascript:tractionpopup();" -->
+        					 <span class="ordercode_btn"><a href="javascript:goPopup()">주문조회 </a><%-- <button onclick="goPopup(<sec:authentication property='principal.UserInfo.id'/>)">주문조회</button></span></td><!--a href="javascript:goPopup;" --> --%>
                             </tr>
                         </tbody>
                         
@@ -192,5 +222,6 @@
     </div>
     <%-- <sec:authentication property="principal.UserInfo" /> --%>
                 </div>
+                <div class="adjust" style="margin-bottom: 10%"></div>
 </body>
 </html>

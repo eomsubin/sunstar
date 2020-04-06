@@ -23,7 +23,7 @@
 			order="BEFORE">
 			select Max(no)+1 from mails
 	</selectKey>
-	insert into mails(no, email, category, title, content, id, order_code, date) values(#{no}, #{email}, #{category}, #{title}, #{content},  #{id}, #{order_code}, now())
+	insert into mails(no, email, category, title, content, id, order_code, date, rep_state) values(#{no}, #{email}, #{category}, #{title}, #{content},  #{id}, #{order_code}, now(), '답변대기')
 	</insert>
 	
 	<select id="inquirylist" parameterType="String" resultType="com.sunstar.dto.MailDTO">
@@ -65,5 +65,13 @@
 	select * from notice
 	order by notice_no desc
 	limit 5
+	</select>
+	
+	<select id="getOrderList" parameterType="string" resultType="hashmap">
+			select distinct ol.order_code, ol.product_code, ol.quantity, p.product_name, p.thumb_img from order_list ol left join ordered o on ol.order_code = o.order_code 
+            join product_list p on ol.product_code = p.product_code
+            where o.id= #{id}
+            order by order_code;
+	
 	</select>
 </mapper>
