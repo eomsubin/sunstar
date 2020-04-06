@@ -277,12 +277,12 @@ function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2, zipNo
 									<c:set var="sum2" value="0"/>
 								
 								<c:forEach var="sellerlist" items="${sellerlist }" >									
-								 	 <ul><li style="font-weight: 800; color: #FE642E;">업체명<span>${sellerlist.value}</span></li>
+								 	 <ul><li style="font-weight: 800; color: #FE9A2E;">업체명<span>${sellerlist.value}</span></li>
 								 	 		
 								 	 		<c:forEach var="shipping" items="${shipcost }">
 								 	 			<c:if test="${sellerlist.key == shipping.key }">
 								 	 			
-								 	 				 <li style="font-weight: 800; color: #FE642E;">배송비<span>${shipping.value} 원</span></li> 
+								 	 				 <li style="font-weight: 800; color: #FE9A2E;">배송비<span>${shipping.value} 원</span></li> 
 								 	 		 <c:set var="sum2" value="${sum2+(shipping.value)}"/>
 								 	 		 	</c:if>
 								 	 		 
