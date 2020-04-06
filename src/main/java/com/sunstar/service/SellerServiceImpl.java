@@ -61,13 +61,12 @@ public class SellerServiceImpl implements SellerService {
 					dto2.setOption2("기본");
 
 					
-				}else if(dto.getOptions().get(i).getOption1().equals("") ||  !dto.getOptions().get(i).getOption2().equals("")) {
-					//옵션1 값이 없고
-					//옵션2 값이 있을 때
+				}else if(dto.getOptions().get(i).getOption1().equals("") &&  !dto.getOptions().get(i).getOption2().equals("")) {
+					//옵션1 값이 없고 옵션2 값이 있을 때
 					dto2.setOption2(dto.getOptions().get(i).getOption2());
 					dto2.setOption1("기본");
 					
-				}else if(dto.getOptions().get(i).getOption2().equals("") || !dto.getOptions().get(i).getOption1().equals("")) {
+				}else if(dto.getOptions().get(i).getOption2().equals("") && !dto.getOptions().get(i).getOption1().equals("")) {
 					//옵션1값이 있고 옵션2값이 없을때
 					dto2.setOption1(dto.getOptions().get(i).getOption1());
 					dto2.setOption2("기본");
