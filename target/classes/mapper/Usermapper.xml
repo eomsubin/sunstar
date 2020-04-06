@@ -146,4 +146,25 @@
   	from seller
   	where id = #{id}
   	</delete>
+  	
+  	<!-- 회원 enable 변경 -->
+  	<update id="Setenable_customer" parameterType="string">
+  	update customer
+  	<set>
+  		<if test="act =='activity'">
+  			enable = '1'
+  		</if>
+  		<if test="act =='stop'">
+  			enable = '0'
+  		</if>
+  	</set>
+  	where id = #{id}
+  	</update>
+  	
+  	<!-- 회원 삭제 -->
+  	<delete id="delcustomer" parameterType="string">
+  	delete 
+  	from customer
+  	where id = #{id}
+  	</delete>
 </mapper>

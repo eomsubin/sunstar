@@ -616,10 +616,17 @@ public class SellerController {
 	}
 
 	//상품 삭제
-	@RequestMapping("/deleteproduct/{pcode}")
-	public String deleteproduct(@PathVariable int pcode ) {
+	@RequestMapping("/deleteproduct/{pcodes}")
+	public String deleteproduct(@PathVariable String pcodes ) {
+		
+		String[] data = pcodes.split(",");
+		
+		
+		for(int i = 0; i < data.length; i++) {
+			sellerservice.deleteProduct(Integer.parseInt(data[i]));
+			System.out.println("삭제할거 출력~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" + data[i]);
 
-		sellerservice.deleteProduct(pcode);
+		}
 		return "redirect:/seller/productlist";
 	}
 

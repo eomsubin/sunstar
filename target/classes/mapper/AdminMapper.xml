@@ -60,6 +60,39 @@
         #{item}
     </foreach> 	
 	</select>
+	
+	<select id="getCustomerList" resultType="hashmap" parameterType="string">
+	select * from customer
+	</select>
+	
+	<select id="getCCustomerList" resultType="hashmap" parameterType="list">
+	select * from customer
+	where id in
+	<foreach item="item" index="index" collection="list"
+      open="(" separator="," close=")">
+        #{item}
+    </foreach> 	
+	</select>
+	
+	<select id="getCCustomermails" resultType="hashmap" parameterType="list">
+	select * from mails
+	where id in
+	<foreach item="item" index="index" collection="list"
+      open="(" separator="," close=")">
+        #{item}
+    </foreach>	
+	</select>
+	
+	<select id="getCCustomerordered" resultType="hashmap" parameterType="list">
+	select * from 
+	order_list ol left join ordered o 
+	on ol.order_code = o.order_code 
+	where id in 
+	<foreach item="item" index="index" collection="list"
+      open="(" separator="," close=")">
+        #{item}
+    </foreach>	
+	</select>
 	<!-- end jinwoo -->
 	
 	

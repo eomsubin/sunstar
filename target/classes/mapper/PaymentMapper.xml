@@ -124,7 +124,7 @@
 	 </select>
 	 
 	  <select id="getPrices" parameterType="com.sunstar.dto.SellerDTO" resultType="com.sunstar.dto.CartDTO">
-	 	  select sum((p.price+c.add_price)*c.cart_quantity) as total_price,s.seller_name,s.seller_code
+	 	  select sum((p.price+c.add_price)*c.cart_quantity) as total_price,s.seller_name,s.seller_code,s.free_shipping_cost
     	from cart c
     join customer t
      on c.id = t.id

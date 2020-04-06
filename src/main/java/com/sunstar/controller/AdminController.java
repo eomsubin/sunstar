@@ -64,10 +64,23 @@ public class AdminController {
 	@RequestMapping("/index")
 	public String index(Model model) {
 		
+		HashMap<String, String> map = new HashMap<>();
+		List<HashMap<String, String>> apply = adminservice.getSellerApply(map);
+		model.addAttribute("applynum",apply.size());
+		
+		List<HashMap<String, String>> slist = adminservice.getSellerList(map);
+		model.addAttribute("sellernum",slist.size());
+		
+		List<HashMap<String, Object>> clist = adminservice.getCustomerList(map);
+		model.addAttribute("customernum",clist.size());
+					
 		model.addAttribute("adminpage", "temp_main.jsp");
 		return "admin/temp";
+		
+		
 	}
 	
+	// jinwoo
 	@RequestMapping("/seller_apply")
 	public String seller_apply(Model model) {
 		model.addAttribute("adminpage", "seller_apply.jsp");
@@ -156,19 +169,27 @@ public class AdminController {
 		return "admin/temp";
 	}
 	
-	@RequestMapping("/sellerExcel/{id}/{act}")
-	public void sellerExcel(Model model, HttpServletResponse response, @PathVariable String id, @PathVariable String act) throws Exception{
+	
+	@RequestMapping("/Excel/{id}/{act}")
+	public String sellerExcel(Model model, HttpServletResponse response, @PathVariable String id, @PathVariable String act) throws Exception{
 		List<HashMap<String, Object>> list = new ArrayList<>();
 		if(act.equals("1")){
-				list= adminservice.getCSellerList(id);
+				list= adminservice.getCSellerList(id); //판매자 정보
 		}else if(act.equals("2")) {
-			list = adminservice.getCSellerprduct(id);
+			list = adminservice.getCSellerprduct(id); //판매자 상품
 		}else if(act.equals("3")) {
-			list = adminservice.getCSellerordered(id);
+			list = adminservice.getCSellerordered(id);//판매자 주문
+		}else if(act.equals("4")) {
+		  	list = adminservice.getCCustomerList(id);//회원 정보
+		}else if(act.equals("5")) {
+			list = adminservice.getCCustomermails(id);//회원 문의정보
+		}else if(act.equals("6")) {
+			list = adminservice.getCCustomerordered(id);//회원 주문정보
 		}
-		
+		if(list.size() == 0) 
+			return "redirect:/admin/customer_list"; 
 		Workbook wb = new HSSFWorkbook();
-		Sheet sheet = wb.createSheet("판매자 목록");
+		Sheet sheet = wb.createSheet("목록");
 		Row row = null;
 		Cell cell = null;
 		int nowNum = 0;
@@ -241,7 +262,79 @@ public class AdminController {
 		// 엑셀 출력
 		wb.write(response.getOutputStream());
 		wb.close();
+		return null;
 	}
+	
+	
+	@RequestMapping("/customer_list")			
+	public String customer_list(Model model) {
+		model.addAttribute("adminpage", "customer_list.jsp");
+		HashMap<String, String> map = new HashMap<>();
+		List<HashMap<String, Object>> list = adminservice.getCustomerList(map);
+		model.addAttribute("list",list);
+		return "admin/temp";
+	}
+	
+	@RequestMapping("/customer_submit")
+	public String customer_submit(Model model, @RequestParam HashMap<String, String> map) throws Exception{
+		System.out.println(map);
+		//계정 정지
+		if(((String)map.get("YN")).equals("stop")) {
+			// customer enable 0  
+			userservice.Setenable_customer(map);
+			// 메일 전송 반복문			
+			StringTokenizer st = new StringTokenizer(map.get("email"),",");
+			while(st.hasMoreTokens()) {
+			final MimeMessagePreparator pp = new MimeMessagePreparator() {
+				@Override
+				public void prepare(MimeMessage mimeMessage) throws Exception {
+					final MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true, "utf-8");
+					helper.setFrom("wlsdn9489@naver.com");
+					helper.setTo(st.nextToken());
+					helper.setSubject("[쓰삐제] 고객 계정이 정지되었습니다.");
+					helper.setText("<b> 고객 계정이 정지되었습니다. </b>" + "<br>" + "<img src="
+							+ "https://ssl.pstatic.net/tveta/libs/1260/1260649/19aabf7c9a09e0d9ed84_20200211140438611.jpg"
+							+ ">", true);
+				};
+			
+			};
+			mailSender.send(pp);
+			};
+		//end 계정 정지
+		//계정 삭제
+		}else if(((String)map.get("YN")).equals("remove")){
+			// customer 계정 삭제
+			userservice.delcustomer(map);
+			// 메일 전송 반복문
+			StringTokenizer st = new StringTokenizer(map.get("email"),",");
+			while(st.hasMoreTokens()) {
+			final MimeMessagePreparator pp = new MimeMessagePreparator() {
+				@Override
+				public void prepare(MimeMessage mimeMessage) throws Exception {
+					final MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true, "utf-8");
+					helper.setFrom("wlsdn9489@naver.com");
+					helper.setTo(st.nextToken());
+					helper.setSubject("[쓰삐제] 고객 계정이 삭제되었습니다.");
+					helper.setText("<b> 죄송합니다. 고객 계정이 삭제되었습니다. </b>" + "<br> 사유 : "+((String)map.get("m")) + "<br>" +"<img src="
+							+ "https://ssl.pstatic.net/tveta/libs/1260/1260649/19aabf7c9a09e0d9ed84_20200211140438611.jpg"
+							+ ">", true);
+				};
+			};
+			mailSender.send(pp);
+			};
+		//end 계정
+		//계정 활동
+		}else if(((String)map.get("YN")).equals("activity")){
+			// customer enabel 1
+			userservice.Setenable_customer(map);
+		//end 계정 활동
+		}
+		return "redirect:/admin/customer_list";
+	}
+	
+	//end jinwoo 
+	
+	
 	
 	@RequestMapping("/category")
 	public String category(Model model
