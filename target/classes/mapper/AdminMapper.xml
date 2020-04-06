@@ -60,6 +60,10 @@
         #{item}
     </foreach> 	
 	</select>
+	
+	<select id="getCustomerList" resultType="hashmap" parameterType="string">
+	select * from customer
+	</select>
 	<!-- end jinwoo -->
 	
 	

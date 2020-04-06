@@ -33,12 +33,12 @@
 							<div class="col mr-2">
 
 
-								<a href="${pageContext.request.contextPath}/seller/view_step/step2">
+								<a href="${pageContext.request.contextPath}/admin/seller_list">
 									<div
 										class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-										결제완료</div>
+										판매회원 수</div>
 									<div class="h5 mb-0 font-weight-bold text-gray-800">
-										<c:out value="${paid}"></c:out>
+										<c:out value="${sellernum}"></c:out>
 									</div>
 								</a>
 							</div>
@@ -59,12 +59,12 @@
 							<div class="col mr-2">
 
 
-								<a href="${pageContext.request.contextPath}/seller/view_step/step3">
+								<a href="${pageContext.request.contextPath}/admin/seller_apply">
 									<div
 										class="text-xs font-weight-bold text-danger text-uppercase mb-1">
-										배송대기중</div>
+										판매회원 신청 수</div>
 									<div class="h5 mb-0 font-weight-bold text-gray-800">
-										<c:out value="${ready}"></c:out>
+										<c:out value="${applynum}"></c:out>
 									</div>
 								</a>
 							</div>
@@ -83,12 +83,12 @@
 					<div class="card-body">
 						<div class="row no-gutters align-items-center">
 							<div class="col mr-2">
-								<a href="${pageContext.request.contextPath}/seller/view_step/step9">
+								<a href="${pageContext.request.contextPath}/admin/customer_list">
 
 									<div
-										class="text-xs font-weight-bold text-success text-uppercase mb-1">교환요청</div>
+										class="text-xs font-weight-bold text-success text-uppercase mb-1">회원 수</div>
 									<div class="h5 mb-0 font-weight-bold text-gray-800">
-										<c:out value="${exchange}" />
+										<c:out value="${customernum}" />
 									</div>
 								</a>
 							</div>

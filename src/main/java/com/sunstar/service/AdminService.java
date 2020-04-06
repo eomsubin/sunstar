@@ -14,6 +14,8 @@ public interface AdminService {
 	List<HashMap<String, Object>> getCSellerList(String id); // jinwoo
 	List<HashMap<String, Object>> getCSellerprduct(String id); // jinwoo
 	List<HashMap<String, Object>> getCSellerordered(String id); // jinwoo
+	List<HashMap<String, Object>> getCustomerList(HashMap<String, String> map); // jinwoo
+
 	
 	List<CategoryDTO> getLv1();
 	List<CategoryDTO> getLv2(String lv1select);

@@ -17,6 +17,7 @@ public interface AdminMapper {
 	public List<HashMap<String, Object>> getCSellerList(List<String> list); //jinwoo
 	public List<HashMap<String, Object>> getCSellerprduct(List<String> list); // jinwoo
 	public List<HashMap<String, Object>> getCSellerordered(List<String> idl); // jinwoo
+	public List<HashMap<String, Object>> getCustomerList(HashMap<String, String> map); // jinwoo
 
 	
 	public List<CategoryDTO> getLv1();

@@ -63,6 +63,11 @@ public class AdminServiceImple implements AdminService {
 		return adminmapper.getCSellerordered(idl);
 	}
 	
+	@Override // jinwoo
+	public List<HashMap<String, Object>> getCustomerList(HashMap<String, String> map) {
+		return adminmapper.getCustomerList(map);
+	}	
+	
 	@Override
 	public List<CategoryDTO> getLv1() {
 		
@@ -167,10 +172,4 @@ public class AdminServiceImple implements AdminService {
 	public void updateAccList(AccountsDTO dto) {
 		adminmapper.updateAccList(dto);
 	}
-
-
-
-	
-	
-	
 }

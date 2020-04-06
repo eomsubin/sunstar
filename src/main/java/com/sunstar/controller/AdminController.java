@@ -70,8 +70,20 @@ public class AdminController {
 	@RequestMapping("/index")
 	public String index(Model model) {
 		
+		HashMap<String, String> map = new HashMap<>();
+		List<HashMap<String, String>> apply = adminservice.getSellerApply(map);
+		model.addAttribute("applynum",apply.size());
+		
+		List<HashMap<String, String>> slist = adminservice.getSellerList(map);
+		model.addAttribute("sellernum",slist.size());
+		
+		List<HashMap<String, Object>> clist = adminservice.getCustomerList(map);
+		model.addAttribute("customernum",clist.size());
+					
 		model.addAttribute("adminpage", "temp_main.jsp");
 		return "admin/temp";
+		
+		
 	}
 	
 	@RequestMapping("/seller_apply")
@@ -158,6 +170,15 @@ public class AdminController {
 		model.addAttribute("adminpage", "seller_list.jsp");
 		HashMap<String, String> map = new HashMap<>();
 		List<HashMap<String, String>> list = adminservice.getSellerList(map);
+		model.addAttribute("list",list);
+		return "admin/temp";
+	}
+	
+	@RequestMapping("/customer_list")			
+	public String customer_list(Model model) {
+		model.addAttribute("adminpage", "customer_list.jsp");
+		HashMap<String, String> map = new HashMap<>();
+		List<HashMap<String, Object>> list = adminservice.getCustomerList(map);
 		model.addAttribute("list",list);
 		return "admin/temp";
 	}
