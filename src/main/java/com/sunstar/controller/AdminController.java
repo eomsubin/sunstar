@@ -296,6 +296,25 @@ public class AdminController {
 		return "redirect:/admin/category";
 	}
 	
+	@RequestMapping("/droplv2/{lv2}")
+	public String droplv2(@PathVariable String lv2) {
+		
+		CategoryDTO cdto =new CategoryDTO();
+		cdto.setLv2(lv2);
+		
+		adminservice.droplv2(cdto);
+		
+		return "redirect:/admin/category";
+	}
+	@RequestMapping("/droplv3/{lv3}")
+	public String droplv3(@PathVariable String lv3) {
+		CategoryDTO cdto = new CategoryDTO();
+		
+		cdto.setLv3(lv3);
+		adminservice.droplv3(cdto);
+		
+		return "redirect:/admin/category";
+	}
 	
 	
 	@RequestMapping("/oneforone")

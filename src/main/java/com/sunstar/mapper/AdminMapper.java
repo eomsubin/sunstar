@@ -27,10 +27,13 @@ public interface AdminMapper {
 	public List<CategoryDTO> getLv3();
 	public void add_lv2(CategoryDTO cdto);
 	public void add_lv3(CategoryDTO cdto);
-	
+	public void droplv2(CategoryDTO cdto);
+	public void droplv3(CategoryDTO cdto);
 	//∏ﬁ¿œ
 	public List<MailDTO> getMails();
 	public void updateReply(MailDTO dto);
 	public List<AccountsDTO> getAccList();
+	
+	
 	
 }
