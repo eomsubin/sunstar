@@ -44,10 +44,11 @@
 	
 <style>
 .shipinfo{
-	background-color: silver;
+	background-color:#FBEFEF;
 	position: relative;
 	left:110px;
 	width:700px;
+	padding: 15px;
 }
 .addbtn{
 	text-align:center;
