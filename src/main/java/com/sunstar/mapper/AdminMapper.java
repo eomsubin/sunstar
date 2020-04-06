@@ -33,6 +33,7 @@ public interface AdminMapper {
 	public List<MailDTO> getMails();
 	public void updateReply(MailDTO dto);
 	public List<AccountsDTO> getAccList();
+	public void updateAccList(AccountsDTO dto);
 	
 	
 	

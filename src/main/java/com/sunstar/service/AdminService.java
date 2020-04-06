@@ -27,6 +27,7 @@ public interface AdminService {
 	List<MailDTO> getMails();
 	void updateReply(MailDTO dto);
 	List<AccountsDTO> getAccList();
+	void updateAccList(AccountsDTO dto);
 
 
 

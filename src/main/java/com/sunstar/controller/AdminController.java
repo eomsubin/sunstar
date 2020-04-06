@@ -383,6 +383,10 @@ public class AdminController {
 	@RequestMapping("/accUpdate/{seller_code}/{yymm}")
 	public String accUpdate( @PathVariable String seller_code, @PathVariable String yymm) {
 		
+		AccountsDTO dto = new AccountsDTO();
+		dto.setSeller_code(seller_code);
+		dto.setYyyymm(yymm);
+		adminservice.updateAccList(dto);
 		return "redirect:/admin/acc";
 
 	}

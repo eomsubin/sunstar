@@ -579,7 +579,7 @@
 		
 		<insert id="insertAccount" parameterType="com.sunstar.dto.AccountsDTO">
 		insert into accounts
-		values(#{seller_code}, #{yyyymm}, #{total_profit}, #{commission}, #{balance_accounts}, "정산신청완료")
+		values(#{seller_code}, #{yyyymm}, #{total_profit}, #{commission}, #{balance_accounts}, "정산신청중")
 		</insert>
 		
 		<select id="getAccountList" parameterType="string" resultType="com.sunstar.dto.AccountsDTO">

@@ -163,6 +163,11 @@ public class AdminServiceImple implements AdminService {
 		return adminmapper.getAccList();
 	}
 
+	@Override
+	public void updateAccList(AccountsDTO dto) {
+		adminmapper.updateAccList(dto);
+	}
+
 
 
 	
