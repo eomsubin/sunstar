@@ -134,6 +134,18 @@ public class AdminServiceImple implements AdminService {
 		adminmapper.add_lv3(cdto);
 		
 	}
+	
+	@Override
+	public void droplv2(CategoryDTO cdto) {
+		adminmapper.droplv2(cdto);
+		
+	}
+
+	@Override
+	public void droplv3(CategoryDTO cdto) {
+		adminmapper.droplv3(cdto);
+		
+	}
 	//∏ﬁ¿œ
 	@Override
 	public List<MailDTO> getMails() {
@@ -150,6 +162,8 @@ public class AdminServiceImple implements AdminService {
 		// TODO Auto-generated method stub
 		return adminmapper.getAccList();
 	}
+
+
 
 	
 	

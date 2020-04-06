@@ -66,7 +66,35 @@
 			
 		});
 		
+		$('.droplv2').on('click',function(){
+			
+			let lv2 = $(this).val();
+			console.log(lv2);
+			
+			var result = confirm("2차 카테고리를 삭제하시겠습니까?");
+			
+			if(result){
+				alert('삭제가 완료되었습니다.');
+				location.href="${pageContext.request.contextPath}/admin/droplv2/"+lv2;
+			}else{
+				alert('삭제가 취소되었습니다.');
+			}
+		});
 		
+	$('.droplv3').on('click',function(){
+			
+			let lv3 = $(this).val();
+			console.log(lv3);
+			
+			var result = confirm("3차 카테고리를 삭제하시겠습니까?(3차 카테고리가 하나만 있는 경우 2차와 함께 삭제됩니다.)");
+			
+			if(result){
+				alert('삭제가 완료되었습니다.');
+				location.href="${pageContext.request.contextPath}/admin/droplv3/"+lv3;
+			}else{
+				alert('삭제가 취소되었습니다.');
+			}
+		});
 		
 		
 	});
@@ -113,7 +141,7 @@
 								<tr class="table-danger">
 									<td><input type="checkbox" name="lv1check" value="${lv1.lv1 }"></td>
 									<td colspan="6" >(1차)${lv1.lv1 }</td>
-									<td><button class="lv2add" data-toggle="modal" data-target="#exampleModal">2차카테고리 추가</button></td>
+									<td><button class="lv2add btn btn-secondary" data-toggle="modal" data-target="#exampleModal">2차카테고리 추가</button></td>
 									<td></td>
 								</tr>
 									<c:forEach var="lv2" items="${lv2 }">
@@ -121,8 +149,8 @@
 										<c:if test="${lv1.lv1 eq lv2.lv1 }">
 											<td><input type="checkbox" name="lv2check" value="${lv2.lv2 }"></td>
 											<td colspan="6">(2차)${lv2.lv2 }</td>
-											<td><button class="lv3add" value="${lv2.lv1 }" data-toggle="modal" data-target="#exampleModal2">3차카테고리 추가</button></td>
-											<td>삭제하기</td>
+											<td><button class="lv3add btn btn-danger" value="${lv2.lv1 }" data-toggle="modal" data-target="#exampleModal2">3차카테고리 추가</button></td>
+											<td><button class="droplv2 btn btn-primary" value="${lv2.lv2 }">2차 삭제하기</button></td>
 										</c:if>
 									</tr>
 									<c:forEach var="lv3" items="${lv3 }">
@@ -132,7 +160,7 @@
 											<td><input type="checkbox" name="lv3check" value="${lv3.category_code }"></td>
 											<td colspan="6">(3차)${lv3.lv3 }</td>
 											<td></td>
-											<td>삭제하기</td>
+											<td><button class="droplv3 btn btn-success" value="${lv3.lv3 }">3차 삭제하기</button></td>
 											
 										</tr>
 										</c:if>

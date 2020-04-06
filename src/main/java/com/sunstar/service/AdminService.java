@@ -22,9 +22,12 @@ public interface AdminService {
 	List<CategoryDTO> getLv3();
 	void add_lv2(CategoryDTO cdto);
 	void add_lv3(CategoryDTO cdto);
+	void droplv2(CategoryDTO cdto);
+	void droplv3(CategoryDTO cdto);
 	List<MailDTO> getMails();
 	void updateReply(MailDTO dto);
 	List<AccountsDTO> getAccList();
+
 
 
 }
