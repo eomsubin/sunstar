@@ -274,7 +274,7 @@
 		<select id="product_list_new" parameterType="string"  resultType="com.sunstar.dto.ProductDTO">
 			select product_name, product_code, price, thumb_img
             from product_list
-            where seller_code = 11111
+            where seller_code = #{seller_code}
             order by product_code desc
             limit 0, 7
 		</select>

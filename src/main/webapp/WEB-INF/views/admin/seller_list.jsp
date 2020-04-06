@@ -77,6 +77,20 @@
 		$('form').submit();
 	}
 	
+	function productallprint(act) {
+		let idsum="";
+		
+		if($('input:checkbox[name=sid]:checked').length==0){
+			return;
+		}
+		$.each($('input:checkbox[name=sid]:checked'),function(){
+			idsum+=$(this).val()+","
+		})
+		idsum = idsum.slice(0,-1);
+		
+		//console.log(idsum);
+		location.href = "${pageContext.request.contextPath}/admin/sellerExcel/"+idsum+"/"+act;
+	}
 </script>
 </head>
 <style> 
@@ -123,6 +137,8 @@ a{
 						<button type="button" id="all_print" class="btn btn-secondary"
 							onclick="productallprint()">전체출력</button>
  						-->
+ 						<p class="my-0">엑셀로 출력 </p>
+ 					<button type="button" class="btn btn-secondary mx-3 mb-3" onclick="productallprint(1)">판매자 정보</button> <button type="button" class="btn btn-secondary mb-3" onclick="productallprint(2)">판매자 상품</button> <button type="button" class="btn btn-secondary mb-3 mx-3" onclick="productallprint(3)">판매자 주문정보</button>  
 				<table class="table table-bordered mb-0" id="dataTable"
 							style="width: 100%;">
 							<thead>

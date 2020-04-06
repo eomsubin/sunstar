@@ -148,19 +148,7 @@ table tbody tr:hover>.sorting_1{
 								</tr>
 								</c:forEach>
 							</tbody> 
-						</table>
-										<%-- <td ><a class="btn btn-success detailmdl"
-											data-toggle="modal" data-target=".bd-example-modal-lg"> <img
-												src="${pageContext.request.contextPath}/resources/icons/search.svg"
-												alt="" width="20" height="20" title="Bootstrap"> <img
-												src="${pageContext.request.contextPath}/resources/icons/pencil.svg"
-												alt="" width="20" height="20" title="Bootstrap">
-
-
-										</a> <a class="btn btn-danger" href="#"> <img
-												src="${pageContext.request.contextPath}/resources/icons/trash-fill.svg"
-												alt="" width="20" height="20" title="Bootstrap">
-										</a></td> --%>						
+						</table>						
 					</form>
 
 				</div>

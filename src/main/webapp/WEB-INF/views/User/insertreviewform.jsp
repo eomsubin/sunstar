@@ -11,18 +11,64 @@
 	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
 	crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/themify-icons.css">
+
 </head>
 <script>
 	function review(){
-		let order_no = "${detail.order_no}"
+		let order_no = "${detail.order_no}";
+		if($('#comment').val().length < 10){
+			alert("최소 10자 이상 입력해주세요.");
+			return;
+		}
 		let review_content = $('#comment').val();
-		let review_star = 3;
+		if($(".star-input").find(":checked").length=== 0){
+			alert("별점을 매겨주세요");
+			return;
+		}
+		let review_star = $(".star-input").find(":checked").val();
 	 	opener.jusoCallBack(review_content, order_no, review_star);      
 	  	window.close();
 	}
 	
 	$(document).ready(function(){
-			
+		$('#comment').keyup(function(){
+			console.log($(this).val().length+"val");
+			$('#textlength').text($(this).val().length+"/300")
+		})
+		
+		var starRating = function(){
+			  var $star = $(".star-input"),
+			      $result = $star.find("output>b");
+			  $(document)
+			    .on("change", ".star-input :radio", function(){
+			    $result.text($(this).parent().text());
+			  })
+			    .on("mouseover", ".star-input label", function(){
+				    $result.text($(this).text());
+			  		var $checked = $star.find(":checked");
+				    $(this).addClass("yellow");
+				    $(this).prevAll().addClass("yellow");
+			  })
+			  	.on("mouseleave", ".star-input label", function(){
+			  		var $checked = $star.find(":checked");
+			    	if($checked.length === 0){
+			    		$(this).siblings().removeClass("yellow");
+				    	$(this).removeClass("yellow");
+			    	}
+			  })
+			    .on("mouseleave", ".star-input>.input", function(){
+			    	var $checked = $star.find(":checked");
+			    
+			    	if($checked.length === 0){
+			    		$result.text("별점을 매겨주세요");
+			    	} else {
+			    		$result.text($checked.parent().text());
+			    		$checked.parent().nextAll().removeClass("yellow");
+			    	}
+			  });
+			};
+			starRating();
 	});
 	
 </script>
@@ -69,6 +115,25 @@
 	padding : 0px 50px;
 	margin-top: 50px;
 	}
+	.yellow{
+    color: #F7941D;
+	}
+	ul li{
+		display: inline-block;	
+	}
+	ul {
+	    list-style: none;
+		padding: 0;		
+    	margin: 0;
+	}
+	label{
+		font-size: 0px;
+	}
+	i{
+		font-size: 25px;
+	}
+	.input {overflow:hidden;display:inline-block;position:relative;height:26px;box-sizing:border-box;cursor:pointer;}
+	.input input {overflow:hidden;display:none;width:0px;height:0px;border:0 none;font-size:0;line-height:0;clip:rect(0 0 0 0);opacity:0;}
 </style>
 <body>
 <h1 class="text-center">상품평 작성</h1>
@@ -83,8 +148,32 @@
 			</div>
 		</div>
 		<form method="post" action="#">
-		<div class="form-group">
-			<textarea class="form-control mt-4" rows="5" id="comment" name="comment" placeholder="최소 10자 이상 입력해주세요."></textarea>
+<!-- 		<div class="mx-auto mt-3" style="width: 100px;">
+		<ul class="mx-auto">
+				<li><i class="ti-star"></i></li>			
+				<li><i class="ti-star"></i></li>
+				<li><i class="ti-star"></i></li>
+				<li><i class="ti-star"></i></li>
+				<li><i class="ti-star"></i></li>
+		</ul>	  	
+		</div> -->
+		<div class="form-group mx-auto mt-3" style="width: 150px;">
+		<label for="reply_star">별점</label>
+			<span class="star-input">
+				<span class="input">
+		    			<label for="p1">형편없어요<input type="radio" name="star" id="p1" value="1"><i class="ti-star"></i></label>
+		    			<label for="p2">쓸만해요<input type="radio" name="star" id="p2" value="2"><i class="ti-star"></i></label>
+			   			<label for="p3">보통이에요<input type="radio" name="star" id="p3" value="3"><i class="ti-star"></i></label>
+			  			<label for="p4">좋아요!<input type="radio" name="star" id="p4" value="4"><i class="ti-star"></i></label>
+		    			<label for="p5">최고에요!!<input type="radio" name="star" id="p5" value="5"><i class="ti-star"></i></label>
+		  		</span>
+		  				<br><output for="star-input" class="ml-3 content"><b>별점을 매겨주세요</b></output>						
+			</span>
+		</div>
+		
+		<div class="form-group" style="border: 1px solid silver; border-radius: 5px;">
+			<textarea style="border: 0px solid silver;" class="form-control" rows="5" id="comment" name="comment" placeholder="최소 10자 이상 입력해주세요." maxlength="300"></textarea>
+			<p id="textlength" style="font-size: 15px" class="seller m-1">0/300</p>
 		</div>
 		<button onclick="review()">등록</button>	
 		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>

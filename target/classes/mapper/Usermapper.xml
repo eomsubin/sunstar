@@ -81,7 +81,7 @@
   	<insert id="join_Seller" parameterType="string">
   			<selectKey resultType="string" keyProperty="seller_code"
 			order="BEFORE">
-			select Max(seller_code)+1 from seller
+			select Max(seller_code)+1 as seller_code from seller
 			</selectKey>
   	insert into seller(seller_code, id, seller_name, seller_tel, seller_email, seller_address1, seller_address2, seller_address3, 
   	seller_zip, bank, bank_no, business_license, seller_deadline, shipping_company, basic_shipping_cost, free_shipping_cost, seller_state)

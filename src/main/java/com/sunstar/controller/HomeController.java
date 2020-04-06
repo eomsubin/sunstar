@@ -8,6 +8,7 @@ import java.math.BigInteger;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.security.Principal;
 import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,6 +25,7 @@ import org.springframework.security.web.csrf.CsrfFilter;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -37,10 +39,12 @@ import com.sunstar.dto.CustomerDTO;
 import com.sunstar.dto.NuserDTO;
 import com.sunstar.dto.NuserinfoDTO;
 import com.sunstar.dto.ProductDTO;
+import com.sunstar.dto.SellerDTO;
 import com.sunstar.service.AuthService;
 import com.sunstar.service.CartService;
 import com.sunstar.service.MainService;
 import com.sunstar.service.ProductService;
+import com.sunstar.service.SellerService;
 import com.sunstar.service.UserService;
 
 
@@ -56,6 +60,9 @@ public class HomeController {
 
 	@Autowired @Qualifier("userservice")
 	private UserService userservice;
+
+	@Autowired @Qualifier("sellerservice")
+	private SellerService sellerservice;
 	
 	@Autowired @Qualifier("AuthService")
 	private AuthService authservice;
@@ -323,4 +330,30 @@ public class HomeController {
 		
 		return "home";
 	}
+	
+	
+	//판매자별 상품리스트
+		@RequestMapping("/seller_list/{seller_code}") 
+		public String seller_list(Model m, Principal p, @PathVariable String seller_code) {
+
+			//사이트 컬러 설정
+			SellerDTO sdto = sellerservice.sellerInfo(seller_code);
+			System.out.println(sdto.getSeller_code());
+			System.out.println(sdto.getSeller_color());
+			
+			
+			//판매자별 베스트상품리스트 가져오기 12개
+	 		List<ProductDTO> productlist = sellerservice.product_list_user(seller_code);
+
+			//판매자별 신규 상품 가져오기 7개
+	 		List<ProductDTO> newlist = sellerservice.product_list_new(seller_code);
+
+	 		m.addAttribute("productlist",productlist);
+	 		m.addAttribute("newlist", newlist);
+			
+
+			m.addAttribute("sdto", sdto);
+			m.addAttribute("contentpage", "sellers/sellers_list.jsp");
+			return "home";
+		}
 }

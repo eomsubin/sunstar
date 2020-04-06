@@ -175,8 +175,8 @@
             </fieldset>
         
         <div class="bn_wrap v2">
-            <span><input type="submit" id="btnSend" value="제출"></input></span>
-            <span><a href="#" id="btnCancel">취소</a></span>
+            <span><input type="submit" id="btnSend" value="확인"></input></span>
+            <span><a href="${pageContext.request.contextPath}/CS" id="btnCancel">취소</a></span>
         </div>
         </form>
     </div>

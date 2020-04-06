@@ -22,6 +22,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/themify-icons.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/customer_css/customer.css" />
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
 <title>SBBJ - 고객센터 </title>
 </head>
 <body>
@@ -58,11 +59,32 @@
 			<div class="row px-3">
 				<div class="side col-sm-3">
 					<nav class="sidenav nav flex-column px-3">
-					<li><a class="nav-link active" href="#">자주 묻는 질문</a></li>
+					<li><a class="nav-link active" href="${pageContext.request.contextPath}/faq">자주 묻는 질문</a></li>
 					<li><a class="nav-link" href="${pageContext.request.contextPath}/CS/inquiry">1:1 문의하기</a></li>
-					<li><a class="nav-link" href="${pageContext.request.contextPath}/CS/inquiry/inquirylist">나의 문의 내역</a></li>
-					<li><a class="nav-link" href="#">고객센터 이용안내</a></li>
-					<li><a class="nav-link" href="${pageContext.request.contextPath}/notice">공지사항</a></li>
+								<li><a class="nav-link"
+									href="${pageContext.request.contextPath}/CS/inquiry/inquirylist">나의
+										문의 내역</a></li>
+								<li>
+									<!-- Button trigger modal --> 
+									<a type="button" class="btn nav-link infomodal" data-toggle="modal" data-target="#exampleModalLong"> 
+									고객센터 이용안내 </a> 
+									<!-- Modal -->
+									<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+										aria-hidden="true">
+										<div class="modal-dialog" role="document" style="width: 50%">
+											<div class="modal-content">
+												<div class="modal-body">
+													<img claa="infoImg" src="${pageContext.request.contextPath}/resources/images/csimg.jpg" alt="이용안내">
+												</div>
+												<div class="modal-footer">
+													<button type="button" class="modalbtn btn btn-secondary"
+														data-dismiss="modal">닫기</button>
+												</div>
+											</div>
+										</div>
+									</div>
+								</li>
+								<li><a class="nav-link" href="${pageContext.request.contextPath}/notice">공지사항</a></li>
 					<section class="time mt-4 p-3 bg-light">
 					<h5>
 						고객센터<br>업무시간
@@ -79,7 +101,6 @@
 		<jsp:include page="${contentpage}" />
 		</div>
 		</div>
-	</div>
 	</section>
 	<footer>
 		<jsp:include page="../footer2.jsp" />

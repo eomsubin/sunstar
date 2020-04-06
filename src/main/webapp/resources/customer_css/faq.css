@@ -54,7 +54,7 @@ footer{
     
 }
 
-#contentbody > div > div.side.col-sm-3 > nav > li:nth-child(5) > a{
+#contentbody > div > div.side.col-sm-3 > nav > li:nth-child(1) > a{
 	color:#fbab60;
 }
 .jinwoo{
@@ -164,16 +164,6 @@ section{
     background-color: #fff;
 }
 
-.subtitle{
-    height: 35px;
-    margin-top: 33px;
-    font-size: 20px;
-    font-weight: normal;
-    display: block;
-    font-size: 1.17em;
-    font: 'Malgun Gothic','맑은고딕',Dotum,'돋움';
-    color: #333;
-}
 
 #inquiryTitle, #inquiryContent{
     width: 468px;
@@ -236,23 +226,8 @@ legend
     
 }
 
-.bl_ess{
-    height: 6px;
-    width: 6px;
-    margin: 3px 0 0 -10px;
-    font-size: 0;
-    background-position: 0 -20px;
-    background-image: url(//file.bugsm.co.kr/wbugs/helpdesk/sprite_helpdesk_bullet.png);
-    background-repeat: no-repeat;
-    display: inline-block;
-}
-
-.lefttext{
-	text-align: left;
-}
-
-#noticeAll > table > thead > tr, #noticecom > table > thead > tr, #noticeham > table > thead > tr{
-	text-align: center;
+.addbtn{
+	margin-left: 87% !important;
 }
 
 .delsection{
@@ -260,6 +235,16 @@ legend
 	margin-bottom: 1%
 }
 
+.lefttext{
+	text-align: left;
+}
+
 .bcontent{
 	background-color: #F8F8FF;
 }
+
+#faqAll > table > thead > tr{
+	text-align: center;
+}
+
+
