@@ -379,7 +379,7 @@
                </div>
                <div class="row">
                   <div class="col-12">
-                     <div class="select row" style="margin-bottom: -40px;">
+                     <div class="select row" style="margin-bottom: -20px;">
                         <div class="custom-control custom-checkbox">
                            <input type="checkbox" class="allchBox custom-control-input"
                               id="allCheck" value='<sec:authentication property="principal.UserInfo.id"/>'> 
