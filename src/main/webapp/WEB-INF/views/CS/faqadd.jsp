@@ -113,7 +113,7 @@
         </div>
         </form>
     </div>
-
                 </div>
+                <div class="adjust" style="margin-bottom: 10%"></div>
 </body>
 </html>

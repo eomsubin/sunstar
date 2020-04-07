@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="sec"
+   uri="http://www.springframework.org/security/tags"%>
 <%@ page session="false"%>
 <!DOCTYPE html>
 <html>
@@ -44,7 +46,9 @@ function del(notice_no) {
 	    <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="home" aria-selected="true">전체 공지</a>
 	    <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="profil" aria-selected="false">일반 공지</a>
 	  	<a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="contact" aria-selected="false">위해상품 공지</a>
-	  	<a type="button" class="btn addnotice mb-1" href="${pageContext.request.contextPath}/noticeadd" style="margin-left:auto; color:white; background-color: #274555">공지 작성 </a> 
+	  	<sec:authorize access="hasRole('ROLE_ADMIN')">
+	  	<a type="button" class="btn addnotice mb-1" href="${pageContext.request.contextPath}/noticeadd" style="margin-left:auto; color:white; background-color: #274555">공지 작성 </a>
+	  	</sec:authorize>
 	  </div>
 	</nav>
 	
@@ -179,8 +183,9 @@ function del(notice_no) {
 					</div>
 				</div>
 					
-					<hr class="my-4">
+					<hr class="mb-4">
 	</div>
+	<div class="adjust" style="margin-bottom: 10%"></div>
 </div>
 </body>
 </html>
