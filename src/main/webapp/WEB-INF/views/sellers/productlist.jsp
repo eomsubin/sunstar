@@ -472,7 +472,7 @@ body {
 <!-- delete Button trigger modal -->
 						<button type="button" id="btndeletemodal" class="btn btn-danger">
 							<!-- data-toggle="modal" data-target="#exampleModal" -->
-							삭제 모달 테스트
+							삭제
 						</button>
 
 
@@ -597,7 +597,7 @@ body {
 									<th>카테고리</th>
 									<th>공개여부</th>
 									<th>리뷰공개여부</th>
-									<th>단일 수정 / 삭제</th>
+									<!-- <th>단일 수정 / 삭제</th> -->
 								</tr>
 							</thead>
 
@@ -633,7 +633,7 @@ body {
 										</c:if> <c:if test="${ i.review_state  != true}">
 											 비공개
 										</c:if></td>
-										<td class="center"><a class="btn btn-success detailmdl" 
+										<%-- <td class="center"><a class="btn btn-success detailmdl" 
 											data-toggle="modal" data-target=".bd-example-modal-lg"> <img
 												src="${pageContext.request.contextPath}/resources/icons/search.svg"
 												alt="" width="20" height="20" title="Bootstrap"> <img
@@ -644,7 +644,7 @@ body {
 										</a> <a class="btn btn-danger" href="#"> <img
 												src="${pageContext.request.contextPath}/resources/icons/trash-fill.svg"
 												alt="" width="20" height="20" title="Bootstrap">
-										</a></td>
+										</a></td> --%>
 
 
 										<!-- 모달시작 -->
