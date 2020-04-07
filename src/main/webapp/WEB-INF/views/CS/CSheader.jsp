@@ -38,7 +38,7 @@
 								<li><i class="ti-alarm-clock"></i> <a href="#">Daily deal</a></li> -->
 								
 								 <sec:authorize access="isAnonymous()"><li><i class="ti-user"></i> <a href="${pageContext.request.contextPath}/RegistrationBuyer">회원가입</a></li></sec:authorize>
-								 <sec:authorize access="isAuthenticated()"><li><i class="ti-user"></i> <a href="#">마이페이지</a></li></sec:authorize>
+								 <sec:authorize access="isAuthenticated()"><li><i class="ti-user"></i> <a href="${pageContext.request.contextPath }/mypage/order">마이페이지</a></li></sec:authorize>
 								 
 								 <sec:authorize access="isAnonymous()"><li><i class="ti-power-off"></i><a href="${pageContext.request.contextPath}/userlogin">로그인</a></li></sec:authorize>
 								 <sec:authorize access="isAuthenticated()"><sec:authentication property="principal.UserInfo.name"/>님<li><i class="ti-power-off"></i><a href="${pageContext.request.contextPath}/userlogout">로그아웃</a></li></sec:authorize>

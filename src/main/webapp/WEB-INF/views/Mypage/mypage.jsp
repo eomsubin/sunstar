@@ -177,10 +177,16 @@ function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2, zipNo
 			alert('띄어쓰기 없는 6~15자의 숫자, 특문 각 1회 이상, 영문은 1개 이상 사용하여  6자리 이상 입력하셔야 합니다.')
 			
 		}else{
-			alert('비밀번호 변경이 성공하였습니다.');
-			location.href= "${pageContext.request.contextPath}/mypage/info/"+upw;
+			var con = confirm('비밀번호를 변경하시겠습니까?');
 			
+			if(con){
+				alert('비밀번호 변경이 성공하였습니다.');
+				location.href= "${pageContext.request.contextPath}/mypage/info/"+upw;
 			
+			}else{
+				alert('비밀번호 변경을 취소하였습니다.');
+				
+			}
 		}
 		
 	}
