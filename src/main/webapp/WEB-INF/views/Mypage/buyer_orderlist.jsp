@@ -111,12 +111,12 @@ function jusoCallBack(review_content, order_no, review_star){
 					<thead>
 						<tr>
 							<th scope="col" style="width:80px; text-align: center;">주문번호</th>
-							<th scope="col" style="width:60px; text-align: center;">상품정보</th>
+							<th scope="col" style="width:80px; text-align: center;">상품정보</th>
 							<th scope="col" style="text-align: center; width:190px;">상품명</th>
-							<th scope="col" style="text-align: center;">상품금액(수량)</th>
-							<th scope="col">배송비</th>
-							<th scope="col" style="width:80px; text-align: center;">주문상태</th>
-							<th scope="col">상품평</th>
+							<th scope="col" style=" width:80px; text-align: center;">상품금액(수량)</th>
+							<th scope="col" style="text-align: center;">배송비</th>
+							<th scope="col" style="width:120px; text-align: center;">주문상태</th>
+							<th scope="col" style="width:100px; text-align: center;" >상품평</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -131,8 +131,8 @@ function jusoCallBack(review_content, order_no, review_star){
 							<td ><img src="${pageContext.request.contextPath }/${pay.thumb_img }"></td>
 							<td style="vertical-align: middle; text-align: center;"><a href="${pageContext.request.contextPath}/detailview2?product_code=${pay.product_code}">${pay.product_name }</a></td>
 							<td style="vertical-align: middle; text-align: center;">${(pay.price+pay.add_price)*pay.quantity}원  (${pay.quantity })</td>
-							<td style="vertical-align: middle;">${pay.basic_shipping_cost}원</td>
-							<td style="vertical-align: middle;">${pay.delivery_state}</td>
+							<td style="vertical-align: middle; text-align: center;">${pay.basic_shipping_cost}원</td>
+							<td style="vertical-align: middle; text-align: center;">${pay.delivery_state}</td>
 							<td style="vertical-align: middle;"><c:if test="${empty pay.review_no and pay.delivery_state eq '결제완료'}"><button type="button" style="padding :3px 10px; background-color: #fbab60;" onclick="goinsertreview(${pay.order_no});">상품평 작성</button></c:if><c:if test="${not empty pay.review_no}"><button type="button" style="padding :3px 10px;" onclick="godetailreview(${pay.order_no});">상품평 보기</button></c:if></td>
 						</tr>
 						</c:forEach>
