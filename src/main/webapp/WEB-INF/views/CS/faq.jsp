@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="sec"
+   uri="http://www.springframework.org/security/tags"%>
 <%@ page session="false"%>
 <!DOCTYPE html>
 <html>
@@ -51,12 +53,11 @@ function del(faq_no){
 					</div>
 					</nav>
 					
-	
+	<sec:authorize access="hasRole('ROLE_ADMIN')">
 	  		<div class="addbtn">
 	     	<a type="button" class="btn addfaq my-2" href="${pageContext.request.contextPath}/faqadd" style="color:white; background-color: #274555">FAQ 작성 </a> 
 	  		</div>
-	
-
+	</sec:authorize>
 				<!-- 전체faq -->
 
   					<div id="faqAll">
@@ -105,6 +106,7 @@ function del(faq_no){
 
 					
 					<hr class="my-4">
+					<div class="adjust" style="margin-bottom: 10%"></div>
 
 				
 </body>

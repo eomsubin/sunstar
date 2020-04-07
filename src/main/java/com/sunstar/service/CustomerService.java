@@ -1,5 +1,6 @@
 package com.sunstar.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.mysql.cj.protocol.x.Notice;
@@ -30,6 +31,8 @@ public interface CustomerService {
 	public List<FaqDTO> faqhot10();
 
 	public List<NoticeDTO> noticehot5();
+
+	public List<HashMap<String, Object>> getOrderList(HashMap<String, Object> map);
 
 	
 	
