@@ -48,6 +48,7 @@ import com.sunstar.service.FileUploadService;
 import com.sunstar.service.SellerService;
 
 import lombok.extern.log4j.Log4j;
+
 @Log4j
 @RequestMapping("/seller/*")
 @Controller
@@ -560,9 +561,13 @@ public class SellerController {
 
 		try {
 			//저장 경로 구하기
+			
 			String uploadpath = request.getSession().getServletContext().getRealPath(path);
-			System.out.println(uploadpath);
 			log.info(uploadpath);
+			uploadpath = "/usr/local/apache-tomcat-9.0.33/webapps/sunstar1/resources/product_img";
+			log.info(uploadpath);
+			System.out.println(uploadpath);
+
 			//파일이 비어있지 않다면!
 			if(!multi.isEmpty()) {
 				//파일 = 새파일(경로, 파일이름);

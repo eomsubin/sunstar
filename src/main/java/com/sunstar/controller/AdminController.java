@@ -44,7 +44,7 @@ public class AdminController {
    
    @Autowired
    private AdminService adminservice;
-   
+    
    @Autowired
    @Qualifier("userservice")
    private UserService userservice;
