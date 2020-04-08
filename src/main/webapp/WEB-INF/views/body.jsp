@@ -57,15 +57,30 @@
 </head>
 <body>
 
-	<%-- <div class="mx-auto" style="width: 500px;">
-	<h1>Hello SBBJ User!</h1>
-	<P>The time on the server is ${serverTime}.</P>
-	<c:if test="${empty userinfo}"><a class="btn btn-secondary" href="login">로그인</a></c:if>
-	<c:if test="${!empty userinfo}"><a class="btn btn-secondary" href="logout">로그아웃</a>${userinfo.response.name}님 환영합니다.</c:if>
-<<<<<<< HEAD
 	
-</div> --%>
-	<!-- Slider Area -->
+ <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="${pageContext.request.contextPath }/resources/img/mainbanner2.jpg" class="d-block w-100" alt="...">
+    </div>
+    <div class="carousel-item">
+      <img src="${pageContext.request.contextPath }/resources/img/mainbanner1.jpg" class="d-block w-100" alt="...">
+    </div>
+    <div class="carousel-item">
+      <img src="${pageContext.request.contextPath }/resources/img/mainbanner4.jpg" class="d-block w-100" alt="...">
+    </div> 
+  </div>
+  <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
+	
+	<%-- <!-- Slider Area -->
 	<section class="hero-slider"><a href="${pageContext.request.contextPath }/list?category=D05">
 		<!-- Single Slider -->
 		<div class="single-slider">
@@ -76,7 +91,7 @@
 			</div>
 		</div></a>
 		<!--/ End Single Slider -->
-	</section>
+	</section> --%>
 	<!--/ End Slider Area -->
 
 
