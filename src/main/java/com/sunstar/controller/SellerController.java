@@ -562,9 +562,9 @@ public class SellerController {
 		try {
 			//저장 경로 구하기
 			
-			String uploadpath = request.getSession().getServletContext().getRealPath(path);
-			log.info(uploadpath);
-			uploadpath = "/usr/local/apache-tomcat-9.0.33/webapps/sunstar1/resources/product_img";
+			//String uploadpath = request.getSession().getServletContext().getRealPath(path);
+			//log.info(uploadpath);
+			String uploadpath = "/usr/local/apache-tomcat-9.0.33/webapps/sunstar1/resources/product_img";
 			log.info(uploadpath);
 			System.out.println(uploadpath);
 
@@ -1896,8 +1896,3 @@ public class SellerController {
 	
 	
 }
-
-
-
-
-

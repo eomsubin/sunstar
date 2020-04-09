@@ -13,6 +13,7 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<script	type="text/javascript" src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 <style>
 ul li{
 display: inline-block
@@ -537,11 +538,75 @@ $(document).ready(function(){
 });
 </script>
 
+<!-- 공유하기 -->
+<script>
+// 네이버
+ $(document).ready(function(){
+	$('#naver').on('click',function(){
+			  var url = encodeURI(encodeURIComponent(myform.url.value));
+			  var title = encodeURI(myform.title.value);
+			  var shareURL = "https://share.naver.com/web/shareView.nhn?url=" + url + "&title=" + title;
+			  //document.location = shareURL;
+			  window.open(shareURL,"pop","width=570,height=420, scrollbars=yes, resizable=yes");	 
+	});
+	Kakao.init('97b96afd43e3b49408aede75457684bf');
+ 	console.log(Kakao.isInitialized());
+ 	//end 사용 준비
+	
+ 	
+ 	Kakao.Link.createDefaultButton({
+ 		  container: '#kakao',
+ 		  objectType: 'feed',
+ 		  content: {
+ 		    title: '${view.product_name}',
+ 		    description: '아메리카노, 빵, 케익',
+ 		    imageUrl:
+ 		      'http://54.180.109.23:8080//resources/product_img/thumb_20200331154105.jpg',
+ 		    link: {
+ 		      mobileWebUrl: 'http://54.180.109.23:8080/detailview2?product_code=4032',
+ 		      androidExecParams: 'test',
+ 		    },
+ 		  },
+ 		  social: {
+ 		    likeCount: 10,
+ 		    commentCount: 20,
+ 		    sharedCount: 30,
+ 		  },
+ 		  buttons: [
+ 		    {
+ 		      title: '웹으로 이동',
+ 		      link: {
+ 		        mobileWebUrl: 'http://54.180.109.23:8080/detailview2?product_code=4032',
+ 		      },
+ 		    },
+ 		    {
+ 		      title: '앱으로 이동',
+ 		      link: {
+ 		        mobileWebUrl: 'http://54.180.109.23:8080/detailview2?product_code=4032',
+ 		      },
+ 		    },
+ 		  ],
+ 		  success: function(response) {
+ 		    console.log(response);
+ 		  },
+ 		  fail: function(error) {
+ 		    console.log(error);
+ 		  }
+ 		});
+ 	
+ 	
+ })
+
+
+ </script>
+
+
 
 
 <title>SBBJ</title>
 </head>
 <body>
+
 
 <div class="nav loc bg-light" style="border: 1px solid #dadada; border-top: 2px solid black; ">
      <ul class="top_link_nav" style="margin-left: 16%" >
@@ -564,7 +629,12 @@ $(document).ready(function(){
    </div>
 	
 	<br><br>
-	 
+  
+ <!-- 네이버 공유  api -->
+  <form id="myform">
+    <input type="hidden" id="url" value="http://54.180.109.23:8080/detailview2?product_code=4032"><br/>
+   <input  type="hidden" id="title" value="${view.product_name}"><br/>
+  </form>
 	 
 
 
@@ -651,8 +721,28 @@ $(document).ready(function(){
 							<!-- 공유 -->
 							<div class="sns_area">
 								<button type="button"
-									class="share_btn btn btn-outline-primary btn-sm">
-									<span>SNS 공유</span>
+									class="share_btn btn btn-outline-primary btn-sm m-2 p-1">
+									<span>SNS 공유</span> 
+									<span> 
+									<script	type="text/javascript" src="https://ssl.pstatic.net/share/js/naver_sharebutton.js"></script>
+									<script type="text/javascript"> new ShareNaver.makeButton({"type" : "e"});</script>
+									</span>
+									<span id="kakao" name="kakao">
+									<img src="${pageContext.request.contextPath}/resources/img/kakaolink_btn_small.png" alt="카카오톡 공유">
+									</span>
+									<span id="fb-root">
+									  <script>(function(d, s, id) {
+									    var js, fjs = d.getElementsByTagName(s)[0];
+									    if (d.getElementById(id)) return;
+									    js = d.createElement(s); js.id = id;
+									    js.src = "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.0";
+									    fjs.parentNode.insertBefore(js, fjs);
+									  }(document, 'script', 'facebook-jssdk'));</script>
+									</span>
+										  <!-- Your share button code -->
+										  <div class="fb-share-button" data-href="http://54.180.109.23:8080/detailview2?product_code=4032" 
+										    data-layout="button_count">
+										   </div>
 								</button>
 							</div>
 						</div>
