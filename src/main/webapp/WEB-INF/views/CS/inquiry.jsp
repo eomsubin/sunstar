@@ -65,9 +65,7 @@ function jusoCallBack(order_code)
           $("#btnSend").on("click",function(){
         	  var email1 =  $('.emailId').val()
               var email2 = $('.emailDomain').val()
-              console.log(email2);
-            
-        }); 
+           }); 
 	});
 </script>
 </head>

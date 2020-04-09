@@ -38,18 +38,23 @@
 				<li class="nav-item col-sm-3"><a class="nav-link" href="${pageContext.request.contextPath}/CS"
 					style="color: white; font-size: 28px; font-weight: 600">고객센터</a></li>
 				<li class="nav-item col-sm-3 my-3"><a href="#"><i
-						class="far fa-address-card fa-2x"></i></a> <br> <span> <a
-						href="#">정보변경</a><br> <a href="#">비밀번호 변경</a><br> <a
-						href="#">탈퇴</a>
-				</span></li>
-				<li class="nav-item col-sm-3 my-3"><a href="#"><i
-						class="far fa-credit-card fa-2x"></i></a> <br> <span> <a
-						href="#">주문</a><br> <a href="#">결제</a><br>
-				</span></li>
+						class="far fa-address-card fa-2x"></i></a> <br> <span> 
+						<a href="${pageContext.request.contextPath}/mypage/info">정보변경</a><br> 
+						<a href="${pageContext.request.contextPath}/mypage/info">비밀번호 변경</a><br> 
+						<a href="${pageContext.request.contextPath}/mypage/userdrop">탈퇴</a></span>
+				</li>
+				<li class="nav-item col-sm-3 my-3"><a href="#">
+				<i class="far fa-credit-card fa-2x"></i></a> <br> 
+				<span> 
+				<a href="${pageContext.request.contextPath}/mypage/order">주문</a><br> 
+				<a href="${pageContext.request.contextPath}/mypage/order">결제</a><br></span>
+				</li>
 
 				<li class="nav-item col-sm-3 my-3" style="border: 0px"><a
 					href="#"><i class="far fa-question-circle fa-2x"></i></a> <br>
-					<span> <a href="#">고객센터</a><br> <a href="#">기타</a><br>
+					<span> 
+					<a href="${pageContext.request.contextPath}/CS">고객센터</a><br> 
+					<a href="${pageContext.request.contextPath}/CS">기타</a><br>
 				</span></li>
 			</ul>
 		</div>
@@ -96,9 +101,11 @@
 					<p class="desc">
 						업무시간 외에는<br> 자주 묻는 질문<br> 또는 1:1문의를<br> 이용해 주세요
 					</p>
-					</section> </nav>
+					</section> 
+					</nav>
 				</div>
 		<jsp:include page="${contentpage}" />
+		</div>
 		</div>
 		</div>
 	</section>
