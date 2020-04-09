@@ -242,7 +242,7 @@ public class HomeController {
 	    } catch (Exception e) {
 	      System.out.println(e);
 	    }
-		return "redirect:http://localhost:8080/userlogin";
+		return "redirect:/userlogin";
 	}
 	
 	

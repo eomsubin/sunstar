@@ -26,10 +26,10 @@
 	<context:property-placeholder location="classpath:db.properties" />
 		
 	<bean name="dbconf" class="com.zaxxer.hikari.HikariConfig">
-		<property name="driverClassName" value="${driver}"></property>
-		<property name="jdbcUrl" value="${url}"></property>
-		<property name="username" value="${user}"></property>
-		<property name="password" value="${pw}"></property>
+		<property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
+		<property name="jdbcUrl" value="jdbc:mysql://mydb.c0scumgc2h69.ap-northeast-2.rds.amazonaws.com:3306/mydb"></property>
+		<property name="username" value="eunbyul"></property>
+		<property name="password" value="Tjstmxk403403!!"></property>
 	</bean>
 	
 	<bean name="ds" class="com.zaxxer.hikari.HikariDataSource"
