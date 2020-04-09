@@ -178,10 +178,12 @@ section{
 }
 
 
-#noticeForm > fieldset > div > table{
+#tx_editor_form > fieldset > div > table{
     border-top: 2px solid #fbab60;
     width: 95%
 }
+
+
 
 p.ess.mt
 {       
