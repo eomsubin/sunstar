@@ -48,7 +48,7 @@
 		on p.product_code = o.product_code
 		left join seller s
 		on p.seller_code = s.seller_code
-        where p.product_code = #{seller_code}
+        where p.seller_code = #{seller_code}
 		order by product_code desc
 		
 		<!-- where seller_code = '' 추가해야돼 -->

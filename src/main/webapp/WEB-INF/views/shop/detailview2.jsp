@@ -13,6 +13,8 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet"
+   href="${pageContext.request.contextPath}/resources/detailview_css/detailview.css">
 <script	type="text/javascript" src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 <style>
 ul li{
@@ -559,11 +561,11 @@ $(document).ready(function(){
  		  objectType: 'feed',
  		  content: {
  		    title: '${view.product_name}',
- 		    description: '아메리카노, 빵, 케익',
+ 		    description: '${view.explains}',
  		    imageUrl:
- 		      'http://54.180.109.23:8080//resources/product_img/thumb_20200331154105.jpg',
+ 		      'http://54.180.109.23:8080//resources/product_img/${view.thumb_img}',
  		    link: {
- 		      mobileWebUrl: 'http://54.180.109.23:8080/detailview2?product_code=4032',
+ 		      mobileWebUrl: 'http://54.180.109.23:8080/detailview2?product_code=${view.product_code}',
  		      androidExecParams: 'test',
  		    },
  		  },
@@ -576,13 +578,13 @@ $(document).ready(function(){
  		    {
  		      title: '웹으로 이동',
  		      link: {
- 		        mobileWebUrl: 'http://54.180.109.23:8080/detailview2?product_code=4032',
+ 		        mobileWebUrl: 'http://54.180.109.23:8080/detailview2?product_code=${view.product_code}',
  		      },
  		    },
  		    {
  		      title: '앱으로 이동',
  		      link: {
- 		        mobileWebUrl: 'http://54.180.109.23:8080/detailview2?product_code=4032',
+ 		        mobileWebUrl: 'http://54.180.109.23:8080/detailview2?product_code=${view.product_code}',
  		      },
  		    },
  		  ],
@@ -629,7 +631,7 @@ $(document).ready(function(){
    </div>
 	
 	<br><br>
-  
+ 
  <!-- 네이버 공유  api -->
   <form id="myform">
     <input type="hidden" id="url" value="http://54.180.109.23:8080/detailview2?product_code=4032"><br/>
@@ -671,7 +673,7 @@ $(document).ready(function(){
 										src="${view.thumb_img}"
 										class="d-block w-100" alt="...">
 								</div>
-								<div class="carousel-item">
+								<!-- <div class="carousel-item">
 									<img
 										src="http://image.auction.co.kr/itemimage/1b/34/bc/1b34bc2756.jpg"
 										class="d-block w-100" alt="...">
@@ -680,7 +682,7 @@ $(document).ready(function(){
 									<img
 										src="http://image.auction.co.kr/itemimage/1b/73/14/1b7314f606.jpg"
 										class="d-block w-100" alt="...">
-								</div>
+								</div> -->
 							</div>
 							<a class="carousel-control-prev"
 								href="#carouselExampleIndicators" role="button"
@@ -700,7 +702,7 @@ $(document).ready(function(){
 						<div class="prod_info">
 							<div class="d-flex bd-highlight my-3"
 								style="border-bottom: 1px solid #dadada">
-								<div class="p-2 bd-highlight"><a href="${pageContext.request.contextPath}/seller_list/${view.seller_code}">${view.seller_code}</a></div>
+								<div class="p-2 bd-highlight"><a href="${pageContext.request.contextPath}/seller_list/${view.seller_code}">${view.seller_name}</a></div>
 								<div class="ml-auto p-2 bd-highlight">${view.product_code}</div>
 							</div>
 						</div>
@@ -721,15 +723,14 @@ $(document).ready(function(){
 							<!-- 공유 -->
 							<div class="sns_area">
 								<button type="button"
-									class="share_btn btn btn-outline-primary btn-sm m-2 p-1">
-									<span>SNS 공유</span> 
-									<span> 
-									<script	type="text/javascript" src="https://ssl.pstatic.net/share/js/naver_sharebutton.js"></script>
-									<script type="text/javascript"> new ShareNaver.makeButton({"type" : "e"});</script>
-									</span>
+									class="share_btn btn btn-sm m-2 p-1">
 									<span id="kakao" name="kakao">
 									<img src="${pageContext.request.contextPath}/resources/img/kakaolink_btn_small.png" alt="카카오톡 공유">
 									</span>
+									<span> 
+									<script	type="text/javascript" src="https://ssl.pstatic.net/share/js/naver_sharebutton.js"></script>
+									<script type="text/javascript"> new ShareNaver.makeButton({"type" : "e"});</script>
+									</span><br>
 									<span id="fb-root">
 									  <script>(function(d, s, id) {
 									    var js, fjs = d.getElementsByTagName(s)[0];
@@ -740,7 +741,7 @@ $(document).ready(function(){
 									  }(document, 'script', 'facebook-jssdk'));</script>
 									</span>
 										  <!-- Your share button code -->
-										  <div class="fb-share-button" data-href="http://54.180.109.23:8080/detailview2?product_code=4032" 
+										  <div class="fb-share-button  mt-1" data-href="http://54.180.109.23:8080/detailview2?product_code=${view.product_code}" 
 										    data-layout="button_count">
 										   </div>
 								</button>
@@ -853,12 +854,25 @@ $(document).ready(function(){
 				<img class="loadimg" alt="comm_img1" src="${view.comm_img1}" style="display : none">
 				<img class="loadimg" alt="comm_img2" src="${view.comm_img2}" style="display : none">
 				<img class="loadimg" alt="comm_img3" src="${view.comm_img3}" style="display : none">
+
+			<c:if test="${not empty view.detail_img1}">
 				<img class="loadimg" alt="detail_img1" src="${view.detail_img1}" style="display : none">
+			</c:if>			<c:if test="${not empty view.detail_img2}">
+			
 				<img class="loadimg" alt="detail_img2" src="${view.detail_img2}" style="display : none">
+							</c:if>			<c:if test="${not empty view.detail_img3}">
+				
 				<img class="moreimg" alt="detail_img3" src="${view.detail_img3}" style="display : none">
+							</c:if>			<c:if test="${not empty view.detail_img4}">
+				
 				<img class="moreimg" alt="detail_img4" src="${view.detail_img4}" style="display : none">
+							</c:if>			<c:if test="${not empty view.detail_img5}">
+				
 				<img class="moreimg" alt="detail_img5" src="${view.detail_img5}" style="display : none">
+							</c:if>			<c:if test="${not empty view.detail_img6}">
+				
 				<img class="moreimg" alt="detail_img6" src="${view.detail_img6}" style="display : none">
+							</c:if>						
 			
 				<div class="box__detail-more">
 		            <button type="button" class="button__detail-more js-toggle-button">상세정보 <span>더보기</span></button>
