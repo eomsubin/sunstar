@@ -544,7 +544,6 @@ public class SellerController {
 		MultipartFile multi2 = dto.getAdetail_img2();
 		MultipartFile multi3 = dto.getAdetail_img3();
 
-
 		SimpleDateFormat frm = new SimpleDateFormat("yyyyMMddHHmmss");
 		Date date = new Date();
 		String time1 = frm.format(date);
