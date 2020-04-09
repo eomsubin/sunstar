@@ -671,7 +671,7 @@ $(document).ready(function(){
 										src="${view.thumb_img}"
 										class="d-block w-100" alt="...">
 								</div>
-								<div class="carousel-item">
+								<!-- <div class="carousel-item">
 									<img
 										src="http://image.auction.co.kr/itemimage/1b/34/bc/1b34bc2756.jpg"
 										class="d-block w-100" alt="...">
@@ -680,7 +680,7 @@ $(document).ready(function(){
 									<img
 										src="http://image.auction.co.kr/itemimage/1b/73/14/1b7314f606.jpg"
 										class="d-block w-100" alt="...">
-								</div>
+								</div> -->
 							</div>
 							<a class="carousel-control-prev"
 								href="#carouselExampleIndicators" role="button"
@@ -700,7 +700,7 @@ $(document).ready(function(){
 						<div class="prod_info">
 							<div class="d-flex bd-highlight my-3"
 								style="border-bottom: 1px solid #dadada">
-								<div class="p-2 bd-highlight"><a href="${pageContext.request.contextPath}/seller_list/${view.seller_code}">${view.seller_code}</a></div>
+								<div class="p-2 bd-highlight"><a href="${pageContext.request.contextPath}/seller_list/${view.seller_code}">${view.seller_name}</a></div>
 								<div class="ml-auto p-2 bd-highlight">${view.product_code}</div>
 							</div>
 						</div>
@@ -853,12 +853,25 @@ $(document).ready(function(){
 				<img class="loadimg" alt="comm_img1" src="${view.comm_img1}" style="display : none">
 				<img class="loadimg" alt="comm_img2" src="${view.comm_img2}" style="display : none">
 				<img class="loadimg" alt="comm_img3" src="${view.comm_img3}" style="display : none">
+
+			<c:if test="${not empty view.detail_img1}">
 				<img class="loadimg" alt="detail_img1" src="${view.detail_img1}" style="display : none">
+			</c:if>			<c:if test="${not empty view.detail_img2}">
+			
 				<img class="loadimg" alt="detail_img2" src="${view.detail_img2}" style="display : none">
+							</c:if>			<c:if test="${not empty view.detail_img3}">
+				
 				<img class="moreimg" alt="detail_img3" src="${view.detail_img3}" style="display : none">
+							</c:if>			<c:if test="${not empty view.detail_img4}">
+				
 				<img class="moreimg" alt="detail_img4" src="${view.detail_img4}" style="display : none">
+							</c:if>			<c:if test="${not empty view.detail_img5}">
+				
 				<img class="moreimg" alt="detail_img5" src="${view.detail_img5}" style="display : none">
+							</c:if>			<c:if test="${not empty view.detail_img6}">
+				
 				<img class="moreimg" alt="detail_img6" src="${view.detail_img6}" style="display : none">
+							</c:if>						
 			
 				<div class="box__detail-more">
 		            <button type="button" class="button__detail-more js-toggle-button">상세정보 <span>더보기</span></button>

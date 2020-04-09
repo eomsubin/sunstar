@@ -547,6 +547,9 @@ public class SellerController {
 		MultipartFile multi2 = dto.getAdetail_img2();
 		MultipartFile multi3 = dto.getAdetail_img3();
 
+		MultipartFile multi4 = dto.getAdetail_img4();		
+		MultipartFile multi5 = dto.getAdetail_img5();
+		MultipartFile multi6 = dto.getAdetail_img6();
 
 		SimpleDateFormat frm = new SimpleDateFormat("yyyyMMddHHmmss");
 		Date date = new Date();
@@ -555,6 +558,9 @@ public class SellerController {
 		String detail1 = "detail1_" + time1+".jpg";
 		String detail2 = "detail2_" + time1+".jpg";
 		String detail3 = "detail3_" + time1+".jpg";
+		String detail4 = "detail4_" + time1+".jpg";
+		String detail5 = "detail5_" + time1+".jpg";
+		String detail6 = "detail6_" + time1+".jpg";
 
 		String path = "resources\\product_img";
 
@@ -606,6 +612,41 @@ public class SellerController {
 				File nfile3 = new File(new_file_url_name);
 				file3.renameTo(nfile3);
 				dto.setDetail_img3("resources\\product_img\\" + detail3);
+			}
+
+
+			if(!multi4.isEmpty()) {
+				//파일 = 새파일(경로, 파일이름);
+				File file4 = new File(uploadpath, multi4.getOriginalFilename());
+				multi3.transferTo(file4);
+				String new_file_url_name = uploadpath+"/"+detail4;
+				File nfile4 = new File(new_file_url_name);
+				file4.renameTo(nfile4);
+				dto.setDetail_img3("resources\\product_img\\" + detail4);
+			}
+
+			
+
+			if(!multi5.isEmpty()) {
+				//파일 = 새파일(경로, 파일이름);
+				File file5 = new File(uploadpath, multi5.getOriginalFilename());
+				multi5.transferTo(file5);
+				String new_file_url_name = uploadpath+"/"+detail5;
+				File nfile5 = new File(new_file_url_name);
+				file5.renameTo(nfile5);
+				dto.setDetail_img3("resources\\product_img\\" + detail5);
+			}
+
+			
+
+			if(!multi6.isEmpty()) {
+				//파일 = 새파일(경로, 파일이름);
+				File file6 = new File(uploadpath, multi6.getOriginalFilename());
+				multi6.transferTo(file6);
+				String new_file_url_name = uploadpath+"/"+detail6;
+				File nfile6 = new File(new_file_url_name);
+				file6.renameTo(nfile6);
+				dto.setDetail_img3("resources\\product_img\\" + detail6);
 			}
 
 
@@ -661,47 +702,6 @@ public class SellerController {
 			System.out.println("value ----------"+plist.get(i));
 		}
 
-		/*System.out.println("////");
-		System.out.println(plist);
-		System.out.println("////");
-		for(int i=0;i<plist.size();i++) {
-
-			int product = plist.get(i);		
-			List<String> color = sellerservice.getOptioncolor(product);
-
-			for(String aaa : color) {
-				System.out.println("--------------시작--");
-				System.out.println(pcode);
-				System.out.println(aaa);
-				System.out.println("---------------끝-");
-				OptionDTO dto = new OptionDTO();
-				dto.setProduct_code(pcode);
-				dto.setInventory(gesu);
-				dto.setColor(aaa);
-				sellerservice.updateinventory(dto);
-			}
-		}*/
-
-		//	System.out.println("-----------pcode---시작--");
-		//	System.out.println(pcode);
-		//	System.out.println("-----------pcode----끝-");
-
-
-		//	List<String> color = sellerservice.getOptioncolor(pcode);
-
-		//	System.out.println("color 출력" + color);	*/
-		/*	for(String a : color) {
-			System.out.println("--------------시작--");
-
-			System.out.println(pcode);
-			System.out.println(a);
-			System.out.println("---------------끝-");
-			OptionDTO dto = new OptionDTO();
-			dto.setProduct_code(pcode);
-			dto.setInventory(gesu);
-			dto.setColor(a);
-			sellerservice.updateinventory(dto);
-		}*/
 
 		return "redirect:/seller/productlist";
 	}
@@ -1237,8 +1237,7 @@ public class SellerController {
 		try {
 
 			//저장 경로 구하기
-			String uploadpath = request.getSession().getServletContext().getRealPath(path);
-
+			String uploadpath = "/usr/local/apache-tomcat-9.0.33/webapps/sunstar1/resources/product_img";
 			//	String uploadpath = "C:\\finalgit\\sunstar\\src\\main\\webapp\\resources\\comm_img";
 			System.out.println("*******\t uploadpath"+uploadpath);
 
