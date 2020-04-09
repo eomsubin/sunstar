@@ -14,7 +14,7 @@
 	  
 	<select id="viewOrdered" resultType="com.sunstar.dto.CartDTO" parameterType="com.sunstar.dto.CartDTO">
 		select 
-    c.cart_no,
+   distinct c.cart_no,
      c.cart_quantity,
     c.id, 
     c.product_code ,t.name,t.tel,t.email,t.address1,t.address2,t.address3,t.zip
