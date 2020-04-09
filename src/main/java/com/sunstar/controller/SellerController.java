@@ -225,10 +225,13 @@ public class SellerController {
 				m.addAttribute("txt",txt);
 			}
 		}*/
-
+		
+		MakePage dto = new MakePage();
+		dto.setSeller_code(seller_code);
+		dto.setTxt(txt);
 		//총 갯수 구하기
-		int totalCount = sellerservice.totalCount(txt);
-		System.out.println(totalCount);
+		int totalCount = sellerservice.totalCount(dto);
+		System.out.println("totalcount-------------------"+totalCount);
 
 		MakePage pa = new MakePage();
 		pa.setSizePerPage(10); 
@@ -258,6 +261,7 @@ public class SellerController {
 		System.out.println("======page======");
 
 		page.setStartRow(page.getStartRow());
+		page.setTxt(txt);
 
 		System.out.println("현재페이지"+page.getCurrPage());
 		System.out.println("총 갯수"+page.getTotalCount());
@@ -269,6 +273,7 @@ public class SellerController {
 		System.out.println("끝블럭"+page.getEndBlock());
 		System.out.println("이전있니"+page.isPrev());
 		System.out.println("다음있니"+page.isNext());
+		System.out.println("검색했니?" + page.getTxt());
 		System.out.println("======page==end===");
 
 		page.setSeller_code(seller_code);

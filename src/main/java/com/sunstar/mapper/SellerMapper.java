@@ -57,7 +57,7 @@ public interface SellerMapper {
 
 	void changeInfo(SellerDTO dto);
 
-	int getCount(HashMap<String, Object> hm);
+	int getCount(MakePage seller_codeAndTxt);
 
 	List<ProductDTO> productlist(MakePage page);
 
