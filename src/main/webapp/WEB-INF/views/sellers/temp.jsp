@@ -257,7 +257,7 @@
 							class="nav-link dropdown-toggle" href="${pageContext.request.contextPath}/seller/product_qna" id="alertsDropdown"
 							role="button" data-toggle="dropdown" aria-haspopup="true"
 							aria-expanded="false"> <i class="fas fa-bell fa-fw"></i> <!-- Counter - Alerts -->
-								<span class="badge badge-danger badge-counter">new</span>
+								<span class="badge badge-danger badge-counter">+</span>
 						</a> <!-- Dropdown - Alerts -->
 							<div
 								class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -305,7 +305,7 @@
 							role="button" data-toggle="dropdown" aria-haspopup="true"
 							aria-expanded="false"> <i class="fas fa-envelope fa-fw"></i>
 								<!-- Counter - Messages --> <span
-								class="badge badge-danger badge-counter">new</span>
+								class="badge badge-danger badge-counter">+</span>
 						</a> <!-- Dropdown - Messages -->
 							<div
 								class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
