@@ -18,8 +18,8 @@
 	
 	<!-- 상품 추가  -->
 	<insert id="addProduct" parameterType="com.sunstar.dto.ProductDTO">
-		insert into product_list(product_name, price, cost, thumb_img, detail_img1, detail_img2, detail_img3, explains, public_state, review_state, category_code, seller_code, add_date)
-		values(#{product_name},#{price},#{cost},#{thumb_img}, #{detail_img1},  #{detail_img2},  #{detail_img3}, #{explains},#{public_state},#{review_state}, #{category_code}, #{seller_code}, now() )
+		insert into product_list(product_name, price, cost, thumb_img, detail_img1, detail_img2, detail_img3, detail_img4, detail_img5, detail_img6,explains, public_state, review_state, category_code, seller_code, add_date)
+		values(#{product_name},#{price},#{cost},#{thumb_img}, #{detail_img1},  #{detail_img2},  #{detail_img3}, #{detail_img4},  #{detail_img5},  #{detail_img6}, #{explains},#{public_state},#{review_state}, #{category_code}, #{seller_code}, now() )
 	</insert>
 	
 	<!--  -->
