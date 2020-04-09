@@ -13,6 +13,8 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet"
+   href="${pageContext.request.contextPath}/resources/detailview_css/detailview.css">
 <script	type="text/javascript" src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 <style>
 ul li{
@@ -559,11 +561,11 @@ $(document).ready(function(){
  		  objectType: 'feed',
  		  content: {
  		    title: '${view.product_name}',
- 		    description: '아메리카노, 빵, 케익',
+ 		    description: '${view.explains}',
  		    imageUrl:
- 		      'http://54.180.109.23:8080//resources/product_img/thumb_20200331154105.jpg',
+ 		      'http://54.180.109.23:8080//resources/product_img/${view.thumb_img}',
  		    link: {
- 		      mobileWebUrl: 'http://54.180.109.23:8080/detailview2?product_code=4032',
+ 		      mobileWebUrl: 'http://54.180.109.23:8080/detailview2?product_code=${view.product_code}',
  		      androidExecParams: 'test',
  		    },
  		  },
@@ -576,13 +578,13 @@ $(document).ready(function(){
  		    {
  		      title: '웹으로 이동',
  		      link: {
- 		        mobileWebUrl: 'http://54.180.109.23:8080/detailview2?product_code=4032',
+ 		        mobileWebUrl: 'http://54.180.109.23:8080/detailview2?product_code=${view.product_code}',
  		      },
  		    },
  		    {
  		      title: '앱으로 이동',
  		      link: {
- 		        mobileWebUrl: 'http://54.180.109.23:8080/detailview2?product_code=4032',
+ 		        mobileWebUrl: 'http://54.180.109.23:8080/detailview2?product_code=${view.product_code}',
  		      },
  		    },
  		  ],
@@ -629,7 +631,7 @@ $(document).ready(function(){
    </div>
 	
 	<br><br>
-  
+ 
  <!-- 네이버 공유  api -->
   <form id="myform">
     <input type="hidden" id="url" value="http://54.180.109.23:8080/detailview2?product_code=4032"><br/>
@@ -721,15 +723,14 @@ $(document).ready(function(){
 							<!-- 공유 -->
 							<div class="sns_area">
 								<button type="button"
-									class="share_btn btn btn-outline-primary btn-sm m-2 p-1">
-									<span>SNS 공유</span> 
-									<span> 
-									<script	type="text/javascript" src="https://ssl.pstatic.net/share/js/naver_sharebutton.js"></script>
-									<script type="text/javascript"> new ShareNaver.makeButton({"type" : "e"});</script>
-									</span>
+									class="share_btn btn btn-sm m-2 p-1">
 									<span id="kakao" name="kakao">
 									<img src="${pageContext.request.contextPath}/resources/img/kakaolink_btn_small.png" alt="카카오톡 공유">
 									</span>
+									<span> 
+									<script	type="text/javascript" src="https://ssl.pstatic.net/share/js/naver_sharebutton.js"></script>
+									<script type="text/javascript"> new ShareNaver.makeButton({"type" : "e"});</script>
+									</span><br>
 									<span id="fb-root">
 									  <script>(function(d, s, id) {
 									    var js, fjs = d.getElementsByTagName(s)[0];
@@ -740,7 +741,7 @@ $(document).ready(function(){
 									  }(document, 'script', 'facebook-jssdk'));</script>
 									</span>
 										  <!-- Your share button code -->
-										  <div class="fb-share-button" data-href="http://54.180.109.23:8080/detailview2?product_code=4032" 
+										  <div class="fb-share-button  mt-1" data-href="http://54.180.109.23:8080/detailview2?product_code=${view.product_code}" 
 										    data-layout="button_count">
 										   </div>
 								</button>
