@@ -18,12 +18,15 @@
 	
 	<security:http use-expressions="true">
 		<security:intercept-url pattern="/all" access="permitAll"/>
+		<security:intercept-url pattern="/userlogin/**" access="isAnonymous()"/>
+		<security:intercept-url pattern="/RegistrationBuyer" access="isAnonymous()"/>
+		<security:intercept-url pattern="/registercustomer/**" access="isAnonymous()"/>
 		<security:intercept-url	pattern="/seller/**" access="hasRole('ROLE_MANAGER')" />
 		<security:intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')" />
 		<security:intercept-url	pattern="/member" access="isAuthenticated()" />
 		<security:form-login login-page="/userlogin" authentication-success-handler-ref="userLoginSuccess"/> <!-- default login사용 -->            
 		<security:logout logout-url="/userlogout" invalidate-session="true" logout-success-url="/"/>
-		<!-- <security:access-denied-handler error-page="/error"/> -->
+		<security:access-denied-handler error-page="/error"/>
 		<!-- <security:remember-me data-source-ref="ds" token-validity-seconds="604800" /> -->
 		<security:csrf request-matcher-ref="csrfMatcher"/>    	
     	<security:headers>

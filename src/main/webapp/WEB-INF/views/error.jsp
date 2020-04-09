@@ -8,6 +8,6 @@
 </head>
 <body>
 에러페이지입니다.
-<a href="${pageContext.request.contextPath}">홈</a>
+<a href="/${pageContext.request.contextPath}">홈</a>
 </body>
 </html>
