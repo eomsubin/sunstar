@@ -224,7 +224,42 @@ function deleteShip(){
 						<!--/ End Single Widget -->
 					</div>
 				</div>
-				<div class="shipinfo">
+				  <table style="margin-left: 35%; margin-top: -20%;">
+                     <%--   <colgroup>
+                            <col style="width:300px">
+                            <col style="width:540px">
+                        </colgroup> --%>
+                        
+                        <h3 style="margin-left: 9%;">${info.name }</h3>
+                        
+                        <tbody >
+                          <!-- 아이디-->
+                             <tr>
+                           		<th scope="row"><label for="customerID"><span class="itemExpression"><button type="button" class="btn btn-secondary"  style="margin-bottom: 20%;">기본배송지</button></span></label></th>
+                          
+                          
+                           		</tr>
+                           <tr>
+                           <th scope="row"><label for="customerID"><span class="itemExpression">주소</span></label></th>
+                           <td><div>${info.address1 }${info.address2 }${info.address3 }</div></td>
+                          
+                           </tr>
+                           
+                            <!-- 이메일 -->
+                            <tr class="itemArea EMAIL">
+                                <th scope="row">
+                                    <label for="customerEmail">
+                                        <span class="bl_ess">휴대전화</span>
+                                    	
+                                    </label>
+                                </th>
+                                <td>
+                                    <div>${info.tel }</div>
+                                </td>
+                            </tr>
+                        </tbody>
+            </table>
+				<%-- <div class="shipinfo">
 				<br>
 					<h5>${info.name }</h5>
 					<br>
@@ -234,18 +269,71 @@ function deleteShip(){
 					<br><br>
 					<h5>${info.tel }</h5>
 					
-				</div>
-				<div class="addbtn">
+				</div> --%>
+				<div class="addbtn" style="margin-bottom: 5%;">
 					<button type="button" class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target="#exampleModalLong">배송지 추가</button>
 				</div>
 				
 				<c:forEach var="slist" items="${slist }">
+					<table style="margin-left: 35%;">
+                     <%--   <colgroup>
+                            <col style="width:300px">
+                            <col style="width:540px">
+                        </colgroup> --%>
+                      
+                        
+                        <tbody >
+                        	
+                          <!-- 아이디-->
+                            <tr >
+                          		<th scope="row"><input type="radio" name="radiobox" value="${slist.shipping_name }"></th>
+                          		
+                          	</tr>
+                          	
+                          <tr>
+                          		<th scope="row" style="width:20%;"><label><span class="itemExpression">받는사람</span></label></th>
+                          		<td>${slist.to_name }</td>
+                          	</tr>
+                          	<tr>
+                          		<th scope="row"><label ><span class="itemExpression">배송지이름</span></label></th>
+                          		<td>${slist.shipping_name }</td>
+                          	</tr>
+                             
+                           <tr>
+                           <th scope="row"><label for="customerID"><span class="itemExpression">주소</span></label></th>
+                           <td><div>${slist.shipping_addr1  } ${slist.shipping_addr2 } ${slist.shipping_addr3  }</div></td>
+                          
+                           </tr>
+                           
+                            <!-- 이메일 -->
+                            <tr class="itemArea EMAIL">
+                                <th scope="row">
+                                    <label for="customerEmail">
+                                        <span class="bl_ess">휴대전화</span>
+                                    	
+                                    </label>
+                                </th>
+                                <td>
+                                    <div>${info.tel }</div>
+                                </td>
+                            </tr>
+                            <tr >
+                           		<th scope="row"><label ><span class="itemExpression"><button type="button" class="btn btn-secondary" onclick="deleteShip()" >배송지 삭제</button></span></label></th>
+                          
+                          
+                           		</tr>
+                        </tbody>
+            </table>
+					
 				
-				<div class="shipinfo" style="margin-top:20px; left:403px;">
+				
+				
+				
+				<%-- <div class="shipinfo" style="margin-top:20px; left:403px;">
 				 
 				<br>
 					
-				    <input type="radio" name="radiobox" value="${slist.shipping_name }" >
+				    <input type="radio" name="radiobox"   >
 					<h5 class="getshipname">${slist.shipping_name }</h5><h5>(${slist.to_name})</h5>
 					<br>
 				
@@ -257,7 +345,7 @@ function deleteShip(){
 					<br><br>
 					<h5>${info.tel}</h5>
 					<br>
-				</div>
+				</div> --%>
 					
 					</c:forEach>
 				
