@@ -303,8 +303,8 @@
                                     <li><a href="#">이벤트<i class="ti-angle-down"></i><span
                                           class="new">New</span></a>
                                        <ul class="dropdown">
-                                          <li><a href="shop-grid.html">쿠폰</a></li>
-                                          <li><a href="cart.html">출석체크</a></li>
+                                          <li><a href="#">쿠폰</a></li>
+                                          <li><a href="#">출석체크</a></li>
 
                                        </ul></li>
 
