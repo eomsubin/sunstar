@@ -31,7 +31,7 @@ public interface SellerMapper {
 	
 	void addOptions(OptionDTO dto);
 
-	List<ProductDTO> list();
+	List<ProductDTO> list(String seller_code);
 
 	void deleteProductOptions(int pcode);
 	void deleteProduct(int pcode);

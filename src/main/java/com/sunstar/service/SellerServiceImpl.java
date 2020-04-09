@@ -84,9 +84,9 @@ public class SellerServiceImpl implements SellerService {
 	}
 
 	@Override
-	public List<ProductDTO> list() {
+	public List<ProductDTO> list(String seller_code) {
 		// TODO Auto-generated method stub
-		return mapper.list();
+		return mapper.list(seller_code);
 	}
 
 	@Override

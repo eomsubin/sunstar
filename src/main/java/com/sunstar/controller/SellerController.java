@@ -350,9 +350,8 @@ public class SellerController {
 
 		String seller_code = sellerservice.getSellerCode(id);
 
-		//	productList = sellerservice.list(seller_code);   //변경해야돼!!!!!!@@@@
-		productList = sellerservice.list();
-
+		productList = sellerservice.list(seller_code);
+		
 		Workbook wb = new HSSFWorkbook();
 		Sheet sheet = wb.createSheet("상품 목록");
 		Row row = null;
@@ -428,6 +427,9 @@ public class SellerController {
 		// 데이터 부분 생성
 
 		for(ProductDTO dto : productList) {
+			
+			System.out.println("엑셀출력테스트");
+			System.out.println(dto);
 			row = sheet.createRow(rowNo++);
 			cell = row.createCell(0);
 			cell.setCellStyle(bodyStyle);

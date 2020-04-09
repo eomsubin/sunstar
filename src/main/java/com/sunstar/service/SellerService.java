@@ -23,7 +23,7 @@ public interface SellerService {
 
 	void addProduct(ProductDTO dto);
 
-	List<ProductDTO> list();
+	List<ProductDTO> list(String seller_code);
 
 	void deleteProduct(int data);
 
