@@ -1239,7 +1239,7 @@ public class SellerController {
 		try {
 
 			//저장 경로 구하기
-			String uploadpath = "/usr/local/apache-tomcat-9.0.33/webapps/sunstar1/resources/product_img";
+			String uploadpath = "/usr/local/apache-tomcat-9.0.33/webapps/sunstar1/resources/comm_img";
 			//	String uploadpath = "C:\\finalgit\\sunstar\\src\\main\\webapp\\resources\\comm_img";
 			System.out.println("*******\t uploadpath"+uploadpath);
 
@@ -1250,7 +1250,7 @@ public class SellerController {
 				String new_file_url_name = uploadpath+"/"+comm1;
 				File nfile1 = new File(new_file_url_name);
 				file1.renameTo(nfile1);
-				dto.setComm_img1(path+"\\"+ comm1);
+				dto.setComm_img1("resources\\comm_img\\"+ comm1);
 			}
 
 			if(!multi2.isEmpty()) {
@@ -1260,7 +1260,7 @@ public class SellerController {
 				String new_file_url_name = uploadpath+"/"+comm2;
 				File nfile2 = new File(new_file_url_name);
 				file2.renameTo(nfile2);
-				dto.setComm_img2(path+"\\"+ comm2);
+				dto.setComm_img2("resources\\comm_img\\"+ comm2);
 			}
 
 			if(!multi3.isEmpty()) {
@@ -1270,7 +1270,7 @@ public class SellerController {
 				String new_file_url_name = uploadpath+"/"+comm3;
 				File nfile3 = new File(new_file_url_name);
 				file3.renameTo(nfile3);
-				dto.setComm_img3(path+"\\"+ comm3);
+				dto.setComm_img3("resources\\comm_img\\"+ comm3);
 			}
 
 
