@@ -16,313 +16,8 @@
 <link rel="stylesheet"
    href="${pageContext.request.contextPath}/resources/detailview_css/detailview.css">
 <script	type="text/javascript" src="https://developers.kakao.com/sdk/js/kakao.js"></script>
-<style>
-ul li{
-display: inline-block
-}
 
-.test{
-padding: 12px 15px 15px;
-margin-bottom : 12px;
-background: #fafafa;
-border:1px solid #f2f2f2;
-border-bottom: 1px solid #cccccc;
-color : rgb(102, 102, 102);
-
-}
-.toptest{
-border-bottom: 1px dotted #e2e2e3;
-margin-bottom: 11px;
-line-height:20px;
-padding: 0px 0px 12px;
-font-size : 15px !important;
-color : #233549 !important;
-}
-
-.numBox{
-width: 36px;
-    height: 28px;
-    border: 1px solid #cccccc;
-    line-height: 19px;
-    color: #233549;
-    font-size: 14px;
-    text-align: center !important;
-    padding: 0px !important;
-    border-radius: 0px !important;
-    }
- 
- .plus{
- 
- width: 25px;
- height: 28px;
- border-radius: 0px !important;
- background-color: #ffffff;
- border-left: 0;
- }
-
-
- .minus{
-
- width: 25px;
- height: 28px;
- border-radius: 0px !important;
- background-color: #ffffff;
- border-right: 0;
- }
-
-.selprice {
-    
-    color: #222;
-    font-size: 18px !important;
-    font-weight: bold;
-}
-
-.units{
-  color: #757575;
-    font-size: 18px !important;
-    font-weight: bold;
-    display: block;
-    
-}
-
-
-.bottomtest{
- display: block;
-    float: right;
-
-}
-
-#optiondel{
-width: 12px;
-height: auto;
-background-color: #fafafa;
-border: 0;
-
-
-}
-
-#optiondel img{
-align-items: center;
-margin-bottom: 4px;
-margin-left: 6px
-}
-
-.ctotal{
-font-size: 21px;
-font-weight: bolder;
-text-align-last: end;
-color:#222 
-}
-
-.total{
-color:#222;
-font-stretch: wider;
-margin-left: 10px;
-
-}
-
-.vip-tabnavi {
-    width: 100%;
-    clear: both;
-    background: #a9b3bc;
-}
-.vip-tabwrap {
-    min-width: 100%;
-    margin: 0 auto;
-    padding-top:40px;
-    position: relative;
-    clear: both;
-    z-index: 2;
-}
-.vip-tab_container {
-    position: relative;
-    z-index: 10;  
-    overflow: hidden;
-    width: 100%;
-    margin: 0 auto;
-	padding: 1% 10%;    
-}
-.vip-tab img{
-	width: 100%;
-	height: auto;
-	display: block;
-}
-.box__detail-more {
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 208px;
-    background-color: #fff;
-}
-.box__detail-more .button__detail-more { 
-    display: block;
-    width: 320px;
-    height: 64px;
-    margin: 48px auto 0;
-    background-color: #fbab60;
-    box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.2);
-    border: solid 1px #fbab60;
-    border-radius: 50px;
-    color: #fff;
-    font-size: 23px;
-    font-weight: bold;
-    text-align: center;
-}
-.tit_productinfo {
-    font-size: 23px;
-    line-height: 20px;
-    letter-spacing: -1px;
-    padding-bottom: 12px;
-    border-bottom: 1px solid #a4a9b0;
-}
-.tit_productinfo span {
-    margin-left: 5px;
-    font-size: 12px;
-    font-weight: 400;
-    letter-spacing: initial;
-    line-height: 22px;
-    color: #777;
-}
-.box__product-notice .box__product-notice-list {
-    position: relative;
-}
-table{
-	font-family: Tahoma,'Noto Sans Korean', 'Malgun Gothic', '맑은 고딕', AppleSDGothicNeo, Helvetica, dotum, 돋움, sans-serif;
-	border-bottom: 1px solid #b1b5b9;
-}
-.vip-detailarea_productinfo {
-    width: 100%;
-}
-
-.table_productinfo th {
-    padding: 5px 0 5px 21px;
-    color: #222;
-    font-size: 14px;
-    font-weight: 600;
-    letter-spacing: -0.5px;
-    text-align: left;
-}
-.table_productinfo td{
-    padding: 5px 0 3px 0;
-    line-height: 23px;
-    color: #777;
-    letter-spacing: -0.5px;
-    vertical-align: top;
-}
-.vip-tabcontent_lt .precautions, .vip-tabcontent_lt .reportbox {
-    float: left;
-    width: 45%;
-    margin-right: 28px;
-    margin-bottom: 50px;
-    line-height: 22px;
-    letter-spacing: -1px;
-}
-.vip-tabcontent_lt .precautions strong, .vip-tabcontent_lt .reportbox strong {
-    display: inline-block;
-    margin-bottom: 12px;
-    font-size: 23px; 
-    line-height: 20px; 
-    letter-spacing: -1px;
-    color: #1e2732;
-    font-weight: 600;
-}
-.infopadding{
-	padding: 1% 10%;
-}
-.txt_info {
-    position: absolute;
-    right: 0;
-    top: 56px;
-    
-}
-.up{
-	color: white !important;
-	font-weight: 600;
-	background-color: #fbab60;
-	width: 100%;
-	display: inline-block;
-	box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.2);
-    border: solid 1px #fbab60;
-    padding: 10px 0px;
-    text-align: center;
-}
-.up:hover {
-	background-color: #fbab00;
-}
-.text-reviewcount{
-    margin-left: 3px !important;
-    font-weight: 400 !important;
-    color: #fbab60 !important;
-    vertical-align: baseline !important;
-    font-size: 20px !important;
-}
-.reviews li.yellow i {
-    color: #F7941D;
-}
-.rvcontent{
-	font-weight: 600;
-	color: black !important;
-}
-
-
-#qna_btn{
-	font-size: 0.6em;
-	float:right;
-	border: 1px solid #f7941d;
-	background-color:white;
-	padding: 2px;
-	color:#f7941d;
-	border-radius: 5px;
-}
-.qna_state_wait{
-	border: 1px solid #5f5f5f;
-/* 	background-color: #5f5f5f; */
-	color:#5f5f5f;
-	padding:1px;
-	border-radius: 5px;
-}
-
-.qna_state_com{
-	border:1px solid #f7941d;
-	background-color: #f7941d;
-	color: white;
-	padding:1px;
-	border-radius: 5px;	
-}
-
-
-#qna_insert{
-	width:90%;
-	height: 220px;
-	margin: 0 auto;
-	display: none;
-}
-.qna_close{
-	display: none;
-}
-.qna_reply{
-	display: none;
-}
-
-.insert_qna-btn{
-	font-size: 0.9em;
-	float:right;
-	margin:10px;
-	border: 1px solid ;
-	background-color:#f7941d;
-	padding: 3px;
-	color:white ;
-	border-radius: 5px;
-}
-
-.qna_open:hover{
-	background-color: #f1f1f1;
-}
-
-
-</style>
 <script>
-
 $(document).ready(function(){
 	$(".ctotal").append("총 구매금액<p class='total'>");
 	inventory0();
@@ -334,9 +29,6 @@ $(document).ready(function(){
 			$(".custom-select").css("background-color", "#f8f9fa");
 		} 	
 	}
-	
-	
-	
 	
 	//옵션 선택
 	$("select").change(function(){
@@ -391,7 +83,6 @@ $(document).ready(function(){
 		var selprice = $(".selprice");
 		
 		$.each(selprice,function(index, item){
-			console.log($(".selprice:eq("+index+")").text().slice(0,$(".selprice").text().length-1));
 			sum +=Number($(".selprice:eq("+index+")").text().slice(0,$(".selprice:eq("+index+")").text().length-1));
 			
 		});
@@ -489,7 +180,6 @@ $(document).ready(function(){
 		
 	//상세정보, 상품평, 상품문의 선택 
 	$('.pnav-link').click(function(){
-		console.log($('.pnav-link'));
 		if($(this).text() == "상세정보"){
 			$('#pdetail').css("display", "block");		
 			$('#pcomment').css("display", "none");
@@ -522,10 +212,8 @@ $(document).ready(function(){
 	
 	//qna 
 	$('.qna_open').click(function(){
-		console.log('trclick!');
 		
 		$(this).next().slideToggle("fast");
-		console.log($(this).next().next().is('.qna_reply') === true);
 		 if($(this).next().next().is('.qna_reply') === true ){
 				$(this).next().next().slideToggle("fast");
 
@@ -534,8 +222,7 @@ $(document).ready(function(){
 	
 	
 	$('#qna_btn').click(function(){
-		$('#qna_insert').css('display', 'block');
-		
+		$('#qna_insert').css('display', 'block');	
 	})
 });
 </script>
@@ -599,11 +286,7 @@ $(document).ready(function(){
  	
  })
 
-
  </script>
-
-
-
 
 <title>SBBJ</title>
 </head>
@@ -777,9 +460,6 @@ $(document).ready(function(){
 						</div>
 
 
-
-
-
 						<!-- 상품 옵션 -->
 						<fieldset>
 							<legend>옵션선택</legend>
@@ -808,8 +488,6 @@ $(document).ready(function(){
 								</c:forEach>
 							</select>
 							
-
-
 
 							<!-- 옵션 선택 완료 -->
 							<div class="cresult"></div>
@@ -846,7 +524,7 @@ $(document).ready(function(){
 		</ul>	
 		</div>
 		</div>
-		<!-- ------------- -->
+		
 		<div class="vip-tab_container">
 		<!-- 상품 공지사항 및 디테일 이미지 출력 -->
 	 	<div id="pdetail" style="display: block;">	 		
@@ -954,8 +632,7 @@ $(document).ready(function(){
 								<tr>
 									<td></td>
 									<td class="rvcontent">${ritem.review_content}</td>
-									<td>등록일 : ${ritem.review_writedate}</td>									
-									
+									<td>등록일 : ${ritem.review_writedate}</td>											
 								</tr>
 								</c:forEach>
 							</tbody>
@@ -970,8 +647,7 @@ $(document).ready(function(){
 			   <fmt:formatNumber pattern="###,###,###" value="${fn:length(qlist)}"/></span>
 			   
 			   <span class="text_info">보다 신속한 답변을 원하시면 <strong>1577-1577 (수신자부담)</strong>로 문의주세요.</span>
-			   
-						<button id="qna_btn" > <i class="ti-hand-point-up">상품 문의</i></button></h3>
+			   <button id="qna_btn" > <i class="ti-hand-point-up">상품 문의</i></button></h3>
 						
 						
 		<div id="qna_insert">
@@ -1039,13 +715,10 @@ $(document).ready(function(){
 									<td colspan="2">${i.qna_reply}</td>
 									<td  align="center" >${i.reply_date}</td>
 								</tr>
-							</c:if>
-								
-								
+							</c:if>	
 								</c:forEach>
 							</tbody>
 						</table>
-						
 				</div>
 	    </div>
 	    <div class="vip-all_sub vip-tabcontent_lt infopadding">

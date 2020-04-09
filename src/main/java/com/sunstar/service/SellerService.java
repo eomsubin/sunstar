@@ -49,7 +49,7 @@ public interface SellerService {
 
 	void changeInfo(SellerDTO dto);
 
-	int totalCount(String txt);
+	int totalCount(MakePage seller_codeAndTxt);
 
 	List<ProductDTO> productlist(MakePage page);
 

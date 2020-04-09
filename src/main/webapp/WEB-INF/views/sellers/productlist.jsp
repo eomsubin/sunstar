@@ -441,199 +441,166 @@ body {
 			</div>
 			<div class="card-body">
 				<div class="table-responsive">
-					<form>
-						<input type="hidden" name="${_csrf.parameterName}"
-							value="${_csrf.token}" />
-						<!-- 	<button type="button" id="btnaddinventory" class="btn btn-primary">선택 재고 추가</button> -->
 
-						<div class="btn-group">
-							<button type="button" class="btn btn-secondary dropdown-toggle"
-								data-toggle="dropdown" aria-haspopup="true"
-								aria-expanded="false">선택상품 공개 비공개</button>
-							<div class="dropdown-menu">
+					<!-- 	<button type="button" id="btnaddinventory" class="btn btn-primary">선택 재고 추가</button> -->
 
-								<a class="dropdown-item"
-									onclick="changePublicState('publicStateTrue')">상품 공개</a> <a
-									class="dropdown-item"
-									onclick="changePublicState('publicStateFalse')">상품 비공개</a>
-								<div class="dropdown-divider"></div>
-								<a class="dropdown-item"
-									onclick="changePublicState('reviewStateTrue')">리뷰 공개</a> <a
-									class="dropdown-item"
-									onclick="changePublicState('reviewStateFalse')">리뷰 비공개</a>
+					<div class="btn-group">
+						<button type="button" class="btn btn-secondary dropdown-toggle"
+							data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">선택상품
+							공개 비공개</button>
+						<div class="dropdown-menu">
+
+							<a class="dropdown-item"
+								onclick="changePublicState('publicStateTrue')">상품 공개</a> <a
+								class="dropdown-item"
+								onclick="changePublicState('publicStateFalse')">상품 비공개</a>
+							<div class="dropdown-divider"></div>
+							<a class="dropdown-item"
+								onclick="changePublicState('reviewStateTrue')">리뷰 공개</a> <a
+								class="dropdown-item"
+								onclick="changePublicState('reviewStateFalse')">리뷰 비공개</a>
 
 
-							</div>
 						</div>
+					</div>
 
-						<button type="button" id="all_print" class="btn btn-secondary"
-							onclick="productallprint()">전체출력</button>
+					<button type="button" id="all_print" class="btn btn-secondary"
+						onclick="productallprint()">전체출력</button>
 
-<!-- delete Button trigger modal -->
-						<button type="button" id="btndeletemodal" class="btn btn-danger">
-							<!-- data-toggle="modal" data-target="#exampleModal" -->
-							삭제
-						</button>
+					<!-- delete Button trigger modal -->
+					<button type="button" id="btndeletemodal" class="btn btn-danger">
+						<!-- data-toggle="modal" data-target="#exampleModal" -->
+						삭제
+					</button>
 
 
-						<!-- delete Modal -->
-						<div class="modal fade" id="deletemodal" tabindex="-1"
-							role="dialog" aria-labelledby="exampleModalLabel"
-							aria-hidden="true">
-							<div class="modal-dialog" role="document">
-								<div class="modal-content">
-									<div class="modal-header">
-										<h5 class="modal-title" id="exampleModalLabel">경 고</h5>
-										<button type="button" class="close" data-dismiss="modal"
-											aria-label="Close">
-											<span aria-hidden="true">&times;</span>
-										</button>
+					<!-- delete Modal -->
+					<div class="modal fade" id="deletemodal" tabindex="-1"
+						role="dialog" aria-labelledby="exampleModalLabel"
+						aria-hidden="true">
+						<div class="modal-dialog" role="document">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title" id="exampleModalLabel">경 고</h5>
+									<button type="button" class="close" data-dismiss="modal"
+										aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+									</button>
+								</div>
+								<div class="modal-body">
+									<div>
+										경고!! <br> 상품코드가 같은 상품은 모두 삭제됩니다.<br> <br> 옵션만
+										삭제할 경우 ㅇㅇㅇ에서 삭제를 실행해주세요<br> 선택한 상품을 정말로 삭제하시겠습니까?
 									</div>
-									<div class="modal-body">
-										<div>
-											경고!! <br> 상품코드가 같은 상품은 모두 삭제됩니다.<br> <br> 옵션만
-											삭제할 경우 ㅇㅇㅇ에서 삭제를 실행해주세요<br> 선택한 상품을 정말로 삭제하시겠습니까?
-										</div>
-									</div>
-									<div class="modal-footer">
-										<button type="button" class="btn btn-secondary"
-											data-dismiss="modal">취소</button>
-										<button type="button" class="btn btn-primary" id="btndelete">삭제</button>
-									</div>
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-secondary"
+										data-dismiss="modal">취소</button>
+									<button type="button" class="btn btn-primary" id="btndelete">삭제</button>
 								</div>
 							</div>
 						</div>
-			<!-- 			<button type="button" id="btnupdate" class="btn btn-success">선택
+					</div>
+					<!-- 			<button type="button" id="btnupdate" class="btn btn-success">선택
 							수정</button>
 						<button type="button" class="btn btn-danger">선택 삭제</button>
 						id="btndelete"
  -->
 
-						<!-- update inventory Button trigger modal -->
+					<!-- update inventory Button trigger modal -->
 					<!-- 	<button type="button" id="btnupdateinventorymodal"
 							class="btn btn-primary">재고 추가 모달 테스트</button>
 
  -->
-						<div class="col-md-10" style="margin: 20px 0px;">
-							<select class="custom-select col-md-4" id="changeSizePerPage">
-								<option selected disabled value="10">표시 건수</option>
-								<option value="10">10</option>
-								<option value="30">30</option>
-								<option value="50">50</option>
-								<option value="100">100</option>
-								<option value="10000">전체</option>
-							</select>
+					<div class="col-md-10" style="margin: 20px 0px;">
+						<select class="custom-select col-md-4" id="changeSizePerPage">
+							<option selected disabled value="10">표시 건수</option>
+							<option value="10">10</option>
+							<option value="30">30</option>
+							<option value="50">50</option>
+							<option value="100">100</option>
+							<option value="10000">전체</option>
+						</select>
 
-
+						<form
+							action="${pageContext.request.contextPath}/seller/productlist?=${page.startBlock}"
+							method="get">
 							<div class="inputsearch">
 
 								<input class="form-control col-md-12 " type="search"
-									placeholder="Search" aria-label="Search"
+									placeholder="Search"  name="txt"
+									id="txt"  aria-label="Search"
 									style="position: relative; top: 2px;">
 							</div>
 
 							<div class="inputsearch">
-								<button class="btn btn-outline-success    col-md-14 "
-									type="submit">Search</button>
+
+								<%-- <input type="hidden" name="${_csrf.parameterName}"
+									value="${_csrf.token}" /> --%> <input
+									class="btn btn-outline-success    col-md-14 "type="submit" value="검색">
+
+
 							</div>
-							<!-- update Modal -->
-						</div>
-
-
-						<form>
-
-							<div class="modal fade" id="updateinventorymodal" tabindex="-1"
-								role="dialog" aria-labelledby="exampleModalLabel"
-								aria-hidden="true">
-								<div class="modal-dialog" role="document">
-									<div class="modal-content">
-										<div class="modal-header">
-											<h5 class="modal-title" id="exampleModalLabel">Modal
-												title</h5>
-											<button type="button" class="close" data-dismiss="modal"
-												aria-label="Close">
-												<span aria-hidden="true">&times;</span>
-											</button>
-										</div>
-										<div class="modal-body">
-											<select name="gesu" id="gesu">
-												<option value="1">1</option>
-												<option value="2">2</option>
-												<option value="3">3</option>
-											</select>
-
-											<!--  <input type="text" placehoder="입력하세요"> -->
-
-										</div>
-										<div class="modal-footer">
-											<button type="button" class="btn btn-secondary"
-												data-dismiss="modal">Close</button>
-											<button type="button" class="btn btn-primary"
-												id="btnupdateinventory" onclick="uptest()">버트니다</button>
-
-
-										</div>
-									</div>
-								</div>
-							</div>
-
 						</form>
+						<!-- update Modal -->
+					</div>
 
-						
 
-						<table class="table table-bordered" id="dataTable" style=" width:100%; " cellspacing="0">
-							<thead>
+
+					<table class="table table-bordered" id="dataTable"
+						style="width: 100%;" cellspacing="0">
+						<thead>
+							<tr>
+								<th style="width: 50px"><input type="checkbox" id="all"></th>
+								<th>상품코드</th>
+								<th>상품이름</th>
+								<th>가격</th>
+								<th>원가</th>
+								<th style="border-left: 2px solid silver">컬러</th>
+								<th>사이즈</th>
+								<th>재고</th>
+								<th style="border-right: 2px solid silver;">추가 가격</th>
+								<th>누적판매량</th>
+								<th>카테고리</th>
+								<th>공개여부</th>
+								<th>리뷰공개여부</th>
+								<!-- <th>단일 수정 / 삭제</th> -->
+							</tr>
+						</thead>
+
+						<tbody>
+
+							<c:forEach var="i" items="${list}">
 								<tr>
-									<th style="width: 50px"><input type="checkbox" id="all"></th>
-									<th>상품코드</th>
-									<th>상품이름</th>
-									<th>가격</th>
-									<th>원가</th>
-									<th style="border-left: 2px solid silver">컬러</th>
-									<th>사이즈</th>
-									<th>재고</th>
-									<th style="border-right: 2px solid silver;">추가 가격</th>
-									<th>누적판매량</th>
-									<th>카테고리</th>
-									<th>공개여부</th>
-									<th>리뷰공개여부</th>
-									<!-- <th>단일 수정 / 삭제</th> -->
-								</tr>
-							</thead>
+									<td><input type="checkbox" id="pcode" name="pcode"
+										value="${i.product_code}"></td>
+									<td><a
+										href="${pageContext.request.contextPath}/detailview2?product_code=${i.product_code}">${i.product_code}</td>
+									<td>${i.product_name}</td>
+									<td>${i.price}</td>
+									<td>${i.cost}</td>
+									<td style="border-left: 2px solid silver">${i.option1 }</td>
+									<td>${i.option2 }</td>
+									<td>${i.inventory }</td>
+									<td style="border-right: 2px solid silver;">${i.add_price }</td>
+									<td>${i.accumulation}</td>
+									<td>${i.lv1}-${i.lv2}-${i.lv3}</td>
 
-							<tbody>
-
-								<c:forEach var="i" items="${list}">
-									<tr>
-										<td><input type="checkbox" id="pcode" name="pcode"
-											value="${i.product_code}"></td>
-										<td><a href="${pageContext.request.contextPath}/detailview2?product_code=${i.product_code}">${i.product_code}</td>
-										<td>${i.product_name}</td>
-										<td>${i.price}</td>
-										<td>${i.cost}</td>
-										<td style="border-left: 2px solid silver">${i.option1 }</td>
-										<td>${i.option2 }</td>
-										<td>${i.inventory }</td>
-										<td style="border-right: 2px solid silver;">
-											${i.add_price }</td>
-										<td>${i.accumulation}</td>
-										<td>${i.lv1}-${i.lv2}-${i.lv3}</td>
-
-										<c:if test="${ i.public_state } == true">
+									<c:if test="${ i.public_state } == true">
 											공개
 										</c:if>
 
-										<td><c:if test="${ i.public_state  == true}">
+									<td><c:if test="${ i.public_state  == true}">
 											공개
 										</c:if> <c:if test="${ i.public_state  != true}">
 											 비공개
 										</c:if></td>
-										<td><c:if test="${ i.review_state  == true}">
+									<td><c:if test="${ i.review_state  == true}">
 											공개
 										</c:if> <c:if test="${ i.review_state  != true}">
 											 비공개
 										</c:if></td>
-										<%-- <td class="center"><a class="btn btn-success detailmdl" 
+									<%-- <td class="center"><a class="btn btn-success detailmdl" 
 											data-toggle="modal" data-target=".bd-example-modal-lg"> <img
 												src="${pageContext.request.contextPath}/resources/icons/search.svg"
 												alt="" width="20" height="20" title="Bootstrap"> <img
@@ -647,258 +614,13 @@ body {
 										</a></td> --%>
 
 
-										<!-- 모달시작 -->
-									<div class="modal fade bd-example-modal-lg" tabindex="-1"
-											role="dialog" aria-labelledby="myLargeModalLabel" id="modalplus"
-											aria-hidden="true">
-										<div class="modal-dialog modal-lg" role="document" >
-											 		<div class="modal-content">
-												<%-- 		<div class="modal-header">
-														<h5 class="modal-title" id="exampleModalLabel">상품
-															상세보기 및 수정</h5>
-														<button type="button" class="close" data-dismiss="modal"
-															aria-label="Close">
-															<span aria-hidden="true">&times;</span>
-														</button>
-													</div>
-													<div class="modal-body">
-														상품코드 : ${i.product_code }
-
-														<div class="card-body">
-
-															<form>
-																<input type="hidden" name="${_csrf.parameterName}"
-																	value="${_csrf.token}" />
-
-																<div class="form-group row">
-																	<label for="product_name"
-																		class="col-sm-2 col-form-label">상품명</label>
-																	<div class="col-sm-10">
-																		<input type="text" class=" form-control"
-																			name="product_name" value="${i.product_name }">
-
-																		<div class="invalid-tooltip">필수 입력 사항 / 리스트에 노출될
-																			상품명을 입력해주세요</div>
-
-																	</div>
-																</div>
-																<div class="form-group row">
-																	<label for="price" class="col-sm-2 col-form-label">판매가</label>
-																	<div class="col-sm-10">
-																		<input type="text" class="form-control" name="price"
-																			value="${i.price}">
-
-																		<div class="invalid-tooltip">필수 입력 사항 / 소비자에게
-																			판매할 금액을 입력해주세요</div>
-																	</div>
-																</div>
-
-																<div class="form-group row">
-																	<label for="cost" class="col-sm-2 col-form-label">원가</label>
-																	<div class="col-sm-10">
-																		<input type="text" class="form-control " name="cost"
-																			value="${i.cost}">
-																		<div class="invalid-tooltip">필수 입력 사항 / 상품 입고
-																			원가를 입력해주세요</div>
-																	</div>
-																</div>
-
-																<div class="form-group row">
-																	<label for="shipping_cost"
-																		class="col-sm-2 col-form-label">배송비</label>
-																	<div class="col-sm-10">
-																		<input type="text" class="form-control "
-																			name="shipping_cost" value="${i.shipping_cost}">
-																		<div class="invalid-tooltip">필수 입력 사항 / 1회 배송비를
-																			입력해주세요</div>
-																	</div>
-																</div>
-																<div>
-
-																	<div class="form-group row">
-																		<label for="options" class="col-sm-2 col-form-label">옵션</label>
-																		<div class="col-sm-12">
-																			<div class="col-sm-2 frmsort">
-																				<label for="options[0].option1"
-																					class=" col-form-label">옵션1</label> <input
-																					type="text" class="form-control "
-																					name="options[0].option1" placeholder="ex)색상 ,,"
-																					value="${i.option1}">
-																			</div>
-																			<div class="col-sm-2 frmsort">
-																				<label for="options[0].option2"
-																					class=" col-form-label">옵션2</label> <input
-																					type="text" class="form-control "
-																					name="options[0].option2" placeholder="ex)사이즈 ,,"
-																					value="${i.option2}">
-																			</div>
-																			<div class="col-sm-2  frmsort">
-																				<label for="options[0].inventory"
-																					class="  col-form-label">재고</label> <input
-																					type="text" class="form-control "
-																					name="options[0].inventory" value="${i.inventory}">
-																				<div class="invalid-tooltip">필수 입력 사항 / 재고량을
-																					입력해주세요</div>
-
-																			</div>
-																			<div class="col-sm-2 frmsort">
-																				<label for="options[0].add_price"
-																					class=" col-form-label">추가 금액</label> <input
-																					type="text" class=" form-control"
-																					name="options[0].add_price" value="${i.add_price}">
-																				<div class="invalid-tooltip">필수 입력 사항 / 추가금액이
-																					없을시 0 입력</div>
-																			</div>
-
-																		</div>
-																	</div>
-
-																</div>
-
-																<div id="addoptions"></div>
-
-
-																<div class="form-group row">
-																	<label for="inputEmail3"
-																		class="col-sm-2 col-form-label">카테고리</label>
-																	<div class="col-sm-10">
-																		<select class="custom-select" name="category_code"
-																			data-rel="chosen">
-																			<option value=""></option>
-																			<option selected disabled value="">분류 선택</option>
-
-																			<c:forEach var="i" items="${dlist}">
-																				<option value="${i.category_code}">${i.lv123}</option>
-																			</c:forEach>
-
-																		</select>
-																	</div>
-																</div>
-
-																<div>
-																	<img src=" ${i.detail_img1}">
-																</div>
-
-
-																<div class="form-group row">
-																	<label for="athumb_img" class="col-sm-2 col-form-label">썸네일
-																		이미지</label>
-																	<div class="col-sm-10">
-																		<div class="custom-file">
-																			<input type="file"
-																				class="custom-file-input upload-hidden"
-																				name="athumb_img"> <label
-																				class="custom-file-label upload-file"
-																				for="adetail_img2">이미지 파일 선택 (가로 550px * 세로
-																				750px 권장)</label>
-
-																		</div>
-																	</div>
-
-
-																	<label for="inputEmail3"
-																		class="col-sm-2 col-form-label">상세 이미지 1</label>
-																	<div class="col-sm-10">
-																		<div class="custom-file">
-																			<input type="file"
-																				class="custom-file-input upload-hidden"
-																				name="adetail_img1"> <label
-																				class="custom-file-label upload-file"
-																				for="adetail_img1">이미지 파일 선택</label>
-
-																		</div>
-																	</div>
-
-																	<label for="inputEmail3"
-																		class="col-sm-2 col-form-label">상세 이미지 2</label>
-																	<div class="col-sm-10">
-																		<div class="custom-file">
-																			<input type="file"
-																				class="custom-file-input upload-hidden"
-																				" name="adetail_img2"> <label
-																				class="custom-file-label upload-file"
-																				for="adetail_img2">이미지 파일 선택</label>
-
-																		</div>
-																	</div>
-
-																	<label for="inputEmail3"
-																		class="col-sm-2 col-form-label">상세 이미지 3</label>
-																	<div class="col-sm-10">
-																		<div class="custom-file">
-																			<input type="file"
-																				class="custom-file-input upload-hidden"
-																				name="adetail_img3"> <label
-																				class="custom-file-label upload-file"
-																				for="adetail_img3">이미지 파일 선택</label>
-
-																		</div>
-																	</div>
-
-																</div>
-
-																<div class="form-group row">
-																	<label for="inputEmail3"
-																		class="col-sm-2 col-form-label">상품 설명</label>
-																	<div class="col-sm-10">
-																		<textarea class="summernote" name="explains">${i.explains}</textarea>
-																	</div>
-																</div>
-
-																<div class="form-group row">
-																	<div class="col-sm-2">공개 여부</div>
-																	<div class="col-sm-10">
-																		<div class="form-check">
-																			<input class="form-check-input" type="checkbox"
-																				name="public_state" value="1" checked=""> <label
-																				class="form-check-label" for="gridCheck1">
-																				상품을 공개 할 경우 체크 </label>
-
-																		</div>
-																		<div class="form-check">
-																			<input class="form-check-input" type="checkbox"
-																				name="review_state" value="1" checked=""> <label
-																				class="form-check-label" for="gridCheck1">
-																				상품에 대한 리뷰를 공개 할 경우 체크 </label>
-																		</div>
-																	</div>
-																</div>
-
-
-																<div class="form-group row">
-																	<div class="col-sm-10">
-																		<button type="submit" class="btn btn-primary">Sign
-																			in</button>
-																	</div>
-																</div>
-
-															</form>
-														</div>
-
-
-
-
-
-													</div>
-													<div class="modal-footer">
-														<button type="button" class="btn btn-secondary"
-															data-dismiss="modal">Close</button>
-														<button type="button" class="btn btn-primary">Save
-															changes</button>
-													</div> --%>
-												</div>
-										</div>
-											
-											
-									</div> 
 								</tr>
-								</c:forEach>
+							</c:forEach>
 
 
 
-							</tbody>
-						</table>
-					</form>
+						</tbody>
+					</table>
 
 					<c:if test="${page.prev}">
 						<a
