@@ -196,7 +196,7 @@ function deleteShip(){
 		<div class="user-title" >
 			<h3> 배송지 관리</h3>
 			
-			<button type="button" id="btnup"  class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal" style="margin-right:23px; margin-top:  20px;">배송지 설정</button>
+			<button type="button" id="btnup"  class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal" style="margin-right:23px; margin-top:20px;">배송지 설정</button>
 			
 		
 		</div>
