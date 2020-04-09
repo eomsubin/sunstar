@@ -4,7 +4,8 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sunstar.mapper.SellerMapper">
 
-	<parameterMap type="java.util.HashMap" id="HashMap" />
+<parameterMap type="java.util.HashMap" id="HashMap"/>
+
 
 	<!-- 카테고리 목록 불러오기 -->
 	<select id="getCategory" resultType="com.sunstar.dto.CategoryDTO">
@@ -18,8 +19,8 @@
 	
 	<!-- 상품 추가  -->
 	<insert id="addProduct" parameterType="com.sunstar.dto.ProductDTO">
-		insert into product_list(product_name, price, cost, thumb_img, detail_img1, detail_img2, detail_img3, explains, public_state, review_state, category_code, seller_code, add_date)
-		values(#{product_name},#{price},#{cost},#{thumb_img}, #{detail_img1},  #{detail_img2},  #{detail_img3}, #{explains},#{public_state},#{review_state}, #{category_code}, #{seller_code}, now() )
+		insert into product_list(product_name, price, cost, thumb_img, detail_img1, detail_img2, detail_img3, detail_img4, detail_img5, detail_img6,explains, public_state, review_state, category_code, seller_code, add_date)
+		values(#{product_name},#{price},#{cost},#{thumb_img}, #{detail_img1},  #{detail_img2},  #{detail_img3}, #{detail_img4},  #{detail_img5},  #{detail_img6}, #{explains},#{public_state},#{review_state}, #{category_code}, #{seller_code}, now() )
 	</insert>
 	
 	<!--  -->
@@ -48,7 +49,7 @@
 		on p.product_code = o.product_code
 		left join seller s
 		on p.seller_code = s.seller_code
-        where p.product_code = #{seller_code}
+        where p.seller_code = #{seller_code}
 		order by product_code desc
 		
 		<!-- where seller_code = '' 추가해야돼 -->
@@ -186,7 +187,7 @@
 	</update>
 	
 	
-	<select id="getCount" resultType="int">
+	<select id="getCount" parameterType="com.sunstar.dto.MakePage" resultType="int">
 		select count(*)
 		from product_list p  join category c
 		on p.category_code = c.category_code
@@ -194,30 +195,16 @@
 		on p.product_code = o.product_code
 		left join seller s
 		on p.seller_code = s.seller_code
-      <!--   where p.product_code = #{seller_code} -->
-
-	<!-- 	<where>
-			<if test="txt != null and txt != ''">
-				<choose>
-					<when test="txt != null and txt != ''">
-						and p.product_code = '%'||#{txt}||'%'
-					</when>
-
-					<when test="txt != null and txt != ''">
-						and p.product_name like '%'||#{txt}||'%'
-				
-					</when>
-				</choose>
-			</if>
-		</where> -->
-		
+		where p.seller_code = #{seller_code}
+    	<if test="txt != null">
+	 		and product_name like concat('%',#{txt},'%')
+	 	</if>
+		 
 	</select>
 	
 	
 	<!-- parameterMap="HashMap" -->
 	<select id="productlist"  parameterType="com.sunstar.dto.MakePage"  resultType="com.sunstar.dto.ProductDTO">
-		
-		
 		
 		select p.product_code, product_name, price, cost, o.option1, o.option2, o.inventory, o.add_price, o.accumulation, thumb_img, detail_img1, detail_img2, detail_img3, explains,
 		 public_state, review_state, c.lv1, c.lv2, c.lv3, p.product_code, s.basic_shipping_cost
@@ -228,18 +215,12 @@
 		left join seller s
 		on p.seller_code = s.seller_code
 		where p.seller_code = #{seller_code} 
-      <!--   where p.product_code = #{seller_code} -->
+	
+    	<if test="txt != null">
+	 		and product_name like concat('%',#{txt},'%')
+	 	</if>
     
-      <!-- <where>
-			<if test="product_code != null and product_code != ''">
-				and p.product_code = '%'||#{txt}||'%'
-			</if>
-			<if test="product_name != null and product_name != ''">
-					
-						and p.product_name like '%'||#{txt}||'%'
-			</if>
-		</where>  -->
-		
+    
 		order by product_code desc
 		LIMIT #{startRow}, #{sizePerPage}
 	

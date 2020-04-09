@@ -776,8 +776,8 @@
 								
 									<div class="product-img">
 										<a href="${pageContext.request.contextPath}/detailview2?product_code=${plist.product_code}">
-											<img class="default-img" src="${pageContext.request.contextPath}/${plist.thumb_img}" alt="${plist.explains}">
-											<img class="hover-img" src="${pageContext.request.contextPath}/${plist.thumb_img}" alt="${plist.explains}">
+											<img class="default-img" src="${pageContext.request.contextPath}/${plist.thumb_img}" alt="${plist.product_name}">
+											<img class="hover-img" src="${pageContext.request.contextPath}/${plist.thumb_img}" alt="${plist.product_name}">
 										</a>
 										<!-- <div class="button-head">
 											<div class="product-action">

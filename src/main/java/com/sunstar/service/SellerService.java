@@ -23,7 +23,7 @@ public interface SellerService {
 
 	void addProduct(ProductDTO dto);
 
-	List<ProductDTO> list();
+	List<ProductDTO> list(String seller_code);
 
 	void deleteProduct(int data);
 
@@ -49,7 +49,7 @@ public interface SellerService {
 
 	void changeInfo(SellerDTO dto);
 
-	int totalCount(String txt);
+	int totalCount(MakePage seller_codeAndTxt);
 
 	List<ProductDTO> productlist(MakePage page);
 

@@ -225,10 +225,13 @@ public class SellerController {
 				m.addAttribute("txt",txt);
 			}
 		}*/
-
+		
+		MakePage dto = new MakePage();
+		dto.setSeller_code(seller_code);
+		dto.setTxt(txt);
 		//총 갯수 구하기
-		int totalCount = sellerservice.totalCount(txt);
-		System.out.println(totalCount);
+		int totalCount = sellerservice.totalCount(dto);
+		System.out.println("totalcount-------------------"+totalCount);
 
 		MakePage pa = new MakePage();
 		pa.setSizePerPage(10); 
@@ -258,6 +261,7 @@ public class SellerController {
 		System.out.println("======page======");
 
 		page.setStartRow(page.getStartRow());
+		page.setTxt(txt);
 
 		System.out.println("현재페이지"+page.getCurrPage());
 		System.out.println("총 갯수"+page.getTotalCount());
@@ -269,6 +273,7 @@ public class SellerController {
 		System.out.println("끝블럭"+page.getEndBlock());
 		System.out.println("이전있니"+page.isPrev());
 		System.out.println("다음있니"+page.isNext());
+		System.out.println("검색했니?" + page.getTxt());
 		System.out.println("======page==end===");
 
 		page.setSeller_code(seller_code);
@@ -350,9 +355,8 @@ public class SellerController {
 
 		String seller_code = sellerservice.getSellerCode(id);
 
-		//	productList = sellerservice.list(seller_code);   //변경해야돼!!!!!!@@@@
-		productList = sellerservice.list();
-
+		productList = sellerservice.list(seller_code);
+		
 		Workbook wb = new HSSFWorkbook();
 		Sheet sheet = wb.createSheet("상품 목록");
 		Row row = null;
@@ -428,6 +432,9 @@ public class SellerController {
 		// 데이터 부분 생성
 
 		for(ProductDTO dto : productList) {
+			
+			System.out.println("엑셀출력테스트");
+			System.out.println(dto);
 			row = sheet.createRow(rowNo++);
 			cell = row.createCell(0);
 			cell.setCellStyle(bodyStyle);
@@ -1237,7 +1244,7 @@ public class SellerController {
 		try {
 
 			//저장 경로 구하기
-			String uploadpath = "/usr/local/apache-tomcat-9.0.33/webapps/sunstar1/resources/product_img";
+			String uploadpath = "/usr/local/apache-tomcat-9.0.33/webapps/sunstar1/resources/comm_img";
 			//	String uploadpath = "C:\\finalgit\\sunstar\\src\\main\\webapp\\resources\\comm_img";
 			System.out.println("*******\t uploadpath"+uploadpath);
 
@@ -1248,7 +1255,7 @@ public class SellerController {
 				String new_file_url_name = uploadpath+"/"+comm1;
 				File nfile1 = new File(new_file_url_name);
 				file1.renameTo(nfile1);
-				dto.setComm_img1(path+"\\"+ comm1);
+				dto.setComm_img1("resources\\comm_img\\"+ comm1);
 			}
 
 			if(!multi2.isEmpty()) {
@@ -1258,7 +1265,7 @@ public class SellerController {
 				String new_file_url_name = uploadpath+"/"+comm2;
 				File nfile2 = new File(new_file_url_name);
 				file2.renameTo(nfile2);
-				dto.setComm_img2(path+"\\"+ comm2);
+				dto.setComm_img2("resources\\comm_img\\"+ comm2);
 			}
 
 			if(!multi3.isEmpty()) {
@@ -1268,7 +1275,7 @@ public class SellerController {
 				String new_file_url_name = uploadpath+"/"+comm3;
 				File nfile3 = new File(new_file_url_name);
 				file3.renameTo(nfile3);
-				dto.setComm_img3(path+"\\"+ comm3);
+				dto.setComm_img3("resources\\comm_img\\"+ comm3);
 			}
 
 
