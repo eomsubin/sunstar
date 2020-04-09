@@ -238,20 +238,6 @@
 														<a href="${pageContext.request.contextPath}/detailview2?product_code=${p.product_code }"><img
 															src="${pageContext.request.contextPath}/${p.thumb_img}"> <!-- 	<img class="hover-img" src="${pageContext.request.contextPath}/resources/images/product1.jpg" alt="#"> -->
 														</a>
-														<div class="button-head">
-															<div class="product-action">
-																<a data-toggle="modal" data-target="#exampleModal"
-																	title="Quick View" href="#"><i class=" ti-eye"></i><span>Quick
-																		Shop</span></a> <a title="Wishlist" href="#"><i
-																	class=" ti-heart "></i><span>Add to Wishlist</span></a> <a
-																	title="Compare" href="#"><i
-																	class="ti-bar-chart-alt"></i><span>Add to
-																		Compare</span></a>
-															</div>
-															<div class="product-action-2">
-																<a title="Add to cart" href="#">Add to cart</a>
-															</div>
-														</div>
 													</div>
 													<div class="product-content">
 														<h3>
@@ -334,22 +320,11 @@
 						<c:forEach var="n" items="${newlist }">
 						<div class="single-product">
 							<div class="product-img">
-								<a href="${pageContext.request.contextPath}/detailview2?product_code=${n.product_code }l"> <img class="default-img"
+								<a href="${pageContext.request.contextPath}/detailview2?product_code=${n.product_code }"> <img class="default-img"
 									src="${pageContext.request.contextPath}/${n.thumb_img}" alt="#"> <!-- <img class="hover-img" src="https://via.placeholder.com/550x750" alt="#">  -->
 									<span class="new">New</span>
 								</a>
-								<div class="button-head">
-									<div class="product-action">
-										<a data-toggle="modal" data-target="#exampleModal"
-											title="Quick View" href="#"><i class=" ti-eye"></i><span>Quick
-												Shop</span></a> <a title="Wishlist" href="#"><i class=" ti-heart "></i><span>Add
-												to Wishlist</span></a> <a title="Compare" href="#"><i
-											class="ti-bar-chart-alt"></i><span>Add to Compare</span></a>
-									</div>
-									<div class="product-action-2">
-										<a title="Add to cart" href="#">Add to cart</a>
-									</div>
-								</div>
+								
 							</div>
 							<div class="product-content">
 								<h3>
