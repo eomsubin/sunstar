@@ -13,7 +13,7 @@
 	
 	  
 	<select id="viewOrdered" resultType="com.sunstar.dto.CartDTO" parameterType="com.sunstar.dto.CartDTO">
-		select 
+	select 
     c.cart_no,
      c.cart_quantity,
     c.id, 
@@ -101,7 +101,7 @@
 	 -->
 	 
 	 <select id="getProducts" parameterType="com.sunstar.dto.SellerDTO" resultType="com.sunstar.dto.CartDTO">
-    	select  s.seller_name,s.seller_code,s.basic_shipping_cost,s.free_shipping_cost
+    	select s.seller_name,s.seller_code,s.basic_shipping_cost,s.free_shipping_cost
     	from cart c
     join customer t
      on c.id = t.id

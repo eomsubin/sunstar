@@ -873,6 +873,9 @@ $(document).ready(function(){
 				
 				<img class="moreimg" alt="detail_img6" src="${view.detail_img6}" style="display : none">
 							</c:if>						
+				<img class="moreimg" alt="comm_img1" src="${view.comm_img1}" style="display : none">
+				<img class="moreimg" alt="comm_img2" src="${view.comm_img2}" style="display : none">
+				<img class="moreimg" alt="comm_img3" src="${view.comm_img3}" style="display : none">
 			
 				<div class="box__detail-more">
 		            <button type="button" class="button__detail-more js-toggle-button">상세정보 <span>더보기</span></button>
