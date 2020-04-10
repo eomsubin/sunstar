@@ -16,8 +16,11 @@
 	display: inline-block;
 	margin-left: 30px;
 }
-</style>
 
+.arow{
+display:inline-block;}
+</style>
+ 
 <link
 	href="https://cdn.jsdelivr.net/npm/summernote@0.8.16/dist/summernote.min.css"
 	rel="stylesheet">
@@ -437,14 +440,14 @@ body {
 		<!-- DataTales Example -->
 		<div class="card shadow mb-4">
 			<div class="card-header py-3">
-				<h6 class="m-0 font-weight-bold text-primary">판매자 =</h6>
+				<h6 class="m-0 font-weight-bold text-primary">판매자 </h6>
 			</div>
 			<div class="card-body">
 				<div class="table-responsive">
 
 					<!-- 	<button type="button" id="btnaddinventory" class="btn btn-primary">선택 재고 추가</button> -->
-
-					<div class="btn-group">
+					
+					<div class="btn-group arow">
 						<button type="button" class="btn btn-secondary dropdown-toggle"
 							data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">선택상품
 							공개 비공개</button>
@@ -462,8 +465,9 @@ body {
 
 
 						</div>
-					</div>
-
+					</div>	
+					<div class="arow">
+					
 					<button type="button" id="all_print" class="btn btn-secondary"
 						onclick="productallprint()">전체출력</button>
 
@@ -472,7 +476,7 @@ body {
 						<!-- data-toggle="modal" data-target="#exampleModal" -->
 						삭제
 					</button>
-
+					</div>
 
 					<!-- delete Modal -->
 					<div class="modal fade" id="deletemodal" tabindex="-1"
@@ -489,8 +493,7 @@ body {
 								</div>
 								<div class="modal-body">
 									<div>
-										경고!! <br> 상품코드가 같은 상품은 모두 삭제됩니다.<br> <br> 옵션만
-										삭제할 경우 ㅇㅇㅇ에서 삭제를 실행해주세요<br> 선택한 상품을 정말로 삭제하시겠습니까?
+										경고!! <br> 상품코드가 같은 상품은 모두 삭제됩니다.<br> <br> 선택한 상품을 정말로 삭제하시겠습니까?
 									</div>
 								</div>
 								<div class="modal-footer">
@@ -511,9 +514,8 @@ body {
 					<!-- 	<button type="button" id="btnupdateinventorymodal"
 							class="btn btn-primary">재고 추가 모달 테스트</button>
 
- -->
-					<div class="col-md-10" style="margin: 20px 0px;">
-						<select class="custom-select col-md-4" id="changeSizePerPage">
+ -->				<div class="arow " style="margin: 20px 0px;">
+						<select class="custom-select" id="changeSizePerPage">
 							<option selected disabled value="10">표시 건수</option>
 							<option value="10">10</option>
 							<option value="30">30</option>
@@ -521,7 +523,8 @@ body {
 							<option value="100">100</option>
 							<option value="10000">전체</option>
 						</select>
-
+					</div>
+					<div class="arow">
 						<form
 							action="${pageContext.request.contextPath}/seller/productlist?=${page.startBlock}"
 							method="get">
@@ -542,6 +545,7 @@ body {
 
 							</div>
 						</form>
+						</div>
 						<!-- update Modal -->
 					</div>
 
@@ -647,7 +651,7 @@ body {
 				</div>
 			</div>
 		</div>
-	</div>
+	
 
 </body>
 </html>

@@ -21,9 +21,9 @@ body {
 <body>
 	<div class="container-fluid">
 		<!-- Page Heading -->
-		<h1 class="h3 mb-2 text-gray-800">정보 확인</h1>
+		<h1 class="h3 mb-2 text-gray-800">정산신청</h1>
 		<p class="mb-4">
-			내 정보를 확인하고 수정 할 수 있습니다. <a target="_blank"
+			지난달 수익에 대한 정산 신청을 할 수 있습니다.<a target="_blank"
 				href="https://datatables.net">자세한 안내는 이 곳을 클릭</a>.
 		</p>
 
