@@ -433,7 +433,7 @@
 	        left join options t
 	        on t.product_code = p.product_code
 			where p.seller_code = #{seller_code}
-			order by r.review_writedate desc
+			order by r.review_no desc
 
 		
 		</select>

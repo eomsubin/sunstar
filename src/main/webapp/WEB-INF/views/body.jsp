@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -155,7 +156,7 @@
 																href="${pageContext.request.contextPath}/detailview2?product_code=${fashion.product_code}">${fashion.product_name }</a>
 														</h3>
 														<div class="product-price">
-															<span>${fashion.price+fashion.add_price } 원</span>
+															<span><fmt:formatNumber pattern="###,###,###" value="${fashion.price+fashion.add_price }"/> 원</span>
 														</div>
 													</div>
 												</div>
@@ -193,7 +194,7 @@
 																href="${pageContext.request.contextPath}/detailview2?product_code=${digital.product_code}">${digital.product_name }</a>
 														</h3>
 														<div class="product-price">
-															<span>${digital.price+digital.add_price } 원</span>
+															<span><fmt:formatNumber pattern="###,###,###" value="${digital.price+digital.add_price }"/> 원</span>
 														</div>
 													</div>
 												</div>
@@ -230,7 +231,7 @@
 																href="${pageContext.request.contextPath}/detailview2?product_code=${furniture.product_code}">${furniture.product_name }</a>
 														</h3>
 														<div class="product-price">
-															<span>${furniture.price+furniture.add_price } 원</span>
+															<span><fmt:formatNumber pattern="###,###,###" value="${furniture.price+furniture.add_price }"/> 원</span>
 														</div>
 													</div>
 												</div>
@@ -265,7 +266,7 @@
 																href="${pageContext.request.contextPath}/detailview2?product_code=${food.product_code}">${food.product_name }</a>
 														</h3>
 														<div class="product-price">
-															<span>${food.price+food.add_price } 원</span>
+															<span><fmt:formatNumber pattern="###,###,###" value="${food.price+food.add_price }"/> 원</span>
 														</div>
 													</div>
 												</div>
@@ -301,7 +302,7 @@
 																href="${pageContext.request.contextPath}/detailview2?product_code=${animal.product_code}">${animal.product_name }</a>
 														</h3>
 														<div class="product-price">
-															<span>${animal.price+animal.add_price } 원</span>
+															<span><fmt:formatNumber pattern="###,###,###" value="${animal.price+animal.add_price }"/> 원</span>
 														</div>
 													</div>
 												</div>
@@ -385,7 +386,7 @@
 									<a href="${pageContext.request.contextPath}/detailview2?product_code=${recommend.product_code}">${recommend.product_name }</a>
 								</h3>
 								<div class="product-price">
-									 <span>${recommend.price+recommend.add_price } 원</span>
+									 <span><fmt:formatNumber pattern="###,###,###" value="${recommend.price+recommend.add_price }"/> 원</span>
 								</div>
 							</div>
 						</div>

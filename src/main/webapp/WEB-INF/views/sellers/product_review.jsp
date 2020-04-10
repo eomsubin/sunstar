@@ -28,7 +28,7 @@
 			/* 		console.log(this);
 			 console.log($(this).next().children()); */
 		})
-		genRowspan("td .ocode");
+		/* genRowspan("td .ocode");
 		function genRowspan(className) {
 			$('.ocode').each(
 					function() {
@@ -40,7 +40,7 @@
 						}
 					});
 
-		}
+		} */
 		
 		$('.review_del').on('click',function(){
 			let review_no = $(this).parent().parent().children().eq(0).children().val();

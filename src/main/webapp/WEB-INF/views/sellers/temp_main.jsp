@@ -225,7 +225,6 @@
 							            yAxes: [{
 							                ticks: {
 							                	min:0,
-							                    stepSize:1
 							                }
 							            }]
 							        }

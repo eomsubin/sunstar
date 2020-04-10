@@ -61,41 +61,6 @@ $('#order_update').on('click', function(){
 	
 	
 })	
-
-	/* $('.orderlist_update').on('click',function(){
-		
-		//$(this).parent().children().remove();
-			
-		let newbtn = '<input type="submit" value="완료~">';
-		$(this).parent().append(newbtn);
-		
-		
-		let addselect = $(this).parent().parent().children().eq(0);
-		console.log(addselect);
-		
-		let d_s = '<input type="hidden" name="order_code" value="${i.order_code}">'; 
-		d_s+='	<select class="form-control" id="delivery_state" name="delivery_state" >                    ';
-		d_s+='	<option value="${i.delivery_state}" selected="selected">${i.delivery_state}</option>    ';
-		d_s+='	<option value="배송준비">배송준비</option>                                                       ';
-		d_s+='	<option value="배송중">배송중</option>                                                          ';
-		d_s+='	<option value="배송완료">배송완료</option>                                                      ';
-		d_s+='	<option value="반품대기">반품대기</option>                                                      ';
-		d_s+='	<option value="반품완료">반품완료</option>                                                      ';
-		d_s+='	<option value="교환요청">교환요청</option>                                                      ';
-		d_s+='	<option value="반송대기">반송대기</option>                                                      ';
-		d_s+='	<option value="반송완료 및 배송준비">반송완료 및 배송준비</option>                                       ';
-		d_s+='	<option value="배송중">배송중</option>                                                          ';
-		d_s+='	<option value="배송 및 교환완료">배송 및 교환완료</option>                                             ';
-		d_s+='	<option value="결제취소(판매자사유)">결제취소(판매자사유)</option>                                      ';
-		d_s+='	<option value="결제취소(구매자사유)">결제취소(구매자사유)</option>                                      ';
-		d_s+='	<option value="결제취소완료">결제취소완료</option>                                                  ';
-		d_s+='	</select>																					';
-				
-		$(addselect).append(d_s);
-		
-	
-																	
-	}) */
 })
 
 </script>
@@ -107,17 +72,17 @@ $('#order_update').on('click', function(){
 
 	<div class="container-fluid">
 		<!-- Page Heading -->
-		<h1 class="h3 mb-2 text-gray-800">정보 확인</h1>
+		<h1 class="h3 mb-2 text-gray-800">단일 주문건 확인</h1>
 		<p class="mb-4">
-			내 정보를 확인하고 수정 할 수 있습니다. <a target="_blank"
+			주문 한건에 대한 정보를 확인할 수 있습니다. <a target="_blank"
 				href="https://datatables.net">자세한 안내는 이 곳을 클릭</a>.
 		</p>
 
 		<!-- DataTales Example -->
 		<div class="card shadow mb-4">
 			<div class="card-header py-3">
-				<h6 class="m-0 font-weight-bold text-primary">DataTables
-					Example</h6>
+			
+				<h6 class="m-0 font-weight-bold text-primary">주문 번호로 검색</h6>
 			</div>
 			<div class="card-body " style="padding-left: 30px;">
 
