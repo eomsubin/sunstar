@@ -158,24 +158,19 @@ public class SellerServiceImpl implements SellerService {
 	}
 
 	@Override
-	public int totalCount(String txt) {
-		HashMap<String, Object> hm = new HashMap<>();
-		hm.put("txt", txt);
+	public int totalCount(MakePage seller_codeAndTxt) {
+	
 		
-		return mapper.getCount(hm);
+		return mapper.getCount(seller_codeAndTxt);
 		
 	}
 
 	@Override
 	public List<ProductDTO> productlist(MakePage page) {
-		HashMap<String, Object> hm = new HashMap<>();
-		hm.put("txt", page.getTxt());
-		hm.put("startRow", page.getStartRow());
-		hm.put("endRow", page.getEndRow());
 		
-		System.out.println("emp service impl test");
-		
+		System.out.println(page.getTxt() + "!!!");
 
+		System.out.println(page);
 		return mapper.productlist(page);
 	}
 

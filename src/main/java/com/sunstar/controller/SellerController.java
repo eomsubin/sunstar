@@ -77,6 +77,7 @@ public class SellerController {
 		System.out.println(id);
 		String seller_code = sellerservice.getSellerCode(id);
 
+		m.addAttribute("seller_code", seller_code);
 		
 		//상단 단계별 건수 표시
 		int paid = sellerservice.getPaid(seller_code);
@@ -211,7 +212,7 @@ public class SellerController {
 		System.out.println(id);
 
 		String seller_code = sellerservice.getSellerCode(id);
-
+		m.addAttribute("seller_code", seller_code);
 
 		//페이징 및 검색
 		/*		Pattern p = Pattern.compile("(^[0-9]*$)");
@@ -225,10 +226,13 @@ public class SellerController {
 				m.addAttribute("txt",txt);
 			}
 		}*/
-
+		
+		MakePage dto = new MakePage();
+		dto.setSeller_code(seller_code);
+		dto.setTxt(txt);
 		//총 갯수 구하기
-		int totalCount = sellerservice.totalCount(txt);
-		System.out.println(totalCount);
+		int totalCount = sellerservice.totalCount(dto);
+		System.out.println("totalcount-------------------"+totalCount);
 
 		MakePage pa = new MakePage();
 		pa.setSizePerPage(10); 
@@ -258,6 +262,7 @@ public class SellerController {
 		System.out.println("======page======");
 
 		page.setStartRow(page.getStartRow());
+		page.setTxt(txt);
 
 		System.out.println("현재페이지"+page.getCurrPage());
 		System.out.println("총 갯수"+page.getTotalCount());
@@ -269,6 +274,7 @@ public class SellerController {
 		System.out.println("끝블럭"+page.getEndBlock());
 		System.out.println("이전있니"+page.isPrev());
 		System.out.println("다음있니"+page.isNext());
+		System.out.println("검색했니?" + page.getTxt());
 		System.out.println("======page==end===");
 
 		page.setSeller_code(seller_code);
@@ -718,6 +724,7 @@ public class SellerController {
 		System.out.println(id);
 		String seller_code = sellerservice.getSellerCode(id);
 
+		m.addAttribute("seller_code", seller_code);
 		List<OrderDTO> orderlist = sellerservice.orderlist(seller_code);
 		m.addAttribute("orderlist", orderlist);
 		m.addAttribute("sellerpage", "orders.jsp");
@@ -734,6 +741,7 @@ public class SellerController {
 		System.out.println(id);
 		String seller_code = sellerservice.getSellerCode(id);
 
+		m.addAttribute("seller_code", seller_code);
 
 		List<OrderDTO> orderlist = new ArrayList<>();
 
@@ -911,7 +919,8 @@ public class SellerController {
 		String id= getId(m, p);
 		System.out.println(id);
 		String seller_code = sellerservice.getSellerCode(id);
-		
+
+		m.addAttribute("seller_code", seller_code);
 		
 		System.out.println("stp" +stp);
 
@@ -1124,7 +1133,8 @@ public class SellerController {
 		String id= getId(m, p);
 		System.out.println(id);
 		String seller_code = sellerservice.getSellerCode(id);
-		
+
+		m.addAttribute("seller_code", seller_code);
 		List<AccountsDTO> alist= sellerservice.getAccountList(seller_code);
 		List<String> ymlist = new ArrayList<>();
 		
@@ -1150,7 +1160,8 @@ public class SellerController {
 		String id= getId(m, p);
 		System.out.println(id);
 		String seller_code = sellerservice.getSellerCode(id);
-		
+
+		m.addAttribute("seller_code", seller_code);
 		
 		List<AccountsDTO> alist= sellerservice.getAccountList(seller_code);
 		
@@ -1166,6 +1177,8 @@ public class SellerController {
 		String id= getId(m, p);
 		System.out.println(id);
 		String seller_code = sellerservice.getSellerCode(id);
+
+		m.addAttribute("seller_code", seller_code);
 		System.out.println("sellerinfo - sellercode : " + seller_code);
 
 		SellerDTO dto = sellerservice.sellerInfo(seller_code);
@@ -1202,6 +1215,7 @@ public class SellerController {
 		System.out.println(id);
 		String seller_code = sellerservice.getSellerCode(id);
 
+		m.addAttribute("seller_code", seller_code);
 
 		SellerDTO dto = sellerservice.sellerInfo(seller_code);
 
@@ -1303,6 +1317,8 @@ public class SellerController {
 		String id= getId(m, p);
 		System.out.println(id);
 		String seller_code = sellerservice.getSellerCode(id);
+
+		m.addAttribute("seller_code", seller_code);
 		List<OrderDTO> orderlist = sellerservice.orderlist(seller_code);
 		m.addAttribute("olist", orderlist);
 
@@ -1452,6 +1468,7 @@ public class SellerController {
 
 		String seller_code = sellerservice.getSellerCode(id);
 
+		m.addAttribute("seller_code", seller_code);
 		List<QnaDTO> list = sellerservice.getQnaList(seller_code);
 
 		m.addAttribute("list", list);
@@ -1530,8 +1547,12 @@ public class SellerController {
 
 
 	@RequestMapping("/search_order")
-	public String search_order(Model m) {
+	public String search_order( Principal p,Model m) {
 
+		String id= getId(m, p);
+		System.out.println(id);
+		String seller_code = sellerservice.getSellerCode(id);
+		m.addAttribute("seller_code", seller_code);
 		m.addAttribute("sellerpage", "search_order.jsp");
 		return "sellers/temp";
 	}
@@ -1543,6 +1564,7 @@ public class SellerController {
 		System.out.println(id);
 		String seller_code = sellerservice.getSellerCode(id);
 
+		m.addAttribute("seller_code", seller_code);
 		OrderDTO user = new OrderDTO();
 		user.setSeller_code(seller_code);
 		user.setOrder_code(search_order);
@@ -1606,6 +1628,7 @@ public class SellerController {
 		System.out.println(id);
 		String seller_code = sellerservice.getSellerCode(id);
 
+		m.addAttribute("seller_code", seller_code);
 		//판매자 코드가 일치하는 리뷰 테이블에서 값을 받아옴
 		List<ReviewDTO> list = sellerservice.getReview(seller_code);
 
@@ -1658,6 +1681,7 @@ public class SellerController {
 		System.out.println(id);
 		String seller_code = sellerservice.getSellerCode(id);
 
+		m.addAttribute("seller_code", seller_code);
 		Date date = new Date();
 		
 		System.out.println("date" + date);
@@ -1852,6 +1876,7 @@ public class SellerController {
 		System.out.println(id);
 		String seller_code = sellerservice.getSellerCode(id);
 
+		m.addAttribute("seller_code", seller_code);
 		List<OrderDTO> orderlist = sellerservice.orderlist(seller_code);
 		
 		String compl = "정상처리 주문코드 -> ";
@@ -1888,6 +1913,7 @@ public class SellerController {
 		System.out.println(id);
 		String seller_code = sellerservice.getSellerCode(id);
 
+		m.addAttribute("seller_code", seller_code);
 		//상품 삭제 	
 		sellerservice.delete_products(seller_code);
 		//권한 삭제

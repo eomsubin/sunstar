@@ -218,9 +218,7 @@ body {
 						<button type="button" id="check_print" class="btn btn-secondary"
 							onclick="checkprint()">선택 출력</button>
 
-						<button type="button" class="btn btn-danger">임시</button>
-						<!-- id="btndelete" -->
-
+					
 				
 										<div class="btn-group">
 				
