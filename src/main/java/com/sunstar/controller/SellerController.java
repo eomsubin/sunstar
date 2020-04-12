@@ -69,7 +69,7 @@ public class SellerController {
 		return id;
 	}
 
-
+	//seller-mainpage
 	@RequestMapping("/seller")
 	public String seller(Model m,  Principal p) {
 		//id 가져오는 방법
@@ -294,28 +294,7 @@ public class SellerController {
 		return "sellers/temp";
 	}
 
-	//상품 상세보기
-	/*	@ResponseBody
-	@RequestMapping("/detailview/{pcode}")
-	public ProductDTO detailview(@PathVariable String pcode) {
-
-		int pcd = Integer.parseInt(pcode);
-
-		List<ProductDTO> dto = sellerservice.viewProduct(pcd);
-		System.out.println(dto);
-
-		//페이지에 카테고리 표시
-		List<CategoryDTO> clist = sellerservice.getCategory();
-		List<CategoryDTO> dlist = new ArrayList<>();
-		for(CategoryDTO a : clist) {
-			a.setLv123(a.getLv1()+" - "+a.getLv2()+" - "+a.getLv3()); 
-			dlist.add(a);
-			//dto.setCategorydto(dlist);
-		}
-		return dto;
-	}*/
-
-
+	//상품 공개여부 변경
 	@RequestMapping("/changePublicState/{changePublicState}/{pcodes}")
 	public String changePublicState(@PathVariable String changePublicState, @PathVariable String pcodes) {
 		String[] pcode = pcodes.split(",");
@@ -346,7 +325,7 @@ public class SellerController {
 		return "redirect:/seller/productlist";
 	}
 
-	//상품목록 출력
+	//상품목록 엑셀 출력
 	@RequestMapping(value="/productExcel/")
 	public void productExcel(Model m, Principal p, HttpServletResponse response) throws Exception{
 		List<ProductDTO> productList = new ArrayList<>();
@@ -511,7 +490,6 @@ public class SellerController {
 		wb.write(response.getOutputStream());
 		wb.close();
 	}
-
 
 	//상품 추가 하기
 	@RequestMapping("/addproduct")
@@ -686,33 +664,8 @@ public class SellerController {
 		return "redirect:/seller/productlist";
 	}
 
-
+	
 	private List<Integer> plist = new ArrayList<>();
-
-	//상품 수정  //일괄 업데이트 테스트하다가 일시중지
-	@RequestMapping("/updateinventory/{pcode}/{gesu}")
-	public String updateinventory(@PathVariable int pcode, @PathVariable int gesu){
-
-		Object a = (Object)pcode;
-
-		if(!plist.contains(a)) {
-			plist.add(pcode);
-			System.out.println("성공" + pcode);
-		}else {
-			System.out.println("실패" + pcode);
-		}
-
-
-		System.out.println("size: "+plist.size());
-
-		for(int i=0;i<plist.size();i++) {
-			System.out.println("index  -------- "+i);
-			System.out.println("value ----------"+plist.get(i));
-		}
-
-
-		return "redirect:/seller/productlist";
-	}
 
 
 	//주문 목록
@@ -732,7 +685,7 @@ public class SellerController {
 
 	}
 
-	//주문목록 출력
+	//주문목록 엑셀 출력
 	@RequestMapping(value="/orderexcel/{state}")
 	public void orderexcel(HttpServletResponse response, @PathVariable String state, Model m, Principal p) throws Exception{
 
@@ -1037,7 +990,6 @@ public class SellerController {
 		return "redirect:/seller/orders";
 	}
 
-
 	//운송장번호 입력(업데이트)
 	@RequestMapping("/updateTracking/{codes}/{trackings}")
 	public String updateTracking(@PathVariable String codes, @PathVariable String trackings) {
@@ -1056,8 +1008,6 @@ public class SellerController {
 
 		return "redirect:/seller/orders";
 	}
-
-
 
 	//정산 신청
 	@RequestMapping("/requestaccounting")
@@ -1190,6 +1140,7 @@ public class SellerController {
 		return "sellers/temp";
 	}
 
+	//판매자 정보 변경
 	@RequestMapping("/changeInfo")
 	public String changeInfo(SellerDTO dto) {
 		//  전화번호  - 추가해서 DB에 저장
@@ -1204,8 +1155,6 @@ public class SellerController {
 		sellerservice.changeInfo(dto);
 		return "redirect:/seller/sellerinfo";
 	}
-
-
 
 	//판매자 설정
 	@RequestMapping("/sellersetting")
@@ -1304,14 +1253,8 @@ public class SellerController {
 		return "redirect:/seller/sellersetting";
 	}
 
-
-
-
-	
-
-
-	//dataTable
-	@RequestMapping("/dataTableTest")
+	//dataTable  --> 미구현
+	/*@RequestMapping("/dataTableTest")
 	public String datatable_test(Model m, Principal p) {
 		//id 가져오는 방법
 		String id= getId(m, p);
@@ -1325,140 +1268,9 @@ public class SellerController {
 		m.addAttribute("sellerpage", "datatableTest.jsp");
 		return "sellers/temp";
 
-	}
+	}*/
 
-	@RequestMapping(value="/productUpdate", method = {RequestMethod.GET, RequestMethod.POST},
-			headers = ("content-type=multipart/*"))
-	public String productUpdate(HttpServletRequest request , ProductDTO dto) {
-
-		//multipart 파일을 multi에 담아줌
-		MultipartFile multi = dto.getAthumb_img();
-		MultipartFile multi1 = dto.getAdetail_img1();		
-		MultipartFile multi2 = dto.getAdetail_img2();
-		MultipartFile multi3 = dto.getAdetail_img3();
-
-		MultipartFile multi4 = dto.getAdetail_img4();		
-		MultipartFile multi5 = dto.getAdetail_img5();
-		MultipartFile multi6 = dto.getAdetail_img6();
-
-		System.out.println(multi);
-		System.out.println(multi1);
-		System.out.println(multi2);
-		System.out.println(multi3);
-		SimpleDateFormat frm = new SimpleDateFormat("yyyyMMddHHmmss");
-		Date date = new Date();
-		String time1 = frm.format(date);
-		String thumb = "thumb_"+time1+".jpg";
-		String detail1 = "detail1_" + time1+".jpg";
-		String detail2 = "detail2_" + time1+".jpg";
-		String detail3 = "detail3_" + time1+".jpg";
-
-		String detail4 = "detail4_" + time1+".jpg";
-		String detail5 = "detail5_" + time1+".jpg";
-		String detail6 = "detail6_" + time1+".jpg";
-		String path="resources\\product_img";
-		try {
-			//저장 경로 구하기
-			String uploadpath = request.getSession().getServletContext().getRealPath(path);
-
-			//	String uploadpath = "C:\\finalgit\\sunstar\\src\\main\\webapp\\resources\\product_img";
-			System.out.println(uploadpath);
-
-			//파일이 비어있지 않다면!
-			if(!multi.isEmpty()) {
-				//파일 = 새파일(경로, 파일이름);
-				File file = new File(uploadpath, multi.getOriginalFilename());
-				multi.transferTo(file);
-				String new_file_url_name = uploadpath+"/"+thumb;
-				File file2 = new File(new_file_url_name);
-				file.renameTo(file2);
-				dto.setThumb_img(path+"\\"+ thumb);
-			}
-
-			if(!multi1.isEmpty()) {
-				//파일 = 새파일(경로, 파일이름);
-				File file1 = new File(uploadpath, multi1.getOriginalFilename());
-				multi1.transferTo(file1);
-				String new_file_url_name = uploadpath+"/"+detail1;
-				File nfile1 = new File(new_file_url_name);
-				file1.renameTo(nfile1);
-				dto.setDetail_img1(path+"\\"+ detail1);
-			}
-
-			if(!multi2.isEmpty()) {
-				//파일 = 새파일(경로, 파일이름);
-				File file2 = new File(uploadpath, multi2.getOriginalFilename());
-				multi2.transferTo(file2);
-				String new_file_url_name = uploadpath+"/"+detail2;
-				File nfile2 = new File(new_file_url_name);
-				file2.renameTo(nfile2);
-				dto.setDetail_img2(path+"\\"+ detail2);
-			}
-
-			if(!multi3.isEmpty()) {
-				//파일 = 새파일(경로, 파일이름);
-				File file3 = new File(uploadpath, multi3.getOriginalFilename());
-				multi3.transferTo(file3);
-				String new_file_url_name = uploadpath+"/"+detail3;
-				File nfile3 = new File(new_file_url_name);
-				file3.renameTo(nfile3);
-				dto.setDetail_img3(path+"\\"+ detail3);
-			}
-
-
-			if(!multi4.isEmpty()) {
-				//파일 = 새파일(경로, 파일이름);
-				File file4= new File(uploadpath, multi4.getOriginalFilename());
-				multi4.transferTo(file4);
-				String new_file_url_name = uploadpath+"/"+detail4;
-				File nfile4 = new File(new_file_url_name);
-				file4.renameTo(nfile4);
-				dto.setDetail_img4(path+"\\"+ detail4);
-			}
-
-
-			if(!multi5.isEmpty()) {
-				//파일 = 새파일(경로, 파일이름);
-				File file5 = new File(uploadpath, multi5.getOriginalFilename());
-				multi5.transferTo(file5);
-				String new_file_url_name = uploadpath+"/"+detail5;
-				File nfile5 = new File(new_file_url_name);
-				file5.renameTo(nfile5);
-				dto.setDetail_img5(path+"\\"+ detail5);
-			}
-
-
-			if(!multi6.isEmpty()) {
-				//파일 = 새파일(경로, 파일이름);
-				File file6 = new File(uploadpath, multi6.getOriginalFilename());
-				multi6.transferTo(file6);
-				String new_file_url_name = uploadpath+"/"+detail6;
-				File nfile6 = new File(new_file_url_name);
-				file6.renameTo(nfile6);
-				dto.setDetail_img6(path+"\\"+ detail6);
-			}
-
-			if(dto.isPublic_state()== true) {
-				dto.setPublic_state(true);
-			}else if(dto.isPublic_state() != true) {
-				dto.setPublic_state(false);
-			}else if(dto.isReview_state() == true) {
-				dto.setReview_state((true));
-			}else if(dto.isReview_state() != true) {
-				dto.setReview_state((false));
-			}
-
-		}catch(IOException e){
-			e.getMessage();
-		}
-
-
-		sellerservice.updateProduct(dto);
-		System.out.println(">>> \n"+ dto +"\n<<<");
-		return "redirect:/seller/productlist";
-
-	}
-
+	//상품 문의
 	@RequestMapping("/product_qna")
 	public String product_qna(Model m, Principal p) {
 		//id 가져오는 방법
@@ -1476,7 +1288,7 @@ public class SellerController {
 		return "sellers/temp";
 	}
 
-
+	//상품문의 답글남기기
 	@RequestMapping("/qna_reply")
 	public String qna_reply(Model m, QnaDTO dto) {
 
@@ -1486,6 +1298,7 @@ public class SellerController {
 		return "redirect:/seller/product_qna";
 	}
 
+	//상품문의 답글 삭제하기
 	@RequestMapping("/qna_reply_del")
 	public String qna_reply_del(Model m, QnaDTO dto) {
 
@@ -1496,56 +1309,7 @@ public class SellerController {
 		return "redirect:/seller/product_qna";
 	}
 
-	/*	@Autowired
-	private JavaMailSenderImpl mailSender;
-
-	@RequestMapping(value="/deadline", method = {RequestMethod.GET, RequestMethod.POST},
-			headers = ("content-type=multipart/*"))
-	public String deadline(MultipartFile deadline_file, String deadline, String seller_name, Model m) {
-		MultipartFile multi = deadline_file;
-		SimpleDateFormat frm = new SimpleDateFormat("yyyyMMddHHmmss");
-		Date date = new Date();
-		String time1 = frm.format(date);
-		final String ddline = "ddline"+time1+".jpg";
-		 String pathh = "";
-		try {
-			//저장 경로 구하기
-			String uploadpath = "C:\\finalgit\\sunstar\\src\\main\\webapp\\resources\\deadline";
-			System.out.println(uploadpath);
-			//파일이 비어있지 않다면!
-			if(!multi.isEmpty()) {
-				//파일 = 새파일(경로, 파일이름);
-				File file = new File(uploadpath, multi.getOriginalFilename());
-				multi.transferTo(file);
-				String new_file_url_name = uploadpath+"/"+ddline;
-				File file2 = new File(new_file_url_name);
-				file.renameTo(file2);
-				pathh = "resources\\product_img\\" + ddline;
-			}
-		}catch(IOException e){
-			e.getMessage();
-		}
-		final MimeMessagePreparator pp = new MimeMessagePreparator() {
-			@Override
-			public void prepare(MimeMessage mimeMessage) throws Exception {
-				final MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true, "utf-8");
-				helper.setFrom("sbbj_sunstar@naver.com");
-				helper.setTo("sbbj_sunstar@naver.com");
-				helper.setSubject("이용기한 연장");
-				helper.setText("seller_name : " +seller_name
-						+ "<br>"
-						+ "deadline : " + deadline
-						+ "<br>"
-						+ "이미지 경로: "+ ddline,  true);
-			}
-		};
-		mailSender.send(pp);
-		m.addAttribute("sellerpage", "suc.jsp");
-		return "seller/success";
-	}
-	 */
-
-
+	//단일 주문건 확인
 	@RequestMapping("/search_order")
 	public String search_order( Principal p,Model m) {
 
@@ -1557,6 +1321,7 @@ public class SellerController {
 		return "sellers/temp";
 	}
 
+	//단일주문건 보기
 	@RequestMapping("/searchOrderView")
 	public String  searchOrderView(Model m, Principal p, @RequestParam String search_order ) {
 		//id 가져오는 방법
@@ -1609,7 +1374,7 @@ public class SellerController {
 		return "sellers/temp";
 	}
 	
-	
+	//단일주문건 수정
 	@RequestMapping("/search_order_update")
 	public String search_order_update(OrderDTO dto) {
 		
@@ -1622,6 +1387,7 @@ public class SellerController {
 		
 	}
 	
+	//상품평  
 	@RequestMapping("/product_review")
 	public String product_review(Model m, Principal p ) {
 		String id= getId(m, p);
@@ -1651,6 +1417,7 @@ public class SellerController {
 		return "sellers/temp";
 	}
 
+	//상품평 삭제
 	@RequestMapping("/review_del")
 	public String review_del( @RequestParam int review_no) {
 
@@ -1660,7 +1427,7 @@ public class SellerController {
 		return "redirect:/seller/product_review";		
 	}
 	
-	
+	//상품평 복수삭제
 	@RequestMapping("/reviews_del/{review_nos}")
 	public String reviews_del(@PathVariable String review_nos) {
 		
@@ -1869,43 +1636,7 @@ public class SellerController {
 		return "sellers/temp";
 	}
 	
-	@RequestMapping("/switchCustomer")
-	public String switchCustomer(Model m, Principal p) {
-		//id 가져오는 방법
-		String id= getId(m, p);
-		System.out.println(id);
-		String seller_code = sellerservice.getSellerCode(id);
-
-		m.addAttribute("seller_code", seller_code);
-		List<OrderDTO> orderlist = sellerservice.orderlist(seller_code);
-		
-		String compl = "정상처리 주문코드 -> ";
-		String order_codes = "";
-		
-		
-		for(int i = 0; i< orderlist.size(); i++) {
-			orderlist.get(i).getDelivery_state();
-			System.out.println(orderlist.get(i).getDelivery_state());
-			//delivery_state 가 '완료가 아니라면 반려
-
-			if( orderlist.get(i).getDelivery_state().equals("배송완료") ||
-					orderlist.get(i).getDelivery_state().equals("반송완료") ||
-					orderlist.get(i).getDelivery_state().equals("배송완료 및 교환완료") ||
-					orderlist.get(i).getDelivery_state().equals("결체취소 완료")) {
-				compl += orderlist.get(i).getOrder_code() + ", ";	
-			}else {
-				order_codes += 	orderlist.get(i).getOrder_code() + ", ";		
-			}
-		}
-		m.addAttribute("compl", compl);
-		System.out.println("order_codes = " + order_codes);
-		m.addAttribute("order_codes", order_codes);
-		
-		m.addAttribute("sellerpage", "switchCustomer.jsp");
-		return "sellers/temp";
-		
-	}
-	
+	//판매회원탈퇴
 	@RequestMapping("/real_switch_customer")
 	public String real_switch_customer(Model m, Principal p) {
 		//id 가져오는 방법

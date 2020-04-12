@@ -33,7 +33,6 @@ public class SellerServiceImpl implements SellerService {
 
 	@Override
 	public int getCategoryCount() {
-		// TODO Auto-generated method stub
 		return mapper.getCategoryCount();
 	}
 
@@ -50,7 +49,6 @@ public class SellerServiceImpl implements SellerService {
 			for(int i =0; i<dto.getOptions().size(); i++) {
 				
 				//상품코드 불러와서
-			//	ProductDTO dto2 = mapper.aProduct();
 				//그 상품코드에 맞는 옵션 추가
 				System.out.println("****");
 				OptionDTO dto2 = new OptionDTO();
@@ -93,7 +91,6 @@ public class SellerServiceImpl implements SellerService {
 	public void deleteProduct(int pcode) {
 		//옵션즈 테이블에서 먼저 삭제
 		mapper.deleteProductOptions(pcode);
-		
 		//상품리스트 테이블에서 삭제
 		mapper.deleteProduct(pcode);
 		
@@ -101,8 +98,6 @@ public class SellerServiceImpl implements SellerService {
 	@Override
 	public List<String> getOptioncolor(int pcode) {
 		List<String> list = mapper.getOptionColor(pcode);
-		
-
 		return list;
 	}
 	
@@ -192,7 +187,6 @@ public class SellerServiceImpl implements SellerService {
 
 	@Override
 	public List<ProductDTO> viewProduct(int pcd) {
-		// TODO Auto-generated method stub
 		return mapper.viewProduct(pcd);
 	}
 
@@ -209,14 +203,12 @@ public class SellerServiceImpl implements SellerService {
 
 	@Override
 	public int getShipping_Cost(int seller_code) {
-		// TODO Auto-generated method stub
 		return mapper.getShipping_Cost(seller_code);
 	}
 	
 
 	@Override
 	public String getSellerCode(String id) {
-		
 		return mapper.getSellerCode(id);
 	}
 
@@ -235,31 +227,26 @@ public class SellerServiceImpl implements SellerService {
 
 	@Override
 	public int getExchangeCount(String seller_code) {
-		// TODO Auto-generated method stub
 		return mapper.getExchangeCount(seller_code);
 	}
 
 	@Override
 	public int getBringBack(String seller_code) {
-		// TODO Auto-generated method stub
 		return mapper.getBringBack(seller_code);
 	}
 
 	@Override
 	public int getWaitAnswer(String seller_code) {
-		// TODO Auto-generated method stub
 		return mapper.getWaitAnswer(seller_code);
 	}
 
 	@Override
 	public List<QnaDTO> getQnaList(String seller_code) {
-		// TODO Auto-generated method stub
 		return mapper.getQnaList(seller_code);
 	}
 
 	@Override
 	public void qna_reply(QnaDTO dto) {
-		// TODO Auto-generated method stub
 		mapper.qna_reply(dto);
 	}
 
@@ -270,19 +257,16 @@ public class SellerServiceImpl implements SellerService {
 
 	@Override
 	public List<ReviewDTO> getReview(String seller_code) {
-		// TODO Auto-generated method stub
 		return mapper.getReview(seller_code);
 	}
 
 	@Override
 	public List<ReviewImgDTO> getReviewImgCount(int review_no) {
-		// TODO Auto-generated method stub
 		return mapper.getReviewImgCount(review_no);
 	}
 
 	@Override
 	public void review_del(int review_no) {
-		
 		//review_img 테이블에서 먼저 삭제한 후 review 테이블에서 삭제@
 		mapper.reviewimg_del(review_no);
 		mapper.review_del(review_no);
@@ -299,13 +283,11 @@ public class SellerServiceImpl implements SellerService {
 
 	@Override
 	public Integer day_chart(ChartDTO dto) {
-		// TODO Auto-generated method stub
 		return mapper.day_chart(dto);
 	}
 
 	@Override
 	public Integer day_chart_plus(ChartDTO dto) {
-		// TODO Auto-generated method stub
 		return  mapper.day_chart_plus(dto);
 	}
 
@@ -322,8 +304,6 @@ public class SellerServiceImpl implements SellerService {
 
 	@Override
 	public void search_order_update(OrderDTO dto) {
-			
-
 			//order_list 업데이트 sql문
 			mapper.search_order_update_2(dto);
 			//ordered 업데이트 sql문
@@ -332,19 +312,16 @@ public class SellerServiceImpl implements SellerService {
 
 	@Override
 	public List<ChartDTO> get_top5(String seller_code) {
-		// TODO Auto-generated method stub
 		return mapper.get_top5(seller_code);
 	}
 
 	@Override
 	public List<ChartDTO> get_top5items(String seller_code) {
-		// TODO Auto-generated method stub
 		return mapper.get_top5items(seller_code);
 	}
 
 	@Override
 	public Integer getOrderCount(ChartDTO getOrderCount) {
-		// TODO Auto-generated method stub
 		return mapper.getOrderCount(getOrderCount);
 	}
 
@@ -355,7 +332,6 @@ public class SellerServiceImpl implements SellerService {
 
 	@Override
 	public AccountsDTO getTotal_price(AccountsDTO setdto) {
-		// TODO Auto-generated method stub
 		return mapper.getTotal_price(setdto);
 	}
 
@@ -366,18 +342,6 @@ public class SellerServiceImpl implements SellerService {
 
 	@Override
 	public List<AccountsDTO> getAccountList(String seller_code) {
-		// TODO Auto-generated method stub
 		return mapper.getAccountList(seller_code);
 	}
-
-	
-
-}                                                                                                                                                         
-		
-		
-		
-		
-
-		
-		
-		
+}

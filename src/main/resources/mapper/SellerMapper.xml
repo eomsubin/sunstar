@@ -6,7 +6,6 @@
 
 <parameterMap type="java.util.HashMap" id="HashMap"/>
 
-
 	<!-- 카테고리 목록 불러오기 -->
 	<select id="getCategory" resultType="com.sunstar.dto.CategoryDTO">
 		select * from category
@@ -32,10 +31,8 @@
 	
 	<!-- 옵션 추가  -->
 	<insert id="addOptions" parameterType="com.sunstar.dto.OptionDTO">
-
 		insert into options(product_code, option2, option1, inventory, add_price)
 		values(#{product_code},#{option2},#{option1},#{inventory},#{add_price})
-	
 	</insert>
 	
 	<!-- 상픔 리스트 (판매자) -->
@@ -51,8 +48,6 @@
 		on p.seller_code = s.seller_code
         where p.seller_code = #{seller_code}
 		order by product_code desc
-		
-		<!-- where seller_code = '' 추가해야돼 -->
 	</select>
 	
 	<!-- 옵션 삭제 -->
@@ -82,7 +77,6 @@
 	
 	<!-- 주문목록 -->
 	<select id="orderlist" parameterType="string" resultType="com.sunstar.dto.OrderDTO">
-	
 	   select o.order_code, l.order_no, l.product_code, p.product_name, l.option1, l.option2, l.quantity, l.add_price,  p.price, o.message, 
 			  o.order_way,  o.to_name, c.tel, o.shipping_addr1, o.shipping_addr2, o.shipping_addr3, o.shipping_zip, l.delivery_state, l.tracking_no
        from ordered o left join order_list l
@@ -95,9 +89,8 @@
 		order by order_code desc
 	</select>
 	
-		<!-- 배송대기 주문목록 -->
+	<!-- 배송대기 주문목록 -->
 	<select id="shippinglist" parameterType="string" resultType="com.sunstar.dto.OrderDTO">
-	
 	   select o.delivery_state, l.product_code, p.price, o.order_code, l.order_no, l.option1, l.option2, l.inventory, l.add_price, o.order_way, o.message, c.name, c.tel, s.shipping_addr1, s.shipping_addr2, s.shipping_addr3, s.shipping_zip
        from ordered o left join order_list l
        on o.order_code = l.order_code
@@ -108,15 +101,10 @@
        left join product_list p
        on l.product_code = p.product_code
        where o.delivery_state = '배송준비중' and seller_code = #{seller_code}
-		<!-- where seller = 'solyi' -->
 	</select>
 	
-	
 	<select id="theOrderlist" resultType="com.sunstar.dto.OrderDTO" parameterType="string">
-	
 	   select l.delivery_state, l.tracking_no, l.product_code, p.price, o.order_code, l.order_no, l.option1, l.option2, l.inventory, l.add_price, o.order_way, o.message, c.name, c.tel, s.shipping_addr1, s.shipping_addr2, s.shipping_addr3, s.shipping_zip
-       			
-       
        from ordered o left join order_list l
        on o.order_code = l.order_code
        inner join customer c 
@@ -135,6 +123,7 @@
 		where order_no = #{order_no}
 	</update>
 	
+	<!-- 주문목록 - 운송장번호 업데이트 -->
 	<update id="updateTracking" parameterType="com.sunstar.dto.OrderDTO">
 		update order_list
 		set tracking_no = #{tracking_no},
@@ -142,6 +131,7 @@
 		where order_no = #{order_no}
 	</update>
 	
+	<!-- 판매자 정보 가져오기 -->
 	<select id="sellerInfo" parameterType="string" resultType="com.sunstar.dto.SellerDTO">
 		select *
 		from seller
@@ -149,21 +139,21 @@
 	
 	</select>
 	
+	<!-- 상품 공개여부  변경 -->
 	<update id="changePublicState" parameterType="com.sunstar.dto.ProductDTO">
 		update product_list
 		set public_state = #{public_state}
 		where product_code = #{product_code}
 	</update>
-	
+
+	<!-- 상품리뷰 공개여부  변경 -->	
 	<update id="changeReviewState" parameterType="com.sunstar.dto.ProductDTO">
 		update product_list
 		set review_state = #{review_state}
 		where product_code = #{product_code}
-		
 	</update>
 	
-	
-	
+	<!-- 판매자 정보 변경 -->
 	<update id="changeInfo" parameterType="com.sunstar.dto.SellerDTO">
 		update seller
  	 <set>	
@@ -181,12 +171,10 @@
       <if test="free_shipping_cost	!= null  		and		free_shipping_cost 	!= ''	">		free_shipping_cost=#{free_shipping_cost}</if>
       
      </set>
-		
 		where seller_code = #{seller_code}
-	
 	</update>
 	
-	
+	<!-- 페이징 개수 가져오기 -->
 	<select id="getCount" parameterType="com.sunstar.dto.MakePage" resultType="int">
 		select count(*)
 		from product_list p  join category c
@@ -199,11 +187,9 @@
     	<if test="txt != null">
 	 		and product_name like concat('%',#{txt},'%')
 	 	</if>
-		 
 	</select>
 	
-	
-	<!-- parameterMap="HashMap" -->
+	<!-- 상품 목록 -->	
 	<select id="productlist"  parameterType="com.sunstar.dto.MakePage"  resultType="com.sunstar.dto.ProductDTO">
 		
 		select p.product_code, product_name, price, cost, o.option1, o.option2, o.inventory, o.add_price, o.accumulation, thumb_img, detail_img1, detail_img2, detail_img3, explains,
@@ -215,18 +201,15 @@
 		left join seller s
 		on p.seller_code = s.seller_code
 		where p.seller_code = #{seller_code} 
-	
     	<if test="txt != null">
 	 		and product_name like concat('%',#{txt},'%')
 	 	</if>
-    
-    
 		order by product_code desc
 		LIMIT #{startRow}, #{sizePerPage}
 	
 	</select>
 	
-	
+	<!-- 샵페이지 정보 수정 -->
 	<update id="update_seller_info" parameterType="com.sunstar.dto.SellerDTO">
 		update seller
 
@@ -241,41 +224,42 @@
 			where id = #{id}
 		</update>
 		
-		
-		<select id="product_list_user" parameterType="string"  resultType="com.sunstar.dto.ProductDTO">
-            select p.product_name, p.product_code, accumulation, price, thumb_img
-            from product_list p join options o
-            on p.product_code = o.product_code
-            where seller_code = #{seller_code}
-            group by product_code
-            order by accumulation desc
-            limit 0, 12
-		</select>
-		
-		<select id="product_list_new" parameterType="string"  resultType="com.sunstar.dto.ProductDTO">
-			select product_name, product_code, price, thumb_img
-            from product_list
-            where seller_code = #{seller_code}
-            order by product_code desc
-            limit 0, 7
-		</select>
-		
-		<select id="viewStepOrder" parameterType="com.sunstar.dto.OrderDTO" resultType="com.sunstar.dto.OrderDTO">
-			select o.order_code, l.product_code, l.option1, l.option2, l.inventory, l.add_price,  p.price, o.message, 
-			o.order_way,  o.to_name, c.tel, o.shipping_addr1, o.shipping_addr2, o.shipping_addr3, o.shipping_zip, l.delivery_state, l.tracking_no			
-			from ordered o left join order_list l
-			on o.order_code = l.order_code
-			inner join customer c 
-			on o.id = c.id
-			left join product_list p
-			on l.product_code = p.product_code
-			where l.delivery_state = #{delivery_state} and seller_code = #{seller_code}
-			order by order_code desc
-		</select>
-		
-		
-		<select id="viewProduct"  parameterType="int"  resultType="com.sunstar.dto.ProductDTO">
-		
+	<!-- 샴페이지에서 상품 누적 판매량 높은 순 노출 -->
+	<select id="product_list_user" parameterType="string"  resultType="com.sunstar.dto.ProductDTO">
+           select p.product_name, p.product_code, accumulation, price, thumb_img
+           from product_list p join options o
+           on p.product_code = o.product_code
+           where seller_code = #{seller_code}
+           group by product_code
+           order by accumulation desc
+           limit 0, 12
+	</select>
+	
+	<!-- 가장 최근에 등록된 상품 노출 -->
+	<select id="product_list_new" parameterType="string"  resultType="com.sunstar.dto.ProductDTO">
+		select product_name, product_code, price, thumb_img
+           from product_list
+           where seller_code = #{seller_code}
+           order by product_code desc
+           limit 0, 7
+	</select>
+	
+	<!-- 주문목록 단계별 보기 -->
+	<select id="viewStepOrder" parameterType="com.sunstar.dto.OrderDTO" resultType="com.sunstar.dto.OrderDTO">
+		select o.order_code, l.product_code, l.option1, l.option2, l.inventory, l.add_price,  p.price, o.message, 
+		o.order_way,  o.to_name, c.tel, o.shipping_addr1, o.shipping_addr2, o.shipping_addr3, o.shipping_zip, l.delivery_state, l.tracking_no			
+		from ordered o left join order_list l
+		on o.order_code = l.order_code
+		inner join customer c 
+		on o.id = c.id
+		left join product_list p
+		on l.product_code = p.product_code
+		where l.delivery_state = #{delivery_state} and seller_code = #{seller_code}
+		order by order_code desc
+	</select>
+	
+	<!-- 상품 1개 보기 -->
+	<select id="viewProduct"  parameterType="int"  resultType="com.sunstar.dto.ProductDTO">
 		select p.product_code, product_name, price, cost, o.option1, o.option2, o.inventory, o.add_price, 
 			   thumb_img, detail_img1, detail_img2, detail_img3, explains,
 		public_state, review_state, c.lv1, c.lv2, c.lv3, p.product_code, s.basic_shipping_cost
@@ -285,288 +269,272 @@
 		on p.product_code = o.product_code
 		left join seller s
 		on p.seller_code = s.seller_code
-		
 		where p.product_code = #{pcd}
-		
-		</select>
-		
-		<update id="updateProduct" parameterType="com.sunstar.dto.ProductDTO">
-			update product_list
-			
-	 	<set>
-	      <if test="product_name   != null   and 	product_name  != ''  	">	product_name=#{product_name},</if>
-	      <if test="price 	!= null   and 	price 	!= '' 	">	price=#{price},</if>
-	      <if test="cost != null   and 	cost != '' 	">	cost=#{cost},</if>
-	      <if test="true	">	public_state=#{public_state},</if>
-	      <if test="true">	review_state=#{review_state}</if>
-	    </set>	
-			 	where product_code = #{product_code}
-		</update>
-		
-		
-		<select id="getDayProfit" parameterType="string" resultType="com.sunstar.dto.OrderDTO">
-			select *
-			from ordered o left join order_list l
-			on o.order_code = l.order_code
-			left join product_list p 
-			on l.product_code  = p.product_code
-			where o.order_code like CONCAT(#{order_code},'%');
+	</select>
+	
+	<!-- 일별 수익 -->
+	<select id="getDayProfit" parameterType="string" resultType="com.sunstar.dto.OrderDTO">
+		select *
+		from ordered o left join order_list l
+		on o.order_code = l.order_code
+		left join product_list p 
+		on l.product_code  = p.product_code
+		where o.order_code like CONCAT(#{order_code},'%');
 
-		</select>
-		
-		<select id="getShipping_Cost" parameterType="com.sunstar.dto.SellerDTO" resultType="com.sunstar.dto.SellerDTO">
-			select basic_shipping_cost
-			from seller
-			where seller_code = #{seller_code}
-		
-		</select>
-		
-		<select id="getSellerCode" parameterType="string" resultType="string">
-		select seller_code
+	</select>
+	
+	<!-- 일별 배송비 수익 -->
+	<select id="getShipping_Cost" parameterType="com.sunstar.dto.SellerDTO" resultType="com.sunstar.dto.SellerDTO">
+		select basic_shipping_cost
 		from seller
-		where id = #{id}
-		
-		</select>
-		
-		<select id="getPaid" parameterType="string" resultType="int">
+		where seller_code = #{seller_code}
+	
+	</select>
+	
+	<!--판매자 코드 -->
+	<select id="getSellerCode" parameterType="string" resultType="string">
+	select seller_code
+	from seller
+	where id = #{id}
+	
+	</select>
+	
+	<!-- 결제완료 건수 구하기 -->
+	<select id="getPaid" parameterType="string" resultType="int">
+		select count(l.delivery_state)
+		from ordered o left join order_list l
+           on o.order_code = l.order_code
+           left join product_list p 
+           on l.product_code = p.product_code
+           left join seller s
+           on p.seller_code = s.seller_code 
+		where l.delivery_state = '결제완료' and s.seller_code = #{seller_code}
+	
+	</select>
+	
+	<!-- 배송준비 건수 구하기 -->
+	<select id="getReadyCount" parameterType="string" resultType="int">
+		select count(l.delivery_state)
+		from ordered o left join order_list l
+           on o.order_code = l.order_code
+           left join product_list p 
+           on l.product_code = p.product_code
+           left join seller s
+           on p.seller_code = s.seller_code 
+		where l.delivery_state = '배송준비' and s.seller_code = #{seller_code}
+	
+	</select>
+	
+	<!-- 교환 요청 건수 구하기 -->
+	<select id="getExchangeCount" parameterType="string" resultType="int">
 			select count(l.delivery_state)
-			from ordered o left join order_list l
-            on o.order_code = l.order_code
-            left join product_list p 
-            on l.product_code = p.product_code
-            left join seller s
-            on p.seller_code = s.seller_code 
-			where l.delivery_state = '결제완료' and s.seller_code = #{seller_code}
-		
-		</select>
-		
-		<select id="getReadyCount" parameterType="string" resultType="int">
-			select count(l.delivery_state)
-			from ordered o left join order_list l
-            on o.order_code = l.order_code
-            left join product_list p 
-            on l.product_code = p.product_code
-            left join seller s
-            on p.seller_code = s.seller_code 
-			where l.delivery_state = '배송준비' and s.seller_code = #{seller_code}
-		
-		</select>
-		
-		<select id="getExchangeCount" parameterType="string" resultType="int">
- 			select count(l.delivery_state)
-			from ordered o left join order_list l
-            on o.order_code = l.order_code
-            left join product_list p 
-            on l.product_code = p.product_code
-            left join seller s
-            on p.seller_code = s.seller_code 
-			where l.delivery_state = '교환요청' and s.seller_code = #{seller_code}
-		
-		</select>
-		
-		<select id="getBringBack" parameterType="string" resultType="int">
-		 	select count(l.delivery_state)
-			from ordered o left join order_list l
-            on o.order_code = l.order_code
-            left join product_list p 
-            on l.product_code = p.product_code
-            left join seller s
-            on p.seller_code = s.seller_code 
-			where l.delivery_state = '반품대기' and s.seller_code = #{seller_code}
-		
-		
-		</select>
-		
-		<select id="getWaitAnswer" parameterType="string" resultType="int">
-		select count(qna_state)
-		from qna q join product_list p 
+		from ordered o left join order_list l
+           on o.order_code = l.order_code
+           left join product_list p 
+           on l.product_code = p.product_code
+           left join seller s
+           on p.seller_code = s.seller_code 
+		where l.delivery_state = '교환요청' and s.seller_code = #{seller_code}
+	
+	</select>
+	
+	<!-- 반품 요청 건수 구하기 -->
+	<select id="getBringBack" parameterType="string" resultType="int">
+	 	select count(l.delivery_state)
+		from ordered o left join order_list l
+           on o.order_code = l.order_code
+           left join product_list p 
+           on l.product_code = p.product_code
+           left join seller s
+           on p.seller_code = s.seller_code 
+		where l.delivery_state = '반품대기' and s.seller_code = #{seller_code}
+	</select>
+	
+	<!-- 답변대기인 상품문의 건수 구하기 -->
+	<select id="getWaitAnswer" parameterType="string" resultType="int">
+	select count(qna_state)
+	from qna q join product_list p 
+	on q.product_code = p.product_code
+	left join seller s
+       on p.seller_code = s.seller_code
+	where qna_state = '답변대기' and s.seller_code = #{seller_code}
+	</select>
+	
+	<!-- 상품문의 목록 -->
+	<select id="getQnaList" parameterType="string" resultType="com.sunstar.dto.QnaDTO">
+		select * 
+		from qna q join product_list p
 		on q.product_code = p.product_code
-		left join seller s
-        on p.seller_code = s.seller_code
-		where qna_state = '답변대기' and s.seller_code = #{seller_code}
-		</select>
-		
-		
-		<select id="getQnaList" parameterType="string" resultType="com.sunstar.dto.QnaDTO">
-			select * 
-			from qna q join product_list p
-			on q.product_code = p.product_code
-			where p.seller_code = #{seller_code}
-			order by qna_no desc
-		</select>
-		
-		<update id="qna_reply" parameterType="com.sunstar.dto.QnaDTO">
-			update qna
-			set qna_reply = #{qna_reply}, reply_date = now(), qna_state = #{qna_state}
-			where qna_no =#{qna_no}
-		
-		</update>
-		
-		
-		<select id="searchOrderView" parameterType="com.sunstar.dto.OrderDTO" resultType="com.sunstar.dto.OrderDTO" >
-	       select o.order_code, p.product_code, l.option1, l.option2, l.add_price, quantity, price,  o.message,  s.basic_shipping_cost,
-	      o.order_way,l.delivery_state, l.tracking_no, l.shipping_company, o.to_name, 
-	      o.shipping_addr1,o.shipping_addr2,o.shipping_addr3,o.shipping_zip,
-	      product_name,l.option1,l.option2, l.refund_bank, l.refund_account, l.refund_msg,
-          
-          s.shipping_company
-	      from ordered o left join order_list l
-	      on o.order_code=l.order_code
-	      left join product_list p
-	      on l.product_code = p.product_code
-          left join seller s
-          on p.seller_code = s.seller_code 
-	      where o.order_code= #{order_code}
-	      and p.seller_code = #{seller_code}
-		</select>
-		
-		<select id="getReview" parameterType="string" resultType="com.sunstar.dto.ReviewDTO">
-           	select distinct(r.review_no),l.order_no, o.order_code, p.product_code, t.option1, t.option2, r.review_content, r.review_star, r.review_writedate, o.id
-			from review r left join review_img i
-			on r.review_no = i.review_no
-	        left join order_list l
-	        on l.order_no = r.order_no
-	        left join ordered o
-	        on o.order_code = l.order_code
-			left join product_list p
-			on p.product_code = l.product_code
-	        left join options t
-	        on t.product_code = p.product_code
-			where p.seller_code = #{seller_code}
-			order by r.review_no desc
+		where p.seller_code = #{seller_code}
+		order by qna_no desc
+	</select>
+	
+	<!-- 상품 문의 답글달기 -->
+	<update id="qna_reply" parameterType="com.sunstar.dto.QnaDTO">
+		update qna
+		set qna_reply = #{qna_reply}, reply_date = now(), qna_state = #{qna_state}
+		where qna_no =#{qna_no}
+	</update>
+	
+	<!-- 단일건 주문건 보기 -->
+	<select id="searchOrderView" parameterType="com.sunstar.dto.OrderDTO" resultType="com.sunstar.dto.OrderDTO" >
+       select o.order_code, p.product_code, l.option1, l.option2, l.add_price, quantity, price,  o.message,  s.basic_shipping_cost,
+      o.order_way,l.delivery_state, l.tracking_no, l.shipping_company, o.to_name, 
+      o.shipping_addr1,o.shipping_addr2,o.shipping_addr3,o.shipping_zip,
+      product_name,l.option1,l.option2, l.refund_bank, l.refund_account, l.refund_msg,
+         s.shipping_company
+      from ordered o left join order_list l
+      on o.order_code=l.order_code
+      left join product_list p
+      on l.product_code = p.product_code
+         left join seller s
+         on p.seller_code = s.seller_code 
+      where o.order_code= #{order_code}
+      and p.seller_code = #{seller_code}
+	</select>
 
-		
-		</select>
-		
-		<select id="getReviewImgCount" parameterType="int" resultType="com.sunstar.dto.ReviewImgDTO">
-            select review_no, img_no, review_img
-            from review_img
-            where review_no = #{review_no}
-		
-		</select>
+	<!-- 상품평 보기 -->	
+	<select id="getReview" parameterType="string" resultType="com.sunstar.dto.ReviewDTO">
+          	select distinct(r.review_no),l.order_no, o.order_code, p.product_code, t.option1, t.option2, r.review_content, r.review_star, r.review_writedate, o.id
+		from review r left join review_img i
+		on r.review_no = i.review_no
+        left join order_list l
+        on l.order_no = r.order_no
+        left join ordered o
+        on o.order_code = l.order_code
+		left join product_list p
+		on p.product_code = l.product_code
+        left join options t
+        on t.product_code = p.product_code
+		where p.seller_code = #{seller_code}
+		order by r.review_no desc
+	</select>
+	
+	<!-- 상품평 이미지 개수구하기 -->
+	<select id="getReviewImgCount" parameterType="int" resultType="com.sunstar.dto.ReviewImgDTO">
+           select review_no, img_no, review_img
+           from review_img
+           where review_no = #{review_no}
+	</select>
 
-		<delete id="reviewimg_del" parameterType="int">
-			delete from review_img
-			where review_no = #{review_no}
-		</delete>
+	<!-- 상품 이미지 삭제 -->
+	<delete id="reviewimg_del" parameterType="int">
+		delete from review_img
+		where review_no = #{review_no}
+	</delete>
 
+	<!-- 상품 삭제  -->
+	<delete id="review_del" parameterType="int">
+		delete from review
+		where review_no = #{review_no}
+	</delete>
 
+	<!-- 월별 수익 통계 -->
+	<select id="month_chart" parameterType="com.sunstar.dto.ChartDTO" resultType="integer">
+	   select ifnull(sum(total_price),0)
+       from  price 
+       where seller_code = #{seller_code}
+       and left(order_code, 6) = #{month}
+	</select>
 
-		<delete id="review_del" parameterType="int">
-			delete from review
-			where review_no = #{review_no}
-		</delete>
-
-		<select id="month_chart" parameterType="com.sunstar.dto.ChartDTO" resultType="integer">
-		
-		select ifnull(sum(total_price),0)
-        from  price 
-        where seller_code = #{seller_code}
-        and left(order_code, 6) = #{month}
-		
-		</select>
-		<select id="month_chart_plus" parameterType="com.sunstar.dto.ChartDTO" resultType="integer">
-	    select ifnull(sum(shipping_cost_per_seller),0)
-        from  price 
-        where seller_code = #{seller_code}
-        and left(order_code, 6) = #{month};
-		</select>
-		
-		
-		<select id="day_chart" parameterType="com.sunstar.dto.ChartDTO" resultType="integer">
-		
+	<!-- 배송비포함 월별 수익 통계  -->
+	<select id="month_chart_plus" parameterType="com.sunstar.dto.ChartDTO" resultType="integer">
+       select ifnull(sum(shipping_cost_per_seller),0)
+       from  price 
+       where seller_code = #{seller_code}
+       and left(order_code, 6) = #{month};
+	</select>
+	
+	<!-- 일별 수익 통계 -->
+	<select id="day_chart" parameterType="com.sunstar.dto.ChartDTO" resultType="integer">
 		select ifnull(sum(total_price), 0)
 		from price 
 		where seller_code = #{seller_code}
 		and left(order_code, 8) = #{yyyymmdd}
+	</select>
 
-		
-		</select>
-		
-		<select id="day_chart_plus" parameterType="com.sunstar.dto.ChartDTO" resultType="integer">
-		
+	<!-- 배송비포함 월별 수익 통계  -->
+	<select id="day_chart_plus" parameterType="com.sunstar.dto.ChartDTO" resultType="integer">
 		select ifnull(sum(shipping_cost_per_seller), 0)
 		from price 
 		where seller_code = #{seller_code}
 		and left(order_code, 8) = #{yyyymmdd}
-
-		
-		</select>
-		
-		
-		<delete id="delete_products" parameterType="string">
+	</select>
+	
+	<!-- 상품삭제 -->
+	<delete id="delete_products" parameterType="string">
 		delete 
 		from product_list
 		where seller_code = #{seller_code}
-		
-		</delete>
-		<delete id="delete_auth" parameterType="string">
+	</delete>
+	
+	<!-- 판매자 탈퇴 auth 삭제  -->
+	<delete id="delete_auth" parameterType="string">
 		delete 
 		from auth 
 		where id = #{id} and auth = 'ROLE_MANAGER'
-		
-		</delete>
-		
-		<update id="search_order_update" parameterType="com.sunstar.dto.OrderDTO">
-		
+	</delete>
+	
+	<!-- 단일 주문건 수정 -->
+	<update id="search_order_update" parameterType="com.sunstar.dto.OrderDTO">
 		update ordered
 		set 
 			to_name	= #{to_name},
 			shipping_zip = #{shipping_zip},
 			message = #{message}
 		where order_code = #{order_code}
-		</update>
-		
-		<update id="search_order_update_2" parameterType="com.sunstar.dto.OrderDTO">
-		
+	</update>
+	
+	<!-- 단일 주문건 수정 -->
+	<update id="search_order_update_2" parameterType="com.sunstar.dto.OrderDTO">
 		update order_list
 		set 
 			delivery_state = #{delivery_state},
 			tracking_no = #{tracking_no}
-			
 		where order_code = #{order_code}
-		</update>
-		
-		<select id="get_top5" parameterType="string" resultType="com.sunstar.dto.ChartDTO">
-		select p.category_code, count(p.category_code) as top5count, c.lv1, c.lv2, c.lv3
-        from product_list p inner join category c
-        on p.category_code = c.category_code
-        where seller_code = #{seller_code}
-        group by category_code
-        order by count(category_code) desc
-        limit 0,5;
-		</select>
-		
-		<select id="get_top5items" parameterType="string" resultType="com.sunstar.dto.ChartDTO">
-        select distinct p.product_code, product_name, accumulation
-        from product_list p join options o
-        on p.product_code = o.product_code
-        where p.seller_code = #{seller_code}
-        order by accumulation desc
-        limit 0, 5;
-		
-		</select>
-		
-		<select id="getOrderCount" parameterType="com.sunstar.dto.ChartDTO" resultType="integer">
-		 select ifnull(count(o.order_code), 0)
-        from ordered o join price r
-        on o.order_code = r.order_code
-        where r.seller_code = #{seller_code}
-		and left(o.order_code, 8) = #{yyyymmdd}
-		
-		</select>
-		
-		
-		<insert id="insertAccount" parameterType="com.sunstar.dto.AccountsDTO">
+	</update>
+	
+	<!-- 판매 Top5 -->
+	<select id="get_top5" parameterType="string" resultType="com.sunstar.dto.ChartDTO">
+	   select p.category_code, count(p.category_code) as top5count, c.lv1, c.lv2, c.lv3
+       from product_list p inner join category c
+       on p.category_code = c.category_code
+       where seller_code = #{seller_code}
+       group by category_code
+       order by count(category_code) desc
+       limit 0,5;
+	</select>
+	
+	<!-- 판매 Top5 -->
+	<select id="get_top5items" parameterType="string" resultType="com.sunstar.dto.ChartDTO">
+       select distinct p.product_code, product_name, accumulation
+       from product_list p join options o
+       on p.product_code = o.product_code
+       where p.seller_code = #{seller_code}
+       order by accumulation desc
+       limit 0, 5;
+	</select>
+	
+	<!-- 주문 Top5 -->
+	<select id="getOrderCount" parameterType="com.sunstar.dto.ChartDTO" resultType="integer">
+	 select ifnull(count(o.order_code), 0)
+       from ordered o join price r
+       on o.order_code = r.order_code
+       where r.seller_code = #{seller_code}
+	   and left(o.order_code, 8) = #{yyyymmdd}
+	</select>
+	
+	<!-- 정산 신청 -->
+	<insert id="insertAccount" parameterType="com.sunstar.dto.AccountsDTO">
 		insert into accounts
 		values(#{seller_code}, #{yyyymm}, #{total_profit}, #{commission}, #{balance_accounts}, "정산신청중")
-		</insert>
-		
-		<select id="getAccountList" parameterType="string" resultType="com.sunstar.dto.AccountsDTO">
+	</insert>
+	
+	<!-- 정산 목록  -->
+	<select id="getAccountList" parameterType="string" resultType="com.sunstar.dto.AccountsDTO">
 		select * 
 		from accounts
 		where seller_code = #{seller_code}
-		
-		</select>
+	</select>
 
 </mapper>
