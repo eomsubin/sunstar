@@ -15,12 +15,36 @@
 
 </head>
 <script>
+	var expText = /[%=><]/ ;
 	function review(){
+		
 		let order_no = "${detail.order_no}";
 		if($('#comment').val().length < 10){
 			alert("최소 10자 이상 입력해주세요.");
 			return;
+		}else if(expText.test($('#comment').val())){
+			alert("특수문자를 입력 할수 없습니다.") ;
+			$('#comment').val($('#comment').val().split(expText).join("")); 
+			return;
 		}
+			//특정문자열(sql예약어의 앞뒤공백포함) 제거
+			var sqlArray = new Array(
+				//sql 예약어
+				"OR", "SELECT", "INSERT", "DELETE", "UPDATE", "CREATE", "DROP", "EXEC",
+	             		 "UNION",  "FETCH", "DECLARE", "TRUNCATE" 
+			);
+			
+			var regex;
+			for(var i=0; i<sqlArray.length; i++){
+				regex = new RegExp( sqlArray[i] ,"gi") ;
+				
+				if (regex.test($('#comment').val())) {
+					    alert("\"" + sqlArray[i]+"\"와(과) 같은 특정문자로 검색할 수 없습니다.");
+					    $('#comment').val($('#comment').val().replace(regex, ""));
+				return;
+				}
+			}	
+		
 		let review_content = $('#comment').val();
 		if($(".star-input").find(":checked").length=== 0){
 			alert("별점을 매겨주세요");
