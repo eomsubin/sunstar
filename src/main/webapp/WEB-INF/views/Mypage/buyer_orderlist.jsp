@@ -133,7 +133,7 @@ function jusoCallBack(review_content, order_no, review_star){
 							<td style="vertical-align: middle; text-align: center;">${(pay.price+pay.add_price)*pay.quantity}원  (${pay.quantity })</td>
 							<td style="vertical-align: middle; text-align: center;">${pay.basic_shipping_cost}원</td>
 							<td style="vertical-align: middle; text-align: center;">${pay.delivery_state}</td>
-							<td style="vertical-align: middle;"><c:if test="${empty pay.review_no and pay.delivery_state eq '결제완료'}"><button type="button" style="padding :3px 10px; background-color: #fbab60;" onclick="goinsertreview(${pay.order_no});">상품평 작성</button></c:if><c:if test="${not empty pay.review_no}"><button type="button" style="padding :3px 10px;" onclick="godetailreview(${pay.order_no});">상품평 보기</button></c:if></td>
+							<td style="vertical-align: middle;"><c:if test="${empty pay.review_no and pay.delivery_state eq '배송완료'}"><button type="button" style="padding :3px 10px; background-color: #fbab60;" onclick="goinsertreview(${pay.order_no});">상품평 작성</button></c:if><c:if test="${not empty pay.review_no}"><button type="button" style="padding :3px 10px;" onclick="godetailreview(${pay.order_no});">상품평 보기</button></c:if></td>
 						</tr>
 						</c:forEach>
 						
