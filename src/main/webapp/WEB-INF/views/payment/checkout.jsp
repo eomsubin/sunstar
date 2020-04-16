@@ -258,12 +258,6 @@ function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2, zipNo
 
 							</div>
 
-
-
-
-
-
-
 							<!--/ End Form -->
 						</div>
 					</div>
@@ -281,13 +275,11 @@ function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2, zipNo
 								 	 		
 								 	 		<c:forEach var="shipping" items="${shipcost }">
 								 	 			<c:if test="${sellerlist.key == shipping.key }">
-								 	 			
-								 	 				 <li style="font-weight: 800; color: #FE9A2E;">배송비<span>${shipping.value} 원</span></li> 
+								 	 				 
+								 	 				 <li style="font-weight: 800; color: #FE9A2E;">기본 배송비<span>${shipping.value} 원</span></li> 
 								 	 		 <c:set var="sum2" value="${sum2+(shipping.value)}"/>
 								 	 		 	</c:if>
-								 	 		 
 								 	 		 	
-								 	 		 	 
 								 	 		 </c:forEach>
 								 	 	
 								 	 	</ul>
@@ -309,7 +301,6 @@ function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2, zipNo
 										<li>옵션2<span>${odto.option2 }</span></li>
 										<li>수량<span>${odto.cart_quantity } 개</span>
 										
-									
 										<li class="last" style="color:#f7941d; font-weight: 700;">총 금액<span>${(odto.price+odto.add_price)*odto.cart_quantity} 원</span></li>
 										
 										</ul>
